@@ -1,0 +1,38 @@
+✔ verification resource discards real successful write response and preserves exact-ID recovery (201.195873ms)
+✔ Inbox includes deferred unassigned actions and excludes assigned or ended records (98.425732ms)
+✔ Add creates a saved empty action and exact original notes are edited through its ordinary editor (82.344129ms)
+✔ complete raw editor survives scope removal, refresh, context and IME without node replacement (121.568321ms)
+✔ narrow scope selector exposes every scope and selected editor receives focus; labels remain escaped (56.661893ms)
+✔ saved dropped parent survives unrelated title save without detach or reorder (69.37711ms)
+✔ English UI keeps exact user text and maps server errors without leaking raw copy (91.92201ms)
+✔ completion affordance is unchecked until completed and closing details returns focus while retaining draft (65.540358ms)
+✔ classification and saved perspective browsing preserves proposals and exact names without partial snapshot calls (86.481665ms)
+✔ unknown save permits navigation and Back while retaining the exact recovery request (81.095337ms)
+✔ deleted selected catalog keeps its inspector unavailable without broadening Add context (45.02881ms)
+✔ returning to tree views retains action drafts and Defer settings without a classification dropdown (71.231722ms)
+✔ minimal editor has no review or save controls; debounce/blur saves exact Notes and direct row controls persist (86.628894ms)
+✔ autosave retains invalid raw input without retry and IME only sends final text through original target (77.887383ms)
+✔ external touched-field conflict pauses only target and uses explicit inline reconciliation (60.849258ms)
+✔ IME action switch defers shared inspector rebinding until original final value is captured (84.63714ms)
+✔ Move chooser Escape and Cancel restore the initiating grip after rows rerender (38.506011ms)
+✔ real pointer activation selects only a contiguous Shift range and Ctrl replaces it without checkboxes (76.999751ms)
+✔ duplicate Tag occurrences select only the clicked interval while sharing one Action editor and exact catalog inspector (75.367142ms)
+✔ catalog IME keeps its original target through refresh and deferred Action selection (77.614867ms)
+✔ header split Add consolidates creation and searchable pickers preserve UUID association and chip removal (94.554075ms)
+✔ native mouse drag survives pointercancel and emits exactly one shared movement operation (58.144408ms)
+✔ tree catalog movement is keyboard reachable without a separate root drop region or Action selection (39.565509ms)
+✔ native root outdent uses geometric list gutter even when DOM hit is padding and rejects nav/editor or outside bands (277.30339ms)
+✔ final child bottom-left outdents to root without a separate target; center preserves containment (1.630519ms)
+✔ mixed Action edges expose catalog ancestry while catalog center rejects Action targets (0.172583ms)
+✔ relative horizontal motion reaches semantic deep levels despite capped rendering, without mutation (0.234728ms)
+✔ catalog root destination peers and selected parent dependencies detect structural drift without reacting to text (0.532587ms)
+✔ geometric hit includes existing left gutter and the bounded final insertion band, excluding unrelated regions (0.375193ms)
+✔ the final row left gutter is a root insertion destination at any vertical point, while title center remains Inside (0.554843ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17615.280892

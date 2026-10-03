@@ -1,0 +1,22 @@
+✔ versioned Project/Tag intents save through existing atomic operations, retaining later inputs and exact unknown recovery (13.873675ms)
+✔ classification own receipt plus external correction pauses later proposal instead of silently rebasing (3.886156ms)
+✔ move flushes selected valid proposals and ignores unrelated invalid drafts, freezing one operation for recovery and Undo (13.65369ms)
+✔ overlapping pending structure drift retains move issue; unrelated structural group updates do not invalidate intent (4.727011ms)
+✔ catalog creation and assignment reuse generated IDs through exact recovery and preserve newer classification (9.185727ms)
+✔ catalog inspector autosave retains newer input and exact receipt baselines against external catalog changes (12.093654ms)
+✔ invalid empty catalog name pauses without retry storms and correction resumes the same owner lane (4.374191ms)
+✔ classification drop sends all selected UUIDs atomically without ancestor dedup and retains exact unknown recovery (7.568813ms)
+✔ classification drop flushes earlier desired membership and does not misclassify its own baseline as external change (6.905383ms)
+✔ catalog movement preserves newer names, exact unknown requests and one atomic relative reorder (12.879482ms)
+✔ final child bottom-left outdents to root without a separate target; center preserves containment (0.852327ms)
+✔ mixed Action edges expose catalog ancestry while catalog center rejects Action targets (0.101999ms)
+✔ relative horizontal motion reaches semantic deep levels despite capped rendering, without mutation (0.193253ms)
+✔ catalog root destination peers and selected parent dependencies detect structural drift without reacting to text (0.264697ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 949.619763

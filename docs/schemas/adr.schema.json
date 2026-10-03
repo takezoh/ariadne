@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-module.local/docs/adr.schema.json",
+  "title": "Architecture Decision Record (Nygard-style skeleton with frontmatter)",
+  "allOf": [{"$ref": "_common.schema.json"}],
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": ["decision_makers"],
+  "properties": {
+    "kind":   {"const": "adr"},
+    "status": {"enum": ["proposed", "accepted", "rejected", "deprecated", "superseded"]},
+    "decision_makers": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1
+    },
+    "consulted": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "informed": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "consequences": {
+      "description": "spec-detail (2026-07-09): Nygard's symmetric positive/negative/neutral triplet (adr-20260709-adr-consequences-tripolar). During the dual-format period, also accept the array form used by existing ADRs from before spec-detail. Enforce the triplet forward-only and touched-only (required for records created on/after 2026-07-09); strict enforcement is handled by docs/scripts/schema_validate.py. Source of truth: artifacts/architecture-contract/semantics.md §18.",
+      "oneOf": [
+        {
+          "type": "array",
+          "description": "Legacy array form for backward compatibility with ADRs from before spec-detail (FR-008).",
+          "items": {"type": "string", "minLength": 1}
+        },
+        {
+          "type": "object",
+          "description": "Tripolar form, required for new ADRs created on/after 2026-07-09.",
+          "additionalProperties": false,
+          "required": ["positive", "negative", "neutral"],
+          "properties": {
+            "positive": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1, "description": "Desirable consequences of adoption."},
+            "negative": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1, "description": "Undesirable consequences of adoption; empty violates Nygard's symmetry rule."},
+            "neutral":  {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1, "description": "Neutral consequences of adoption (secondary effects, interactions or preserved assumptions)."}
+          }
+        }
+      ]
+    },
+    "confirmation": {
+      "type": "string",
+      "description": "Optional field derived from MADR. Declares a mechanical way to verify that this decision is upheld (fitness function, grep or test). Source of truth: artifacts/architecture-contract/semantics.md §18."
+    },
+    "decision_bindings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1},
+      "description": "Project-root-relative files that enforce this decision at runtime. For an accepted ADR, each file must identify the ADR ID as decision_ref or in a comment, and also appear in source_paths."
+    }
+  }
+}

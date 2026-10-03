@@ -1,0 +1,16 @@
+[
+  {
+    "width": 390,
+    "headerControls": true,
+    "inspectorControlsAccessible": true,
+    "dropdownWithinViewport": true,
+    "horizontalOverflow": false
+  },
+  {
+    "width": 1280,
+    "headerControls": true,
+    "inspectorControlsAccessible": true,
+    "dropdownWithinViewport": true,
+    "horizontalOverflow": false
+  }
+]

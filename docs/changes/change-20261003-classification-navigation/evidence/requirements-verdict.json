@@ -1,0 +1,6 @@
+{
+  "status": "approved",
+  "summary": "Native independent requirements behavior acceptance approves the navigation candidate against approved explore v2/design and the verifier-authored acceptance list. An independently executed nine-action/five-perspective fixture passed 22 exact observable membership cases and missing-reference fail-closed assertions. Source, domain-parity/DOM tests, implementation review and five visual plus three unknown-recovery real Chromium mock-host runs support the scenario coverage recorded separately. Root final pnpm check is independently read as lint/typecheck/test passed, 228 tests and zero fail/cancel/skipped/TODO. This verdict is behavior/requirements acceptance only: final build/live/built-resource gates remain root-owned pending at verdict time and are not claimed successful. No actual ChatGPT Work host/cache/auth/D1 acceptance, deployment, CRUD expansion, or runtime kernel receipt is claimed. New navigation browser scripts corroborate retained inputs and exact retry; new caret/IME/zoom measurements are not fabricated and rely on preserved shared-editor tests/previous evidence where applicable.",
+  "findings": [],
+  "open_questions": []
+}

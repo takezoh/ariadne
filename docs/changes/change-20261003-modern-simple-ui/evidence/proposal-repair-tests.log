@@ -1,0 +1,42 @@
+✔ UI application preserves exact unknown request and callback executes only after confirmed retry (1.498156ms)
+✔ UI application receipt confirmation clears retained write and refreshes without overwriting dirty draft (0.323612ms)
+✔ UI application conflict keeps proposal and discard reconstructs latest saved action (0.429528ms)
+✔ UI application retains exact write after structurally malformed snapshot response (0.232272ms)
+✔ UI application rejects snapshot without matching receipt operation identity (0.875637ms)
+✔ UI application itself rejects fresh mutations while unknown, independently of DOM disabling (0.270281ms)
+✔ receipt check retains unknown request for absent, wrong, or malformed receipt identity (0.793437ms)
+✔ invalid read snapshot preserves previous state and never reports latest state fetched (0.28438ms)
+✔ group acknowledgment retains other proposals, merges latest untouched fields and clears stale review (0.412706ms)
+✔ canceled review cannot write; absent selected proposal remains accessible but cannot preview (0.461058ms)
+✔ review captures immutable payload; unknown retry acknowledges its group without clearing other groups (0.29007ms)
+✔ normalized date preview acknowledges submitted raw date/timezone and preserves alternate instant draft (0.243289ms)
+✔ legacy controller composition fallback acknowledges only captured group and preserves dirty groups (0.215977ms)
+✔ direct flag write cannot acknowledge a differing retained editor proposal (0.307952ms)
+PASS BUG-02 dirty proposal survives refresh with latest comparison
+PASS explicit review applies retained proposal against current revision
+PASS timeout retains exact payload and ID for replay
+PASS model notification does not replace dirty draft
+PASS withdrawn record remains editable with ordinary status controls
+✔ self-contained resource preserves drafts, reviewed writes, replay and cancelled records (157.521065ms)
+✔ verification resource discards real successful write response and preserves exact-ID recovery (51.052069ms)
+✔ discarding a proposal restores latest saved state without clearing other proposals (36.677425ms)
+✔ date Defer sends client timezone and confirms resolved UTC payload (34.434683ms)
+✔ Inbox includes deferred unassigned actions and excludes assigned or ended records (29.919455ms)
+✔ raw Inbox input retains exact request after unknown outcome and renders ordinary action notes (37.028607ms)
+✔ Inbox capture requires ordinary title and explicit waiting survives unknown-result retry (36.562222ms)
+✔ cancelled ordinary action can preview active status without deleting relations (32.123884ms)
+✔ order and direct Flag proposals survive refresh and save through reviewed shared edits (41.232122ms)
+✔ complete raw editor survives scope removal, refresh, context and IME without node replacement (50.160819ms)
+✔ one edit acknowledgment retains lifecycle and date proposals, raw capture fields and unload guard (42.269753ms)
+✔ mode context updates keep modal review stable; Escape cancels with focus return and no write (27.08501ms)
+✔ display remains usable during unknown write; confirmed review closes before recovery focus (53.181695ms)
+✔ narrow scope selector exposes every scope and selected editor receives focus; labels remain escaped (26.844699ms)
+✔ direct row flag save retains differing unsaved editor flag and title proposal (37.764454ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16293.030903

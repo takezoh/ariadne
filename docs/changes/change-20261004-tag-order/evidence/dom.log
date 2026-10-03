@@ -1,0 +1,14 @@
+✔ deleted selected catalog keeps its inspector unavailable without broadening Add context (142.514626ms)
+✔ duplicate Tag occurrences select only the clicked interval while sharing one Action editor and exact catalog inspector (101.935088ms)
+✔ catalog IME keeps its original target through refresh and deferred Action selection (104.438188ms)
+✔ tree catalog movement is keyboard reachable without a separate root drop region or Action selection (53.795603ms)
+✔ unknown header blank catalog retries exact request without pulling newer navigation back (174.956088ms)
+✔ same-view header catalog Add protects its temporary parent and abandonment makes zero writes (49.858135ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18283.437385

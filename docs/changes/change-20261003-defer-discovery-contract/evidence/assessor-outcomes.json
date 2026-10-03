@@ -1,0 +1,104 @@
+{
+  "verdict": "accepted_for_fresh_local_HTTP_Worker_D1_six_prompt_behavior",
+  "owner": "readme-fixed-caller-20261003",
+  "independent_readback": {
+    "revision": 14,
+    "path": "/tmp/readme-fixed-assessor-readback.json",
+    "trace": "/tmp/readme-fixed-assessor-trace.jsonl",
+    "read_only": true
+  },
+  "evidence_reused_from_previous_run": false,
+  "transport": "HTTP JSON-RPC to built Worker /mcp with real Wrangler local D1 env.DB",
+  "checks": {
+    "capture": {
+      "pass": true,
+      "exact_semantic_input": true,
+      "control_preamble_omitted": true,
+      "uncertainty_preserved": true,
+      "no_dates_or_classification_added": true
+    },
+    "organization": {
+      "pass": true,
+      "representation": "Four root actions in Kyoto trip project; reused original captured action as Packing and retained full original trip notes",
+      "only_intended_four_trip_items": true,
+      "original_trip_notes_exact": true,
+      "status_mapping": {
+        "Packing": "active",
+        "hotel": "on-hold",
+        "train": "completed",
+        "museum": "dropped"
+      }
+    },
+    "unfinished": {
+      "pass": true,
+      "query_statuses": [
+        "active",
+        "on-hold"
+      ],
+      "includes_deferred_packing": true,
+      "excludes_completed_and_dropped": true,
+      "recommendation_separate_from_complete_list": true,
+      "recommendation_writes": false
+    },
+    "date_defer": {
+      "pass": true,
+      "checks": [
+        {
+          "input": {
+            "id": "6e6ef84c-551e-4a0d-b577-5436f1219519",
+            "date": "2026-10-08",
+            "timezone": "Asia/Tokyo"
+          },
+          "result": {
+            "id": "6e6ef84c-551e-4a0d-b577-5436f1219519",
+            "until": "2026-10-08T00:00:00.000Z"
+          },
+          "first_attempt_success": true,
+          "committed_preview_payload": true,
+          "same_revision": true
+        },
+        {
+          "input": {
+            "id": "6e6ef84c-551e-4a0d-b577-5436f1219519",
+            "date": "2026-10-10",
+            "timezone": "Asia/Tokyo"
+          },
+          "result": {
+            "id": "6e6ef84c-551e-4a0d-b577-5436f1219519",
+            "until": "2026-10-10T00:00:00.000Z"
+          },
+          "first_attempt_success": true,
+          "committed_preview_payload": true,
+          "same_revision": true
+        }
+      ],
+      "first_attempt_errors": 0,
+      "retries": 0,
+      "year": "2026 from supplied context; explicit year in saved-date response, assumption rationale in outcome; human response does not explicitly call it an assumption"
+    },
+    "ui": {
+      "open_actions": true,
+      "resource_delivery": true,
+      "actual_native_render": false,
+      "actual_native_edit": false
+    },
+    "undo": {
+      "pass": true,
+      "restored_until": "2026-10-08T00:00:00.000Z",
+      "all_prior_semantics_preserved": true,
+      "revision": 14
+    }
+  },
+  "limits": [
+    "Local Wrangler D1, not hosted D1.",
+    "Synthetic local owner headers, not trusted Sites injection acceptance.",
+    "Actual ChatGPT Work render/edit remains unverified.",
+    "Lost responses, concurrent writes, replay and later-correction Undo conflicts were not exercised by these six prompts.",
+    "Caller selected tools after discovery without a prewritten prompt-to-tool mapping."
+  ],
+  "evidence": [
+    "/tmp/readme-fixed-http-trace.jsonl",
+    "/tmp/readme-fixed-caller-outcomes.json",
+    "/tmp/readme-fixed-assessor-readback.json"
+  ]
+}

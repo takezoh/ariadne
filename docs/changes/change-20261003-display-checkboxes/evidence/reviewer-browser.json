@@ -1,0 +1,56 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "noneMeansNone": true,
+    "independentLifecycleAndDeferredInclusive": true,
+    "treeAndFlaggedExactSnapshotIDs": true,
+    "popupStaysOpenEscapeFocus": true,
+    "noInstructionNoRoutineSummary": true
+  },
+  {
+    "width": 320,
+    "theme": "dark",
+    "noneMeansNone": true,
+    "independentLifecycleAndDeferredInclusive": true,
+    "treeAndFlaggedExactSnapshotIDs": true,
+    "popupStaysOpenEscapeFocus": true,
+    "noInstructionNoRoutineSummary": true
+  },
+  {
+    "width": 390,
+    "theme": "light",
+    "noneMeansNone": true,
+    "independentLifecycleAndDeferredInclusive": true,
+    "treeAndFlaggedExactSnapshotIDs": true,
+    "popupStaysOpenEscapeFocus": true,
+    "noInstructionNoRoutineSummary": true
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "noneMeansNone": true,
+    "independentLifecycleAndDeferredInclusive": true,
+    "treeAndFlaggedExactSnapshotIDs": true,
+    "popupStaysOpenEscapeFocus": true,
+    "noInstructionNoRoutineSummary": true
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "noneMeansNone": true,
+    "independentLifecycleAndDeferredInclusive": true,
+    "treeAndFlaggedExactSnapshotIDs": true,
+    "popupStaysOpenEscapeFocus": true,
+    "noInstructionNoRoutineSummary": true
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "noneMeansNone": true,
+    "independentLifecycleAndDeferredInclusive": true,
+    "treeAndFlaggedExactSnapshotIDs": true,
+    "popupStaysOpenEscapeFocus": true,
+    "noInstructionNoRoutineSummary": true
+  }
+]

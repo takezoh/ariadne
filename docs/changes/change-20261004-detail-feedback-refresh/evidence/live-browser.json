@@ -1,0 +1,26 @@
+[
+  {
+    "width": 320,
+    "integratedRefreshRight": true,
+    "clockPlaceholders": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "integratedRefreshRight": true,
+    "clockPlaceholders": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "integratedRefreshRight": true,
+    "clockPlaceholders": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  }
+]

@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-module.local/docs/spec.schema.json",
+  "title": "Specification (requirements with EARS-formatted functional requirements)",
+  "description": "EARS-formatted functional requirements in English or Japanese, ISO/IEC 25010 non-functional requirements, and Given-When-Then acceptance criteria. English EARS patterns are ubiquitous, event-driven, state-driven, unwanted-behavior and optional-feature requirements. The body uses Markdoc {% req id=\"FR-XXX\" %} / {% acceptance id=\"AC-XXX\" %} tags whose IDs must match frontmatter.",
+  "allOf": [{"$ref": "_common.schema.json"}],
+  "type": "object",
+  "unevaluatedProperties": false,
+  "properties": {
+    "kind":   {"const": "spec"},
+    "status": {"enum": ["draft", "approved", "implemented", "obsolete"]},
+    "plan": {
+      "type": "string",
+      "pattern": "^plan-[0-9]{8}-[a-z0-9][a-z0-9-]*$",
+      "description": "Primary plan id implementing this spec. Use links.related_plans for multiple plans."
+    },
+    "functional_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "statement", "priority"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^FR-[0-9]{3,4}$"
+          },
+          "statement": {
+            "type": "string",
+            "pattern": "^((The system (shall|SHALL|MUST|MUST NOT) |When .+, the system (shall|SHALL|MUST|MUST NOT) |While .+, the system (shall|SHALL|MUST|MUST NOT) |If .+, then the system (shall|SHALL|MUST|MUST NOT) |Where .+, the system (shall|SHALL|MUST|MUST NOT) )|(システムは|もし.+(なら|であれば|場合)、システムは|.+(とき|時|間|場合|後|ごとに|時に)、システムは)).+$",
+            "description": "EARS format. English patterns: 'The system (shall|SHALL|MUST|MUST NOT) ...' (ubiquitous), 'When <trigger>, the system ...' (event-driven), 'While <state>, the system ...' (state-driven), 'If <condition>, then the system ...' (unwanted), and 'Where <feature>, the system ...' (optional). RFC 2119 terms (SHALL/MUST/MUST NOT) were added in v1 (adr-20260709-rfc2119-staged-adoption); SHOULD/MAY/SHALL NOT/WHERE are reserved for v2. Japanese EARS forms are also recognized by the validation pattern."
+          },
+          "priority": {
+            "enum": ["must", "should", "could", "wont"],
+            "description": "MoSCoW prioritization."
+          },
+          "rationale": {"type": "string"}
+        }
+      }
+    },
+    "non_functional_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "criteria"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^NFR-[0-9]{3,4}$"
+          },
+          "type": {
+            "enum": [
+              "performance",
+              "security",
+              "reliability",
+              "usability",
+              "maintainability",
+              "compatibility",
+              "scalability",
+              "portability"
+            ],
+            "description": "ISO/IEC 25010 quality characteristics."
+          },
+          "criteria": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Measurable criterion. Pattern is not enforced; agent should prefer numeric / observable thresholds."
+          },
+          "measurement": {"type": "string"}
+        }
+      }
+    },
+    "acceptance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "given", "when", "then"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^AC-[0-9]{3,4}$"
+          },
+          "given": {"type": "string", "minLength": 1},
+          "when":  {"type": "string", "minLength": 1},
+          "then":  {"type": "string", "minLength": 1},
+          "requirement_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^(FR|NFR)-[0-9]{3,4}$"
+            },
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "related_plans": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^plan-[0-9]{8}-[a-z0-9][a-z0-9-]*$"},
+          "uniqueItems": true
+        },
+        "related_adrs": {
+          "type": "array",
+          "items": {"type": "string", "pattern": "^adr-[0-9]{8}-[a-z0-9][a-z0-9-]*$"},
+          "uniqueItems": true
+        }
+      }
+    },
+    "entities": {
+      "type": "array",
+      "description": "[x-tentative] spec-detail (2026-07-09): Optional Data Model section. Frontmatter signal: pipeline G1 triggers on three or more entity nouns. Each entry has an entity and invariants / normalization_rules. Source of truth: artifacts/architecture-contract/semantics.md §14. Deprecation criterion: remove if fewer than two specs outside spec-detail use this by 2027-01-09 (six months later).",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "additionalProperties": false,
+        "properties": {
+          "name":                {"type": "string", "minLength": 1},
+          "fields":              {"type": "array", "items": {"type": "string"}, "description": "For example, 'id: uuid (immutable)' — put the type and constraint on one line."},
+          "invariants":          {"type": "array", "items": {"type": "string"}},
+          "normalization_rules": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "state_machine": {
+      "type": "object",
+      "description": "[x-tentative] spec-detail (2026-07-09): Optional State Machine section. Frontmatter signal: trigger with at least one state_driven FR and two unwanted FRs. The <state> in each state_driven FR statement references states[].id; the docs lint Markdoc validator checks consistency (FR-007 / NFR-003). Source of truth: artifacts/architecture-contract/semantics.md §15. Deprecation criterion: remove if fewer than two specs outside spec-detail use this by 2027-01-09.",
+      "additionalProperties": false,
+      "properties": {
+        "states": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id"],
+            "additionalProperties": false,
+            "properties": {
+              "id":          {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$", "description": "Target referenced by <state> in a state_driven FR statement."},
+              "description": {"type": "string"}
+            }
+          }
+        },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["from", "to", "trigger"],
+            "additionalProperties": false,
+            "properties": {
+              "from":          {"type": "string", "description": "References states[].id."},
+              "to":            {"type": "string", "description": "References states[].id."},
+              "trigger":       {"type": "string", "minLength": 1},
+              "precondition":  {"type": "string"},
+              "postcondition": {"type": "string"},
+              "idempotency":   {"type": "string", "description": "For example, 'idempotent (duplicate trigger is a no-op)'."}
+            }
+          }
+        }
+      }
+    },
+    "failure_modes": {
+      "type": "array",
+      "description": "[x-tentative] spec-detail (2026-07-09): Optional Failure Modes section. Frontmatter signal: trigger when source_paths are present or at least one NFR has reliability quality. In recovery, reference the three categories in error-design-triage §13: semantic redefinition, fail_fast and recovery. Source of truth: artifacts/architecture-contract/semantics.md §16 (three-party source-of-truth table). Deprecation criterion: remove if fewer than two specs outside spec-detail use this by 2027-01-09.",
+      "items": {
+        "type": "object",
+        "required": ["class", "detection", "recovery"],
+        "additionalProperties": false,
+        "properties": {
+          "class":           {"type": "string", "minLength": 1, "description": "e.g. 'ext-timeout' / 'invariant-violation' / 'user-input-invalid'"},
+          "detection":       {"type": "string", "minLength": 1, "description": "Detection method."},
+          "recovery":        {"enum": ["retry", "degrade", "fail_fast", "escalate"], "description": "Corresponds to error-design-triage §13 categories: retry/degrade = recovery, fail_fast = internal contract violation, escalate = external notification/manual action."},
+          "operator_action": {"type": "string", "description": "Operator action when recovery=escalate."},
+          "related_fr":      {"type": "array", "items": {"type": "string", "pattern": "^FR-[0-9]{3,4}$"}, "uniqueItems": true, "description": "Related unwanted FR (source of truth: an unwanted FR is a state that must not occur; Failure Modes are failure class × recovery)."}
+        }
+      }
+    },
+    "non_goals": {
+      "type": "object",
+      "description": "[x-tentative] spec-detail (2026-07-09): Optional Non-Goals section. Always opt-in (do not ask in G1). Two levels: MUST NOT (never) and SHOULD NOT (normally). Source of truth: artifacts/architecture-contract/semantics.md §20, consistent with the RFC 2119 mapping in §17. Deprecation criterion: remove if fewer than two specs outside spec-detail use this by 2027-01-09.",
+      "additionalProperties": false,
+      "properties": {
+        "must_not":   {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "should_not": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "worked_examples": {
+      "type": "array",
+      "description": "[x-tentative] spec-detail (2026-07-09): Optional Worked Example section. Include two or three I/O examples per primary FR (maximum five). Do not write a counterexample for a feature with UX (ux.md is the source of truth); allow one only for a backend feature without UX (FR-009). Source of truth: artifacts/architecture-contract/semantics.md §19. Deprecation criterion: remove if fewer than two specs outside spec-detail use this by 2027-01-09.",
+      "items": {
+        "type": "object",
+        "required": ["id", "fr", "cases"],
+        "additionalProperties": false,
+        "properties": {
+          "id":             {"type": "string", "pattern": "^ex-[0-9]{3,4}$"},
+          "fr":             {"type": "string", "pattern": "^FR-[0-9]{3,4}$"},
+          "cases": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 5,
+            "items": {
+              "type": "object",
+              "required": ["input", "expected"],
+              "additionalProperties": false,
+              "properties": {
+                "input":    {"type": "string"},
+                "expected": {"type": "string"}
+              }
+            }
+          },
+          "counterexample": {
+            "type": "object",
+            "description": "Allow one only for a backend feature without UX. Omit for features with UX; ux.md is the source of truth for counterexamples.",
+            "required": ["input", "wrong_output", "why_wrong"],
+            "additionalProperties": false,
+            "properties": {
+              "input":        {"type": "string"},
+              "wrong_output": {"type": "string"},
+              "why_wrong":    {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

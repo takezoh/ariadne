@@ -1,0 +1,12 @@
+✔ applied receipt with failed refresh gates every new mutation until explicit refresh (4.318006ms)
+✔ content-first catalog creation validates typed receipt and exact recovery without repeating server creation (11.570114ms)
+✔ content-first catalog applied receipt retains exact request until full refresh succeeds (2.380624ms)
+✔ serial creation flushes prior proposals and delayed reply respects newer selection (4.028338ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1168.738401

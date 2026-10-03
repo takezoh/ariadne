@@ -1,0 +1,52 @@
+{
+  "status": "approved",
+  "summary": "Independent native whole-candidate code review approves the fixed working candidate identified by integration-review-candidate.json, after repair of all four prior findings. Approved requirements/design, complete proposal groups and exact acknowledgment, hidden-editor continuity, modal reachability/focus, unknown same-ID replay, host context/capability/response ordering, safe text rendering, metadata/resource identity and self-contained serialization were assessed. Independent adversarial JSDOM reproduction confirms repairs. Required final pnpm check passes lint/typecheck and 213 tests with zero failures/cancellations/skips/TODOs; pnpm build completes; final built-Worker smoke accepts both production and verification UI HTML resources with local mock-host recovery/serialization. Browser visual/continuity/recovery evidence is local Chromium, not actual ChatGPT Work. No store/schema/dependency/infrastructure changes, deployment, actual host cache/authentication/D1 acceptance or runtime kernel success is claimed. Code acceptance is fixed to recorded hashes; subsequent documentation closure updates can refresh document hashes without rewriting historical candidate evidence.",
+  "findings": [],
+  "open_questions": [],
+  "resolved_findings": [
+    {
+      "finding_ref": "UI-REVIEW-001",
+      "rationale": "Pure reviewChangeSummary describes every exact submitted field with saved/proposed values and explicit null/empty clears; textContent preserves raw notes without HTML execution. Organization save is accurately named and sends only parent/deadline/order, retaining other proposal fields. Generated DOM scenarios verify mixed exact values, scope and partial acknowledgment.",
+      "evidence_refs": [
+        "/tmp/ariadne-ui-modern/review-repro-after.log",
+        "/tmp/ariadne-ui-modern/review-repair-tests.log",
+        "/tmp/ariadne-ui-modern/final-check.log",
+        "/tmp/ariadne-ui-modern/final-build.log",
+        "/tmp/ariadne-ui-modern/final-built-ui.log"
+      ]
+    },
+    {
+      "finding_ref": "UI-PARENT-002",
+      "rationale": "Current/proposed parent is retained whenever missing from selectable options, including present dropped records. Original independent reproduction now shows savedParent and select both parent and a title-only payload with no parent_id; generated DOM scenarios verify saved dropped parent keeps rank and dirty proposed parent survives host drop.",
+      "evidence_refs": [
+        "/tmp/ariadne-ui-modern/review-repro-after.log",
+        "/tmp/ariadne-ui-modern/review-repair-tests.log",
+        "/tmp/ariadne-ui-modern/final-check.log",
+        "/tmp/ariadne-ui-modern/final-build.log",
+        "/tmp/ariadne-ui-modern/final-built-ui.log"
+      ]
+    },
+    {
+      "finding_ref": "UI-BOUNDARY-003",
+      "rationale": "Pure display model owns context/state types; ports import/re-export model types. No lint suppression introduced. Final pnpm check passes enforced lint, typecheck and all 213 tests with fail/cancel/skipped/todo zero.",
+      "evidence_refs": [
+        "/tmp/ariadne-ui-modern/review-repro-after.log",
+        "/tmp/ariadne-ui-modern/review-repair-tests.log",
+        "/tmp/ariadne-ui-modern/final-check.log",
+        "/tmp/ariadne-ui-modern/final-build.log",
+        "/tmp/ariadne-ui-modern/final-built-ui.log"
+      ]
+    },
+    {
+      "finding_ref": "UI-FOCUS-004",
+      "rationale": "Row mutation invoker key is captured before busy render replaces row. Original independent Flag-cancel reproduction now returns focusKey flag:id; generated DOM tests cover both Flag and Complete Escape/cancel routes.",
+      "evidence_refs": [
+        "/tmp/ariadne-ui-modern/review-repro-after.log",
+        "/tmp/ariadne-ui-modern/review-repair-tests.log",
+        "/tmp/ariadne-ui-modern/final-check.log",
+        "/tmp/ariadne-ui-modern/final-build.log",
+        "/tmp/ariadne-ui-modern/final-built-ui.log"
+      ]
+    }
+  ]
+}

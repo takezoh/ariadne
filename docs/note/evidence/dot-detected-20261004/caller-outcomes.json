@@ -1,0 +1,1258 @@
+{
+  "owner": "dot-detected-20261004",
+  "transport": "/tmp/dot-d1-http-cli.mjs",
+  "decisions": [
+    "Port8787 discovery was public only; switched to requested port8788 and rediscovered. Its contract lacks initial add tag_ids: choose capture_intent to preserve raw text, then edit notes for event ID/URL, assign project/tag via current discovered apply_change operations. No pre-existing event mapping is used.",
+    {
+      "event": "personal-slack-1",
+      "decision": "Trusted personal scope maps to Personal. Explicit review/confirmation request qualifies for Notification. No inferred deadline/reply/completion."
+    },
+    {
+      "event": "personal-email-1",
+      "decision": "Trusted personal scope maps to Personal. Explicit review/confirmation request qualifies for Notification. No inferred deadline/reply/completion."
+    },
+    {
+      "event": "work-slack-1",
+      "decision": "Trusted work scope maps to Work. Explicit review/confirmation request qualifies for Notification. No inferred deadline/reply/completion."
+    },
+    {
+      "event": "work-email-1",
+      "decision": "Trusted work scope maps to Work. Explicit review/confirmation request qualifies for Notification. No inferred deadline/reply/completion."
+    },
+    {
+      "userReport": "personal-email-1 confirmation is done.",
+      "decision": "Remove Notification only. Original action remains active; confirmation report does not authorize completing underlying action."
+    }
+  ],
+  "ids": {
+    "personal-slack-1": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+    "personal-email-1": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+    "work-slack-1": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+    "work-email-1": "db997cb9-ab77-4d7b-8867-51fced88228b"
+  },
+  "writes": 20,
+  "initial": {
+    "schemaVersion": 2,
+    "revision": 0,
+    "actions": [],
+    "perspectives": [],
+    "projects": [],
+    "tags": [],
+    "result": null,
+    "retrieved_at": "2026-10-03T15:38:44.095Z",
+    "storage": "Sites D1",
+    "proof_stage": "structured todo MVP",
+    "list_scopes": {
+      "flagged": [],
+      "waiting": [],
+      "inbox": [],
+      "normal": [],
+      "deferred": [],
+      "completed": [],
+      "cancelled": []
+    }
+  },
+  "projects": {
+    "Personal": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+    "Work": "f886aff3-be79-4d12-8175-1df7e47531fa"
+  },
+  "notification": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+  "events": [
+    {
+      "id": "personal-slack-1",
+      "scope": "personal",
+      "source": "Slack",
+      "url": "https://example.invalid/slack/personal/1",
+      "text": "Can you confirm whether Sunday lunch works for you? No need to decide now.",
+      "title": "Confirm whether Sunday lunch works"
+    },
+    {
+      "id": "personal-email-1",
+      "scope": "personal",
+      "source": "Email",
+      "url": "https://example.invalid/mail/personal/1",
+      "text": "Please check the attached electricity bill. The amount looks different from last month.",
+      "title": "Check the electricity bill amount"
+    },
+    {
+      "id": "work-slack-1",
+      "scope": "work",
+      "source": "Slack",
+      "url": "https://example.invalid/slack/work/1",
+      "text": "Please review the release proposal and let us know if there are concerns. We have not agreed on a release date.",
+      "title": "Review the release proposal"
+    },
+    {
+      "id": "work-email-1",
+      "scope": "work",
+      "source": "Email",
+      "url": "https://example.invalid/mail/work/1",
+      "text": "Could you confirm which estimate we should use? The two versions have different assumptions.",
+      "title": "Confirm which estimate to use"
+    }
+  ],
+  "saved": {
+    "schemaVersion": 2,
+    "revision": 19,
+    "actions": [
+      {
+        "id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+        "title": "Confirm whether Sunday lunch works",
+        "revision": 4,
+        "parent_id": null,
+        "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+        "status": "active",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "Can you confirm whether Sunday lunch works for you? No need to decide now.\n\nSource event ID: personal-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/personal/1\nTrusted source scope: personal",
+        "order": 0,
+        "flagged": false,
+        "created_at": "2026-10-03T15:38:44.715Z",
+        "updated_at": "2026-10-03T15:38:45.205Z",
+        "is_deferred": false,
+        "view": "normal",
+        "defer_reasons": [],
+        "project_path": "Personal",
+        "tags": [
+          {
+            "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "name": "Notification",
+            "path": "Notification"
+          }
+        ]
+      },
+      {
+        "id": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+        "title": "Check the electricity bill amount",
+        "revision": 4,
+        "parent_id": null,
+        "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+        "status": "active",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "Please check the attached electricity bill. The amount looks different from last month.\n\nSource event ID: personal-email-1\nSource: Email\nSource URL: https://example.invalid/mail/personal/1\nTrusted source scope: personal",
+        "order": 1,
+        "flagged": false,
+        "created_at": "2026-10-03T15:38:45.356Z",
+        "updated_at": "2026-10-03T15:38:45.797Z",
+        "is_deferred": false,
+        "view": "normal",
+        "defer_reasons": [],
+        "project_path": "Personal",
+        "tags": [
+          {
+            "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "name": "Notification",
+            "path": "Notification"
+          }
+        ]
+      },
+      {
+        "id": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+        "title": "Review the release proposal",
+        "revision": 4,
+        "parent_id": null,
+        "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+        "status": "active",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "Please review the release proposal and let us know if there are concerns. We have not agreed on a release date.\n\nSource event ID: work-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/work/1\nTrusted source scope: work",
+        "order": 0,
+        "flagged": false,
+        "created_at": "2026-10-03T15:38:45.956Z",
+        "updated_at": "2026-10-03T15:38:46.425Z",
+        "is_deferred": false,
+        "view": "normal",
+        "defer_reasons": [],
+        "project_path": "Work",
+        "tags": [
+          {
+            "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "name": "Notification",
+            "path": "Notification"
+          }
+        ]
+      },
+      {
+        "id": "db997cb9-ab77-4d7b-8867-51fced88228b",
+        "title": "Confirm which estimate to use",
+        "revision": 4,
+        "parent_id": null,
+        "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+        "status": "active",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "Could you confirm which estimate we should use? The two versions have different assumptions.\n\nSource event ID: work-email-1\nSource: Email\nSource URL: https://example.invalid/mail/work/1\nTrusted source scope: work",
+        "order": 1,
+        "flagged": false,
+        "created_at": "2026-10-03T15:38:46.574Z",
+        "updated_at": "2026-10-03T15:38:47.048Z",
+        "is_deferred": false,
+        "view": "normal",
+        "defer_reasons": [],
+        "project_path": "Work",
+        "tags": [
+          {
+            "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "name": "Notification",
+            "path": "Notification"
+          }
+        ]
+      }
+    ],
+    "perspectives": [],
+    "projects": [
+      {
+        "id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+        "name": "Personal",
+        "description": "",
+        "parent_id": null,
+        "revision": 1,
+        "created_at": "2026-10-03T15:38:44.248Z",
+        "updated_at": "2026-10-03T15:38:44.248Z",
+        "path": "Personal"
+      },
+      {
+        "id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+        "name": "Work",
+        "description": "",
+        "parent_id": null,
+        "revision": 2,
+        "created_at": "2026-10-03T15:38:44.406Z",
+        "updated_at": "2026-10-03T15:38:44.406Z",
+        "path": "Work"
+      }
+    ],
+    "tags": [
+      {
+        "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+        "name": "Notification",
+        "description": "User-authorized saved confirmation/action-needed label; not a push notification.",
+        "parent_id": null,
+        "revision": 3,
+        "created_at": "2026-10-03T15:38:44.552Z",
+        "updated_at": "2026-10-03T15:38:44.552Z",
+        "path": "Notification"
+      }
+    ],
+    "result": null,
+    "retrieved_at": "2026-10-03T15:38:47.139Z",
+    "storage": "Sites D1",
+    "proof_stage": "structured todo MVP",
+    "list_scopes": {
+      "flagged": [],
+      "waiting": [],
+      "inbox": [],
+      "normal": [
+        "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+        "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+        "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+        "db997cb9-ab77-4d7b-8867-51fced88228b"
+      ],
+      "deferred": [],
+      "completed": [],
+      "cancelled": []
+    }
+  },
+  "duplicate": {
+    "event": {
+      "id": "work-slack-1",
+      "scope": "work",
+      "source": "Slack",
+      "url": "https://example.invalid/slack/work/1",
+      "text": "Please review the release proposal and let us know if there are concerns. We have not agreed on a release date.",
+      "title": "Review the release proposal"
+    },
+    "matchedID": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+    "decision": "Existing notes match trusted event ID, source URL and original text. No capture or update: identical redetection supplies no changed intent. Existing dates/confirmation state remain authoritative.",
+    "revisionBefore": 19,
+    "after": {
+      "schemaVersion": 2,
+      "revision": 19,
+      "actions": [
+        {
+          "id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+          "title": "Confirm whether Sunday lunch works",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Can you confirm whether Sunday lunch works for you? No need to decide now.\n\nSource event ID: personal-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/personal/1\nTrusted source scope: personal",
+          "order": 0,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:44.715Z",
+          "updated_at": "2026-10-03T15:38:45.205Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Personal",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        },
+        {
+          "id": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+          "title": "Check the electricity bill amount",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Please check the attached electricity bill. The amount looks different from last month.\n\nSource event ID: personal-email-1\nSource: Email\nSource URL: https://example.invalid/mail/personal/1\nTrusted source scope: personal",
+          "order": 1,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:45.356Z",
+          "updated_at": "2026-10-03T15:38:45.797Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Personal",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        },
+        {
+          "id": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+          "title": "Review the release proposal",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Please review the release proposal and let us know if there are concerns. We have not agreed on a release date.\n\nSource event ID: work-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/work/1\nTrusted source scope: work",
+          "order": 0,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:45.956Z",
+          "updated_at": "2026-10-03T15:38:46.425Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Work",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        },
+        {
+          "id": "db997cb9-ab77-4d7b-8867-51fced88228b",
+          "title": "Confirm which estimate to use",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Could you confirm which estimate we should use? The two versions have different assumptions.\n\nSource event ID: work-email-1\nSource: Email\nSource URL: https://example.invalid/mail/work/1\nTrusted source scope: work",
+          "order": 1,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:46.574Z",
+          "updated_at": "2026-10-03T15:38:47.048Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Work",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        }
+      ],
+      "perspectives": [],
+      "projects": [
+        {
+          "id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "name": "Personal",
+          "description": "",
+          "parent_id": null,
+          "revision": 1,
+          "created_at": "2026-10-03T15:38:44.248Z",
+          "updated_at": "2026-10-03T15:38:44.248Z",
+          "path": "Personal"
+        },
+        {
+          "id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "name": "Work",
+          "description": "",
+          "parent_id": null,
+          "revision": 2,
+          "created_at": "2026-10-03T15:38:44.406Z",
+          "updated_at": "2026-10-03T15:38:44.406Z",
+          "path": "Work"
+        }
+      ],
+      "tags": [
+        {
+          "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "name": "Notification",
+          "description": "User-authorized saved confirmation/action-needed label; not a push notification.",
+          "parent_id": null,
+          "revision": 3,
+          "created_at": "2026-10-03T15:38:44.552Z",
+          "updated_at": "2026-10-03T15:38:44.552Z",
+          "path": "Notification"
+        }
+      ],
+      "result": null,
+      "retrieved_at": "2026-10-03T15:38:47.285Z",
+      "storage": "Sites D1",
+      "proof_stage": "structured todo MVP",
+      "list_scopes": {
+        "flagged": [],
+        "waiting": [],
+        "inbox": [],
+        "normal": [
+          "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+          "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+          "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+          "db997cb9-ab77-4d7b-8867-51fced88228b"
+        ],
+        "deferred": [],
+        "completed": [],
+        "cancelled": []
+      }
+    },
+    "revisionAfter": 19
+  },
+  "reviewBefore": {
+    "beforeRevision": 19,
+    "afterRevision": 19,
+    "all": {
+      "schemaVersion": 2,
+      "revision": 19,
+      "query": {
+        "project_id": null,
+        "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+        "include_descendants": false
+      },
+      "projects": [
+        {
+          "id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "name": "Personal",
+          "description": "",
+          "parent_id": null,
+          "revision": 1,
+          "created_at": "2026-10-03T15:38:44.248Z",
+          "updated_at": "2026-10-03T15:38:44.248Z",
+          "path": "Personal"
+        },
+        {
+          "id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "name": "Work",
+          "description": "",
+          "parent_id": null,
+          "revision": 2,
+          "created_at": "2026-10-03T15:38:44.406Z",
+          "updated_at": "2026-10-03T15:38:44.406Z",
+          "path": "Work"
+        }
+      ],
+      "tags": [
+        {
+          "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "name": "Notification",
+          "description": "User-authorized saved confirmation/action-needed label; not a push notification.",
+          "parent_id": null,
+          "revision": 3,
+          "created_at": "2026-10-03T15:38:44.552Z",
+          "updated_at": "2026-10-03T15:38:44.552Z",
+          "path": "Notification"
+        }
+      ],
+      "actions": [
+        {
+          "id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+          "title": "Confirm whether Sunday lunch works",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Can you confirm whether Sunday lunch works for you? No need to decide now.\n\nSource event ID: personal-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/personal/1\nTrusted source scope: personal",
+          "order": 0,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:44.715Z",
+          "updated_at": "2026-10-03T15:38:45.205Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Personal",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        },
+        {
+          "id": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+          "title": "Check the electricity bill amount",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Please check the attached electricity bill. The amount looks different from last month.\n\nSource event ID: personal-email-1\nSource: Email\nSource URL: https://example.invalid/mail/personal/1\nTrusted source scope: personal",
+          "order": 1,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:45.356Z",
+          "updated_at": "2026-10-03T15:38:45.797Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Personal",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        },
+        {
+          "id": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+          "title": "Review the release proposal",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Please review the release proposal and let us know if there are concerns. We have not agreed on a release date.\n\nSource event ID: work-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/work/1\nTrusted source scope: work",
+          "order": 0,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:45.956Z",
+          "updated_at": "2026-10-03T15:38:46.425Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Work",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        },
+        {
+          "id": "db997cb9-ab77-4d7b-8867-51fced88228b",
+          "title": "Confirm which estimate to use",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Could you confirm which estimate we should use? The two versions have different assumptions.\n\nSource event ID: work-email-1\nSource: Email\nSource URL: https://example.invalid/mail/work/1\nTrusted source scope: work",
+          "order": 1,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:46.574Z",
+          "updated_at": "2026-10-03T15:38:47.048Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Work",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        }
+      ],
+      "retrieved_at": "2026-10-03T15:38:47.430Z"
+    },
+    "personal": {
+      "schemaVersion": 2,
+      "revision": 19,
+      "query": {
+        "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+        "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+        "include_descendants": false
+      },
+      "projects": [
+        {
+          "id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "name": "Personal",
+          "description": "",
+          "parent_id": null,
+          "revision": 1,
+          "created_at": "2026-10-03T15:38:44.248Z",
+          "updated_at": "2026-10-03T15:38:44.248Z",
+          "path": "Personal"
+        },
+        {
+          "id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "name": "Work",
+          "description": "",
+          "parent_id": null,
+          "revision": 2,
+          "created_at": "2026-10-03T15:38:44.406Z",
+          "updated_at": "2026-10-03T15:38:44.406Z",
+          "path": "Work"
+        }
+      ],
+      "tags": [
+        {
+          "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "name": "Notification",
+          "description": "User-authorized saved confirmation/action-needed label; not a push notification.",
+          "parent_id": null,
+          "revision": 3,
+          "created_at": "2026-10-03T15:38:44.552Z",
+          "updated_at": "2026-10-03T15:38:44.552Z",
+          "path": "Notification"
+        }
+      ],
+      "actions": [
+        {
+          "id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+          "title": "Confirm whether Sunday lunch works",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Can you confirm whether Sunday lunch works for you? No need to decide now.\n\nSource event ID: personal-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/personal/1\nTrusted source scope: personal",
+          "order": 0,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:44.715Z",
+          "updated_at": "2026-10-03T15:38:45.205Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Personal",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        },
+        {
+          "id": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+          "title": "Check the electricity bill amount",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Please check the attached electricity bill. The amount looks different from last month.\n\nSource event ID: personal-email-1\nSource: Email\nSource URL: https://example.invalid/mail/personal/1\nTrusted source scope: personal",
+          "order": 1,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:45.356Z",
+          "updated_at": "2026-10-03T15:38:45.797Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Personal",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        }
+      ],
+      "retrieved_at": "2026-10-03T15:38:47.501Z"
+    },
+    "work": {
+      "schemaVersion": 2,
+      "revision": 19,
+      "query": {
+        "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+        "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+        "include_descendants": false
+      },
+      "projects": [
+        {
+          "id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "name": "Personal",
+          "description": "",
+          "parent_id": null,
+          "revision": 1,
+          "created_at": "2026-10-03T15:38:44.248Z",
+          "updated_at": "2026-10-03T15:38:44.248Z",
+          "path": "Personal"
+        },
+        {
+          "id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "name": "Work",
+          "description": "",
+          "parent_id": null,
+          "revision": 2,
+          "created_at": "2026-10-03T15:38:44.406Z",
+          "updated_at": "2026-10-03T15:38:44.406Z",
+          "path": "Work"
+        }
+      ],
+      "tags": [
+        {
+          "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "name": "Notification",
+          "description": "User-authorized saved confirmation/action-needed label; not a push notification.",
+          "parent_id": null,
+          "revision": 3,
+          "created_at": "2026-10-03T15:38:44.552Z",
+          "updated_at": "2026-10-03T15:38:44.552Z",
+          "path": "Notification"
+        }
+      ],
+      "actions": [
+        {
+          "id": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+          "title": "Review the release proposal",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Please review the release proposal and let us know if there are concerns. We have not agreed on a release date.\n\nSource event ID: work-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/work/1\nTrusted source scope: work",
+          "order": 0,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:45.956Z",
+          "updated_at": "2026-10-03T15:38:46.425Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Work",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        },
+        {
+          "id": "db997cb9-ab77-4d7b-8867-51fced88228b",
+          "title": "Confirm which estimate to use",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Could you confirm which estimate we should use? The two versions have different assumptions.\n\nSource event ID: work-email-1\nSource: Email\nSource URL: https://example.invalid/mail/work/1\nTrusted source scope: work",
+          "order": 1,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:46.574Z",
+          "updated_at": "2026-10-03T15:38:47.048Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Work",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        }
+      ],
+      "retrieved_at": "2026-10-03T15:38:47.572Z"
+    }
+  },
+  "reviewAfter": {
+    "beforeRevision": 20,
+    "afterRevision": 20,
+    "all": {
+      "schemaVersion": 2,
+      "revision": 20,
+      "query": {
+        "project_id": null,
+        "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+        "include_descendants": false
+      },
+      "projects": [
+        {
+          "id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "name": "Personal",
+          "description": "",
+          "parent_id": null,
+          "revision": 1,
+          "created_at": "2026-10-03T15:38:44.248Z",
+          "updated_at": "2026-10-03T15:38:44.248Z",
+          "path": "Personal"
+        },
+        {
+          "id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "name": "Work",
+          "description": "",
+          "parent_id": null,
+          "revision": 2,
+          "created_at": "2026-10-03T15:38:44.406Z",
+          "updated_at": "2026-10-03T15:38:44.406Z",
+          "path": "Work"
+        }
+      ],
+      "tags": [
+        {
+          "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "name": "Notification",
+          "description": "User-authorized saved confirmation/action-needed label; not a push notification.",
+          "parent_id": null,
+          "revision": 3,
+          "created_at": "2026-10-03T15:38:44.552Z",
+          "updated_at": "2026-10-03T15:38:44.552Z",
+          "path": "Notification"
+        }
+      ],
+      "actions": [
+        {
+          "id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+          "title": "Confirm whether Sunday lunch works",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Can you confirm whether Sunday lunch works for you? No need to decide now.\n\nSource event ID: personal-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/personal/1\nTrusted source scope: personal",
+          "order": 0,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:44.715Z",
+          "updated_at": "2026-10-03T15:38:45.205Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Personal",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        },
+        {
+          "id": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+          "title": "Review the release proposal",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Please review the release proposal and let us know if there are concerns. We have not agreed on a release date.\n\nSource event ID: work-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/work/1\nTrusted source scope: work",
+          "order": 0,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:45.956Z",
+          "updated_at": "2026-10-03T15:38:46.425Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Work",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        },
+        {
+          "id": "db997cb9-ab77-4d7b-8867-51fced88228b",
+          "title": "Confirm which estimate to use",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Could you confirm which estimate we should use? The two versions have different assumptions.\n\nSource event ID: work-email-1\nSource: Email\nSource URL: https://example.invalid/mail/work/1\nTrusted source scope: work",
+          "order": 1,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:46.574Z",
+          "updated_at": "2026-10-03T15:38:47.048Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Work",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        }
+      ],
+      "retrieved_at": "2026-10-03T15:38:47.973Z"
+    },
+    "personal": {
+      "schemaVersion": 2,
+      "revision": 20,
+      "query": {
+        "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+        "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+        "include_descendants": false
+      },
+      "projects": [
+        {
+          "id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "name": "Personal",
+          "description": "",
+          "parent_id": null,
+          "revision": 1,
+          "created_at": "2026-10-03T15:38:44.248Z",
+          "updated_at": "2026-10-03T15:38:44.248Z",
+          "path": "Personal"
+        },
+        {
+          "id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "name": "Work",
+          "description": "",
+          "parent_id": null,
+          "revision": 2,
+          "created_at": "2026-10-03T15:38:44.406Z",
+          "updated_at": "2026-10-03T15:38:44.406Z",
+          "path": "Work"
+        }
+      ],
+      "tags": [
+        {
+          "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "name": "Notification",
+          "description": "User-authorized saved confirmation/action-needed label; not a push notification.",
+          "parent_id": null,
+          "revision": 3,
+          "created_at": "2026-10-03T15:38:44.552Z",
+          "updated_at": "2026-10-03T15:38:44.552Z",
+          "path": "Notification"
+        }
+      ],
+      "actions": [
+        {
+          "id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+          "title": "Confirm whether Sunday lunch works",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Can you confirm whether Sunday lunch works for you? No need to decide now.\n\nSource event ID: personal-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/personal/1\nTrusted source scope: personal",
+          "order": 0,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:44.715Z",
+          "updated_at": "2026-10-03T15:38:45.205Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Personal",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        }
+      ],
+      "retrieved_at": "2026-10-03T15:38:48.049Z"
+    },
+    "work": {
+      "schemaVersion": 2,
+      "revision": 20,
+      "query": {
+        "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+        "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+        "include_descendants": false
+      },
+      "projects": [
+        {
+          "id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "name": "Personal",
+          "description": "",
+          "parent_id": null,
+          "revision": 1,
+          "created_at": "2026-10-03T15:38:44.248Z",
+          "updated_at": "2026-10-03T15:38:44.248Z",
+          "path": "Personal"
+        },
+        {
+          "id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "name": "Work",
+          "description": "",
+          "parent_id": null,
+          "revision": 2,
+          "created_at": "2026-10-03T15:38:44.406Z",
+          "updated_at": "2026-10-03T15:38:44.406Z",
+          "path": "Work"
+        }
+      ],
+      "tags": [
+        {
+          "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "name": "Notification",
+          "description": "User-authorized saved confirmation/action-needed label; not a push notification.",
+          "parent_id": null,
+          "revision": 3,
+          "created_at": "2026-10-03T15:38:44.552Z",
+          "updated_at": "2026-10-03T15:38:44.552Z",
+          "path": "Notification"
+        }
+      ],
+      "actions": [
+        {
+          "id": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+          "title": "Review the release proposal",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Please review the release proposal and let us know if there are concerns. We have not agreed on a release date.\n\nSource event ID: work-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/work/1\nTrusted source scope: work",
+          "order": 0,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:45.956Z",
+          "updated_at": "2026-10-03T15:38:46.425Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Work",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        },
+        {
+          "id": "db997cb9-ab77-4d7b-8867-51fced88228b",
+          "title": "Confirm which estimate to use",
+          "revision": 4,
+          "parent_id": null,
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "status": "active",
+          "due_at": null,
+          "defer_until": null,
+          "notes": "Could you confirm which estimate we should use? The two versions have different assumptions.\n\nSource event ID: work-email-1\nSource: Email\nSource URL: https://example.invalid/mail/work/1\nTrusted source scope: work",
+          "order": 1,
+          "flagged": false,
+          "created_at": "2026-10-03T15:38:46.574Z",
+          "updated_at": "2026-10-03T15:38:47.048Z",
+          "is_deferred": false,
+          "view": "normal",
+          "defer_reasons": [],
+          "project_path": "Work",
+          "tags": [
+            {
+              "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+              "name": "Notification",
+              "path": "Notification"
+            }
+          ]
+        }
+      ],
+      "retrieved_at": "2026-10-03T15:38:48.126Z"
+    }
+  },
+  "final": {
+    "schemaVersion": 2,
+    "revision": 20,
+    "actions": [
+      {
+        "id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+        "title": "Confirm whether Sunday lunch works",
+        "revision": 4,
+        "parent_id": null,
+        "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+        "status": "active",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "Can you confirm whether Sunday lunch works for you? No need to decide now.\n\nSource event ID: personal-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/personal/1\nTrusted source scope: personal",
+        "order": 0,
+        "flagged": false,
+        "created_at": "2026-10-03T15:38:44.715Z",
+        "updated_at": "2026-10-03T15:38:45.205Z",
+        "is_deferred": false,
+        "view": "normal",
+        "defer_reasons": [],
+        "project_path": "Personal",
+        "tags": [
+          {
+            "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "name": "Notification",
+            "path": "Notification"
+          }
+        ]
+      },
+      {
+        "id": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+        "title": "Check the electricity bill amount",
+        "revision": 5,
+        "parent_id": null,
+        "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+        "status": "active",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "Please check the attached electricity bill. The amount looks different from last month.\n\nSource event ID: personal-email-1\nSource: Email\nSource URL: https://example.invalid/mail/personal/1\nTrusted source scope: personal",
+        "order": 1,
+        "flagged": false,
+        "created_at": "2026-10-03T15:38:45.356Z",
+        "updated_at": "2026-10-03T15:38:47.800Z",
+        "is_deferred": false,
+        "view": "normal",
+        "defer_reasons": [],
+        "project_path": "Personal",
+        "tags": []
+      },
+      {
+        "id": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+        "title": "Review the release proposal",
+        "revision": 4,
+        "parent_id": null,
+        "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+        "status": "active",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "Please review the release proposal and let us know if there are concerns. We have not agreed on a release date.\n\nSource event ID: work-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/work/1\nTrusted source scope: work",
+        "order": 0,
+        "flagged": false,
+        "created_at": "2026-10-03T15:38:45.956Z",
+        "updated_at": "2026-10-03T15:38:46.425Z",
+        "is_deferred": false,
+        "view": "normal",
+        "defer_reasons": [],
+        "project_path": "Work",
+        "tags": [
+          {
+            "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "name": "Notification",
+            "path": "Notification"
+          }
+        ]
+      },
+      {
+        "id": "db997cb9-ab77-4d7b-8867-51fced88228b",
+        "title": "Confirm which estimate to use",
+        "revision": 4,
+        "parent_id": null,
+        "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+        "status": "active",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "Could you confirm which estimate we should use? The two versions have different assumptions.\n\nSource event ID: work-email-1\nSource: Email\nSource URL: https://example.invalid/mail/work/1\nTrusted source scope: work",
+        "order": 1,
+        "flagged": false,
+        "created_at": "2026-10-03T15:38:46.574Z",
+        "updated_at": "2026-10-03T15:38:47.048Z",
+        "is_deferred": false,
+        "view": "normal",
+        "defer_reasons": [],
+        "project_path": "Work",
+        "tags": [
+          {
+            "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "name": "Notification",
+            "path": "Notification"
+          }
+        ]
+      }
+    ],
+    "perspectives": [],
+    "projects": [
+      {
+        "id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+        "name": "Personal",
+        "description": "",
+        "parent_id": null,
+        "revision": 1,
+        "created_at": "2026-10-03T15:38:44.248Z",
+        "updated_at": "2026-10-03T15:38:44.248Z",
+        "path": "Personal"
+      },
+      {
+        "id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+        "name": "Work",
+        "description": "",
+        "parent_id": null,
+        "revision": 2,
+        "created_at": "2026-10-03T15:38:44.406Z",
+        "updated_at": "2026-10-03T15:38:44.406Z",
+        "path": "Work"
+      }
+    ],
+    "tags": [
+      {
+        "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+        "name": "Notification",
+        "description": "User-authorized saved confirmation/action-needed label; not a push notification.",
+        "parent_id": null,
+        "revision": 3,
+        "created_at": "2026-10-03T15:38:44.552Z",
+        "updated_at": "2026-10-03T15:38:44.552Z",
+        "path": "Notification"
+      }
+    ],
+    "result": null,
+    "retrieved_at": "2026-10-03T15:38:48.265Z",
+    "storage": "Sites D1",
+    "proof_stage": "structured todo MVP",
+    "list_scopes": {
+      "flagged": [],
+      "waiting": [],
+      "inbox": [],
+      "normal": [
+        "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+        "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+        "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+        "db997cb9-ab77-4d7b-8867-51fced88228b"
+      ],
+      "deferred": [],
+      "completed": [],
+      "cancelled": []
+    }
+  },
+  "assertions": {
+    "fourCaptured": true,
+    "originalAndSourceRetained": true,
+    "allActive": true,
+    "noInventedDates": true,
+    "allRoot": true,
+    "initialCounts": true,
+    "finalCounts": true,
+    "reviewsReadOnly": true,
+    "duplicateSkipped": true,
+    "confirmedActionRetainedActive": true
+  },
+  "counts": {
+    "persistentOperations": 20,
+    "initialRevision": 0,
+    "finalRevision": 20,
+    "apiFailures": 0
+  },
+  "scopePolicy": "Trust supplied personal/work scope only; if absent/unknown ask for clarification, do not infer from message words. No external monitoring, sends or deadline creation performed."
+}

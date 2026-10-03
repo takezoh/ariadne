@@ -1,0 +1,92 @@
+{
+  "execution": {
+    "placement": "native independent requirements verifier",
+    "kernel_receipt": false,
+    "repository_writes": false
+  },
+  "coverage": [
+    {
+      "scenario": "NAV-01",
+      "status": "passed_local_behavior",
+      "assessment": "Initial Inbox and five fixed first-class destinations plus exact-named Perspectives. Add/capture explicitly say Inbox and retain original text.",
+      "evidence_basis": "DOM navigation/capture scenarios and screenshots"
+    },
+    {
+      "scenario": "NAV-02",
+      "status": "passed_local_behavior",
+      "assessment": "Independent acceptance fixture verifies exact Alpha, explicit descendant expansion, assigned-only All projects, Unassigned and all three visible Defer scopes.",
+      "evidence_basis": "Independent memberships and real-domain queryResponse parity tests"
+    },
+    {
+      "scenario": "NAV-03",
+      "status": "passed_local_behavior",
+      "assessment": "Independent Red/Red descendants/All tags/Untagged cases match expected unique ordered rows; untagged child does not inherit parent classification or flags.",
+      "evidence_basis": "Independent memberships and direct/classification parity tests"
+    },
+    {
+      "scenario": "NAV-04",
+      "status": "passed_local_behavior",
+      "assessment": "Independent Flagged default/Any and classification cases include On hold independently of Defer; viewed wide Project screenshot shows pause/On hold with normal title contrast; mutation controls remain ordinary.",
+      "evidence_basis": "Independent memberships, browser scripts and screenshot inspection"
+    },
+    {
+      "scenario": "NAV-05",
+      "status": "passed_local_behavior",
+      "assessment": "{} returns all nine fixture statuses including completed/dropped/deferred; statuses [] returns none; active-only/AND/null/tag descendants return exact expected ordered rows. Safe exact names/descriptions do not define additional rules.",
+      "evidence_basis": "Independent memberships, domain perspectiveActions parity, DOM exact text tests"
+    },
+    {
+      "scenario": "NAV-06",
+      "status": "passed_local_behavior",
+      "assessment": "Missing catalog or referenced saved filter fails closed. Per-view selection memory preserves unavailable identity across away/back; dirty target existence stays based on full snapshot.",
+      "evidence_basis": "Independent missing reference assertion, model/DOM memory regression, recovery browser"
+    },
+    {
+      "scenario": "NAV-07",
+      "status": "passed_local_behavior",
+      "assessment": "History All/Completed/Dropped matches distinct expected lifecycle records with unchanged authoritative order. Selection uses pure read projection and causes no mutation.",
+      "evidence_basis": "Independent memberships, pure immutability/domain parity and DOM history assertions"
+    },
+    {
+      "scenario": "NAV-08",
+      "status": "passed_local_behavior",
+      "assessment": "Typed drafts and stable shared editor retain all nine fields/capture text, unsent groups, dropped parent and reachable retained route across filtering; Back/Close preserves drafts and is not mutation disabled.",
+      "evidence_basis": "Current generated DOM/application tests plus navigation browser/recovery corroboration; previous shared editor IME/caret tests remain passing"
+    },
+    {
+      "scenario": "NAV-09",
+      "status": "passed_local_behavior",
+      "assessment": "Unknown response keeps exact retained request while destination/classification navigation and Back stay usable; retry arguments/ID are identical. Modal closes before named recovery and competing writes stay blocked.",
+      "evidence_basis": "Three real Chromium mock-host recovery runs and exact request assertions; current DOM/controller tests"
+    },
+    {
+      "scenario": "NAV-10",
+      "status": "passed_local_behavior",
+      "assessment": "Observed 320/390/1280 light/dark layouts have no horizontal overflow; conditional inspector/Back and first-class selectors are visible. Host acknowledgment/error capability contract remains shared and tested.",
+      "evidence_basis": "Five browser visual runs, screenshots independently inspected and current host/DOM tests"
+    }
+  ],
+  "source_hashes": {
+    "lib/ui/model/navigation.ts": "a1b1df59348eae4fcdbb10660a6e684edcc0a64a5ef49b4500dbf8a80991a968",
+    "lib/ui/adapters/dom.js": "da90e0d14c1ce2ea1d7d8f0b50c15918a456672979f226109e574313735ae1aa",
+    "lib/widget.ts": "88e83b27953fe01b68e399f2dac1de66bda296123a82eda9c73b6759954193d3",
+    "lib/ui/application.ts": "8d392d92e036760990c5d5961b43e643a0b12b450567a88a1953b568112ac2a3",
+    "tests/ui/navigation.test.mjs": "64830dfd6f35e6b628f8ef75577542d3dea2db9006b5a5ae929d14a78658f2e0",
+    "tests/ui/dom.test.mjs": "4044052519c1634d46433d54ad585479a244acf03e73b3cc8914eaca14c83d8c"
+  },
+  "source_refs": [
+    "/tmp/ariadne-navigation-acceptance.json",
+    "/tmp/ariadne-navigation-explore-v2.json",
+    "/tmp/ariadne-navigation-design.json",
+    "/tmp/ariadne-navigation/independent-requirements-observations.json",
+    "/tmp/ariadne-navigation/browser.json",
+    "/tmp/ariadne-navigation/recovery-browser.json",
+    "/tmp/ariadne-navigation-implementation-verdict.json",
+    "/tmp/ariadne-navigation/check-final.log"
+  ],
+  "limitations": [
+    "Final build/live/built-resource checks not approved by this behavior verdict.",
+    "Mock-host Chromium is local interaction evidence; no actual host/D1/auth/cache verification.",
+    "Additional catalog/perspective CRUD remains outside approved browsing scope."
+  ]
+}

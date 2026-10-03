@@ -1,0 +1,50 @@
+ M app/board.tsx
+ M app/mcp/route.ts
+ M lib/ui/adapters/dom.js
+ M lib/ui/adapters/host.ts
+ M lib/ui/application.ts
+ M lib/ui/model/controls.ts
+ M lib/ui/model/drafts.ts
+ M lib/ui/ports.ts
+ M lib/widget.ts
+ M tests/ui/application.test.mjs
+ M tests/ui/dom.test.mjs
+ M tests/ui/host.test.mjs
+ M tests/ui/model.test.mjs
+?? docs/changes/change-20261003-modern-simple-ui/change.md
+?? docs/changes/change-20261003-modern-simple-ui/evidence/browser-continuity-results.json
+?? docs/changes/change-20261003-modern-simple-ui/evidence/browser-recovery-results.json
+?? docs/changes/change-20261003-modern-simple-ui/evidence/browser-visual-results.json
+?? docs/changes/change-20261003-modern-simple-ui/evidence/design-plan.json
+?? docs/changes/change-20261003-modern-simple-ui/evidence/design-verdict.json
+?? docs/changes/change-20261003-modern-simple-ui/evidence/host-doc-evidence.json
+?? docs/changes/change-20261003-modern-simple-ui/evidence/host-tests.log
+?? docs/changes/change-20261003-modern-simple-ui/evidence/host-typecheck.log
+?? docs/changes/change-20261003-modern-simple-ui/evidence/implementation-host.json
+?? docs/changes/change-20261003-modern-simple-ui/evidence/implementation-presentation.json
+?? docs/changes/change-20261003-modern-simple-ui/evidence/implementation-proposal-repair.json
+?? docs/changes/change-20261003-modern-simple-ui/evidence/implementation-proposal.json
+?? docs/changes/change-20261003-modern-simple-ui/evidence/integration-docs-lint.log
+?? docs/changes/change-20261003-modern-simple-ui/evidence/modern-dark.png
+?? docs/changes/change-20261003-modern-simple-ui/evidence/modern-full-editor.png
+?? docs/changes/change-20261003-modern-simple-ui/evidence/modern-full.png
+?? docs/changes/change-20261003-modern-simple-ui/evidence/modern-retained-editor.png
+?? docs/changes/change-20261003-modern-simple-ui/evidence/modern-sidebar-editor.png
+?? docs/changes/change-20261003-modern-simple-ui/evidence/modern-sidebar.png
+?? docs/changes/change-20261003-modern-simple-ui/evidence/modern-unknown.png
+?? docs/changes/change-20261003-modern-simple-ui/evidence/presentation-typecheck.log
+?? docs/changes/change-20261003-modern-simple-ui/evidence/presentation-ui-tests.log
+?? docs/changes/change-20261003-modern-simple-ui/evidence/proposal-lint.log
+?? docs/changes/change-20261003-modern-simple-ui/evidence/proposal-repair-tests.log
+?? docs/changes/change-20261003-modern-simple-ui/evidence/proposal-tests.log
+?? docs/changes/change-20261003-modern-simple-ui/evidence/proposal-typecheck.log
+?? docs/changes/change-20261003-modern-simple-ui/evidence/requirements-plan.json
+?? docs/changes/change-20261003-modern-simple-ui/evidence/requirements-verdict.json
+?? docs/changes/change-20261003-modern-simple-ui/implementation.md
+?? docs/changes/change-20261003-modern-simple-ui/requirements.md
+?? docs/changes/change-20261003-modern-simple-ui/verification.md
+?? lib/ui/icons.ts
+?? lib/ui/model/display.ts
+?? lib/ui/model/presentation.ts
+?? tests/ui/display.test.mjs
+?? tests/ui/mcp-display.test.mjs

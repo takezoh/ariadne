@@ -1,0 +1,1516 @@
+{
+  "mode": "explore",
+  "revision": "native-author-20261003-3",
+  "goal": "Make Ariadne visually modern, simple and intuitive in ChatGPT sidebar and full display without weakening action or recovery contracts.",
+  "target_users": [
+    "The existing personal Ariadne user in ChatGPT and the shared Web preview"
+  ],
+  "user_goals": [
+    {
+      "id": "goal-focus",
+      "actor": "Ariadne user",
+      "context": "Reading current work",
+      "desired_outcome": "Identify available actions and their actual lifecycle/date context without reading technical metadata",
+      "success_observation": "A concise list exposes titles, deliberate flags, meaningful dates and a clearly selected view."
+    },
+    {
+      "id": "goal-edit",
+      "actor": "Ariadne user",
+      "context": "Changing an action",
+      "desired_outcome": "Reach secondary edits when needed and distinguish proposals from saved content",
+      "success_observation": "A named editor retains original input and unsaved changes through refresh and mode transitions."
+    },
+    {
+      "id": "goal-recover",
+      "actor": "Ariadne user",
+      "context": "Saving with failures or concurrent corrections",
+      "desired_outcome": "Know whether a change saved and recover without duplicates or lost corrections",
+      "success_observation": "Visible pending, conflict and unknown-result messages lead to receipt checking or identical retry."
+    },
+    {
+      "id": "goal-display",
+      "actor": "Ariadne user",
+      "context": "Using narrow and broad host surfaces",
+      "desired_outcome": "Keep context while switching between sidebar and full display",
+      "success_observation": "The same view, editor, drafts and pending outcome remain available across supported mode changes."
+    }
+  ],
+  "confirmed_constraints": [
+    {
+      "id": "C1",
+      "statement": "Preserve exact original notes and caller title; capture does not invent dates, tags or commitments.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "docs/design/product.md",
+          "docs/technical/mcp-api.md"
+        ],
+        "rationale": "Current source and product invariant constrain observable behavior."
+      }
+    },
+    {
+      "id": "C2",
+      "statement": "Normal includes unfinished on-hold actions unless deferred; Inbox includes project-unassigned unfinished actions, even when deferred.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "docs/technical/data-model.md",
+          "lib/ui/adapters/dom.js"
+        ],
+        "rationale": "Current source and product invariant constrain observable behavior."
+      }
+    },
+    {
+      "id": "C3",
+      "statement": "Parent Defer hides descendants without replacing their dates; completion of a parent completes descendants atomically. Due and Defer stay distinct.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "ARCHITECTURE.md",
+          "docs/design/design-action-state-and-perspectives.md"
+        ],
+        "rationale": "Current source and product invariant constrain observable behavior."
+      }
+    },
+    {
+      "id": "C4",
+      "statement": "Direct flags and intended sequence never restrict execution or imply inheritance.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "docs/technical/data-model.md"
+        ],
+        "rationale": "Current source and product invariant constrain observable behavior."
+      }
+    },
+    {
+      "id": "C5",
+      "statement": "Refresh and host updates preserve proposals; conflicts preserve later saved corrections. Unknown saves retain exact ID/input and never become a fresh duplicate write.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "lib/ui/application.ts",
+          "lib/ui/model/drafts.ts",
+          "lib/ui/model/operations.ts"
+        ],
+        "rationale": "Current source and product invariant constrain observable behavior."
+      }
+    },
+    {
+      "id": "C6",
+      "statement": "Undo is receipt-based, protecting later target corrections; missing/pruned receipts do not prove failure.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "docs/technical/data-model.md",
+          "lib/ui/application.ts"
+        ],
+        "rationale": "Current source and product invariant constrain observable behavior."
+      }
+    },
+    {
+      "id": "C7",
+      "statement": "Conversation and Web share one action path and UI resource; trusted server authentication supplies owner. No additional LLM, notifications, background work or saved-perspective editor is introduced.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "ARCHITECTURE.md",
+          "app/board.tsx",
+          "app/mcp/route.ts"
+        ],
+        "rationale": "Current source and product invariant constrain observable behavior."
+      }
+    },
+    {
+      "id": "C8",
+      "statement": "Actual ChatGPT host mode/caching/authentication acceptance requires actual host evidence; mock/local success is insufficient.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "docs/technical/deployment.md",
+          "docs/development.md"
+        ],
+        "rationale": "Current source and product invariant constrain observable behavior."
+      }
+    }
+  ],
+  "existing_system_context": [
+    {
+      "id": "OBS1",
+      "statement": "Current UI starts with seven view buttons, persistent technical IDs/revisions, title inputs and separate save buttons on every action. Details contain notes, flag, order, parent, dates and status.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "lib/widget.ts",
+          "lib/ui/adapters/dom.js"
+        ],
+        "rationale": "Current source and product invariant constrain observable behavior."
+      }
+    },
+    {
+      "id": "OBS2",
+      "statement": "Current host initializes JSON-RPC and receives tool-result notifications, but has no observed display-mode request or host-context subscription. Web preview advertises empty host capabilities.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "lib/ui/adapters/host.ts",
+          "lib/ui/adapters/dom.js",
+          "app/board.tsx"
+        ],
+        "rationale": "Current source and product invariant constrain observable behavior."
+      }
+    },
+    {
+      "id": "OBS3",
+      "statement": "Current parent, lifecycle and date inputs retain values only in recreated DOM controls; renderContents replaces action children. Preservation presently covers typed draft title/notes/order/flag, leaving other editor values vulnerable to refresh.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "lib/ui/adapters/dom.js",
+          "lib/ui/model/drafts.ts"
+        ],
+        "rationale": "Direct source observation identifies a retention defect within this redesign scope."
+      }
+    }
+  ],
+  "product_assumptions": [
+    {
+      "id": "ASM1",
+      "statement": "A width-responsive list and editor can serve both requested host surfaces without new stored settings.",
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "user:sidebar-full"
+        ],
+        "rationale": "Current source and product invariant constrain observable behavior."
+      },
+      "validation": "Inspect narrow/full DOM and actual host context behavior.",
+      "invalidation_behavior": "Adjust presentation breakpoints and host adapter, preserving all state contracts.",
+      "decision_refs": [
+        "DP-DETAIL"
+      ]
+    }
+  ],
+  "design_hypotheses": [
+    {
+      "id": "H1",
+      "statement": "A calm compact list with on-demand details reduces perceived management burden compared with every row exposing all inputs.",
+      "provenance": {
+        "source": "planner_proposal",
+        "confidence": "provisional",
+        "evidence_refs": [
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "rationale": "A reversible design default within the user-authorized UI redesign."
+      }
+    }
+  ],
+  "technology_candidates": [
+    {
+      "id": "candidate-shared-ui",
+      "candidate": "Existing self-contained UI with shared controller and responsive styles",
+      "source": "repository_context",
+      "proposed_for": [
+        "Adaptive list and editor"
+      ],
+      "required_capabilities": [
+        "Preserve proposals and exact retained requests",
+        "Keyboard and touch operation"
+      ],
+      "ux_constraints_relevant_to_evaluation": [
+        "No duplicate UI/store path",
+        "No remount that discards proposals"
+      ],
+      "design_questions": [
+        "Separate pure presentation decisions from host/DOM effects",
+        "Integrate acknowledged display context with capability checks"
+      ],
+      "disqualifiers": [
+        "Alternate persistence or transitions",
+        "Discarded proposals during mode switches"
+      ]
+    },
+    {
+      "id": "candidate-icons",
+      "candidate": "Generated coherent icon artwork with production-size verification and accessible labeled controls",
+      "source": "explicit_user_input",
+      "proposed_for": [
+        "Navigation and action affordances"
+      ],
+      "required_capabilities": [
+        "Legible consistent symbols in both themes",
+        "Explicit names independent of image content"
+      ],
+      "ux_constraints_relevant_to_evaluation": [
+        "Icons do not substitute for essential labels"
+      ],
+      "design_questions": [
+        "Choose faithful production assets without external runtime fetches"
+      ],
+      "disqualifiers": [
+        "Unreadable raster shrinking",
+        "Meaning communicated only through color"
+      ]
+    }
+  ],
+  "decision_points": [
+    {
+      "id": "DP-DETAIL",
+      "decision_key": "detail-presentation",
+      "question": "How should action details appear?",
+      "layer": "presentation",
+      "subject": "default",
+      "consultation_policy": "may_default",
+      "contract_effect": "default",
+      "answer_status": "defaulted",
+      "validation_status": "required",
+      "options": [
+        {
+          "id": "OPT-DETAIL-1",
+          "label": "Adaptive editor",
+          "outcome": "Inline selected editor in narrow width; companion panel at broad width."
+        },
+        {
+          "id": "OPT-DETAIL-2",
+          "label": "Modal editor",
+          "outcome": "Open every action in a modal editor."
+        }
+      ],
+      "selected_option_ref": "OPT-DETAIL-1",
+      "user_impact": [
+        "Changes discoverability or layout without changing persisted action semantics."
+      ],
+      "affected_refs": [
+        "ALT-LIST"
+      ],
+      "recommendation": {
+        "option_ref": "OPT-DETAIL-1",
+        "basis": "planner_judgment",
+        "evidence_refs": [
+          "lib/widget.ts",
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "confidence": "medium",
+        "reversibility": "easy"
+      },
+      "provenance": {
+        "source": "planner_proposal",
+        "confidence": "provisional",
+        "evidence_refs": [
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "rationale": "A reversible design default within the user-authorized UI redesign."
+      }
+    },
+    {
+      "id": "DP-NAV",
+      "decision_key": "view-navigation",
+      "question": "How should view selection appear in a narrow surface?",
+      "layer": "presentation",
+      "subject": "default",
+      "consultation_policy": "may_default",
+      "contract_effect": "default",
+      "answer_status": "defaulted",
+      "validation_status": "required",
+      "options": [
+        {
+          "id": "OPT-NAV-1",
+          "label": "Named compact navigation",
+          "outcome": "Show selected view and reachable labeled alternatives with contained overflow."
+        },
+        {
+          "id": "OPT-NAV-2",
+          "label": "Icon rail",
+          "outcome": "Show an unlabeled rail whose icons require tooltips."
+        }
+      ],
+      "selected_option_ref": "OPT-NAV-1",
+      "user_impact": [
+        "Changes discoverability or layout without changing persisted action semantics."
+      ],
+      "affected_refs": [
+        "ALT-LIST"
+      ],
+      "recommendation": {
+        "option_ref": "OPT-NAV-1",
+        "basis": "planner_judgment",
+        "evidence_refs": [
+          "lib/widget.ts",
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "confidence": "medium",
+        "reversibility": "easy"
+      },
+      "provenance": {
+        "source": "planner_proposal",
+        "confidence": "provisional",
+        "evidence_refs": [
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "rationale": "A reversible design default within the user-authorized UI redesign."
+      }
+    },
+    {
+      "id": "DP-ICON",
+      "decision_key": "icon-labels",
+      "question": "How should generated icons communicate meaning?",
+      "layer": "presentation",
+      "subject": "default",
+      "consultation_policy": "may_default",
+      "contract_effect": "default",
+      "answer_status": "defaulted",
+      "validation_status": "required",
+      "options": [
+        {
+          "id": "OPT-ICON-1",
+          "label": "Icons with names",
+          "outcome": "Use coherent symbols alongside text; icon-only utilities have accessible names and discoverable hints."
+        },
+        {
+          "id": "OPT-ICON-2",
+          "label": "Icons alone",
+          "outcome": "Replace navigation text with symbolic controls."
+        }
+      ],
+      "selected_option_ref": "OPT-ICON-1",
+      "user_impact": [
+        "Changes discoverability or layout without changing persisted action semantics."
+      ],
+      "affected_refs": [
+        "ALT-LIST"
+      ],
+      "recommendation": {
+        "option_ref": "OPT-ICON-1",
+        "basis": "planner_judgment",
+        "evidence_refs": [
+          "lib/widget.ts",
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "confidence": "medium",
+        "reversibility": "easy"
+      },
+      "provenance": {
+        "source": "planner_proposal",
+        "confidence": "provisional",
+        "evidence_refs": [
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "rationale": "A reversible design default within the user-authorized UI redesign."
+      }
+    },
+    {
+      "id": "DP-META",
+      "decision_key": "technical-metadata",
+      "question": "Where should IDs and revisions be presented?",
+      "layer": "presentation",
+      "subject": "default",
+      "consultation_policy": "may_default",
+      "contract_effect": "default",
+      "answer_status": "defaulted",
+      "validation_status": "required",
+      "options": [
+        {
+          "id": "OPT-META-1",
+          "label": "Secondary details",
+          "outcome": "Put technical diagnostics in secondary details; show human saved/draft/result states prominently."
+        },
+        {
+          "id": "OPT-META-2",
+          "label": "Always visible",
+          "outcome": "Keep IDs and revision numbers on every row."
+        }
+      ],
+      "selected_option_ref": "OPT-META-1",
+      "user_impact": [
+        "Changes discoverability or layout without changing persisted action semantics."
+      ],
+      "affected_refs": [
+        "ALT-LIST"
+      ],
+      "recommendation": {
+        "option_ref": "OPT-META-1",
+        "basis": "planner_judgment",
+        "evidence_refs": [
+          "lib/widget.ts",
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "confidence": "medium",
+        "reversibility": "easy"
+      },
+      "provenance": {
+        "source": "planner_proposal",
+        "confidence": "provisional",
+        "evidence_refs": [
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "rationale": "A reversible design default within the user-authorized UI redesign."
+      }
+    }
+  ],
+  "critique_resolutions": [
+    {
+      "issue_ref": "native-independent-verifier-continuity-reachability",
+      "change_class": "preserve_modality_equivalence",
+      "disposition": "patch_contract",
+      "resulting_refs": [
+        "UAC-004",
+        "UAC-006",
+        "UAC-008"
+      ],
+      "provenance": {
+        "source": "critic_proposal",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "lib/ui/adapters/dom.js",
+          "native-independent-verifier-message"
+        ],
+        "rationale": "Clarify existing proposal continuity and keyboard reachability when filtering removes a row or modal review interacts with display/recovery. No new capability is introduced."
+      }
+    },
+    {
+      "issue_ref": "REQ-MODAL-001",
+      "change_class": "preserve_modality_equivalence",
+      "disposition": "patch_contract",
+      "resulting_refs": [
+        "UAC-006",
+        "UAC-008",
+        "UAC-010"
+      ],
+      "provenance": {
+        "source": "critic_proposal",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "/tmp/ariadne-ui-modern/requirements-verdict.json"
+        ],
+        "rationale": "Explicitly discriminate modal clipping, inaccessible recovery, unsafe Escape and filtered-out dirty proposals."
+      }
+    },
+    {
+      "issue_ref": "REQ-FLOW-002",
+      "change_class": "preserve_modality_equivalence",
+      "disposition": "patch_contract",
+      "resulting_refs": [
+        "F-004",
+        "UAC-004"
+      ],
+      "provenance": {
+        "source": "critic_proposal",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "/tmp/ariadne-ui-modern/requirements-verdict.json"
+        ],
+        "rationale": "Explicitly discriminate modal clipping, inaccessible recovery, unsafe Escape and filtered-out dirty proposals."
+      }
+    }
+  ],
+  "flows": [
+    {
+      "id": "F-001",
+      "name": "Browse and switch views",
+      "goal_refs": [
+        "goal-focus"
+      ],
+      "experience_contract_refs": [
+        "exp-1"
+      ],
+      "experience_closure_reason": "",
+      "steps": [
+        "[pointer/touch/keyboard/assistive-technology] Open normal and switch to Inbox, Flag, waiting and deferred."
+      ],
+      "acceptance_scenarios": [
+        {
+          "id": "UAC-001",
+          "contract_refs": [
+            "exp-1"
+          ],
+          "given": "The normal list contains active, on-hold, flagged and deferred actions with distinct titles.",
+          "when": "Open normal and switch to Inbox, Flag, waiting and deferred.",
+          "then": "The selected view is named, appropriate actions appear in saved relative order, and empty views explain that no actions match.",
+          "observations": {
+            "user_visible": [
+              "The selected view is named, appropriate actions appear in saved relative order, and empty views explain that no actions match."
+            ],
+            "assistive_technology": [
+              "Names, selection, status and errors are available to assistive technology; keyboard reaches the same outcome."
+            ]
+          },
+          "counterexample": "A modern restyle that hides on-hold or includes deferred in normal fails the observable memberships.",
+          "vs_legacy": "must-pass"
+        }
+      ]
+    },
+    {
+      "id": "F-002",
+      "name": "Open adaptive action details",
+      "goal_refs": [
+        "goal-edit"
+      ],
+      "experience_contract_refs": [
+        "exp-2"
+      ],
+      "experience_closure_reason": "",
+      "steps": [
+        "[pointer/touch/keyboard/assistive-technology] Select an action by pointer, touch or keyboard."
+      ],
+      "acceptance_scenarios": [
+        {
+          "id": "UAC-002",
+          "contract_refs": [
+            "exp-2"
+          ],
+          "given": "Several actions are visible and no action editor is open.",
+          "when": "Select an action by pointer, touch or keyboard.",
+          "then": "Its title, notes and secondary edits are reachable in a named detail area; other actions remain readable without exposing every editing field. Return to the list is discoverable.",
+          "observations": {
+            "user_visible": [
+              "Its title, notes and secondary edits are reachable in a named detail area; other actions remain readable without exposing every editing field. Return to the list is discoverable."
+            ],
+            "assistive_technology": [
+              "Names, selection, status and errors are available to assistive technology; keyboard reaches the same outcome."
+            ]
+          },
+          "counterexample": "Preserving the legacy wall of title fields, save buttons and technical IDs on every row fails the concise-row/on-demand-edit observation.",
+          "vs_legacy": "must-fail"
+        }
+      ]
+    },
+    {
+      "id": "F-003",
+      "name": "Capture exact original input",
+      "goal_refs": [
+        "goal-edit"
+      ],
+      "experience_contract_refs": [
+        "exp-3"
+      ],
+      "experience_closure_reason": "",
+      "steps": [
+        "[pointer/touch/keyboard/assistive-technology] Enter both and save; also try a blank title."
+      ],
+      "acceptance_scenarios": [
+        {
+          "id": "UAC-003",
+          "contract_refs": [
+            "exp-3"
+          ],
+          "given": "Inbox capture is available with user-supplied title and multiline original text.",
+          "when": "Enter both and save; also try a blank title.",
+          "then": "Valid input appears as an ordinary Inbox action with exact notes after confirmed save; blank title prompts correction without losing text. No invented deadline or tags appear.",
+          "observations": {
+            "user_visible": [
+              "Valid input appears as an ordinary Inbox action with exact notes after confirmed save; blank title prompts correction without losing text. No invented deadline or tags appear."
+            ],
+            "assistive_technology": [
+              "Names, selection, status and errors are available to assistive technology; keyboard reaches the same outcome."
+            ]
+          },
+          "counterexample": "An attractive capture form that clears text before confirmation, invents a title or normalizes raw notes fails.",
+          "vs_legacy": "must-pass"
+        }
+      ]
+    },
+    {
+      "id": "F-004",
+      "name": "Edit and preserve proposal",
+      "goal_refs": [
+        "goal-edit"
+      ],
+      "experience_contract_refs": [
+        "exp-4"
+      ],
+      "experience_closure_reason": "",
+      "steps": [
+        "[pointer/touch/keyboard/assistive-technology] Refresh or receive a conversation update, resize or switch supported display modes, then revisit the selected action. Include a host correction that completes or moves the selected action so it no longer matches the current view. Switch to another named view with dirty lifecycle/date/parent fields, then reopen the retained proposal."
+      ],
+      "acceptance_scenarios": [
+        {
+          "id": "UAC-004",
+          "contract_refs": [
+            "exp-4"
+          ],
+          "given": "An action has saved title, notes, parent, lifecycle, Due, Defer, order and direct Flag, and the user changes any combination of these fields without saving.",
+          "when": "Refresh or receive a conversation update, resize or switch supported display modes, then revisit the selected action. Include a host correction that completes or moves the selected action so it no longer matches the current view. Switch to another named view with dirty lifecycle/date/parent fields, then reopen the retained proposal.",
+          "then": "Every entered editing value remains visible with an unsaved label and saved context, including parent, lifecycle, Due and Defer proposals. The active editor remains open and meaningful input focus/caret remains usable when the same control remains available; narrower layout preserves access. Discarding requires explicit user action. Save review identifies actual changes and affected actions. If the selected action stops matching the view, a named retained-proposal entry still opens its saved context and unsaved values; no silent discard or mistaken current-view membership occurs.",
+          "observations": {
+            "user_visible": [
+              "Every entered editing value remains visible with an unsaved label and saved context, including parent, lifecycle, Due and Defer proposals. The active editor remains open and meaningful input focus/caret remains usable when the same control remains available; narrower layout preserves access. Discarding requires explicit user action. Save review identifies actual changes and affected actions. If the selected action stops matching the view, a named retained-proposal entry still opens its saved context and unsaved values; no silent discard or mistaken current-view membership occurs."
+            ],
+            "assistive_technology": [
+              "Names, selection, status and errors are available to assistive technology; keyboard reaches the same outcome."
+            ]
+          },
+          "counterexample": "The current DOM-only date/parent/lifecycle fields are recreated from saved values by refresh, losing entered proposals; preserving title/notes alone fails. Recreating the editor and unexpectedly losing focus, or clearing proposals on revision/Undo conflict, also fails. Preserving a draft invisibly while removing every route to its editor when the action leaves the view fails continuity.",
+          "vs_legacy": "must-fail"
+        }
+      ]
+    },
+    {
+      "id": "F-005",
+      "name": "Review lifecycle and dates",
+      "goal_refs": [
+        "goal-edit"
+      ],
+      "experience_contract_refs": [
+        "exp-5"
+      ],
+      "experience_closure_reason": "",
+      "steps": [
+        "[pointer/touch/keyboard/assistive-technology] Review parent completion, date-only Defer, release and withdrawal using named controls."
+      ],
+      "acceptance_scenarios": [
+        {
+          "id": "UAC-005",
+          "contract_refs": [
+            "exp-5"
+          ],
+          "given": "A parent contains a child with its own Defer; an unfinished action is on hold.",
+          "when": "Review parent completion, date-only Defer, release and withdrawal using named controls.",
+          "then": "Review exposes affected descendants and resolved local/UTC Defer; cancelling leaves saved state unchanged. On-hold, later visibility and deadline use distinct labels; withdrawal retains a restorable action.",
+          "observations": {
+            "user_visible": [
+              "Review exposes affected descendants and resolved local/UTC Defer; cancelling leaves saved state unchanged. On-hold, later visibility and deadline use distinct labels; withdrawal retains a restorable action."
+            ],
+            "assistive_technology": [
+              "Names, selection, status and errors are available to assistive technology; keyboard reaches the same outcome."
+            ]
+          },
+          "counterexample": "Changing a child date to match its parent, completing only the parent or treating on-hold as Defer fails.",
+          "vs_legacy": "must-pass"
+        }
+      ]
+    },
+    {
+      "id": "F-006",
+      "name": "Pending and unknown save recovery",
+      "goal_refs": [
+        "goal-recover"
+      ],
+      "experience_contract_refs": [
+        "exp-6"
+      ],
+      "experience_closure_reason": "",
+      "steps": [
+        "[pointer/touch/keyboard/assistive-technology] Wait for unknown feedback, check result, then retry the same request when still unconfirmed."
+      ],
+      "acceptance_scenarios": [
+        {
+          "id": "UAC-006",
+          "contract_refs": [
+            "exp-6"
+          ],
+          "given": "A reviewed write has been sent and its response is missing. The write originated from change review.",
+          "when": "Wait for unknown feedback, check result, then retry the same request when still unconfirmed.",
+          "then": "A persistent recovery area says the outcome is unknown, retains input, offers result checking and identical retry, and blocks conflicting writes. Confirmed recovery shows a single saved action; unobserved remains unknown. Once the outcome becomes unknown, the review does not obscure or trap focus away from recovery controls: the user reaches named result-check and identical-retry controls without losing the reviewed proposal.",
+          "observations": {
+            "user_visible": [
+              "A persistent recovery area says the outcome is unknown, retains input, offers result checking and identical retry, and blocks conflicting writes. Confirmed recovery shows a single saved action; unobserved remains unknown. Once the outcome becomes unknown, the review does not obscure or trap focus away from recovery controls: the user reaches named result-check and identical-retry controls without losing the reviewed proposal."
+            ],
+            "assistive_technology": [
+              "Names, selection, status and errors are available to assistive technology; keyboard reaches the same outcome."
+            ]
+          },
+          "counterexample": "Declaring failure, clearing input, creating a second operation or enabling competing writes fails. An obsolete review modal overlay that makes visible recovery controls unreachable fails even if those controls exist underneath it.",
+          "vs_legacy": "must-pass"
+        }
+      ]
+    },
+    {
+      "id": "F-007",
+      "name": "Conflict and Undo",
+      "goal_refs": [
+        "goal-recover"
+      ],
+      "experience_contract_refs": [
+        "exp-7"
+      ],
+      "experience_closure_reason": "",
+      "steps": [
+        "[pointer/touch/keyboard/assistive-technology] Try to save the earlier proposal or undo the prior operation."
+      ],
+      "acceptance_scenarios": [
+        {
+          "id": "UAC-007",
+          "contract_refs": [
+            "exp-7"
+          ],
+          "given": "Another entry saved a later correction to the action under edit or targeted by Undo.",
+          "when": "Try to save the earlier proposal or undo the prior operation.",
+          "then": "Conflict feedback preserves the latest correction and the proposal; the user can inspect/review again. Undo failure never replaces later target edits; unrelated edits remain.",
+          "observations": {
+            "user_visible": [
+              "Conflict feedback preserves the latest correction and the proposal; the user can inspect/review again. Undo failure never replaces later target edits; unrelated edits remain."
+            ],
+            "assistive_technology": [
+              "Names, selection, status and errors are available to assistive technology; keyboard reaches the same outcome."
+            ]
+          },
+          "counterexample": "Silently applying stale input or constructing an inverse edit that overwrites correction fails.",
+          "vs_legacy": "must-pass"
+        }
+      ]
+    },
+    {
+      "id": "F-008",
+      "name": "Switch sidebar and full display",
+      "goal_refs": [
+        "goal-display"
+      ],
+      "experience_contract_refs": [
+        "exp-8"
+      ],
+      "experience_closure_reason": "",
+      "steps": [
+        "[pointer/touch/keyboard/assistive-technology] Request full display and return to sidebar, including a rejected request. While review remains open, also receive a host-initiated mode change and resize or zoom the narrow surface."
+      ],
+      "acceptance_scenarios": [
+        {
+          "id": "UAC-008",
+          "contract_refs": [
+            "exp-8"
+          ],
+          "given": "The host advertises supported sidebar and full modes; an editor contains draft text and a recovery result may be pending. Include an open change-review dialog.",
+          "when": "Request full display and return to sidebar, including a rejected request. While review remains open, also receive a host-initiated mode change and resize or zoom the narrow surface.",
+          "then": "Supported requests keep the same selected view/action, proposal, review and recovery state. The mode label changes only after host acknowledgement/context; rejected requests retain previous mode and explain the failure. Narrow layout needs no page-wide horizontal scroll. From review, display switching remains reachable either within review or by a named Back action that returns to the retained proposal. Modal focus stays within its available controls; closing review returns focus to the invoking control or retained-proposal entry when the original row no longer exists. The entire preview and named Confirm/Back controls remain reachable by keyboard and touch, scrolling the review where needed without clipping. Host-initiated mode updates adapt the review without dismissing it or changing its content. Escape and Back cancel only review, leave every proposal unsaved and available, and return meaningful focus.",
+          "observations": {
+            "user_visible": [
+              "Supported requests keep the same selected view/action, proposal, review and recovery state. The mode label changes only after host acknowledgement/context; rejected requests retain previous mode and explain the failure. Narrow layout needs no page-wide horizontal scroll. From review, display switching remains reachable either within review or by a named Back action that returns to the retained proposal. Modal focus stays within its available controls; closing review returns focus to the invoking control or retained-proposal entry when the original row no longer exists. The entire preview and named Confirm/Back controls remain reachable by keyboard and touch, scrolling the review where needed without clipping. Host-initiated mode updates adapt the review without dismissing it or changing its content. Escape and Back cancel only review, leave every proposal unsaved and available, and return meaningful focus."
+            ],
+            "assistive_technology": [
+              "Names, selection, status and errors are available to assistive technology; keyboard reaches the same outcome."
+            ]
+          },
+          "counterexample": "CSS-only widening presented as successful host full mode, editor reset, hidden recovery or optimistic mode label fails. A focus-trapped review with no named return route, or closure that drops review content or sends focus to a removed row, fails. A preserved review whose Confirm/Back falls outside the reachable narrow or zoomed surface, or Escape which erases drafts or sends a write, fails.",
+          "vs_legacy": "must-fail"
+        }
+      ]
+    },
+    {
+      "id": "F-009",
+      "name": "Unsupported host and Web preview",
+      "goal_refs": [
+        "goal-display"
+      ],
+      "experience_contract_refs": [
+        "exp-9"
+      ],
+      "experience_closure_reason": "",
+      "steps": [
+        "[pointer/touch/keyboard/assistive-technology] Inspect the display affordance and resize the available surface."
+      ],
+      "acceptance_scenarios": [
+        {
+          "id": "UAC-009",
+          "contract_refs": [
+            "exp-9"
+          ],
+          "given": "The host does not advertise mode support, or the shared UI runs in standalone Web preview.",
+          "when": "Inspect the display affordance and resize the available surface.",
+          "then": "Unsupported host does not promise a working mode transition; available layout still adapts. Web full-window presentation is identified as Web presentation rather than ChatGPT sidebar capability.",
+          "observations": {
+            "user_visible": [
+              "Unsupported host does not promise a working mode transition; available layout still adapts. Web full-window presentation is identified as Web presentation rather than ChatGPT sidebar capability."
+            ],
+            "assistive_technology": [
+              "Names, selection, status and errors are available to assistive technology; keyboard reaches the same outcome."
+            ]
+          },
+          "counterexample": "An enabled full button that never responds, or claiming Web resize proves ChatGPT support, fails.",
+          "vs_legacy": "must-fail"
+        }
+      ]
+    },
+    {
+      "id": "F-010",
+      "name": "Accessible visual interaction",
+      "goal_refs": [
+        "goal-focus"
+      ],
+      "experience_contract_refs": [
+        "exp-10"
+      ],
+      "experience_closure_reason": "",
+      "steps": [
+        "[pointer/touch/keyboard/assistive-technology] Navigate views, open details, edit, review, cancel and recover without relying on hover."
+      ],
+      "acceptance_scenarios": [
+        {
+          "id": "UAC-010",
+          "contract_refs": [
+            "exp-10"
+          ],
+          "given": "The interface is in either theme, with keyboard, touch, screen reader or zoomed narrow layout. A preview dialog contains a long list of affected actions.",
+          "when": "Navigate views, open details, edit, review, cancel and recover without relying on hover.",
+          "then": "Named controls expose current selection, status changes and focus; dialogs restore meaningful focus. Icon artwork has coherent visual weight, accompanies names, remains legible in both themes, and does not duplicate spoken labels. All flows remain usable without color alone or animation. At narrow width and zoom, the whole review including Confirm and Back is reachable through scrolling and keyboard/touch; focus remains in the open modal, Escape or Back returns to the retained proposal without saving, and closure restores meaningful focus. Confirming followed by unknown outcome exposes usable recovery controls without a trapping modal.",
+          "observations": {
+            "user_visible": [
+              "Named controls expose current selection, status changes and focus; dialogs restore meaningful focus. Icon artwork has coherent visual weight, accompanies names, remains legible in both themes, and does not duplicate spoken labels. All flows remain usable without color alone or animation. At narrow width and zoom, the whole review including Confirm and Back is reachable through scrolling and keyboard/touch; focus remains in the open modal, Escape or Back returns to the retained proposal without saving, and closure restores meaningful focus. Confirming followed by unknown outcome exposes usable recovery controls without a trapping modal."
+            ],
+            "assistive_technology": [
+              "Names, selection, status and errors are available to assistive technology; keyboard reaches the same outcome."
+            ]
+          },
+          "counterexample": "Hover-only menus, unnamed icons, lost focus, clipped controls, duplicate spoken icon labels or decorative color-only statuses fail. Clipping Confirm/Back, trapping recovery behind an open modal, or Escape silently saving/discarding a draft fails.",
+          "vs_legacy": "must-fail"
+        }
+      ]
+    }
+  ],
+  "experience_contracts": [
+    {
+      "id": "exp-1",
+      "subject": "Browse and switch views",
+      "goal_refs": [
+        "goal-focus"
+      ],
+      "flow_refs": [
+        "F-001"
+      ],
+      "context_refs": [
+        "narrow",
+        "broad",
+        "light",
+        "dark"
+      ],
+      "interaction_rules": [
+        {
+          "condition": "The normal list contains active, on-hold, flagged and deferred actions with distinct titles.",
+          "outcome": "The selected view is named, appropriate actions appear in saved relative order, and empty views explain that no actions match.",
+          "rationale": "Connect the authorized redesign to observable continuity and failure discrimination."
+        }
+      ],
+      "observations": [
+        {
+          "phase": "entry",
+          "condition": "The normal list contains active, on-hold, flagged and deferred actions with distinct titles.",
+          "observable": "The normal list contains active, on-hold, flagged and deferred actions with distinct titles."
+        },
+        {
+          "phase": "exit",
+          "condition": "Open normal and switch to Inbox, Flag, waiting and deferred.",
+          "observable": "The selected view is named, appropriate actions appear in saved relative order, and empty views explain that no actions match."
+        }
+      ],
+      "phase_exclusions": [],
+      "invariants": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "scenario_refs": [
+        "UAC-001"
+      ],
+      "open_product_choices": []
+    },
+    {
+      "id": "exp-2",
+      "subject": "Open adaptive action details",
+      "goal_refs": [
+        "goal-edit"
+      ],
+      "flow_refs": [
+        "F-002"
+      ],
+      "context_refs": [
+        "narrow",
+        "broad",
+        "light",
+        "dark"
+      ],
+      "interaction_rules": [
+        {
+          "condition": "Several actions are visible and no action editor is open.",
+          "outcome": "Its title, notes and secondary edits are reachable in a named detail area; other actions remain readable without exposing every editing field. Return to the list is discoverable.",
+          "rationale": "Connect the authorized redesign to observable continuity and failure discrimination."
+        }
+      ],
+      "observations": [
+        {
+          "phase": "entry",
+          "condition": "Several actions are visible and no action editor is open.",
+          "observable": "Several actions are visible and no action editor is open."
+        },
+        {
+          "phase": "exit",
+          "condition": "Select an action by pointer, touch or keyboard.",
+          "observable": "Its title, notes and secondary edits are reachable in a named detail area; other actions remain readable without exposing every editing field. Return to the list is discoverable."
+        }
+      ],
+      "phase_exclusions": [],
+      "invariants": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "scenario_refs": [
+        "UAC-002"
+      ],
+      "open_product_choices": []
+    },
+    {
+      "id": "exp-3",
+      "subject": "Capture exact original input",
+      "goal_refs": [
+        "goal-edit"
+      ],
+      "flow_refs": [
+        "F-003"
+      ],
+      "context_refs": [
+        "narrow",
+        "broad",
+        "light",
+        "dark"
+      ],
+      "interaction_rules": [
+        {
+          "condition": "Inbox capture is available with user-supplied title and multiline original text.",
+          "outcome": "Valid input appears as an ordinary Inbox action with exact notes after confirmed save; blank title prompts correction without losing text. No invented deadline or tags appear.",
+          "rationale": "Connect the authorized redesign to observable continuity and failure discrimination."
+        }
+      ],
+      "observations": [
+        {
+          "phase": "entry",
+          "condition": "Inbox capture is available with user-supplied title and multiline original text.",
+          "observable": "Inbox capture is available with user-supplied title and multiline original text."
+        },
+        {
+          "phase": "exit",
+          "condition": "Enter both and save; also try a blank title.",
+          "observable": "Valid input appears as an ordinary Inbox action with exact notes after confirmed save; blank title prompts correction without losing text. No invented deadline or tags appear."
+        }
+      ],
+      "phase_exclusions": [],
+      "invariants": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "scenario_refs": [
+        "UAC-003"
+      ],
+      "open_product_choices": []
+    },
+    {
+      "id": "exp-4",
+      "subject": "Edit and preserve proposal",
+      "goal_refs": [
+        "goal-edit"
+      ],
+      "flow_refs": [
+        "F-004"
+      ],
+      "context_refs": [
+        "narrow",
+        "broad",
+        "light",
+        "dark"
+      ],
+      "interaction_rules": [
+        {
+          "condition": "An action has saved title, notes, parent, lifecycle, Due, Defer, order and direct Flag, and the user changes any combination of these fields without saving.",
+          "outcome": "Every entered editing value remains visible with an unsaved label and saved context, including parent, lifecycle, Due and Defer proposals. The active editor remains open and meaningful input focus/caret remains usable when the same control remains available; narrower layout preserves access. Discarding requires explicit user action. Save review identifies actual changes and affected actions. If the selected action stops matching the view, a named retained-proposal entry still opens its saved context and unsaved values; no silent discard or mistaken current-view membership occurs.",
+          "rationale": "Connect the authorized redesign to observable continuity and failure discrimination."
+        }
+      ],
+      "observations": [
+        {
+          "phase": "entry",
+          "condition": "An action has saved title, notes, parent, lifecycle, Due, Defer, order and direct Flag, and the user changes any combination of these fields without saving.",
+          "observable": "An action has saved title, notes, parent, lifecycle, Due, Defer, order and direct Flag, and the user changes any combination of these fields without saving."
+        },
+        {
+          "phase": "exit",
+          "condition": "Refresh or receive a conversation update, resize or switch supported display modes, then revisit the selected action. Include a host correction that completes or moves the selected action so it no longer matches the current view. Switch to another named view with dirty lifecycle/date/parent fields, then reopen the retained proposal.",
+          "observable": "Every entered editing value remains visible with an unsaved label and saved context, including parent, lifecycle, Due and Defer proposals. The active editor remains open and meaningful input focus/caret remains usable when the same control remains available; narrower layout preserves access. Discarding requires explicit user action. Save review identifies actual changes and affected actions. If the selected action stops matching the view, a named retained-proposal entry still opens its saved context and unsaved values; no silent discard or mistaken current-view membership occurs."
+        }
+      ],
+      "phase_exclusions": [],
+      "invariants": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "scenario_refs": [
+        "UAC-004"
+      ],
+      "open_product_choices": []
+    },
+    {
+      "id": "exp-5",
+      "subject": "Review lifecycle and dates",
+      "goal_refs": [
+        "goal-edit"
+      ],
+      "flow_refs": [
+        "F-005"
+      ],
+      "context_refs": [
+        "narrow",
+        "broad",
+        "light",
+        "dark"
+      ],
+      "interaction_rules": [
+        {
+          "condition": "A parent contains a child with its own Defer; an unfinished action is on hold.",
+          "outcome": "Review exposes affected descendants and resolved local/UTC Defer; cancelling leaves saved state unchanged. On-hold, later visibility and deadline use distinct labels; withdrawal retains a restorable action.",
+          "rationale": "Connect the authorized redesign to observable continuity and failure discrimination."
+        }
+      ],
+      "observations": [
+        {
+          "phase": "entry",
+          "condition": "A parent contains a child with its own Defer; an unfinished action is on hold.",
+          "observable": "A parent contains a child with its own Defer; an unfinished action is on hold."
+        },
+        {
+          "phase": "exit",
+          "condition": "Review parent completion, date-only Defer, release and withdrawal using named controls.",
+          "observable": "Review exposes affected descendants and resolved local/UTC Defer; cancelling leaves saved state unchanged. On-hold, later visibility and deadline use distinct labels; withdrawal retains a restorable action."
+        }
+      ],
+      "phase_exclusions": [],
+      "invariants": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "scenario_refs": [
+        "UAC-005"
+      ],
+      "open_product_choices": []
+    },
+    {
+      "id": "exp-6",
+      "subject": "Pending and unknown save recovery",
+      "goal_refs": [
+        "goal-recover"
+      ],
+      "flow_refs": [
+        "F-006"
+      ],
+      "context_refs": [
+        "narrow",
+        "broad",
+        "light",
+        "dark"
+      ],
+      "interaction_rules": [
+        {
+          "condition": "A reviewed write has been sent and its response is missing. The write originated from change review.",
+          "outcome": "A persistent recovery area says the outcome is unknown, retains input, offers result checking and identical retry, and blocks conflicting writes. Confirmed recovery shows a single saved action; unobserved remains unknown. Once the outcome becomes unknown, the review does not obscure or trap focus away from recovery controls: the user reaches named result-check and identical-retry controls without losing the reviewed proposal.",
+          "rationale": "Connect the authorized redesign to observable continuity and failure discrimination."
+        }
+      ],
+      "observations": [
+        {
+          "phase": "entry",
+          "condition": "A reviewed write has been sent and its response is missing. The write originated from change review.",
+          "observable": "A reviewed write has been sent and its response is missing. The write originated from change review."
+        },
+        {
+          "phase": "exit",
+          "condition": "Wait for unknown feedback, check result, then retry the same request when still unconfirmed.",
+          "observable": "A persistent recovery area says the outcome is unknown, retains input, offers result checking and identical retry, and blocks conflicting writes. Confirmed recovery shows a single saved action; unobserved remains unknown. Once the outcome becomes unknown, the review does not obscure or trap focus away from recovery controls: the user reaches named result-check and identical-retry controls without losing the reviewed proposal."
+        }
+      ],
+      "phase_exclusions": [],
+      "invariants": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "scenario_refs": [
+        "UAC-006"
+      ],
+      "open_product_choices": []
+    },
+    {
+      "id": "exp-7",
+      "subject": "Conflict and Undo",
+      "goal_refs": [
+        "goal-recover"
+      ],
+      "flow_refs": [
+        "F-007"
+      ],
+      "context_refs": [
+        "narrow",
+        "broad",
+        "light",
+        "dark"
+      ],
+      "interaction_rules": [
+        {
+          "condition": "Another entry saved a later correction to the action under edit or targeted by Undo.",
+          "outcome": "Conflict feedback preserves the latest correction and the proposal; the user can inspect/review again. Undo failure never replaces later target edits; unrelated edits remain.",
+          "rationale": "Connect the authorized redesign to observable continuity and failure discrimination."
+        }
+      ],
+      "observations": [
+        {
+          "phase": "entry",
+          "condition": "Another entry saved a later correction to the action under edit or targeted by Undo.",
+          "observable": "Another entry saved a later correction to the action under edit or targeted by Undo."
+        },
+        {
+          "phase": "exit",
+          "condition": "Try to save the earlier proposal or undo the prior operation.",
+          "observable": "Conflict feedback preserves the latest correction and the proposal; the user can inspect/review again. Undo failure never replaces later target edits; unrelated edits remain."
+        }
+      ],
+      "phase_exclusions": [],
+      "invariants": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "scenario_refs": [
+        "UAC-007"
+      ],
+      "open_product_choices": []
+    },
+    {
+      "id": "exp-8",
+      "subject": "Switch sidebar and full display",
+      "goal_refs": [
+        "goal-display"
+      ],
+      "flow_refs": [
+        "F-008"
+      ],
+      "context_refs": [
+        "narrow",
+        "broad",
+        "light",
+        "dark"
+      ],
+      "interaction_rules": [
+        {
+          "condition": "The host advertises supported sidebar and full modes; an editor contains draft text and a recovery result may be pending. Include an open change-review dialog.",
+          "outcome": "Supported requests keep the same selected view/action, proposal, review and recovery state. The mode label changes only after host acknowledgement/context; rejected requests retain previous mode and explain the failure. Narrow layout needs no page-wide horizontal scroll. From review, display switching remains reachable either within review or by a named Back action that returns to the retained proposal. Modal focus stays within its available controls; closing review returns focus to the invoking control or retained-proposal entry when the original row no longer exists. The entire preview and named Confirm/Back controls remain reachable by keyboard and touch, scrolling the review where needed without clipping. Host-initiated mode updates adapt the review without dismissing it or changing its content. Escape and Back cancel only review, leave every proposal unsaved and available, and return meaningful focus.",
+          "rationale": "Connect the authorized redesign to observable continuity and failure discrimination."
+        }
+      ],
+      "observations": [
+        {
+          "phase": "entry",
+          "condition": "The host advertises supported sidebar and full modes; an editor contains draft text and a recovery result may be pending. Include an open change-review dialog.",
+          "observable": "The host advertises supported sidebar and full modes; an editor contains draft text and a recovery result may be pending. Include an open change-review dialog."
+        },
+        {
+          "phase": "exit",
+          "condition": "Request full display and return to sidebar, including a rejected request. While review remains open, also receive a host-initiated mode change and resize or zoom the narrow surface.",
+          "observable": "Supported requests keep the same selected view/action, proposal, review and recovery state. The mode label changes only after host acknowledgement/context; rejected requests retain previous mode and explain the failure. Narrow layout needs no page-wide horizontal scroll. From review, display switching remains reachable either within review or by a named Back action that returns to the retained proposal. Modal focus stays within its available controls; closing review returns focus to the invoking control or retained-proposal entry when the original row no longer exists. The entire preview and named Confirm/Back controls remain reachable by keyboard and touch, scrolling the review where needed without clipping. Host-initiated mode updates adapt the review without dismissing it or changing its content. Escape and Back cancel only review, leave every proposal unsaved and available, and return meaningful focus."
+        }
+      ],
+      "phase_exclusions": [],
+      "invariants": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "scenario_refs": [
+        "UAC-008"
+      ],
+      "open_product_choices": []
+    },
+    {
+      "id": "exp-9",
+      "subject": "Unsupported host and Web preview",
+      "goal_refs": [
+        "goal-display"
+      ],
+      "flow_refs": [
+        "F-009"
+      ],
+      "context_refs": [
+        "narrow",
+        "broad",
+        "light",
+        "dark"
+      ],
+      "interaction_rules": [
+        {
+          "condition": "The host does not advertise mode support, or the shared UI runs in standalone Web preview.",
+          "outcome": "Unsupported host does not promise a working mode transition; available layout still adapts. Web full-window presentation is identified as Web presentation rather than ChatGPT sidebar capability.",
+          "rationale": "Connect the authorized redesign to observable continuity and failure discrimination."
+        }
+      ],
+      "observations": [
+        {
+          "phase": "entry",
+          "condition": "The host does not advertise mode support, or the shared UI runs in standalone Web preview.",
+          "observable": "The host does not advertise mode support, or the shared UI runs in standalone Web preview."
+        },
+        {
+          "phase": "exit",
+          "condition": "Inspect the display affordance and resize the available surface.",
+          "observable": "Unsupported host does not promise a working mode transition; available layout still adapts. Web full-window presentation is identified as Web presentation rather than ChatGPT sidebar capability."
+        }
+      ],
+      "phase_exclusions": [],
+      "invariants": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "scenario_refs": [
+        "UAC-009"
+      ],
+      "open_product_choices": []
+    },
+    {
+      "id": "exp-10",
+      "subject": "Accessible visual interaction",
+      "goal_refs": [
+        "goal-focus"
+      ],
+      "flow_refs": [
+        "F-010"
+      ],
+      "context_refs": [
+        "narrow",
+        "broad",
+        "light",
+        "dark"
+      ],
+      "interaction_rules": [
+        {
+          "condition": "The interface is in either theme, with keyboard, touch, screen reader or zoomed narrow layout. A preview dialog contains a long list of affected actions.",
+          "outcome": "Named controls expose current selection, status changes and focus; dialogs restore meaningful focus. Icon artwork has coherent visual weight, accompanies names, remains legible in both themes, and does not duplicate spoken labels. All flows remain usable without color alone or animation. At narrow width and zoom, the whole review including Confirm and Back is reachable through scrolling and keyboard/touch; focus remains in the open modal, Escape or Back returns to the retained proposal without saving, and closure restores meaningful focus. Confirming followed by unknown outcome exposes usable recovery controls without a trapping modal.",
+          "rationale": "Connect the authorized redesign to observable continuity and failure discrimination."
+        }
+      ],
+      "observations": [
+        {
+          "phase": "entry",
+          "condition": "The interface is in either theme, with keyboard, touch, screen reader or zoomed narrow layout. A preview dialog contains a long list of affected actions.",
+          "observable": "The interface is in either theme, with keyboard, touch, screen reader or zoomed narrow layout. A preview dialog contains a long list of affected actions."
+        },
+        {
+          "phase": "exit",
+          "condition": "Navigate views, open details, edit, review, cancel and recover without relying on hover.",
+          "observable": "Named controls expose current selection, status changes and focus; dialogs restore meaningful focus. Icon artwork has coherent visual weight, accompanies names, remains legible in both themes, and does not duplicate spoken labels. All flows remain usable without color alone or animation. At narrow width and zoom, the whole review including Confirm and Back is reachable through scrolling and keyboard/touch; focus remains in the open modal, Escape or Back returns to the retained proposal without saving, and closure restores meaningful focus. Confirming followed by unknown outcome exposes usable recovery controls without a trapping modal."
+        }
+      ],
+      "phase_exclusions": [],
+      "invariants": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7",
+        "C8"
+      ],
+      "scenario_refs": [
+        "UAC-010"
+      ],
+      "open_product_choices": []
+    }
+  ],
+  "ux_alternatives": [
+    {
+      "id": "ALT-LIST",
+      "primary_entry": "Current action list with visible capture and named view navigation",
+      "summary": "List-first workspace: concise rows; selecting an action opens details inline in narrow mode and in a companion panel at broad widths.",
+      "structural_dimensions": [
+        "Navigation topology: persistent named view selection",
+        "Change scope: one selected action editor rather than every action exposing edit controls"
+      ],
+      "provenance": {
+        "source": "planner_proposal",
+        "confidence": "provisional",
+        "evidence_refs": [
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "rationale": "A reversible design default within the user-authorized UI redesign."
+      }
+    },
+    {
+      "id": "ALT-CARDS",
+      "primary_entry": "Overview of state groups followed by action cards",
+      "summary": "Overview-first workspace: user selects a state group to enter a card collection, then opens an action editor as a separate focused screen.",
+      "structural_dimensions": [
+        "Primary entry: overview rather than action list",
+        "Navigation topology: overview > group > action screen"
+      ],
+      "provenance": {
+        "source": "planner_proposal",
+        "confidence": "provisional",
+        "evidence_refs": [
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "rationale": "A reversible design default within the user-authorized UI redesign."
+      }
+    }
+  ],
+  "alternative_comparison": {
+    "candidates": [
+      {
+        "alternative_ref": "ALT-LIST",
+        "source_draft": "draft-1",
+        "disposition": "selected",
+        "rationale": [
+          "Keeps the complete normal list immediately accessible, supporting focus without a new recommendation layer.",
+          "Retains familiar fixed scopes and minimizes navigation in a sidebar.",
+          "Adaptive details use extra width while preserving one shared UI."
+        ]
+      },
+      {
+        "alternative_ref": "ALT-CARDS",
+        "source_draft": "draft-2",
+        "disposition": "deferred",
+        "rationale": [
+          "Group entry adds a navigation step before seeing actions.",
+          "An overview competes with scarce sidebar space; richer summary is outside the requested existing action UI."
+        ]
+      }
+    ],
+    "selected_ref": "ALT-LIST",
+    "approval": "provisional",
+    "approved_by_user": false
+  },
+  "recommended_direction": [
+    {
+      "statement": "Proceed with ALT-LIST as a reversible implementation default: restrained surface hierarchy, consistent generated icons, labeled navigation and adaptive selected-action details.",
+      "decision_refs": [
+        "DP-DETAIL",
+        "DP-NAV",
+        "DP-ICON",
+        "DP-META"
+      ],
+      "provenance": {
+        "source": "planner_proposal",
+        "confidence": "provisional",
+        "evidence_refs": [
+          "user:modern-simple-intuitive-sidebar-full"
+        ],
+        "rationale": "A reversible design default within the user-authorized UI redesign."
+      }
+    },
+    {
+      "statement": "Provide a host mode affordance only when supported; actual acknowledged host context controls its visible state. Responsive width alone is not evidence that host full mode was entered.",
+      "decision_refs": [],
+      "provenance": {
+        "source": "repository_evidence",
+        "confidence": "confirmed",
+        "evidence_refs": [
+          "lib/ui/adapters/host.ts",
+          "app/board.tsx"
+        ],
+        "rationale": "Observed absence of existing mode support requires adapter design and protocol verification."
+      }
+    }
+  ],
+  "validation_questions": [
+    {
+      "question": "Can users identify scopes and secondary editing without hover-only knowledge?",
+      "decision_refs": [
+        "DP-NAV",
+        "DP-ICON"
+      ]
+    },
+    {
+      "question": "Does the adaptive editor remain reachable without page-wide horizontal scrolling in the sidebar and at zoom?",
+      "decision_refs": [
+        "DP-DETAIL"
+      ]
+    },
+    {
+      "question": "Are saved, unsaved, pending and conflict states distinguishable without technical metadata?",
+      "decision_refs": [
+        "DP-META"
+      ]
+    }
+  ],
+  "legacy_context": {
+    "source_implementation": "lib/widget.ts; lib/ui/adapters/dom.js; lib/ui/application.ts; app/board.tsx (working checkout observed 2026-10-03)",
+    "inherited_behaviors": [
+      "Current list membership, action semantics, exact capture, preview and receipt/replay/Undo guarantees"
+    ],
+    "replaced_behaviors": [
+      "All-row edit controls and technical metadata as primary presentation",
+      "No observed host display-mode affordance or mode-context handling",
+      "Refresh discards DOM-only parent, lifecycle, Due and Defer input; editor expansion/focus is not retained."
+    ]
+  },
+  "execution_evidence": {
+    "lane": "native subagent executing requirements Profile author methods directly",
+    "kernel_loop_acceptance": false,
+    "external_opencode_used": false,
+    "source_revision": "Working tree observation; no git revision obtained by this author",
+    "limitations": [
+      "Actual host mode API/capability shape must be checked against official protocol before implementation.",
+      "Actual host acceptance remains unexecuted; no user usability measurement is claimed.",
+      "Explore recommendation is a reversible delegated default, not a claimed explicit user selection."
+    ]
+  },
+  "followup_results": [
+    "Independent requirements assessment of this entire candidate",
+    "Technical design of host/display adapter and presentation state continuity",
+    "Implemented shared UI with generated icon assets and local check/build/DOM acceptance",
+    "Actual-host display and retrieval/cache acceptance if deployment is requested"
+  ],
+  "base_revision": "native-author-20261003-2"
+}

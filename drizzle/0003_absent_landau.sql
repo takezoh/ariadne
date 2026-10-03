@@ -1,0 +1,1 @@
+ALTER TABLE `owner_state` ADD `catalog_revision` integer DEFAULT 0 NOT NULL;

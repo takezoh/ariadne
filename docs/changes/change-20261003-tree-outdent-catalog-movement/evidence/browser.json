@@ -1,0 +1,30 @@
+[
+  {
+    "scenario": "action-root-end",
+    "oneWrite": true,
+    "exactDestination": true,
+    "noRootDropSpace": true,
+    "freshReadStable": true
+  },
+  {
+    "scenario": "project-root-end",
+    "oneWrite": true,
+    "exactDestination": true,
+    "noRootDropSpace": true,
+    "freshReadStable": true
+  },
+  {
+    "scenario": "project-before",
+    "oneWrite": true,
+    "exactDestination": true,
+    "noRootDropSpace": true,
+    "freshReadStable": true
+  },
+  {
+    "scenario": "tag-root-end",
+    "oneWrite": true,
+    "exactDestination": true,
+    "noRootDropSpace": true,
+    "freshReadStable": true
+  }
+]

@@ -1,0 +1,18 @@
+✔ empty creation retains frozen context and all proposals, validates receipt identity before clearing unknown (5.337079ms)
+✔ applied creation receipt recovers the exact ID and refreshes before focus, missing created row remains unavailable (0.989598ms)
+✔ saving marks only actual writes and scoped failed creation is not erased by an unrelated edit (1.501615ms)
+✔ failed catalog creation survives unrelated autosave and refresh until its matching intent is canceled (1.25036ms)
+✔ Add starts locally and notes-only content creates an ordinary action with exact original notes (190.65879ms)
+✔ header split Add consolidates creation and searchable pickers preserve UUID association and chip removal (162.625222ms)
+✔ header blank creation defers original IME and later explicit navigation cancels it (161.056748ms)
+✔ unknown header blank catalog retries exact request without pulling newer navigation back (184.766247ms)
+✔ all-view Add reveals ordinary active actions without altering display choices and never reuses an off-view selection (466.856834ms)
+✔ Action Add waits for original IME final text before serial creation (82.1435ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20945.622179

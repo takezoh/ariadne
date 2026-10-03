@@ -1,0 +1,18 @@
+{
+  "profile": "native implementation",
+  "kernelExecuted": false,
+  "selection": {
+    "single": "Plain row/title activation replaces selection and sets anchor",
+    "range": "Shift activation replaces selection with inclusive contiguous visible interval; no Ctrl/Cmd additive selection or row checkboxes",
+    "drag": "Dragging a row/title past six pixels moves the selected range if the source belongs to it; otherwise moves that one row. Interactive mutation controls are excluded. Touch grip remains available. Click after a completed drag is suppressed."
+  },
+  "dates": {
+    "due": "Native datetime-local picker; explicit client-zone conversion to UTC. Empty clears. Nonexistent/ambiguous DST time reports a recoverable input error without writing.",
+    "defer": "Native date picker keeps explicit client timezone and 09:00 domain resolution; datetime-local is converted to a UTC instant. Saved instants are displayed in client zone without writing on render."
+  },
+  "catalog": {
+    "locations": "Projects/Tags navigation plus selected-action classification controls",
+    "flow": "Plus exposes inline name and Create. Existing project_get_or_create/tag_get_or_create freezes name and operation ID; result.resolved.project/tag supplies the server UUID. Creation is one catalog write. Optional assignment follows full snapshot acceptance as a separate versioned autosave only when the captured classification still matches; never claimed atomic."
+  },
+  "retention": "Original action context and name retained through unknown/recovery/navigation; subsequent edits preserved; serial owner lane and explicit current write gates remain."
+}

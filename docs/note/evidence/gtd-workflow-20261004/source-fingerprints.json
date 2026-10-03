@@ -1,0 +1,10 @@
+{
+  "environment": "built Worker with existing Wrangler local D1 binding",
+  "sha256": {
+    "app/mcp/route.ts": "bdb344227b8dfcca33f38fffb6b100d5448de3a3d403edd9e9bb0a2674a07a45",
+    "lib/domain/operations.ts": "497335c4ba80e2fa6f4caa649ad3d044e07a238c6cadbba53e3ca1090dc25631",
+    "lib/domain/assistance.ts": "3141a1128c285f40983d78423f3005b0d26ec348b9066e5071495ffa1632b8cb",
+    "skills/action-tools/SKILL.md": "1888fc048528db91bb1a3cce605d12e26b0070c3858c3306d0da7020c329b891",
+    "skills/action-tools/references/operations.md": "e3700c02a0c4b4781a698697a05b1083d85e356f797529c52e5a6abf7af6209f"
+  }
+}

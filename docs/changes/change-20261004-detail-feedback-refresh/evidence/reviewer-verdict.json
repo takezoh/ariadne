@@ -1,0 +1,55 @@
+{
+  "verdict": "approved",
+  "stage": "final frozen bounded source and visual review",
+  "native_execution": true,
+  "kernel_receipt": null,
+  "independent_browser": "/tmp/detail-feedback/reviewer-visual.json",
+  "conditions": "320/390/1280 \u00d7 actual host theme light/dark",
+  "findings": [],
+  "confirmed": [
+    "Actual 24-hour HH:mm empty clock placeholders",
+    "Adjacent calendar errors with responsible-control aria-invalid and aria-describedby",
+    "No distant duplicate saveProblem/footer calendar error",
+    "Refresh stable accessible name plus live save status; errors not spinning",
+    "Lifecycle and orange Flag responsibility separated visibly; no horizontal overflow"
+  ],
+  "limits": [
+    "Independent six-condition real Chromium isolated memory fixture visuals plus static source review; not hosted D1 or actual ChatGPT host proof.",
+    "Root final pnpm check/build and built-resource gates remain separate."
+  ],
+  "hashes": {
+    "lib/ui/model/autosave.ts": "0c350d7dd06321148d129106443f8d7fc63e825d0eca7323d486d4809c3a4f08",
+    "lib/ui/model/catalog-drafts.ts": "cef17ce3d68547f4c62c5fa385c20327af3669b2f2e57fd18f2859281e12f218",
+    "lib/ui/model/date-input.ts": "ce0ed3b6ae9b661e845b3c35f4409abd506f12b4075a25bc3e09e9f4e11cf108",
+    "lib/ui/adapters/dom.js": "1e414683a91ed3a4d42fb7e87b54e756e9565dd4ddb893482feaaeab0d0786f1",
+    "lib/widget.ts": "6294f3c65994b7f642e21df943c44152d54d85db938babb1675f2e60d557b9fa",
+    "tests/ui/dom.test.mjs": "f3f4654958567b340cd2c91f867ea53ea6732834e0ceb4f19c000ad2871f8eda",
+    "tests/ui/date-input.test.mjs": "824a7348ed3415234489210eb6731e72f75d91030581fa73d70ea589bd1c05a1",
+    "scripts/testing/smoke-built-widget.mjs": "2f2d777374b8dc0f4c8a6f8e723fa8b714386f4b8c7a9a0568d27432d470ae10",
+    "ARCHITECTURE.md": "15cd4c02460e52efccd9fbcda373a681f391644ee0f9d9e2a435bdd5e0facb4b",
+    "/tmp/detail-feedback/widget.html": "716a72a13eaaf47205887d8c688ae8a8e05bdda28adf76266e0d8a812c6f28e3"
+  },
+  "resolved_findings": [
+    {
+      "id": "REFRESH-RIGHT",
+      "resolution": "Header action group margin-left:auto keeps final Refresh at actual right padding in both mobile widths.",
+      "proof": {
+        "320": 306,
+        "390": 370,
+        "1280": 1250
+      }
+    }
+  ],
+  "owner_validation": {
+    "ui_log": "/tmp/detail-feedback/ui-tests.log",
+    "pass": 135,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "typecheck": "/tmp/detail-feedback/typecheck.log",
+    "functional_browser": "/tmp/detail-feedback/browser.json",
+    "ownership": "Implementation owner executed functional suite. Reviewer did not duplicate full tests/check/build."
+  },
+  "refresh_contract": "Stable accessible name Refresh; one described polite live save status. Only actual saving animates and reduced-motion disables animation. Unknown retains check/retry controls and exact request. Read failure keeps explicit failure message without changing known save outcome."
+}

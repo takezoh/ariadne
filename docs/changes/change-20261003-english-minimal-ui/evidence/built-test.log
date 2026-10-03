@@ -1,0 +1,3 @@
+$ node scripts/testing/smoke-built-widget.mjs
+PASS built Worker HTML ui://ariadne/actions-v3.html
+PASS built Worker HTML ui://ariadne/actions-verification-v3.html

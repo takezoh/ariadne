@@ -1,0 +1,182 @@
+{
+  "events": [
+    {
+      "name": "pointermove",
+      "x": 727,
+      "y": 488.0899963378906,
+      "target": "b569d56e-821e-533f-8a2d-3435056a06de",
+      "hit": "b569d56e-821e-533f-8a2d-3435056a06de",
+      "hitTag": "<button type=\"button\" class=\"action-select\" aria-pressed=\"false\" data-focus-key=\"select:project:ad96d965-8d04-5b25-8f69-d2979fbbac69:action:b569d56e-821e-533f-8a2d-3435056a06de\"><s",
+      "primary": {
+        "x": 362,
+        "y": 475.59375,
+        "width": 730,
+        "height": 25,
+        "top": 475.59375,
+        "right": 1092,
+        "bottom": 500.59375,
+        "left": 362
+      }
+    },
+    {
+      "name": "pointerdown",
+      "x": 727,
+      "y": 488.0899963378906,
+      "target": "b569d56e-821e-533f-8a2d-3435056a06de",
+      "hit": "b569d56e-821e-533f-8a2d-3435056a06de",
+      "hitTag": "<button type=\"button\" class=\"action-select\" aria-pressed=\"false\" data-focus-key=\"select:project:ad96d965-8d04-5b25-8f69-d2979fbbac69:action:b569d56e-821e-533f-8a2d-3435056a06de\"><s",
+      "primary": {
+        "x": 362,
+        "y": 475.59375,
+        "width": 730,
+        "height": 25,
+        "top": 475.59375,
+        "right": 1092,
+        "bottom": 500.59375,
+        "left": 362
+      }
+    },
+    {
+      "name": "pointermove",
+      "x": 727,
+      "y": 627.0900268554688,
+      "target": "dc0352e1-ef60-52aa-ad6c-1ed40a946d61",
+      "hit": "dc0352e1-ef60-52aa-ad6c-1ed40a946d61",
+      "hitTag": "<button type=\"button\" class=\"action-select\" aria-pressed=\"false\" data-focus-key=\"select:project:ad96d965-8d04-5b25-8f69-d2979fbbac69:action:dc0352e1-ef60-52aa-ad6c-1ed40a946d61\"><s",
+      "primary": {
+        "x": 362,
+        "y": 614.59375,
+        "width": 730,
+        "height": 25,
+        "top": 614.59375,
+        "right": 1092,
+        "bottom": 639.59375,
+        "left": 362
+      }
+    },
+    {
+      "name": "dragstart",
+      "x": 727,
+      "y": 488,
+      "target": "b569d56e-821e-533f-8a2d-3435056a06de",
+      "hit": "b569d56e-821e-533f-8a2d-3435056a06de",
+      "hitTag": "<div class=\"action-row\" data-action-id=\"b569d56e-821e-533f-8a2d-3435056a06de\" data-occurrence-key=\"project:ad96d965-8d04-5b25-8f69-d2979fbbac69:action:b569d56e-821e-533f-8a2d-34350",
+      "primary": null
+    },
+    {
+      "name": "pointercancel",
+      "x": 0,
+      "y": 0,
+      "target": "dc0352e1-ef60-52aa-ad6c-1ed40a946d61",
+      "hit": null,
+      "hitTag": "<header><div class=\"brand\"><span class=\"brand-mark\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stro",
+      "primary": null
+    },
+    {
+      "name": "dragover",
+      "x": 727,
+      "y": 627,
+      "target": "dc0352e1-ef60-52aa-ad6c-1ed40a946d61",
+      "hit": "dc0352e1-ef60-52aa-ad6c-1ed40a946d61",
+      "hitTag": "<div class=\"action-row drop-inside\" data-action-id=\"dc0352e1-ef60-52aa-ad6c-1ed40a946d61\" data-occurrence-key=\"project:ad96d965-8d04-5b25-8f69-d2979fbbac69:action:dc0352e1-ef60-52a",
+      "primary": null
+    },
+    {
+      "name": "drop",
+      "x": 727,
+      "y": 627,
+      "target": "dc0352e1-ef60-52aa-ad6c-1ed40a946d61",
+      "hit": "dc0352e1-ef60-52aa-ad6c-1ed40a946d61",
+      "hitTag": "<div class=\"action-row drop-before\" data-action-id=\"dc0352e1-ef60-52aa-ad6c-1ed40a946d61\" data-occurrence-key=\"project:ad96d965-8d04-5b25-8f69-d2979fbbac69:action:dc0352e1-ef60-52a",
+      "primary": null
+    }
+  ],
+  "writes": [
+    {
+      "name": "apply_change",
+      "args": {
+        "schemaVersion": 2,
+        "operationId": "d5d74e67-82ac-4483-a1f0-71df37b25d69",
+        "expectedRevision": 1,
+        "kind": "action_move",
+        "payload": {
+          "ids": [
+            "b569d56e-821e-533f-8a2d-3435056a06de"
+          ],
+          "placement": "before",
+          "anchor_id": "dc0352e1-ef60-52aa-ad6c-1ed40a946d61"
+        }
+      }
+    }
+  ],
+  "ids": {
+    "focus-time": "7ae84247-6b47-5319-a555-2bc8e4108012",
+    "none": "bcbd0832-d473-5e67-9e0b-5d133606ac28",
+    "dropped": "7b97044c-5b9b-5a73-af23-7f1114ec8a11",
+    "personal": "72a2caa0-9024-5b18-9ca6-9d85033ff556",
+    "waiting": "34131647-967e-57f2-a580-48a92e5248e4",
+    "everything": "8a9f0fc2-fc50-5a12-825e-253c260cbc32",
+    "inbox-two": "229eb943-82c5-5789-b817-fce28908fe09",
+    "hold": "de5d3566-450d-57d8-9318-4fa2b60385cb",
+    "beta": "abca8c05-ed71-52c1-a08c-012a38e8f926",
+    "inbox": "486c1023-2dff-5de7-9d43-1eb01b651749",
+    "work": "ad96d965-8d04-5b25-8f69-d2979fbbac69",
+    "website": "e73328d6-3c9a-5360-8d8c-81c60c5e8488",
+    "review": "65c1116d-7cd9-5999-9c2f-94b70db78ff6",
+    "later": "c1eed24a-6507-5cc4-b671-0fd91255b258",
+    "gamma": "dc0352e1-ef60-52aa-ad6c-1ed40a946d61",
+    "inbox-three": "4d581bb6-2167-5033-bfd7-a88364e6651b",
+    "focus": "540d5170-7aa9-5eb8-9b48-c56353e69825",
+    "done": "84619746-d681-5e68-83ba-db266aeca168",
+    "alpha": "b569d56e-821e-533f-8a2d-3435056a06de",
+    "plan": "5b678128-6058-54a1-a1ab-ffcfc05e59d2",
+    "email": "3ff895fd-ed7d-5988-8a7e-81b58102e735"
+  },
+  "rows": [
+    {
+      "id": "5b678128-6058-54a1-a1ab-ffcfc05e59d2",
+      "y": 372.59375,
+      "h": 69.5
+    },
+    {
+      "id": "de5d3566-450d-57d8-9318-4fa2b60385cb",
+      "y": 442.09375,
+      "h": 69.5
+    },
+    {
+      "id": "abca8c05-ed71-52c1-a08c-012a38e8f926",
+      "y": 511.59375,
+      "h": 69.5
+    },
+    {
+      "id": "b569d56e-821e-533f-8a2d-3435056a06de",
+      "y": 581.09375,
+      "h": 69.5
+    },
+    {
+      "id": "dc0352e1-ef60-52aa-ad6c-1ed40a946d61",
+      "y": 650.59375,
+      "h": 69.5
+    },
+    {
+      "id": "65c1116d-7cd9-5999-9c2f-94b70db78ff6",
+      "y": 775.09375,
+      "h": 69.5
+    },
+    {
+      "id": "486c1023-2dff-5de7-9d43-1eb01b651749",
+      "y": 899.59375,
+      "h": 59
+    },
+    {
+      "id": "229eb943-82c5-5789-b817-fce28908fe09",
+      "y": 958.59375,
+      "h": 59
+    },
+    {
+      "id": "4d581bb6-2167-5033-bfd7-a88364e6651b",
+      "y": 1017.59375,
+      "h": 59
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "environment": "Built HTTP Worker with existing Wrangler local D1 binding",
+  "source_base": "7a216d126d22add295056621c80d946668dd28d3",
+  "gates": {
+    "pnpm check": {
+      "passed": true,
+      "tests": 217,
+      "failures": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "pnpm build": {
+      "passed": true
+    },
+    "pnpm test:ui:built": {
+      "passed": true,
+      "scope": "Built resource retrieval with mock-host DOM"
+    }
+  },
+  "review": "approved after preview validation fix",
+  "hosted_deployment": false,
+  "files_sha256": {
+    "app/mcp/route.ts": "bdb344227b8dfcca33f38fffb6b100d5448de3a3d403edd9e9bb0a2674a07a45",
+    "lib/domain/assistance.ts": "3141a1128c285f40983d78423f3005b0d26ec348b9066e5071495ffa1632b8cb",
+    "lib/domain/operations.ts": "497335c4ba80e2fa6f4caa649ad3d044e07a238c6cadbba53e3ca1090dc25631",
+    "skills/action-tools/SKILL.md": "1888fc048528db91bb1a3cce605d12e26b0070c3858c3306d0da7020c329b891",
+    "skills/action-tools/references/operations.md": "e3700c02a0c4b4781a698697a05b1083d85e356f797529c52e5a6abf7af6209f",
+    "tests/domain/action-model.test.mjs": "53ba8f602e41650cdd5d1868bc6927c1a4e280a032bbf079d5f2253779f84fe8",
+    "tests/ui/mcp-display.test.mjs": "b7569b85e6ae3c2489b968c703fc8eace63099e76c778e9facac4d651ec79b99"
+  }
+}

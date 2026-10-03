@@ -1,0 +1,445 @@
+- link "Skip to content":
+  - /url: "#_r_gh_"
+- main:
+  - button "Show sidebar":
+  - button "New chat":
+  - button "Confirm Ariadne save"
+  - button "Share":
+    - text: Share
+  - button "More":
+  - button "Toggle summary":
+  - heading "You said:" [level=4]
+  - generic: Save the following fictional task in Ariadne: “Test-only: Decide where to place the planter”. Would like to do this next week. reference https://example.com/garden . No due date has been set.
+  - button "Copy message":
+  - button "Worked for 37s":
+    - generic: Worked for 37s
+  - heading "ChatGPT said:" [level=4]
+  - paragraph: “Test-only: Decide where to place the planter” was saved in Ariadne.
+  - list:
+    - listitem: Preserve the preference to do this next week (10/5–10/11) in the notes
+    - listitem: Due date: Not set
+    - text: Reference:
+    - link "https://example.com/garden":
+      - /url: https://example.com/garden
+      - generic: https://example.com/garden
+  - button "Copy":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - heading "You said:" [level=4]
+  - generic: Tell me what I can work on now. Distinguish recommendations from all items in the normal list. I withdraw my intention to do the test-only planter task; it is not complete. Also, notify me if materials arrive from a fictional contact.
+  - button "Copy message":
+  - button "Worked for 38s":
+    - generic: Worked for 38s
+  - heading "ChatGPT said:" [level=4]
+  - paragraph:
+    - text: The planter task is
+    - strong: dropped
+    - text: It was not marked complete.
+  - paragraph:
+    - strong: Recommended to work on now: Check what to pack
+    - text: Prepare for the trip is due tomorrow, 10/3, at 18:00 Japan time, and is a prerequisite for Confirm reservation. Confirm reservation is deferred until tomorrow at 09:00 and is waiting for Check what to pack to be completed.
+  - paragraph:
+    - strong: All 10 items in the normal list
+    - text:  (including items not recommended)
+  - list:
+    - listitem: Check what to pack
+    - listitem: Prepare for the trip
+    - listitem: Test-only: Undo must not roll back unrelated changes
+    - listitem: Test-only: Preserve the latest correction
+    - listitem: Test-only: Would like to do this next week(not a deadline)
+    - listitem: aaaa
+    - listitem: Test-only: Simulated check for recovery after a meaning-judgment failure
+    - listitem: Test-only: Different correction with the same request ID
+    - listitem: Test-only: Missing response and identical retry
+    - listitem: Test-only: Missing response and result lookup
+  - paragraph: The garden concern is unsorted and no decision to act has been made, so it is not included in this list.
+  - paragraph:
+    - text: “Notify me if the materials arrive” was saved as an unsorted request.
+    - strong: Arrival monitoring and notifications are not configured
+    - text: . How should the fictional contact, materials, and place to check arrival be specified?
+  - button "Copy":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - heading "You said:" [level=4]
+  - generic: Do not set up monitoring or notifications. Explain how to clear the wait when I report that it arrived, within what is actually possible. Also open Ariadne’s dedicated UI.
+  - button "Copy message":
+  - button "Worked for 11s":
+    - generic: Worked for 11s
+  - generic "Ariadne · Work verification"
+  - status: Opened Ariadne
+  - button "Open app in tab":
+  - button "CSP off. Open developer settings": CSP off
+  - iframe:
+    - iframe [id="root"]:
+      - main:
+        - heading "Ariadne" [level=1]
+        - button "Refresh"
+        - textbox "New task"
+        - button "Add"
+        - generic "Save original input · Set time zone"
+        - status: Saved.
+        - navigation "Lists":
+          - button "Normal" [pressed]
+          - button "Deferred"
+          - button "Completed"
+          - button "Dropped"
+        - button "Undo the last change"
+        - paragraph: Unsorted concern or reference: Test-only: Notify me if materials arrive from a fictional contact. The contact, materials, and place to check arrival are unspecified.
+        - paragraph: Unsorted concern or reference: Test-only: I am concerned about tidying my family home, but have not decided how much to do. I would like to think about it next week. Reference https://example.com/notes is not a commitment.
+        - paragraph: Unsorted concern or reference: Test-only: I am concerned about tidying the garden, but have not decided how much to do. I have not decided to act yet.
+        - textbox "Task title"
+        - button "Save"
+        - generic: ID 3b8f8619-2bd5-45bb-870c-de7aa643a529 · task revision 7
+        - paragraph
+        - generic "Details · Edit"
+        - option "None" [selected]
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - option "None" [selected]
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - textbox "Task title"
+        - button "Save"
+        - generic: ID 3d7bf6a6-ecfa-471f-bb36-e72bbb12af10 · task revision 6
+        - paragraph: Due: 2026/10/3 18:00:00 Asia/Tokyo
+        - generic "Details · Edit"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - textbox "Task title"
+        - button "Save"
+        - generic: ID 3ddd2e2a-0d4f-42b5-86a7-67a383e2ad70 · task revision 5
+        - paragraph
+        - generic "Details · Edit"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - textbox "Task title"
+        - button "Save"
+        - generic: ID 4d7a58c3-0202-4e10-9117-bc5e17a00003 · task revision 7
+        - paragraph
+        - generic "Details · Edit"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - textbox "Task title"
+        - button "Save"
+        - generic: ID 51ef5540-b7ac-4877-a654-6c7dd9fbdfb4 · task revision 1
+        - paragraph
+        - generic "Details · Edit"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - textbox "Task title"
+        - button "Save"
+        - generic: ID 749b3660-bc98-4378-a5df-0458e63083b4 · task revision 5 · parent 3d7bf6a6-ecfa-471f-bb36-e72bbb12af10
+        - paragraph
+        - generic "Details · Edit"
+        - option "None"
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip" [selected]
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - textbox "Task title"
+        - button "Save"
+        - generic: ID 81ad1904-7696-49ac-9daf-94cfbe309c05 · task revision 1
+        - paragraph
+        - generic "Details · Edit"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - textbox "Task title"
+        - button "Save"
+        - generic: ID ae9cd678-7383-4a06-90f2-e1b9f69b36e0 · task revision 3
+        - paragraph
+        - generic "Details · Edit"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Missing response and identical retry"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - textbox "Task title"
+        - button "Save"
+        - generic: ID d50f43fd-a10f-4f64-bcf5-ece02c66e7a5 · task revision 1
+        - paragraph
+        - generic "Details · Edit"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and result lookup"
+        - option "Confirm reservation"
+        - textbox "Task title"
+        - button "Save"
+        - generic: ID df3f69bb-b9b3-49f9-847e-1a723ed4805b · task revision 1
+        - paragraph
+        - generic "Details · Edit"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Confirm reservation"
+        - option "None" [selected]
+        - option "Test-only: Undo must not roll back unrelated changes"
+        - option "Prepare for the trip"
+        - option "Test-only: Preserve the latest correction"
+        - option "Test-only: Consider the arrangement next week (UI correction)"
+        - option "aaaa"
+        - option "Check what to pack"
+        - option "Test-only: Completion does not reverse when a date arrives"
+        - option "Test-only: Simulated check for recovery after a meaning-judgment failure"
+        - option "Test-only: Different correction with the same request ID"
+        - option "Test-only: Missing response and identical retry"
+        - option "Confirm reservation"
+        - generic: Retrieved 2026/10/2 23:52:04 Asia/Tokyo · list revision 47 · Time zone Asia/Tokyo
+  - heading "ChatGPT said:" [level=4]
+  - paragraph: Opened Ariadne’s dedicated UI. Monitoring and notifications are not configured.
+  - paragraph: To clear the wait manually:
+  - list:
+    - listitem: Set the task’s waiting reason to “waiting for materials to arrive.”
+    - listitem: Tell me in the conversation, “The materials arrived. Clear the wait.”
+    - listitem: I will retrieve the latest state and clear the task’s waiting reason. The task remains incomplete and returns to the normal list if no other constraints apply.
+  - paragraph:
+    - text: The current request about the materials is
+    - strong: Saved as unsorted input; no waiting task has been created yet
+    - text: . This time, only an explanation and UI display were provided.
+  - button "Copy":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - heading "You said:" [level=4]
+  - generic: I corrected the name in the UI of the previously saved “Test-only: Would like to do this next week (not a deadline).” Retrieve and tell me its latest name and ID. Do not add or change anything.
+  - button "Copy message":
+  - button "Worked for 11s":
+    - generic: Worked for 11s
+  - heading "ChatGPT said:" [level=4]
+  - list:
+    - text: Latest name:
+    - strong: Test-only: Consider the arrangement next week (UI correction)
+    - listitem: ID: 4d7a58c3-0202-4e10-9117-bc5e17a00003
+  - paragraph: Verified against the latest saved state. Nothing was added or changed.
+  - button "Copy":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - generic: ChatGPT can make mistakes. Check important info.
+  - button "Scroll to bottom":
+  - heading "Latest response" [level=4]
+  - status
+  - textbox "Work with ChatGPT" [active]:
+    - paragraph: Work with ChatGPT
+  - button "Add files and more":
+  - button "Select ChatGPT model":
+    - generic: GPT-6.1 Sol
+    - generic: Light
+    - generic: None
+    - generic: Minimal
+    - generic: Light
+    - generic: Medium
+    - generic: High
+    - generic: Extra High
+    - generic: Max
+    - generic: Ultra
+    - generic: Persistent
+  - button "Dictate":
+  - button "Start Voice":
+  - heading [level=3]: Outputs
+  - button:
+  - button:
+    - generic: Create file or site
+- status
+- status
+- status: Response complete
+- status

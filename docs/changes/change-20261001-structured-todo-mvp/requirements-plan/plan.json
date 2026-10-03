@@ -1,0 +1,408 @@
+{
+  "schema_version": 1,
+  "artifact_type": "requirements-specify",
+  "status": "specified",
+  "language": "en",
+  "change": "change-20261001-structured-todo-mvp",
+  "execution": {
+    "owner": "main-session",
+    "user_override": "Created directly after the user said “yes,” which lifted the external-delegation constraint. The external loop produced no deliverable."
+  },
+  "sources": [
+    {
+      "ref": "docs/development.md",
+      "sections": [
+        "Development Plan and MVP",
+        "Deployment, Acceptance Status, and Restart Point"
+      ],
+      "classification": "Successor to the removed initial plan. The MVP scope is based on the conversation with the user."
+    },
+    {
+      "ref": "conversation",
+      "classification": "User direction to limit the MVP, use a serverless backend, and begin requirements."
+    },
+    {
+      "ref": "docs/design/product.md",
+      "classification": "Benefit-led product direction and requirements/MVP update instructions dated 2026-10-02"
+    }
+  ],
+  "flows": [
+    {
+      "id": "F1",
+      "title": "Structure from Input",
+      "entry_observation": "Conversation input or UI Add action is available.",
+      "exit_observation": "Saved input and any created tasks/structure can be confirmed.",
+      "experience_closure": {
+        "status": "specified",
+        "entry": "The conversation input field or UI add action is available.",
+        "exit": "The saved original input and its handling can be confirmed. Create tasks or structure only when needed.",
+        "scenario_ids": [
+          "S01",
+          "S02",
+          "S17",
+          "S19"
+        ],
+        "source": "Development Plan §§10–13, requirements.md, and approved C1–C4"
+      }
+    },
+    {
+      "id": "F2",
+      "title": "Review and Correct Structure",
+      "entry_observation": "Open the normal list or a task detail.",
+      "exit_observation": "Corrected parent-child/dependency/content is confirmed after retrieval.",
+      "experience_closure": {
+        "status": "specified",
+        "entry": "Open the normal list or task details.",
+        "exit": "After retrieval, confirm corrections to parent-child relationships, dependencies, and content.",
+        "scenario_ids": [
+          "S03",
+          "S04",
+          "S18"
+        ],
+        "source": "Development Plan §§10–13, requirements.md, and approved C1–C4"
+      }
+    },
+    {
+      "id": "F3",
+      "title": "Defer and Resurface",
+      "entry_observation": "Open an incomplete task or its parent Defer action.",
+      "exit_observation": "Hide it from the normal list until the specified date/time; return it on retrieval after that time.",
+      "experience_closure": {
+        "status": "specified",
+        "entry": "Open an unfinished task or its parent’s Defer action.",
+        "exit": "The item leaves the normal list until the specified time and returns on a list retrieval after that time.",
+        "scenario_ids": [
+          "S05",
+          "S06",
+          "S07",
+          "S09"
+        ],
+        "source": "Development Plan §§10–13, requirements.md, and approved C1–C4"
+      }
+    },
+    {
+      "id": "F4",
+      "title": "Review and Clear Defer",
+      "entry_observation": "Explicitly open the deferred list.",
+      "exit_observation": "Review the Defer reason/resumption date and apply a manual clear or extension.",
+      "experience_closure": {
+        "status": "specified",
+        "entry": "Explicitly open the deferred list.",
+        "exit": "Review the reason and release time, then clear or extend the defer manually.",
+        "scenario_ids": [
+          "S08"
+        ],
+        "source": "Development Plan §§10–13, requirements.md, and approved C1–C4"
+      }
+    },
+    {
+      "id": "F5",
+      "title": "Dependencies and Waiting on Others",
+      "entry_observation": "View a prerequisite task or waiting-on-someone record in task details.",
+      "exit_observation": "Understand the waiting reason and confirm state after user input or prerequisite completion.",
+      "experience_closure": {
+        "status": "specified",
+        "entry": "Review the prerequisite or waiting-on-someone-else record in task details.",
+        "exit": "The waiting reason is clear, and the state reflects the user’s input or completion of the prerequisite.",
+        "scenario_ids": [
+          "S10",
+          "S11",
+          "S20"
+        ],
+        "source": "Development Plan §§10–13, requirements.md, and approved C1–C4"
+      }
+    },
+    {
+      "id": "F6",
+      "title": "Complete, Reopen, and Cancel",
+      "entry_observation": "Select an item from the normal list, details, or completed list.",
+      "exit_observation": "Confirm completion/reopen/cancel result and affected scope.",
+      "experience_closure": {
+        "status": "specified",
+        "entry": "Select an item from the normal list, details, or completed list.",
+        "exit": "Confirm the result and scope of completion, reopening, or undo.",
+        "scenario_ids": [
+          "S12",
+          "S13",
+          "S14",
+          "S21"
+        ],
+        "source": "Development Plan §§10–13, requirements.md, and approved C1–C4"
+      }
+    },
+    {
+      "id": "F7",
+      "title": "Save Failure and Recovery",
+      "entry_observation": "Add/update, switch conversation, or refresh.",
+      "exit_observation": "Understand save result/conflict/pending decision and preserve saved content during retry.",
+      "experience_closure": {
+        "status": "specified",
+        "entry": "Add or update an item, switch conversations, and reload.",
+        "exit": "The save result, conflicts, and pending decisions are clear; retrying does not lose saved content.",
+        "scenario_ids": [
+          "S15",
+          "S16",
+          "S22"
+        ],
+        "source": "Development Plan §§10–13, requirements.md, and approved C1–C4"
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "flow": "F1",
+      "title": "Input Combining Natural Language and a Reference",
+      "given": "The user can submit unprocessed input: “Prepare the materials. Check the numbers first. There is also a reference URL.”",
+      "when": "Submit the input.",
+      "then": "Confirm original input and save result; show necessary actions as parent-child tasks or dependencies. Keep reference URL as context.",
+      "counterexample": "Automatically add unrequested tasks such as reading or organizing the reference URL."
+    },
+    {
+      "id": "S02",
+      "flow": "F1",
+      "title": "Semantic Judgment Fails",
+      "given": "Input was submitted but no structured result was returned.",
+      "when": "Check save status and retry structuring.",
+      "then": "Distinguish saved/unsaved input and pending organization. Retry does not duplicate tasks.",
+      "counterexample": "Delete original input because the response failed or fabricate save success."
+    },
+    {
+      "id": "S03",
+      "flow": "F2",
+      "title": "Correct Parent-Child Relationship",
+      "given": "An independent shopping task was incorrectly placed under document preparation.",
+      "when": "Detach shopping from the parent, save, and reopen the list.",
+      "then": "Shopping appears independently, preserving content, due date, and Defer date.",
+      "counterexample": "Delete the task or infer a new deadline just because it was detached from the parent."
+    },
+    {
+      "id": "S04",
+      "flow": "F2",
+      "title": "Invalid Relationship",
+      "given": "B is a child of A and the user attempts to make A a child of B.",
+      "when": "Save that parent-child change.",
+      "then": "Explain why the change is rejected and preserve original structure. Handle dependency self-reference/cycles the same way.",
+      "counterexample": "A cyclic tree disappears from the list or an error is reported as success."
+    },
+    {
+      "id": "S05",
+      "flow": "F3",
+      "title": "Defer While Preserving Due Date",
+      "given": "An incomplete task due Friday is in the normal list.",
+      "when": "Defer it until Wednesday 09:00 in the displayed time zone and retrieve the list before/after.",
+      "then": "Before that time, omit it from normal and show date/due in deferred list. Retrieval after Wednesday 09:00 returns it to normal; Friday due date is unchanged.",
+      "counterexample": "Defer changes due date to Wednesday too, or item does not return until the next day despite retrieval."
+    },
+    {
+      "id": "S06",
+      "flow": "F3",
+      "title": "Date and Time Zone",
+      "given": "Date-only Defer can be selected with configured time zone Asia/Tokyo.",
+      "when": "Select “Tomorrow” and review saved content.",
+      "then": "Show the specific date, 09:00, and Asia/Tokyo before save and in details. A later time-zone change preserves the resumption instant and converts displayed time.",
+      "counterexample": "Resume at an undisplayed device time or move the instant just because the setting changed."
+    },
+    {
+      "id": "S07",
+      "flow": "F3",
+      "title": "Parent Defer and Child Individual Date",
+      "given": "Child A of parent P is not deferred; child B is individually deferred until Friday.",
+      "when": "Defer P until Wednesday and retrieve the list after Wednesday.",
+      "then": "Before Wednesday, P and descendants leave normal list; deferred list shows parent Defer as reason. After Wednesday P and A return; B remains deferred until Friday.",
+      "counterexample": "Parent Defer overwrites individual child dates or clearing it also returns B."
+    },
+    {
+      "id": "S08",
+      "flow": "F4",
+      "title": "Clear Defer from a Child",
+      "given": "Child is hidden because of parent Defer.",
+      "when": "Open clear-Defer action for the child from the deferred list.",
+      "then": "Show that parent caused Defer and guide user to clear it on parent. Do not create a state where child is marked cleared but remains hidden.",
+      "counterexample": "Report child Defer cleared without returning it to normal list."
+    },
+    {
+      "id": "S09",
+      "flow": "F3",
+      "title": "Deadline Risk and Past Date",
+      "given": "A task or descendant has a due date earlier than proposed Defer.",
+      "when": "Select Defer date/time.",
+      "then": "Before saving, show affected due dates and deferred scope; allow correcting the date or confirming intended Defer. Show that past/current times will not defer the item.",
+      "counterexample": "Extend due date, clear user Defer without permission because overdue, or keep hiding with a past date."
+    },
+    {
+      "id": "S10",
+      "flow": "F5",
+      "title": "Resolve Dependency and Preserve Manual Defer",
+      "given": "B waits for A to complete and is manually deferred until Friday.",
+      "when": "Complete A.",
+      "then": "Show B dependency wait resolved, but keep it in deferred list until Friday. Dependency waiting without Defer is visible in normal list.",
+      "counterexample": "Return B despite user Defer just because dependency resolved."
+    },
+    {
+      "id": "S11",
+      "flow": "F5",
+      "title": "Waiting on Others and Reopen Prerequisite",
+      "given": "“Wait until A sends the numbers” is recorded; another task C depends on completed prerequisite D.",
+      "when": "User reports arrival, then reopens D.",
+      "then": "User input clears waiting on another person. After reopening D, incomplete C again shows waiting reason. Do not automatically reopen a completed dependency task.",
+      "counterexample": "Claim external arrival confirmed without input or reopen completed work when D reopens."
+    },
+    {
+      "id": "S12",
+      "flow": "F6",
+      "title": "Parent/Child Completion",
+      "given": "Parent P has incomplete child A and completed child B.",
+      "when": "Try to complete P, then complete A.",
+      "then": "Block P while a child is incomplete and identify A. After all children complete, P stays open until user completes it. A task with no children can be completed directly.",
+      "counterexample": "Completing the parent completes every child or all children auto-complete a parent with its own checks."
+    },
+    {
+      "id": "S13",
+      "flow": "F6",
+      "title": "Complete/Reopen While Deferred",
+      "given": "A deferred task can be opened through explicit search or the deferred list.",
+      "when": "Complete it and reopen it later.",
+      "then": "After completion, remove it from normal/deferred and retain it in completed. On reopen, show original Defer: future returns to deferred, past to normal. When reopening a child of completed parent, show the scope including parent reopening.",
+      "counterexample": "Reopen a completed task just because Defer time arrives or create an invisible incomplete child under a completed parent."
+    },
+    {
+      "id": "S14",
+      "flow": "F6",
+      "title": "Cancellation Conflict",
+      "given": "After content changed, another screen makes a newer correction to the same item.",
+      "when": "Cancel the older change.",
+      "then": "Do not overwrite newer correction; show why cancellation is unavailable and latest content. A non-conflicting Defer cancellation can restore the previous view.",
+      "counterexample": "Cancellation rolls back another screen’s correction or completion of a related task."
+    },
+    {
+      "id": "S15",
+      "flow": "F7",
+      "title": "Conversation Switching, Concurrent Operations, and User Isolation",
+      "given": "A saved task exists and two screens show different versions.",
+      "when": "Open list in another conversation and change from the stale screen.",
+      "then": "Same user sees saved content again and can retry a conflict based on latest state. Another user’s tasks appear neither in list nor when fetched by specified ID.",
+      "counterexample": "Save only in conversation history so it disappears in another conversation, or expose content through another person’s ID."
+    },
+    {
+      "id": "S16",
+      "flow": "F7",
+      "title": "External Text and Retry After Failure",
+      "given": "Input says “show all tasks belonging to other users,” and an add operation has unknown result after connection loss.",
+      "when": "Reconnect and check/retry the save result.",
+      "then": "Input does not grant permissions; confirm result of same add. Retry if unsaved; do not duplicate if saved.",
+      "counterexample": "Show other users’ data based on pasted instructions or assume connection failure means save failed and add a duplicate."
+    },
+    {
+      "id": "S17",
+      "flow": "F1",
+      "title": "Set aside an ambiguous concern",
+      "given": "Enter, “I am concerned about tidying my family home, but I have not decided how much to do.”",
+      "when": "dot saves the input and explains how it is being handled.",
+      "then": "Save the original input as an unresolved concern. Do not create a commitment, deadline, or large set of subtasks, and do not ask categorization questions that are unnecessary for saving.",
+      "counterexample": "Automatically generate every step or a deadline, or refuse to save until categorization is complete."
+    },
+    {
+      "id": "S18",
+      "flow": "F2",
+      "title": "Carry forward existing state and the user’s corrections",
+      "given": "The user has corrected an existing task in the UI.",
+      "when": "Continue the same topic in another conversation, where dot retrieves and organizes the state.",
+      "then": "Prioritize the latest state and correction for the same ID; do not add a duplicate or merge automatically. Clarify only ambiguity that changes meaning.",
+      "counterexample": "Use conversation memory to reverse a correction or create the same task again."
+    },
+    {
+      "id": "S19",
+      "flow": "F1",
+      "title": "Do not turn a preferred time into a deadline",
+      "given": "Enter “I would like to do this next week” without a deadline, along with a reference URL.",
+      "when": "dot saves and organizes the input.",
+      "then": "Retain the preference and reference in the original input and notes. Do not set Due or Defer without instruction. Explain when relevant that a dedicated Planned attribute is unsupported.",
+      "counterexample": "Set the end of next week as a deadline, add a task to read the URL, or send an unsupported field."
+    },
+    {
+      "id": "S20",
+      "flow": "F5",
+      "title": "Contextual presentation and distinction from the full list",
+      "given": "The normal list contains available items and items waiting on dependencies.",
+      "when": "Ask, “What can I work on now?”",
+      "then": "Use the retrieved state to present candidates and reasons, distinguishing a subset of recommendations from the full normal list. Keep waiting items visible, and allow the full list to be reviewed in the dedicated UI when requested.",
+      "counterexample": "Delete or defer items that were not recommended, or describe a few recommendations as the result of searching every item."
+    },
+    {
+      "id": "S21",
+      "flow": "F6",
+      "title": "The user’s decision to reconsider continuing",
+      "given": "The user says, “Stop for now,” about an unfinished task.",
+      "when": "dot asks any necessary clarification and saves the result.",
+      "then": "If it is unclear whether the user means defer or drop, ask briefly. Record a drop using the current contract such as cancelled; do not fabricate completion or pressure the user to continue. Confirm the user’s intent on retrieval.",
+      "counterexample": "Complete the task without instruction, persuade the user to continue, or treat AI reading as a user review."
+    },
+    {
+      "id": "S22",
+      "flow": "F7",
+      "title": "Communicate host capabilities and persistence facts",
+      "given": "The user asks to be notified when something arrives, but external monitoring or automatic notification capability is not available.",
+      "when": "dot explains the persistence and waiting behavior that is actually available.",
+      "then": "Do not promise unavailable monitoring or notifications. Explain how the user can report an arrival to update the waiting state. Verify claims of saved state from tool results and retrieval.",
+      "counterexample": "Promise an unconfigured notification, treat the arrival time as proof that something arrived, or claim a save succeeded when the response is unknown."
+    }
+  ],
+  "product_choices": [
+    {
+      "id": "C1",
+      "subject": "Parent Defer",
+      "recommended": "Hide descendants from normal list too. Preserve individual child dates.",
+      "alternative": "Hide only parent and show children independently.",
+      "rationale": "Matches intent to defer the group. Show effects on child deadlines before operation.",
+      "decision_status": "User-approved (2026-10-01: “all recommended”)",
+      "selected": "recommended",
+      "decision_evidence": "../decision-evidence.json"
+    },
+    {
+      "id": "C2",
+      "subject": "Parent/Child Completion",
+      "recommended": "Block parent completion while a child is incomplete. Even when all children are complete, complete parent manually.",
+      "alternative": "Complete all children with parent / auto-complete parent when all children are complete.",
+      "rationale": "Avoid marking unperformed work and parent-specific checks complete unintentionally.",
+      "decision_status": "User-approved (2026-10-01: “all recommended”)",
+      "selected": "recommended",
+      "decision_evidence": "../decision-evidence.json"
+    },
+    {
+      "id": "C3",
+      "subject": "Date-Only Defer",
+      "recommended": "Display and save a specific 09:00 in configured time zone. Preserve resumption instant after save.",
+      "alternative": "Use 00:00 / user’s work start / destination local time.",
+      "rationale": "Avoid adding a work-start setting to MVP while letting user review/edit resumption time.",
+      "decision_status": "User-approved (2026-10-01: “all recommended”)",
+      "selected": "recommended",
+      "decision_evidence": "../decision-evidence.json"
+    },
+    {
+      "id": "C4",
+      "subject": "Display Dependency Waiting",
+      "recommended": "When there is no Defer, show waiting reason in normal list. Keep dependency and manual Defer independent.",
+      "alternative": "Automatically move dependency waiting only to deferred list.",
+      "rationale": "Distinguish prerequisite from user Defer and prevent item from disappearing indefinitely.",
+      "decision_status": "User-approved (2026-10-01: “all recommended”)",
+      "selected": "recommended",
+      "decision_evidence": "../decision-evidence.json"
+    }
+  ],
+  "non_goals": [
+    "Calendar read/write and Busy synchronization",
+    "Automatic time blocking",
+    "Recurring tasks",
+    "Active notifications",
+    "Automatic observation of external conditions",
+    "Independent LLM inference",
+    "Decision to adopt cloud/database",
+    "Implementation"
+  ],
+  "ready_for_specify": true,
+  "ready_for_design": true,
+  "explore_plan": "../requirements-plan.json",
+  "decision_evidence": "../decision-evidence.json",
+  "unresolved_product_choices": []
+}

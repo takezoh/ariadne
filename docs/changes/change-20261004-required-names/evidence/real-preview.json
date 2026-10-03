@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "blocked_write_attempts": [],
+  "cases": [
+    "Notes-only Action waits without persistence",
+    "Project temporary Add",
+    "Tag temporary Add"
+  ],
+  "host": "local real Worker Web preview"
+}

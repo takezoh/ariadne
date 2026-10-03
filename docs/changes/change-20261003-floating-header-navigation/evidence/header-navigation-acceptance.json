@@ -1,0 +1,64 @@
+{
+  "profile": "native requirements and independent boundary reviewer",
+  "language": "English product copy",
+  "status": "proposed acceptance contract",
+  "scenarios": [
+    {
+      "id": "H-001",
+      "given": "Any supported viewport and current builtin or saved perspective",
+      "when": "Open the header current-view name/icon button",
+      "then": "A floating navigation menu lists all builtins and saved perspectives, clearly marks the current item, and can switch to each. Persistent sidebar and mobile scope select are absent. Missing saved perspective remains explicitly unavailable; no silent Inbox fallback."
+    },
+    {
+      "id": "H-002",
+      "given": "Projects, Tags or Flagged with an existing Defer filter",
+      "when": "Open the compact Defer popup and choose an option",
+      "then": "The existing exact not-deferred/deferred/all projection applies; current option is visible and announced. Close/Escape/outside click returns sensible trigger focus and does not change selection. History status and perspective filters retain their existing meanings; no hidden additional restriction."
+    },
+    {
+      "id": "H-003",
+      "given": "Header at390/1280, inspector open, narrow zoom or fullscreen/inline",
+      "when": "Operate Refresh or navigation/filter/Add popovers by pointer and keyboard",
+      "then": "Refresh displays only an icon with accessible name Refresh. Header remains visible and controls/popovers reachable without horizontal overflow; popup roles/expanded state and focus match actual behavior; Escape closes active popup and retains drafts."
+    },
+    {
+      "id": "H-004",
+      "given": "Any page with Add split menu available",
+      "when": "Choose Project or Tag",
+      "then": "Navigate to corresponding full Project/Tag tree and immediately show inline catalog creation with name focus. Same-kind selected catalog may be frozen as explicit parent context using existing semantics; otherwise root creation. Cancel performs no write. This navigation performs no implicit Action Project/Tag assignment."
+    },
+    {
+      "id": "H-005",
+      "given": "Primary Add Action in a determinable current classification context",
+      "when": "Click primary Add",
+      "then": "Existing empty Action atomic creation, exact context and generated-ID selection remain. Deferred-only or ambiguous aggregate/perspective context stays unavailable according to current policy; catalog menu choices do not overwrite primary Action context before explicitly choosing them."
+    },
+    {
+      "id": "H-006",
+      "given": "Dirty raw Action/catalog text, partial date, IME composition, unknown outcome or frozen pending creation",
+      "when": "Open/switch/close header menus, Refresh, or navigate for catalog creation",
+      "then": "All local proposals and composition survive; queued requests retain captured context and exact operation IDs; unknown lookup/replay remains reachable without duplicate writes or losing newer text. Busy/unknown blocks mutation only as current contract requires."
+    },
+    {
+      "id": "H-007",
+      "given": "Action or catalog tree with nested final child",
+      "when": "Drag through row or bounded left gutter, including center-left and final+8px band",
+      "then": "Existing exact type-specific containment/classification/root-end and Shift-only contiguous selection remain; overlays intercept their own hit region, navigation/header/editor never become drop destinations."
+    }
+  ],
+  "counterexamples": [
+    "Floating menu that omits saved perspectives or changes {} / statuses[] filter semantics fails.",
+    "CSS-hidden sidebar/select whose code still steals focus on close or inaccessible navigation fails.",
+    "Icon-only Refresh without accessible name fails.",
+    "Add Project/Tag opening composer in old page without switching tree fails.",
+    "Catalog creation silently assigns original selected Action after navigation fails.",
+    "Choosing catalog menu item causes a write before user supplies name or on cancel fails.",
+    "Open popup pushes tree rows and changes exact native drag destination fails.",
+    "Menu render destroys focused field/caret/composition or exact unknown operation fails."
+  ],
+  "implementation_boundary": "Presentation/navigation composition only; pure existing filter and backend mutation contracts unchanged. Source readonly; no Git or deployment.",
+  "execution": {
+    "placement": "native subagent",
+    "kernel_receipt": false
+  }
+}

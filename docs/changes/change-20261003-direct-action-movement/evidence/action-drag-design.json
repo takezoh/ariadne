@@ -1,0 +1,94 @@
+{
+  "profile": "native design",
+  "status": "candidate awaiting independent review; source unchanged",
+  "userOutcome": "Minimal inspector status/icon + Project/Tags assignment, orange Flag, and direct list drag/reorder/reparent with multi-selection. Parent/Order text controls are removed.",
+  "facts": {
+    "currentOrder": "Pure orderedActions sorts children by order/id; roots sort by project_id then order/id. Child sibling groups are parent_id only; root sibling groups additionally separate project_id.",
+    "currentWrites": "Existing edit changes one action parent/order; action_project and action_tag already assign classifications. Existing delta/owner CAS batch/receipt/Undo support multiple changed action rows. No move operation exists.",
+    "containment": "Parent-child only, independent Project/Tag classification. Moving must not copy or inherit Project, lifecycle, flags or dates. Inherited Defer projection may change after containment changes."
+  },
+  "alternatives": [
+    {
+      "option": "UI sends several ordinary edit requests",
+      "decision": "rejected",
+      "reason": "Multiple selection may partially move, receipt/Undo fragments and intermediate containment/order become visible."
+    },
+    {
+      "option": "General edit_many mutation",
+      "decision": "rejected for this scope",
+      "reason": "Open-ended bulk attributes broaden API and require caller-defined order arithmetic. The requested gesture is a bounded move intent."
+    },
+    {
+      "option": "Bounded action_move with structural destination",
+      "decision": "recommended",
+      "reason": "One normalized movement, one CAS/receipt/Undo; pure backend owns hidden siblings and deterministic ranks."
+    }
+  ],
+  "api": {
+    "kind": "action_move",
+    "payload": {
+      "ids": "required nonempty unique existing owner Action UUID array within the existing 262144-byte request limit; authoritative relative order among effective selected roots",
+      "placement": "before | after | inside | root",
+      "anchor_id": "required existing Action UUID for before/after/inside; forbidden for root"
+    },
+    "validation": [
+      "Use existing request byte limit rather than introducing an arbitrary new ID-count cap; reject empty/duplicate/non-owner/missing IDs without partial planning or silent truncation.",
+      "Exact payload keys; reject invalid destination. Selected descendants of another selected Action are deduplicated to top-level selected roots; subtrees move intact. Effective roots preserve supplied ids relative order as explicit API intent. UI builds ids from canonical full-snapshot tree order, never click order.",
+      "Before/after uses anchor parent; inside appends to anchor children; root detaches to parent=null and appends separately within each effective selected root own preserved Project group. Mixed Project root bundles are allowed; per-group relative order follows the effective bundle order.",
+      "Before/after at root requires all effective selected roots own project_id equal anchor project_id. Otherwise reject visibly; never assign another Project implicitly. Root detach appends into separate existing own Project groups without cross-group order promises. Inside permits different direct Project memberships, preserving them.",
+      "Destination anchor cannot be an effective selected root or any descendant of any moved root. Reject cycles and self-drop atomically.",
+      "No lifecycle, flags, own Due/Defer, Project or Tag changes. Existing graph invariants remain authoritative. No prerequisite/sequence execution modes."
+    ],
+    "ordering": [
+      "Evaluate full owner snapshot, not visible/filtered rows. Remove moved roots from old groups and insert effective roots as one contiguous block before/after anchor or at destination end. Hidden siblings keep their relative order. Descendants keep their own parent/order.",
+      "Normalize only destination sibling group(s) to contiguous integer ranks 0..n-1 in canonical pre-move order plus insertion, changing only parent/order values that differ. Source-only groups keep remaining ranks/relative order. Root placement groups incoming effective roots by their unchanged project_id and preserves their input order within each group; child sibling groups use parent_id only. Unaffected groups and subtree internal order remain untouched.",
+      "If effective parent/group/sequence is already identical, skip rank normalization and produce a no-op delta through ordinary receipt/revision semantics. Otherwise normalize affected groups; no floating-point ranks or duplicate-order dependency."
+    ],
+    "integrity": [
+      "Pure move planner/transition, no IDs/clock/DB effects. Preview and apply share same planner. Existing operation envelope schemaVersion2/operationId/latest expectedRevision. No schema migration or new storage table.",
+      "All resulting row revisions, owner CAS, receipt and history share current atomic batch; identical replay retains original exact input and cannot roll back later corrections. Generic delta Undo restores ranks/parent and refuses overlapping later changes.",
+      "MCP enum/docs include this exact generic action_move kind. Result full snapshot and affected rows; no generated IDs. No compatibility aliases."
+    ]
+  },
+  "ui": {
+    "inspector": [
+      "A compact row of named icon buttons above Title exposes Active circle, On hold pause, Completed check and Dropped icon. Current state is visible and aria-pressed; each icon has English accessible name/tooltip. A choice uses existing status transition directly; completion cascade has inline affected count/Undo, no modal.",
+      "Project single selector includes Unassigned and exact saved paths; Tags multi-checkbox selector uses exact saved names/paths and existing action_project/action_tag changes. No catalog CRUD. Parent and Order text controls are absent.",
+      "Flag icon and selected Flag state use one readable orange accent in both themes; other navigation accent remains quiet."
+    ],
+    "selection": [
+      "Dedicated selection affordance/row modifier multi-selection is separate from the completed checkbox. Row title still opens the inspector. Changing scope/filter clears live batch selection and cancels hover; drafts and dispatched frozen movement IDs remain retained. Host refresh never silently rebinds selected IDs to row indices; missing selections invalidate pending hover/gesture with concise feedback.",
+      "Desktop modifier clicks and optional shift range select visible rows. A compact count/clear control appears only for multi-selection. Touch uses a selection control and drag handle; no long-press competing with normal scroll.",
+      "Starting a drag on an unselected row moves that row; on a selected row moves effective selected bundle. Ancestor-selected descendant is not moved twice. Visible drop indicator distinguishes before/after vs inside; root list drop area provides explicit detach destination."
+    ],
+    "gestures": [
+      "Pointer drag starts on a dedicated handle with touch-action none and a 6px movement threshold; normal row scrolling/clicking stays independent. Edge auto-scroll re-hit-tests geometry. Pointer cancel/Escape/outside drop writes nothing. Keyboard Grip Space/Enter opens the compact Move chooser; Tab/native Arrow selection picks named Before/After/Into/Top level and destination, Enter on Move here commits, Escape cancels. This chooser is the adopted keyboard/touch equivalent using exactly the same pure intent/backend operation; no separate arrow drag mode or generic Save/Review screen.",
+      "Drop hit zones use list geometry at adapter boundary; pure model validates a frozen IDs/destination intent against full snapshot. Unsupported cross-Project root insertion, filtered unavailable targets, cycle and self destinations show one concise reason and no write.",
+      "Filtered views never infer hidden rank from visible row indices. Before/after anchor identifies actual full-snapshot sibling; hidden child rows move with ancestor. Inside may make selected Actions leave a filtered view through inherited Defer; retained moved-result route keeps affected record inspector accessible."
+    ],
+    "lane": [
+      "Before movement dispatch, flush and await valid pending autosaves/classification assignments for the selected roots/descendants and relevant anchor group. Invalid/conflicted input blocks move with concise reason; IME waits for compositionend. Do not bypass queued proposals or silently drop them.",
+      "Freeze exact effective IDs, destination intent, full-snapshot structural baselines and operation ID at dispatch. One owner-wide serial lane, preview then immediate apply without routine confirmation. Navigation remains available.",
+      "Unknown move pauses all persistence and retains exact args for check/replay. New gesture must not replace it or mint a fresh ID. After confirmed recovery accept full snapshot then unblock lane; refresh failure preserves global gate.",
+      "Classification proposals retain action-bound project/tag desired values and versioned acknowledgments separately from nine existing raw editor fields. Same-field external classification edits use minimal inline reconciliation; unrelated owner changes do not erase local intent.",
+      "If structural source/anchor baseline changes while intent waits, recompute visibility/validity and pause for inline choice instead of applying a stale positional intent to a different context. Definite CAS conflict retains movement for explicit retry against latest structure, never unknown fresh-ID retry."
+    ]
+  },
+  "acceptance": [
+    "Multi-selection A(parent)+A1(child)+B moves A subtree and B once in one atomic operation; hidden children and existing statuses/dates/classifications retain exact values.",
+    "Filtered siblings A,hidden H,B: dropping A after B uses full order; H retains relative position and no visible-index rank inference.",
+    "Cross-Project root before/after rejects visibly. Inside and mixed-Project root detach preserve direct classifications; root detach appends separately within each unchanged Project group, preserving within-group bundle order without promising a cross-group sequence.",
+    "Cycle/self/missing/foreign destination is rejected without any persisted delta. CAS competition yields one commit; missing response replay applies once; Undo roundtrip and overlapping conflict are verified on real SQLite adapter.",
+    "Pending autosave A, newer input B and move: B persists first or move visibly blocks; movement cannot acknowledge or erase B. Unknown move+navigation retains exact original ids/destination and retry identity.",
+    "Pointer/touch/keyboard produce equivalent pure movement intent; cancellation writes nothing. Status icon, Project/Tags and orange Flag are keyboard reachable and English. No Parent/Order inputs, Save buttons or routine dialogs return."
+  ],
+  "nonGoals": [
+    "No new catalog CRUD, recommendations, sequencing restrictions, dependencies, migrations, infrastructure reset or deployment.",
+    "No bulk lifecycle/classification changes merely because rows are multi-selected; multi-selection scope is bundle movement.",
+    "No source implementation before independent design approval."
+  ],
+  "uncertainty": "Requirements DRAG-01..12 aligned; independent design review remains required before source implementation.",
+  "requirements": "Aligned with /tmp/action-drag-requirements.json DRAG-01..12",
+  "requirementsAlignment": "DRAG-01..12 aligned: UI canonical full-tree bundle order, API explicit ids order; mixed-Project root detach permitted per preserved Project group, cross-group root before/after prohibited; view/filter clears live batch while frozen operations/drafts stay exact; existing request byte bound only.",
+  "keyboardDecisionAuthority": "Root explicit accepted UX decision: compact Move chooser is the keyboard equivalent; no separate Arrow drag mode. Pointer/touch/chooser must share identical pure movement intent and effect."
+}

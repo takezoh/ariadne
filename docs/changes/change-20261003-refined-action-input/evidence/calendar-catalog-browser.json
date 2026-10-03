@@ -1,0 +1,24 @@
+[
+  {
+    "width": 390,
+    "theme": "dark",
+    "calendarTokyoDueDefer": true,
+    "clearDue": true,
+    "contextProjectTagCreateAssign": true,
+    "existingTagNoDuplicate": true,
+    "scopeTagCreateSelect": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "calendarTokyoDueDefer": true,
+    "clearDue": true,
+    "contextProjectTagCreateAssign": true,
+    "existingTagNoDuplicate": true,
+    "scopeTagCreateSelect": true,
+    "overflow": false,
+    "errors": []
+  }
+]

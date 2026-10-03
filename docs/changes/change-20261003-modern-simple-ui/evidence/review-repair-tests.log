@@ -1,0 +1,70 @@
+✔ UI application preserves exact unknown request and callback executes only after confirmed retry (1.951202ms)
+✔ UI application receipt confirmation clears retained write and refreshes without overwriting dirty draft (0.38704ms)
+✔ UI application conflict keeps proposal and discard reconstructs latest saved action (0.590072ms)
+✔ UI application retains exact write after structurally malformed snapshot response (0.33384ms)
+✔ UI application rejects snapshot without matching receipt operation identity (0.259566ms)
+✔ UI application itself rejects fresh mutations while unknown, independently of DOM disabling (1.038496ms)
+✔ receipt check retains unknown request for absent, wrong, or malformed receipt identity (0.844552ms)
+✔ invalid read snapshot preserves previous state and never reports latest state fetched (0.243861ms)
+✔ group acknowledgment retains other proposals, merges latest untouched fields and clears stale review (0.463858ms)
+✔ canceled review cannot write; absent selected proposal remains accessible but cannot preview (0.760637ms)
+✔ review captures immutable payload; unknown retry acknowledges its group without clearing other groups (0.262579ms)
+✔ normalized date preview acknowledges submitted raw date/timezone and preserves alternate instant draft (0.217723ms)
+✔ legacy controller composition fallback acknowledges only captured group and preserves dirty groups (0.202275ms)
+✔ direct flag write cannot acknowledge a differing retained editor proposal (0.129095ms)
+✔ tool client waits for initialize and exposes structured snapshot (1.641096ms)
+✔ tool client preserves definite domain rejection and treats missing classification as unknown (0.702297ms)
+✔ tool client classifies absent or malformed successful wire content as outcome unknown (0.326164ms)
+✔ display context merges direct partial updates without changing omitted mode or mutating input (1.890713ms)
+✔ display bridge initializes host context and accepts actual response mode independently of target (0.626169ms)
+✔ new host notification defeats older mode reply and partial updates preserve capabilities (0.311893ms)
+✔ unsupported capability never requests and malformed or rejected reply preserves acknowledged mode (0.466464ms)
+✔ theme-only update during pending display request does not suppress authoritative mode response (0.276019ms)
+PASS BUG-02 dirty proposal survives refresh with latest comparison
+PASS explicit review applies retained proposal against current revision
+PASS timeout retains exact payload and ID for replay
+PASS model notification does not replace dirty draft
+PASS withdrawn record remains editable with ordinary status controls
+✔ self-contained resource preserves drafts, reviewed writes, replay and cancelled records (145.851682ms)
+✔ verification resource discards real successful write response and preserves exact-ID recovery (46.550993ms)
+✔ discarding a proposal restores latest saved state without clearing other proposals (33.949143ms)
+✔ date Defer sends client timezone and confirms resolved UTC payload (36.565696ms)
+✔ Inbox includes deferred unassigned actions and excludes assigned or ended records (28.663548ms)
+✔ raw Inbox input retains exact request after unknown outcome and renders ordinary action notes (40.787851ms)
+✔ Inbox capture requires ordinary title and explicit waiting survives unknown-result retry (45.006366ms)
+✔ cancelled ordinary action can preview active status without deleting relations (33.160886ms)
+✔ order and direct Flag proposals survive refresh and save through reviewed shared edits (46.596356ms)
+✔ complete raw editor survives scope removal, refresh, context and IME without node replacement (40.413576ms)
+✔ one edit acknowledgment retains lifecycle and date proposals, raw capture fields and unload guard (39.353064ms)
+✔ mode context updates keep modal review stable; Escape cancels with focus return and no write (28.815877ms)
+✔ display remains usable during unknown write; confirmed review closes before recovery focus (43.917159ms)
+✔ narrow scope selector exposes every scope and selected editor receives focus; labels remain escaped (26.200022ms)
+✔ direct row flag save retains differing unsaved editor flag and title proposal (25.72723ms)
+✔ review names every submitted value including exact safe raw notes and explicit clears (25.186208ms)
+✔ organization save sends only labeled parent/deadline/order group and retains other edits (25.96091ms)
+✔ saved dropped parent survives unrelated title save without detach or reorder (33.454524ms)
+✔ proposed parent remains selectable when parent becomes dropped on host update (25.733003ms)
+✔ row Flag and Complete modal cancellation restores exact invoker after busy rendering (24.681303ms)
+✔ status and release review show actual lifecycle and explicit removed Defer values (29.12081ms)
+✔ host adapter ignores untrusted response and late timed out reply (1.357058ms)
+✔ host adapter routes responses, notifications and releases timers (0.480023ms)
+✔ host adapter disposal rejects outstanding requests (0.113494ms)
+✔ verification fixture discards exactly one trusted write response, while still executing request (0.170198ms)
+✔ host context notification has separate direct partial subscription and disposal (0.17405ms)
+✔ MCP open/list use existing resource identity with global/thread launch entrypoints (19.346391ms)
+✔ MCP resource declares supported host modes while retaining CSP and HTML identity (1.823584ms)
+✔ dirty draft retains original revision and content on host refresh without mutating inputs (1.137319ms)
+✔ clean drafts refresh and dirty drafts outside current snapshot remain retained (0.17951ms)
+✔ unknown operation retains independent exact wire arguments and success preserves prior Undo ID (0.551826ms)
+✔ control decisions distinguish read-only history from outstanding mutation and unsaved input (0.14611ms)
+✔ draft submission changes only edited fields after unrelated rank and flag updates (0.213636ms)
+✔ all raw editor inputs survive refresh while untouched saved fields merge and operation groups stay separate (0.24293ms)
+✔ acknowledgment only clears captured matching fields and retains newer corrections and other groups (0.235414ms)
+ℹ tests 57
+ℹ suites 0
+ℹ pass 57
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16030.431046

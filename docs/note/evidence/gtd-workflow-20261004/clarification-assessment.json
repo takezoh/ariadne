@@ -1,0 +1,80 @@
+{
+  "criterion": "G: ambiguous input → necessary question → no concretization before answer → save only the answered decision",
+  "verdict": "passed",
+  "environment": "HTTP Worker localhost:8787/mcp and local Wrangler D1, owner gtd-workflow-20261004",
+  "sources": [
+    "/tmp/gtd-clarification-outcomes.json",
+    "/tmp/gtd-clarification-trace.jsonl",
+    "/tmp/gtd-clarification-live-readback.json"
+  ],
+  "revision_sequence": {
+    "initial": 49,
+    "capture": 50,
+    "before_answer": [
+      50,
+      50,
+      50,
+      50
+    ],
+    "final": 53,
+    "independent_live_readback": 53
+  },
+  "checks": {
+    "same_owner": true,
+    "trace_http_success": true,
+    "capture_exact": true,
+    "question_required_meaning_only": true,
+    "answer_before_concretization": true,
+    "only_four_expected_writes": true,
+    "stable_identity": true,
+    "answer_supported_title": true,
+    "exact_original_and_answer_notes": true,
+    "no_invented_dates": true,
+    "no_invented_structure": true,
+    "only_decided_tags": true,
+    "no_other_action_changes": true,
+    "only_one_new_action": true,
+    "live_matches_final_recorded_state": true,
+    "live_revision": true,
+    "assessment_read_only": true
+  },
+  "question": "銀行の何の問題で、いま決まっている対応や望む結果はありますか？",
+  "saved_action": {
+    "id": "f18fe50a-2e5d-446c-8807-c38494ae6ff5",
+    "title": "Ask the bank to check the duplicate charge",
+    "revision": 4,
+    "parent_id": null,
+    "project_id": null,
+    "status": "active",
+    "due_at": null,
+    "defer_until": null,
+    "notes": "Deal with the bank issue.\n\nClarification (exact user text):\nI was charged twice for the same purchase. I want to ask the bank to check it. I have not decided whether to dispute the charge, and I have not set a deadline.",
+    "order": 8,
+    "flagged": false,
+    "created_at": "2026-10-03T15:24:36.544Z",
+    "updated_at": "2026-10-03T15:25:28.396Z",
+    "is_deferred": false,
+    "view": "normal",
+    "defer_reasons": [],
+    "project_path": null,
+    "tags": [
+      {
+        "id": "c8a96d6d-f237-47b5-b358-9d5878f4d369",
+        "name": "Next action",
+        "path": "Next action"
+      },
+      {
+        "id": "f8619690-2c07-4d5f-888c-a39dcc59b5df",
+        "name": "Actionable",
+        "path": "Actionable"
+      }
+    ]
+  },
+  "evaluation": "Gは成功。回答前は元の曖昧なタイトルと原文だけを維持し、回答後は同じIDに銀行への二重請求確認という決定済みの行動だけを保存。異議申立て、返金、期限、延期、子項目、プロジェクトを追加していない。既存12件は変化していない。",
+  "limitations": [
+    "質問・回答の会話上の順序は outcomes のturn記録に依拠。HTTP traceは回答前の非具体化と回答後の保存内容を独立に裏付ける。",
+    "実環境の証拠はlocal Wrangler D1でありhosted D1/ChatGPT UIの受入証拠ではない。"
+  ],
+  "scope": "G only; recovery and long-term benefit are outside this assessment",
+  "prior_blind_review": "revision 49 outcome file remains untouched"
+}

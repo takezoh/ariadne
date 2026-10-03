@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-01",
+  "source": "conversation",
+  "user_message": "All recommended",
+  "applies_to": [
+    "C1",
+    "C2",
+    "C3",
+    "C4"
+  ],
+  "meaning": "Select the recommended option for each of the four points presented",
+  "does_not_approve": [
+    "Adoption of cloud/database",
+    "Completion of technical design or implementation",
+    "Deployment to infrastructure"
+  ]
+}

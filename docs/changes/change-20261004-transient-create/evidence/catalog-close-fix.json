@@ -1,0 +1,65 @@
+{
+  "profile": "native UI bug fix",
+  "cause": "Catalog inspector has selectedId null; the prior selectAction(null) skipped prune when IDs matched.",
+  "fix": "Treat closing a non-null inspector as abandonment even when selectedId already null.",
+  "before": [
+    {
+      "kind": "project",
+      "edited": false,
+      "localRowsAfterClose": 1,
+      "writes": 0
+    },
+    {
+      "kind": "tag",
+      "edited": false,
+      "localRowsAfterClose": 1,
+      "writes": 0
+    }
+  ],
+  "after": [
+    {
+      "kind": "project",
+      "edited": false,
+      "localRowsAfterClose": 0,
+      "writes": 0
+    },
+    {
+      "kind": "project",
+      "edited": true,
+      "localRowsAfterClose": 1,
+      "writes": 0
+    },
+    {
+      "kind": "project",
+      "edited": "saved",
+      "localRowsAfterClose": 0,
+      "writes": 1
+    },
+    {
+      "kind": "tag",
+      "edited": false,
+      "localRowsAfterClose": 0,
+      "writes": 0
+    },
+    {
+      "kind": "tag",
+      "edited": true,
+      "localRowsAfterClose": 1,
+      "writes": 0
+    },
+    {
+      "kind": "tag",
+      "edited": "saved",
+      "localRowsAfterClose": 0,
+      "writes": 1
+    }
+  ],
+  "targetTests": 2,
+  "sourceHashes": {
+    "lib/ui/application.ts": "17e86ea305152e085f0aa80ab607d549555f44378a4ad5f74443fe7ee92cba97",
+    "tests/ui/transient-create.test.mjs": "7b5f669d154a3b4496991fb1248d67693df1ff4f73386fc3fc0d19885ebb5f20",
+    "tests/ui/dom.test.mjs": "ece6203cdce5e36b8871c6fa9baf585573057b47584c3b8f9fbefcff94e98050"
+  },
+  "htmlHash": "91e69113d5d8e74078455855dc04e5b1b6de138b59ebc46b4d0187d5e1962207",
+  "realDatabaseTouched": false
+}

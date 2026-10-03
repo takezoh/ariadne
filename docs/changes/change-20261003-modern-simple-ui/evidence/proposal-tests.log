@@ -1,0 +1,28 @@
+✔ UI application preserves exact unknown request and callback executes only after confirmed retry (2.395063ms)
+✔ UI application receipt confirmation clears retained write and refreshes without overwriting dirty draft (0.402688ms)
+✔ UI application conflict keeps proposal and discard reconstructs latest saved action (0.424989ms)
+✔ UI application retains exact write after structurally malformed snapshot response (0.193956ms)
+✔ UI application rejects snapshot without matching receipt operation identity (0.265587ms)
+✔ UI application itself rejects fresh mutations while unknown, independently of DOM disabling (1.013401ms)
+✔ receipt check retains unknown request for absent, wrong, or malformed receipt identity (1.097399ms)
+✔ invalid read snapshot preserves previous state and never reports latest state fetched (0.278832ms)
+✔ group acknowledgment retains other proposals, merges latest untouched fields and clears stale review (0.539722ms)
+✔ canceled review cannot write; absent selected proposal remains accessible but cannot preview (0.479909ms)
+✔ review captures immutable payload; unknown retry acknowledges its group without clearing other groups (0.330253ms)
+✔ normalized date preview acknowledges submitted raw date/timezone and preserves alternate instant draft (0.21328ms)
+✔ legacy controller composition fallback acknowledges only captured group and preserves dirty groups (0.220895ms)
+✔ dirty draft retains original revision and content on host refresh without mutating inputs (0.71109ms)
+✔ clean drafts refresh and dirty drafts outside current snapshot remain retained (0.167189ms)
+✔ unknown operation retains independent exact wire arguments and success preserves prior Undo ID (0.549017ms)
+✔ control decisions distinguish read-only history from outstanding mutation and unsaved input (0.120483ms)
+✔ draft submission changes only edited fields after unrelated rank and flag updates (0.215239ms)
+✔ all raw editor inputs survive refresh while untouched saved fields merge and operation groups stay separate (0.259109ms)
+✔ acknowledgment only clears captured matching fields and retains newer corrections and other groups (0.231479ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 686.452696

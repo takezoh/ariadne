@@ -1,0 +1,934 @@
+{
+  "revision": "native-design-20261003-1",
+  "goal": "Implement accepted modern/simple shared action UI in narrow conversation panel and broad/full presentation with complete proposal and recovery continuity.",
+  "approach": "One shared controller, immutable pure editing/presentation models, effectful host/DOM adapters, responsive list-first presentation and generated inline SVG assets. Native Profile author artifact; no runtime kernel or ledger claim.",
+  "granularity_profile": "boundary-complete",
+  "scope": {
+    "in_scope": [
+      "lib/ui/**",
+      "lib/widget.ts",
+      "app/board.tsx",
+      "app/mcp/route.ts",
+      "tests/ui/**",
+      "governed change documentation"
+    ],
+    "out_of_scope": [
+      "domain/application store/schema changes",
+      "deployment",
+      "dependencies",
+      "saved perspective editing",
+      "external services"
+    ]
+  },
+  "components": [
+    {
+      "id": "component-proposal",
+      "name": "Pure editing state and application orchestration",
+      "responsibility": "Pure editing state and application orchestration",
+      "repo_grounding": {
+        "kind": "existing",
+        "paths": [
+          "lib/ui/model/drafts.ts",
+          "lib/ui/model/controls.ts",
+          "lib/ui/application.ts",
+          "tests/ui/**"
+        ],
+        "owner": "component-proposal",
+        "integration_points": [
+          "createUiController ports",
+          "createWidgetHtml self-contained function serialization"
+        ],
+        "test_seams": [
+          "tests/ui pure/controller/host/generated DOM",
+          "real Chromium generated widget fixture"
+        ],
+        "rationale": "Preserve repository pure/effect direction; no second transition or persistence path.",
+        "accepted_adr_refs": []
+      }
+    },
+    {
+      "id": "component-host",
+      "name": "Typed host display bridge",
+      "responsibility": "Typed host display bridge",
+      "repo_grounding": {
+        "kind": "existing",
+        "paths": [
+          "lib/ui/ports.ts",
+          "lib/ui/adapters/host.ts",
+          "lib/ui/model/display.ts",
+          "app/board.tsx",
+          "app/mcp/route.ts",
+          "tests/ui/**"
+        ],
+        "owner": "component-host",
+        "integration_points": [
+          "createUiController ports",
+          "createWidgetHtml self-contained function serialization"
+        ],
+        "test_seams": [
+          "tests/ui pure/controller/host/generated DOM",
+          "real Chromium generated widget fixture"
+        ],
+        "rationale": "Preserve repository pure/effect direction; no second transition or persistence path.",
+        "accepted_adr_refs": []
+      }
+    },
+    {
+      "id": "component-presentation",
+      "name": "Responsive visual and DOM composition",
+      "responsibility": "Responsive visual and DOM composition",
+      "repo_grounding": {
+        "kind": "existing",
+        "paths": [
+          "lib/ui/adapters/dom.js",
+          "lib/ui/model/presentation.ts",
+          "lib/ui/icons.ts",
+          "lib/widget.ts",
+          "tests/ui/**"
+        ],
+        "owner": "component-presentation",
+        "integration_points": [
+          "createUiController ports",
+          "createWidgetHtml self-contained function serialization"
+        ],
+        "test_seams": [
+          "tests/ui pure/controller/host/generated DOM",
+          "real Chromium generated widget fixture"
+        ],
+        "rationale": "Preserve repository pure/effect direction; no second transition or persistence path.",
+        "accepted_adr_refs": []
+      }
+    }
+  ],
+  "requirements": [
+    {
+      "id": "FR1",
+      "type": "ubiquitous",
+      "statement": "The UI shall preserve all existing action semantics, shared actionCall authority and exact-operation replay guarantees.",
+      "priority": "must",
+      "rationale": "Accepted requirements-plan revision native-author-20261003-3 UAC-001 through UAC-010."
+    },
+    {
+      "id": "FR2",
+      "type": "event_driven",
+      "statement": "When a refresh, view switch, resize or host mode update occurs, the UI shall preserve every dirty editing value, selected editor, caret/focus, review and recovery state.",
+      "priority": "must",
+      "rationale": "Accepted requirements-plan revision native-author-20261003-3 UAC-001 through UAC-010."
+    },
+    {
+      "id": "FR3",
+      "type": "state_driven",
+      "statement": "While a selected dirty action is excluded from the current list, a named retained-proposal entry shall remain reachable without claiming current-view membership.",
+      "priority": "must",
+      "rationale": "Accepted requirements-plan revision native-author-20261003-3 UAC-001 through UAC-010."
+    },
+    {
+      "id": "FR4",
+      "type": "unwanted",
+      "statement": "If a write response is missing, the UI shall retain the exact request and expose receipt checking and identical retry without a trapping modal or duplicate new write.",
+      "priority": "must",
+      "rationale": "Accepted requirements-plan revision native-author-20261003-3 UAC-001 through UAC-010."
+    },
+    {
+      "id": "FR5",
+      "type": "event_driven",
+      "statement": "When a supported display request completes, the UI shall use the acknowledged resulting mode and retain proposal state; unsupported modes shall not be advertised as working.",
+      "priority": "must",
+      "rationale": "Accepted requirements-plan revision native-author-20261003-3 UAC-001 through UAC-010."
+    },
+    {
+      "id": "FR6",
+      "type": "ubiquitous",
+      "statement": "The UI shall offer named accessible controls with coherent icons, compact list-first hierarchy, light/dark themes and narrow/broad responsive presentation.",
+      "priority": "must",
+      "rationale": "Accepted requirements-plan revision native-author-20261003-3 UAC-001 through UAC-010."
+    },
+    {
+      "id": "FR7",
+      "type": "event_driven",
+      "statement": "When review opens or closes, the UI shall contain modal focus, permit Escape/Back without saving, provide reachable long-preview controls and return meaningful focus.",
+      "priority": "must",
+      "rationale": "Accepted requirements-plan revision native-author-20261003-3 UAC-001 through UAC-010."
+    }
+  ],
+  "adrs": [
+    {
+      "id": "adr-ui-state-and-display",
+      "title": "Preserve proposal state independently of responsive/host presentation",
+      "status": "proposed",
+      "context": "DOM-only parent/date/status inputs and replaced list rows lose editor state; requested host display support requires explicit capability protocol.",
+      "decision": "Typed pure proposal/presentation state plus separate host-context subscription and effectful keyed DOM adapter. Use MCP Apps inline/fullscreen and global/thread metadata, not invented sidebar mode.",
+      "consequences": [
+        "No domain/schema migration; internal typed interfaces evolve together.",
+        "Host context and write uncertainty remain independent.",
+        "Actual ChatGPT host/cache/auth acceptance remains unexecuted until requested deployment."
+      ],
+      "decision_input_refs": [
+        "decision-input-ux",
+        "decision-input-protocol"
+      ],
+      "alternatives": [
+        {
+          "option": "DOM-only drafts and width-derived full mode",
+          "why_not": "Refresh drops values; width does not prove host acknowledgment."
+        },
+        {
+          "option": "Separate sidebar/full apps or raster icon sheets",
+          "why_not": "Duplicates state paths; runtime-size raster legibility weaker than generated currentColor SVG."
+        }
+      ],
+      "related_requirements": [
+        "FR1",
+        "FR2",
+        "FR3",
+        "FR4",
+        "FR5",
+        "FR6",
+        "FR7"
+      ],
+      "contract_refs": [
+        "contract-proposal",
+        "contract-host",
+        "contract-presentation"
+      ]
+    }
+  ],
+  "decision_dispositions": [
+    {
+      "decision_input_ref": "decision-input-ux",
+      "disposition": "adopted",
+      "rationale": "Approved requirements native-author-20261003-3 reversible list-first default.",
+      "adr_refs": [
+        "adr-ui-state-and-display"
+      ],
+      "contract_refs": [
+        "contract-proposal",
+        "contract-presentation"
+      ]
+    },
+    {
+      "decision_input_ref": "decision-input-protocol",
+      "disposition": "adopted",
+      "rationale": "Fetched official OpenAI resource/entrypoint docs and primary MCP Apps protocol on 2026-10-03.",
+      "adr_refs": [
+        "adr-ui-state-and-display"
+      ],
+      "contract_refs": [
+        "contract-host"
+      ]
+    }
+  ],
+  "implementation_contracts": [
+    {
+      "id": "contract-proposal",
+      "dimension": "state_lifecycle",
+      "subject": "Pure editing state and application orchestration",
+      "owner_component_ref": "component-proposal",
+      "related_requirements": [
+        "FR1",
+        "FR2",
+        "FR3",
+        "FR4"
+      ],
+      "decision_rules": [
+        {
+          "id": "decision-proposal-1",
+          "condition": "Editor input received",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-proposal"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Own all fields in typed pure Draft: title, exact notes, order, flagged, parent_id, due_at, lifecycle status; also typed UI-only deferDate/deferUntil, explicit timezone, with independently dirty field groups. Preserve raw incomplete input until validation/preview. Persisted patch contains only explicitly edited fields. Date-only/timezone helpers never leak into edit payload; defer/status remain their existing operation kinds.",
+          "observable_refs": [
+            "observable-proposal"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        },
+        {
+          "id": "decision-proposal-2",
+          "condition": "Fresh snapshot accepted",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-proposal"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Merge untouched values from current snapshot; retain dirty values and original revision/base for comparison. Never infer that retained proposal has current-view membership. Selected dirty action outside filtered list remains in a separate named retained-proposal route; absent action stays visible as retained proposal and cannot mutate until a fresh known target is resolved.",
+          "observable_refs": [
+            "observable-proposal"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        },
+        {
+          "id": "decision-proposal-3",
+          "condition": "One field-group save succeeds",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-proposal"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Clear only acknowledged submitted fields matching the proposal version captured before write; do not discard unrelated unsaved lifecycle/date/editor groups. A modal review holds immutable preview with expectedRevision, not newly recomputed payload.",
+          "observable_refs": [
+            "observable-proposal"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        },
+        {
+          "id": "decision-proposal-4",
+          "condition": "Confirmation, refresh, conflict or missing write response",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-proposal"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Close review before write; clear stale reviewed state; retain exact sent operation ID/arguments on unknown. Preserve latest saved correction and dirty proposal on conflict; require fresh preview before another confirmed write. result not_observed stays unknown. No new operation on identical retry; navigation, receipt check and display remain usable while conflicting writes are blocked.",
+          "observable_refs": [
+            "observable-proposal"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        }
+      ],
+      "observable_effects": [
+        {
+          "id": "observable-proposal",
+          "scope": "local",
+          "operational_input_refs": [
+            "input-proposal"
+          ],
+          "input_closure_reason": "All state/authority input is supplied at declared ports; no hidden runtime lookup in pure model."
+        }
+      ],
+      "operational_inputs": [
+        {
+          "id": "input-proposal",
+          "kind": "versioned_state",
+          "owner_component_ref": "component-proposal",
+          "producer": {
+            "kind": "external",
+            "external_identity": "trusted snapshot plus user input"
+          },
+          "source": "lib/ui/model/drafts.ts; lib/ui/model/controls.ts; lib/ui/application.ts; tests/ui/**",
+          "acquired_at": "entry/event/accepted snapshot",
+          "required_until": "request acknowledgment or explicit proposal discard",
+          "preservation": "snapshot",
+          "mutable_between_acquire_and_use": false,
+          "stability_basis": "Copy immutable event/request data; preserve current acknowledged context separately.",
+          "invalidation_behavior": "Preserve proposal; stale preview must be re-reviewed; absent host support disables request.",
+          "unavailable_outcome": "Explicit unresolved/unsupported state, never fabricated success.",
+          "witness_refs": [
+            "witness-proposal-normal",
+            "witness-proposal-adversarial"
+          ]
+        }
+      ],
+      "semantic_profiles": [],
+      "invariants": [
+        "FR1",
+        "No input mutation or effects in pure helpers",
+        "No external fetch/runtime dependency from icon/resource composition"
+      ],
+      "failure_semantics": [
+        {
+          "id": "failure-proposal",
+          "class": "Missing, stale or unsupported input",
+          "source": "environmental",
+          "outcome": "Preserve proposal/acknowledged mode and explain uncertainty; do not issue duplicate writes.",
+          "requirement_effect": "preserves",
+          "recovery": "retry"
+        }
+      ],
+      "verification": [
+        {
+          "id": "verify-proposal",
+          "requirement_refs": [
+            "FR1",
+            "FR2",
+            "FR3",
+            "FR4"
+          ],
+          "tier": "T2",
+          "method": "Pure/controller mocked-port tests plus generated HTML DOM tests and actual Chromium layout/keyboard screenshots; repository pnpm check and pnpm build.",
+          "criterion": "Witnesses below pass; no skipped/failing suites. Actual hosted acceptance is separately unexecuted."
+        }
+      ],
+      "witnesses": [
+        {
+          "id": "witness-proposal-normal",
+          "case": "normal",
+          "risk_tags": [],
+          "requirement_refs": [
+            "FR1",
+            "FR2",
+            "FR3",
+            "FR4"
+          ],
+          "precondition": "Existing action and raw capture",
+          "stimulus": "Edit each field and review one group then save",
+          "expected_observables": [
+            "Only saved group clears; raw notes and other groups remain; date helpers use existing defer payloads"
+          ],
+          "expected_observable_refs": [
+            "observable-proposal"
+          ],
+          "forbidden_outcomes": [
+            "Lost unsaved proposal",
+            "Fabricated saved/host success",
+            "New operation ID for retained retry"
+          ],
+          "verification_refs": [
+            "verify-proposal"
+          ]
+        },
+        {
+          "id": "witness-proposal-adversarial",
+          "case": "adversarial",
+          "risk_tags": [
+            "stale",
+            "recovery",
+            "unsupported_environment"
+          ],
+          "requirement_refs": [
+            "FR1",
+            "FR2",
+            "FR3",
+            "FR4"
+          ],
+          "precondition": "Dirty date/parent/status proposal then host completes/hides/removes action and changes revision",
+          "stimulus": "Refresh/switch filter; save stale reviewed change; missing response/check/retry",
+          "expected_observables": [
+            "Named retained proposal accessible; latest correction survives; exact retry ID/args; unknown not_observed stays unknown"
+          ],
+          "expected_observable_refs": [
+            "observable-proposal"
+          ],
+          "forbidden_outcomes": [
+            "Lost unsaved proposal",
+            "Fabricated saved/host success",
+            "New operation ID for retained retry"
+          ],
+          "verification_refs": [
+            "verify-proposal"
+          ]
+        }
+      ],
+      "open_design_choices": [],
+      "domain_details": {
+        "files": [
+          "lib/ui/model/drafts.ts",
+          "lib/ui/model/controls.ts",
+          "lib/ui/application.ts",
+          "tests/ui/**"
+        ],
+        "source_ux_refs": [
+          "UAC-004",
+          "UAC-006",
+          "UAC-008",
+          "UAC-010"
+        ]
+      }
+    },
+    {
+      "id": "contract-host",
+      "dimension": "integration_contract",
+      "subject": "Typed host display bridge",
+      "owner_component_ref": "component-host",
+      "related_requirements": [
+        "FR2",
+        "FR5"
+      ],
+      "decision_rules": [
+        {
+          "id": "decision-host-1",
+          "condition": "Initialization or context notification received",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-host"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Declare appCapabilities.availableDisplayModes=[inline,fullscreen]. Consume initialize result.hostContext. Add typed separate subscribeContext alongside snapshot subscription. ui/notifications/host-context-changed params is direct partial context; merge valid supplied fields without clearing omitted ones. Validate mode enum and availableDisplayModes arrays. Never derive mode from iframe width or invent sidebar wire value.",
+          "observable_refs": [
+            "observable-host"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        },
+        {
+          "id": "decision-host-2",
+          "condition": "User requests a display transition",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-host"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Check target in current hostContext.availableDisplayModes and declared app modes. Send ui/request-display-mode {mode:target}; result {mode:actual} is authority and can differ. Pending display is independent from mutation busy/unknown. Host notification later is authoritative; concurrent notification/request handling must not apply a demonstrably older response over a newer context. Error/invalid result preserves acknowledged mode and reports display failure only.",
+          "observable_refs": [
+            "observable-host"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        },
+        {
+          "id": "decision-host-3",
+          "condition": "Standalone Board or host omits support",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-host"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Board preserves same iframe/controller lifetime and identifies Web presentation through hostInfo; advertise actual full-window Web context only, not fictional ChatGPT panel support. Generic missing context renders responsive layout and hidden/unavailable mode affordance. No browser fullscreen substitute masquerades as host fullscreen.",
+          "observable_refs": [
+            "observable-host"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        },
+        {
+          "id": "decision-host-4",
+          "condition": "MCP UI resource/tool definitions produced",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-host"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Existing list/open tool gets _meta[openai/ui].entrypoints=[{type:global},{type:thread}] and same registered resourceUri; resource contents advertise _meta[openai/ui].availableDisplayModes=[inline,fullscreen]. Existing security/CSP/access retained, no new site/plugin. Thread is conversation side panel, global launches from sidebar fullscreen; standard modes remain inline/fullscreen.",
+          "observable_refs": [
+            "observable-host"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        }
+      ],
+      "observable_effects": [
+        {
+          "id": "observable-host",
+          "scope": "local",
+          "operational_input_refs": [
+            "input-host"
+          ],
+          "input_closure_reason": "All state/authority input is supplied at declared ports; no hidden runtime lookup in pure model."
+        }
+      ],
+      "operational_inputs": [
+        {
+          "id": "input-host",
+          "kind": "versioned_state",
+          "owner_component_ref": "component-host",
+          "producer": {
+            "kind": "external",
+            "external_identity": "trusted parent MCP Apps context"
+          },
+          "source": "lib/ui/ports.ts; lib/ui/adapters/host.ts; lib/ui/model/display.ts; app/board.tsx; app/mcp/route.ts; tests/ui/**",
+          "acquired_at": "entry/event/accepted snapshot",
+          "required_until": "request acknowledgment or explicit proposal discard",
+          "preservation": "snapshot",
+          "mutable_between_acquire_and_use": false,
+          "stability_basis": "Copy immutable event/request data; preserve current acknowledged context separately.",
+          "invalidation_behavior": "Preserve proposal; stale preview must be re-reviewed; absent host support disables request.",
+          "unavailable_outcome": "Explicit unresolved/unsupported state, never fabricated success.",
+          "witness_refs": [
+            "witness-host-normal",
+            "witness-host-adversarial"
+          ]
+        }
+      ],
+      "semantic_profiles": [],
+      "invariants": [
+        "FR1",
+        "No input mutation or effects in pure helpers",
+        "No external fetch/runtime dependency from icon/resource composition"
+      ],
+      "failure_semantics": [
+        {
+          "id": "failure-host",
+          "class": "Missing, stale or unsupported input",
+          "source": "environmental",
+          "outcome": "Preserve proposal/acknowledged mode and explain uncertainty; do not issue duplicate writes.",
+          "requirement_effect": "preserves",
+          "recovery": "retry"
+        }
+      ],
+      "verification": [
+        {
+          "id": "verify-host",
+          "requirement_refs": [
+            "FR2",
+            "FR5"
+          ],
+          "tier": "T2",
+          "method": "Pure/controller mocked-port tests plus generated HTML DOM tests and actual Chromium layout/keyboard screenshots; repository pnpm check and pnpm build.",
+          "criterion": "Witnesses below pass; no skipped/failing suites. Actual hosted acceptance is separately unexecuted."
+        }
+      ],
+      "witnesses": [
+        {
+          "id": "witness-host-normal",
+          "case": "normal",
+          "risk_tags": [],
+          "requirement_refs": [
+            "FR2",
+            "FR5"
+          ],
+          "precondition": "Host offers inline/fullscreen",
+          "stimulus": "Initialize; request fullscreen; receive fullscreen then inline context",
+          "expected_observables": [
+            "Exact method/params/result and partial context merge; proposal/review unchanged"
+          ],
+          "expected_observable_refs": [
+            "observable-host"
+          ],
+          "forbidden_outcomes": [
+            "Lost unsaved proposal",
+            "Fabricated saved/host success",
+            "New operation ID for retained retry"
+          ],
+          "verification_refs": [
+            "verify-host"
+          ]
+        },
+        {
+          "id": "witness-host-adversarial",
+          "case": "adversarial",
+          "risk_tags": [
+            "stale",
+            "recovery",
+            "unsupported_environment"
+          ],
+          "requirement_refs": [
+            "FR2",
+            "FR5"
+          ],
+          "precondition": "Context absent/malformed or current mode changes while request pending",
+          "stimulus": "Try unsupported target, rejected/mismatched response, partial theme update",
+          "expected_observables": [
+            "No unsupported request or invented sidebar/fullscreen success; newer context survives; no draft loss"
+          ],
+          "expected_observable_refs": [
+            "observable-host"
+          ],
+          "forbidden_outcomes": [
+            "Lost unsaved proposal",
+            "Fabricated saved/host success",
+            "New operation ID for retained retry"
+          ],
+          "verification_refs": [
+            "verify-host"
+          ]
+        }
+      ],
+      "open_design_choices": [],
+      "domain_details": {
+        "files": [
+          "lib/ui/ports.ts",
+          "lib/ui/adapters/host.ts",
+          "lib/ui/model/display.ts",
+          "app/board.tsx",
+          "app/mcp/route.ts",
+          "tests/ui/**"
+        ],
+        "source_ux_refs": [
+          "UAC-004",
+          "UAC-006",
+          "UAC-008",
+          "UAC-010"
+        ]
+      }
+    },
+    {
+      "id": "contract-presentation",
+      "dimension": "user_observability",
+      "subject": "Responsive visual and DOM composition",
+      "owner_component_ref": "component-presentation",
+      "related_requirements": [
+        "FR2",
+        "FR3",
+        "FR4",
+        "FR6",
+        "FR7"
+      ],
+      "decision_rules": [
+        {
+          "id": "decision-presentation-1",
+          "condition": "Workspace rendered",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-presentation"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Use labeled compact navigation, current scope heading/count, concise read rows with named select/complete controls, explicit direct flag and real lifecycle/date badges; secondary selected editor inline for narrow and companion panel broad. Technical IDs/revisions live only in collapsed diagnostics. Preserve each current scope meaning and exact original capture fields.",
+          "observable_refs": [
+            "observable-presentation"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        },
+        {
+          "id": "decision-presentation-2",
+          "condition": "DOM updates from snapshot/controller or mode",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-presentation"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Prefer stable keyed editor nodes/patching; otherwise capture and restore typed effect snapshot (data-focus-key, selectionStart/end/direction, open details, scroll) only where node remains meaningful. Input events update pure state without full destructive re-render and preserve IME composition. Store selected action and expansion state beyond filtered row existence; capture fields retain title/raw notes across render. Complete unsaved guard includes captureTitle and all draft groups.",
+          "observable_refs": [
+            "observable-presentation"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        },
+        {
+          "id": "decision-presentation-3",
+          "condition": "Review dialog open",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-presentation"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Use native dialog with max-height bounded to viewport, overflow scrolling, reachable Confirm/Back; Escape prevents save, clears reviewed state, restores invoker or retained-proposal control if row vanished. Keep dialog open/content stable through host mode updates. Display control reachable within modal or named Back. On confirm close modal before pending/unknown recovery, expose named recovery controls and meaningful focus.",
+          "observable_refs": [
+            "observable-presentation"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        },
+        {
+          "id": "decision-presentation-4",
+          "condition": "Icons/theme/responsive controls rendered",
+          "evidence_mode": "total",
+          "input_refs": [
+            "input-presentation"
+          ],
+          "epistemic_state": "determinate",
+          "outcome": "Generate original consistent 24x24 inline SVG line icons (currentColor, shared stroke width/caps, aria-hidden and focusable=false) via code generation; no raster shrinking or new dependency. Icons accompany visible text/accessible names. CSS uses restrained tokens, comfortable hit targets, visible focus, contrast both themes, reduced-motion and no page horizontal scroll at 320px/zoom. Long titles/raw text wrap. Genuine generated icon source plus visual verification fulfills request without requiring raster imagegen.",
+          "observable_refs": [
+            "observable-presentation"
+          ],
+          "rationale": "Implements accepted requirements with explicit responsibility boundary."
+        }
+      ],
+      "observable_effects": [
+        {
+          "id": "observable-presentation",
+          "scope": "local",
+          "operational_input_refs": [
+            "input-presentation"
+          ],
+          "input_closure_reason": "All state/authority input is supplied at declared ports; no hidden runtime lookup in pure model."
+        }
+      ],
+      "operational_inputs": [
+        {
+          "id": "input-presentation",
+          "kind": "versioned_state",
+          "owner_component_ref": "component-presentation",
+          "producer": {
+            "kind": "external",
+            "external_identity": "controller state plus DOM effect snapshot"
+          },
+          "source": "lib/ui/adapters/dom.js; lib/ui/model/presentation.ts; lib/ui/icons.ts; lib/widget.ts; tests/ui/**",
+          "acquired_at": "entry/event/accepted snapshot",
+          "required_until": "request acknowledgment or explicit proposal discard",
+          "preservation": "snapshot",
+          "mutable_between_acquire_and_use": false,
+          "stability_basis": "Copy immutable event/request data; preserve current acknowledged context separately.",
+          "invalidation_behavior": "Preserve proposal; stale preview must be re-reviewed; absent host support disables request.",
+          "unavailable_outcome": "Explicit unresolved/unsupported state, never fabricated success.",
+          "witness_refs": [
+            "witness-presentation-normal",
+            "witness-presentation-adversarial"
+          ]
+        }
+      ],
+      "semantic_profiles": [],
+      "invariants": [
+        "FR1",
+        "No input mutation or effects in pure helpers",
+        "No external fetch/runtime dependency from icon/resource composition"
+      ],
+      "failure_semantics": [
+        {
+          "id": "failure-presentation",
+          "class": "Missing, stale or unsupported input",
+          "source": "environmental",
+          "outcome": "Preserve proposal/acknowledged mode and explain uncertainty; do not issue duplicate writes.",
+          "requirement_effect": "preserves",
+          "recovery": "retry"
+        }
+      ],
+      "verification": [
+        {
+          "id": "verify-presentation",
+          "requirement_refs": [
+            "FR2",
+            "FR3",
+            "FR4",
+            "FR6",
+            "FR7"
+          ],
+          "tier": "T2",
+          "method": "Pure/controller mocked-port tests plus generated HTML DOM tests and actual Chromium layout/keyboard screenshots; repository pnpm check and pnpm build.",
+          "criterion": "Witnesses below pass; no skipped/failing suites. Actual hosted acceptance is separately unexecuted."
+        }
+      ],
+      "witnesses": [
+        {
+          "id": "witness-presentation-normal",
+          "case": "normal",
+          "risk_tags": [],
+          "requirement_refs": [
+            "FR2",
+            "FR3",
+            "FR4",
+            "FR6",
+            "FR7"
+          ],
+          "precondition": "Real generated widget at 360x780 and 1440x900 both themes",
+          "stimulus": "Select action, type, resize; open long review; Back/Escape",
+          "expected_observables": [
+            "Compact coherent icon list/editor; caret/draft retained; all modal controls reachable and meaningful focus return"
+          ],
+          "expected_observable_refs": [
+            "observable-presentation"
+          ],
+          "forbidden_outcomes": [
+            "Lost unsaved proposal",
+            "Fabricated saved/host success",
+            "New operation ID for retained retry"
+          ],
+          "verification_refs": [
+            "verify-presentation"
+          ]
+        },
+        {
+          "id": "witness-presentation-adversarial",
+          "case": "adversarial",
+          "risk_tags": [
+            "stale",
+            "recovery",
+            "unsupported_environment"
+          ],
+          "requirement_refs": [
+            "FR2",
+            "FR3",
+            "FR4",
+            "FR6",
+            "FR7"
+          ],
+          "precondition": "320px narrow/zoom, long title/review, focused notes with selection; action excluded after update",
+          "stimulus": "Host notification during open review; Confirm then response dropped; keyboard navigate recovery",
+          "expected_observables": [
+            "No overflow/clipped buttons/focus trap; review stable; unknown controls reachable; selected draft route and caret survive"
+          ],
+          "expected_observable_refs": [
+            "observable-presentation"
+          ],
+          "forbidden_outcomes": [
+            "Lost unsaved proposal",
+            "Fabricated saved/host success",
+            "New operation ID for retained retry"
+          ],
+          "verification_refs": [
+            "verify-presentation"
+          ]
+        }
+      ],
+      "open_design_choices": [],
+      "domain_details": {
+        "files": [
+          "lib/ui/adapters/dom.js",
+          "lib/ui/model/presentation.ts",
+          "lib/ui/icons.ts",
+          "lib/widget.ts",
+          "tests/ui/**"
+        ],
+        "source_ux_refs": [
+          "UAC-004",
+          "UAC-006",
+          "UAC-008",
+          "UAC-010"
+        ]
+      }
+    }
+  ],
+  "chunks": [
+    {
+      "id": "chunk-proposal",
+      "depends_on": [],
+      "units": [
+        {
+          "title": "Pure editing state and application orchestration",
+          "files_touched": [
+            "lib/ui/model/drafts.ts",
+            "lib/ui/model/controls.ts",
+            "lib/ui/application.ts",
+            "tests/ui/**"
+          ],
+          "contract_refs": [
+            "contract-proposal"
+          ],
+          "task_boundaries": "Internal UI scope only; helpers injected into createWidgetHtml model because .toString serialization cannot capture module imports."
+        }
+      ]
+    },
+    {
+      "id": "chunk-host",
+      "depends_on": [
+        "chunk-proposal"
+      ],
+      "units": [
+        {
+          "title": "Typed host display bridge",
+          "files_touched": [
+            "lib/ui/ports.ts",
+            "lib/ui/adapters/host.ts",
+            "lib/ui/model/display.ts",
+            "app/board.tsx",
+            "app/mcp/route.ts",
+            "tests/ui/**"
+          ],
+          "contract_refs": [
+            "contract-host"
+          ],
+          "task_boundaries": "Internal UI scope only; helpers injected into createWidgetHtml model because .toString serialization cannot capture module imports."
+        }
+      ]
+    },
+    {
+      "id": "chunk-presentation",
+      "depends_on": [
+        "chunk-proposal",
+        "chunk-host"
+      ],
+      "units": [
+        {
+          "title": "Responsive visual and DOM composition",
+          "files_touched": [
+            "lib/ui/adapters/dom.js",
+            "lib/ui/model/presentation.ts",
+            "lib/ui/icons.ts",
+            "lib/widget.ts",
+            "tests/ui/**"
+          ],
+          "contract_refs": [
+            "contract-presentation"
+          ],
+          "task_boundaries": "Internal UI scope only; helpers injected into createWidgetHtml model because .toString serialization cannot capture module imports."
+        }
+      ]
+    }
+  ],
+  "open_questions": [],
+  "protocol_evidence": {
+    "observed_at": "2026-10-03",
+    "urls": [
+      "https://developers.openai.com/plugins/reference",
+      "https://developers.openai.com/plugins/build/extensions",
+      "https://github.com/modelcontextprotocol/ext-apps/blob/main/specification/draft/apps.mdx",
+      "https://github.com/modelcontextprotocol/ext-apps/blob/main/src/spec.types.ts"
+    ],
+    "limitations": [
+      "Primary standard fetched is current draft/main, not a claimed pinned release conformance run.",
+      "Actual host may omit mode capability; support is runtime capability checked."
+    ]
+  },
+  "execution_evidence": {
+    "lane": "native subagent design Profile author",
+    "kernel_loop_acceptance": false,
+    "external_host_used": false,
+    "implementation_executed": false,
+    "documentation": "Conductor materializes governed change package after independent review; no repository docs written by this author to avoid duplicate ownership."
+  }
+}

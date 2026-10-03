@@ -1,0 +1,69 @@
+{
+  "profile": "native independent readonly verification",
+  "verdict": "approved",
+  "scope": "Checkbox projection, direct catalog membership, input/unknown preservation and existing geometric drag; no backend/source edits",
+  "tested_html": {
+    "path": "/tmp/display-checkboxes/widget.html",
+    "sha256": "6d95b8916c4c5ba1c36af682b39560fc6619c6a0597f235c25fd43ea196a9adc"
+  },
+  "final_source_sha256": {
+    "lib/ui/model/navigation.ts": "69e15d8abdffa09e952a6398ad5a5e957dcfcf4cefe454ca5e244e72debfe4ca",
+    "lib/ui/model/catalog-tree.ts": "09f3932b1cd48c3381eaa23802d1c9a142412d152283346c1b92dfbb2b00e3c0",
+    "lib/ui/adapters/dom.js": "66c8e293ffbafea7e9f1185d582ca71e4e36a54d8adc6393ac707203bd70d1f3",
+    "lib/ui/application.ts": "8235d6be79905cde37b144ad827ff62bea547bd2c8eac7cb8b754ad4a2993ce1",
+    "lib/widget.ts": "25eabf714c0b863a441b7080fae58e75e5123d77d396ae6265e57d6d2b47180c"
+  },
+  "proof": {
+    "projection": {
+      "browser_cases": 49,
+      "artifact": "/tmp/display-checkboxes/projection-browser.json",
+      "writes": 0,
+      "saved_snapshot_exactly_unchanged": true
+    },
+    "retention": {
+      "browser_cases": 4,
+      "artifact": "/tmp/display-checkboxes/retention-browser.json",
+      "scenarios": [
+        "Action IME during ten checkbox toggles",
+        "Instrumented incomplete date during ten checkbox toggles",
+        "Unknown check with newer input after ten checkbox toggles",
+        "Exact unknown retry with newer input after ten checkbox toggles"
+      ]
+    },
+    "pure": {
+      "passed": 7,
+      "allUncheckedEmpty": true,
+      "viewStatusSetsIndependent": true,
+      "inputImmutable": true,
+      "InboxReadOnly": true,
+      "perspectiveExact": true
+    },
+    "native_drag": {
+      "cases": 12,
+      "artifact": "/tmp/display-checkboxes/drag-matrix.json",
+      "assertions": [
+        "root parent",
+        "last root sibling rank",
+        "exact one action_move write"
+      ]
+    }
+  },
+  "fixture": {
+    "path": "/tmp/display-checkboxes",
+    "port": 5199,
+    "owned_session": 32946,
+    "historical_fixture_unchanged": true,
+    "dropped_count": 1,
+    "completed_count": 1,
+    "completed_dropped_flagged_and_tagged": true,
+    "valid_graph": true,
+    "status": "stopped after evidence preserved"
+  },
+  "findings": [],
+  "final_bounded_delta": "Parent confirms final freeze only removes a redundant unavailable-view message; projection/retention models are unchanged. Final source hashes are recorded separately from tested HTML. Parent final check308/build/built2resources/freshreal3width and independent source review cover that final delta.",
+  "limitations": [
+    "Instrumented incomplete date and synthetic composition events prove proposal retention, not native OS IME/date-segment interaction.",
+    "Memory fixture uses real actionCall; production DB and ChatGPT Work host were not touched or proven.",
+    "Final redundant-message-only delta was not broadly rerun by this reviewer."
+  ]
+}

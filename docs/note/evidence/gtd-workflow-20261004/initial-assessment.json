@@ -1,0 +1,135 @@
+{
+  "overall": "conditional",
+  "scope": "Observed A–F caller workflow on actual local HTTP Worker with Wrangler D1; read-only independent assessment. Successful RPC alone is not the verdict.",
+  "environment": {
+    "endpoint": "http://127.0.0.1:8787/mcp",
+    "owner": "gtd-workflow-20261004",
+    "storage": "Wrangler local D1",
+    "hostDifferenceIsFailure": false
+  },
+  "criteriaSources": [
+    "docs/usage/agent-workflows.md",
+    "skills/action-guide/references/workflows.md",
+    "skills/action-tools/references/operations.md",
+    "docs/technical/testing.md"
+  ],
+  "independentEvidence": {
+    "snapshot": "/tmp/gtd-workflow-assessor-final-snapshot.json",
+    "receipts": "/tmp/gtd-workflow-assessor-receipts.json",
+    "trace": "/tmp/gtd-workflow-assessor-trace.jsonl",
+    "callerTrace": "/tmp/gtd-workflow-trace.jsonl"
+  },
+  "checks": {
+    "originalNotesStable": true,
+    "originalIDsStable": true,
+    "receiptCount": 49,
+    "allReceiptsApplied": true,
+    "receiptsMatchTrace": true,
+    "finalRevision": 49,
+    "actions": 12,
+    "perspectives": 5,
+    "reviewDReadOnly": true,
+    "reviewFReadOnly": true,
+    "phaseCounts": {
+      "B": {
+        "calls": 17,
+        "writes": 8
+      },
+      "C": {
+        "calls": 73,
+        "writes": 36
+      },
+      "D": {
+        "calls": 7,
+        "writes": 0
+      },
+      "E": {
+        "calls": 15,
+        "writes": 5
+      },
+      "F": {
+        "calls": 9,
+        "writes": 0
+      }
+    }
+  },
+  "outcomes": [
+    {
+      "outcome": "capture",
+      "verdict": "pass",
+      "evidence": "Eight original inputs were separately captured as ordinary actions before classification; exact notes and original identities survive final revision 49."
+    },
+    {
+      "outcome": "classification",
+      "verdict": "pass",
+      "evidence": "Someday/Maybe, Reference and Undecided remain uncommitted; no invented read action, due date, defer or project commitment. Caller tags carry semantics independently of active lifecycle."
+    },
+    {
+      "outcome": "clarification",
+      "verdict": "conditional",
+      "evidence": "C supplies exact deadline instants, timezone, commitments and category decisions before caller action; no repeated or unnecessary questions observed. Handling an actually missing essential decision was not exercised."
+    },
+    {
+      "outcome": "explicit_dates",
+      "verdict": "pass",
+      "evidence": "Tax due 2026-10-20T14:59Z and electricity due 2026-10-12T14:59Z match explicit 23:59 Asia/Tokyo. Proposal preference retains null Due/Defer."
+    },
+    {
+      "outcome": "committed_projects",
+      "verdict": "pass",
+      "evidence": "Tax and Kyoto have captured roots with four source-supported concrete child actions, explicit catalog membership and intended sibling order; no prerequisite or blocking semantics added."
+    },
+    {
+      "outcome": "weekly_review",
+      "verdict": "pass",
+      "evidence": "D reports all 12 unfinished records, waiting/reference/someday groups, both committed project next actions and reasoned focus choices. D contains only reads at revision 44; nonselected records remain inspectable. F all-unfinished includes deferred packing."
+    },
+    {
+      "outcome": "user_updates",
+      "verdict": "pass",
+      "evidence": "User-reported landlord reply changes on-hold to active without completion/new follow-up. Receipt collection child completes while tax parent remains active; Fill the form becomes selected next action."
+    },
+    {
+      "outcome": "date_only_defer",
+      "verdict": "pass",
+      "evidence": "Preview uses date 2026-10-10 plus Asia/Tokyo and commit uses resolved 2026-10-10T00:00:00.000Z. Packing alone is deferred until local 09:00."
+    },
+    {
+      "outcome": "method_adaptation",
+      "verdict": "pass",
+      "evidence": "F is read-only revision 49; returns four same-ID actionable leaves and excludes reference/someday/undecided, unspecified landlord follow-up and deferred packing. Five existing perspectives stay unchanged; no duplicate/recreated records or new temporary view."
+    },
+    {
+      "outcome": "reusable_handoff",
+      "verdict": "conditional",
+      "evidence": "Playbook supplies reusable prompt, live-discovery/read requirements, semantic boundaries, stable IDs, five filter definitions and recovery rules. Fresh caller execution is pending separately; generic tag descriptions do not themselves define classification rules."
+    },
+    {
+      "outcome": "recovery",
+      "verdict": "conditional",
+      "evidence": "All 49 persisted operation receipts independently read as applied and match chronological write responses; no API failure/retry occurred. Unknown outcome/conflict behavior is documented but not exercised."
+    },
+    {
+      "outcome": "management_burden",
+      "verdict": "conditional",
+      "evidence": "Scenario avoids repeated classification questions and preserves noncommitments. Sustained real-user reduction in remembering/management effort was not measured."
+    }
+  ],
+  "firstFailures": [
+    {
+      "boundary": "artifact finalization",
+      "failure": "First finalizer failed because post-call state assignment was not flushed; reconstructed capture/final snapshots from retained actual calls. No API failure or retry.",
+      "disposition": "Caller reconstructed missing cached snapshots from retained actual responses. Independent fresh snapshot and receipt reads corroborate persisted state; no saved-data/API failure observed."
+    }
+  ],
+  "definitionGaps": [
+    "Generic tag descriptions only state caller classification; Actionable and Next action semantics are defined in playbook, but Reference/Someday/Undecided largely depend on ordinary meaning and scenario examples."
+  ],
+  "repeatedQuestions": [],
+  "unverifiedPromises": [],
+  "limitations": [
+    "No actually-missing essential clarification decision, unknown response, conflict, fresh-context rerun or sustained user-benefit test in this A–F run.",
+    "Hosted D1, trusted Sites authentication and ChatGPT UI acceptance are outside this selected local run; another host is not a failure criterion."
+  ],
+  "summaryJa": "A–F の観測成果は合格。再利用性・未情報時の確認・障害回復・実ユーザー負担軽減は未実証のため全体は条件付き。"
+}

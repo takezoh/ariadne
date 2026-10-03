@@ -1,0 +1,20 @@
+[
+  {
+    "scenario": "action-IME-pendingAdd-laterNavigation",
+    "latestNavigationWins": true,
+    "proposalSavedToOriginalUUID": true
+  },
+  {
+    "scenario": "catalog-IME-pendingAdd-laterNavigation",
+    "latestNavigationWins": true,
+    "proposalSavedToOriginalUUID": true
+  },
+  {
+    "scenario": "project-Add-child",
+    "invocationParentUUIDCapturedBeforeNavigation": true
+  },
+  {
+    "scenario": "tag-Add-child",
+    "invocationParentUUIDCapturedBeforeNavigation": true
+  }
+]

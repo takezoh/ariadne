@@ -1,0 +1,29 @@
+[
+  {
+    "width": 320,
+    "navigation": true,
+    "modernFilters": true,
+    "refreshIconOnly": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "navigation": true,
+    "modernFilters": true,
+    "refreshIconOnly": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "navigation": true,
+    "modernFilters": true,
+    "refreshIconOnly": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  }
+]

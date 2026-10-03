@@ -1,0 +1,18 @@
+[
+  {
+    "recovery": "check",
+    "externalCorrectionPreserved": true,
+    "localProposalRetained": true,
+    "conflict": [
+      "title"
+    ]
+  },
+  {
+    "recovery": "retry",
+    "externalCorrectionPreserved": true,
+    "localProposalRetained": true,
+    "conflict": [
+      "title"
+    ]
+  }
+]

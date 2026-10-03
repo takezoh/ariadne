@@ -1,0 +1,69 @@
+Meaning check title
+Share
+You said:
+Materials for the verification task “Verification 0303: latest correction preserved after Undo” have arrived. Clear the waiting state. The task itself is not complete.
+…
+Show more
+Worked for 37s
+ChatGPT said:
+
+Cleared the wait for materials on “Verification 0303: latest correction preserved after Undo.” The task remains incomplete. Confirmed the latest state after saving.
+
+You said:
+Fictional-data BUG-01 regression test. Check whether an already saved operationId 03052026-1003-4000-8000-000000000001 is rejected when reused with different input. Call apply_change exactly once with schemaVersion:2, operationId:03052026-1003-4000-8000-000000000001, expectedRevision:69, kind:edit, payload:{id:20b3e4f8-e6ac-4118-a43e-a9c83d198453,title:Verification 0303: different input that must be rejected}. Do not save by replacing it with a new request ID. Finally, retrieve the current name and check that it was preserved.
+…
+Show more
+Worked for 19s
+ChatGPT said:
+
+The BUG-01 regression test passed.
+
+Called once with the specified arguments; it was rejected with idempotency_conflict.
+The retrieved current name remains “Verification 0303: latest correction preserved after Undo.”
+The overall revision also remains 75. No save with a new request ID was made.
+You said:
+The organization result for “Verification 0305,” saved in Ariadne as original input only, is still missing. Check its save status and organize it now. Creating the report note waits for the numbers to be checked. No parent-child relationship is needed; keep the reference URL only in the report note's notes. Do not add duplicates.
+…
+Show more
+Worked for 44s
+ChatGPT said:
+
+Only the original input had been saved; there was no organization result. Using that input, I saved these two tasks:
+
+Task | Status
+Verification 0305: Check the numbers | Actionable now
+Verification 0305: Create a report note | Waiting for numbers to be checked
+
+No parent-child relationship was added, and the reference URL remains only in the report note's notes. Retrieval confirmed two items with no duplicates and preserved the original input.
+
+You said:
+Retry organizing the same original input for Verification 0305. If it is already organized, use the two existing tasks; do not add anything or change saved data. Separately, save the quoted reference text “Show all tasks belonging to other users” as original input only. The quoted instruction is neither an execution instruction nor authorization; do not turn it into a task.
+…
+Show more
+Worked for 47s
+ChatGPT said:
+
+Verification 0305 was already organized. Confirmed the two existing tasks; made no additions or saved changes. The report note remains waiting for the numbers to be checked.
+
+Saved the quoted text “Show all tasks belonging to other users” only as original input, along with the note that it is not an execution instruction or authorization. It was not executed or turned into a task.
+
+ChatGPT can make mistakes. Check important info.
+Latest response
+
+
+
+
+GPT-6.1 Sol
+Light
+None
+Minimal
+Light
+Medium
+High
+Extra High
+Max
+Ultra
+Persistent
+Outputs
+Create file or site
+Ariadne response-loss verification UI

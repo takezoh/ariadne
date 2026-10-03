@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-module.local/docs/issue.schema.json",
+  "title": "Issue (out-of-scope capture: bug or plan)",
+  "description": "A queue for preserving defects and opportunities discovered during work, outside the current session scope, in a form that can be picked up in another session. The content contract and decisions for filing, triage and closure are defined in skills/dev-docs/knowledge/issue.md.",
+  "allOf": [
+    {
+      "$ref": "_common.schema.json"
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "done"
+          }
+        }
+      },
+      "then": {
+        "anyOf": [
+          {
+            "required": [
+              "disposition_target"
+            ]
+          },
+          {
+            "required": [
+              "disposition_reason"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "rejected"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "disposition_reason"
+        ]
+      }
+    }
+  ],
+  "type": "object",
+  "unevaluatedProperties": false,
+  "properties": {
+    "kind": {
+      "const": "issue"
+    },
+    "status": {
+      "enum": [
+        "open",
+        "done",
+        "rejected"
+      ]
+    },
+    "issue_type": {
+      "enum": [
+        "bug",
+        "plan"
+      ],
+      "description": "bug = a deviation from existing expectations (specification, tests or declared invariants). plan = a new opportunity, improvement or unstarted task."
+    },
+    "subject_paths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Repository-relative paths for the subject. dev-evidence recalls this issue when the paths overlap a change surface."
+    },
+    "disposition_target": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Document ID identifying the resolution (the resolving change or promoted ADR/design). A transition to done requires this or disposition_reason."
+    },
+    "disposition_reason": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The fix when resolved without a change, or the reason for rejection. Required when transitioning to rejected."
+    }
+  },
+  "required": [
+    "issue_type"
+  ]
+}

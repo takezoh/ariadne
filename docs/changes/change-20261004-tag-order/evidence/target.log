@@ -1,0 +1,20 @@
+✔ catalog outline combines exact hierarchy and independent direct Action membership without inheritance (1.74417ms)
+✔ Tag occurrences keep distinct stable identities and exact contiguous range while Action UUIDs deduplicate (0.521494ms)
+✔ catalog draft namespace, normalized own baselines and deletion retain newer proposals without external rebasing (0.370895ms)
+✔ every display subset retains catalog headers while exact lifecycle/deferred Action membership changes (1.742734ms)
+✔ temporary created reveal expands only direct membership catalog ancestry and preserves unrelated collapsed branches (0.393079ms)
+✔ Tag siblings follow durable order then exact name and UUID without repairing missing order (0.335333ms)
+✔ final child bottom-left outdents to root without a separate target; center preserves containment (1.212489ms)
+✔ mixed Action edges expose catalog ancestry while catalog center rejects Action targets (0.124018ms)
+✔ relative horizontal motion reaches semantic deep levels despite capped rendering, without mutation (0.230936ms)
+✔ catalog root destination peers and selected parent dependencies detect structural drift without reacting to text (0.358228ms)
+✔ geometric hit includes existing left gutter and the bounded final insertion band, excluding unrelated regions (0.390046ms)
+✔ the final row left gutter is a root insertion destination at any vertical point, while title center remains Inside (0.224753ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 696.204954

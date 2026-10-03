@@ -1,0 +1,34 @@
+{
+  "profile": "native backend implementation",
+  "status": "source_fixed",
+  "contract": {
+    "operations": [
+      "action_project",
+      "action_tag"
+    ],
+    "targets": "Exactly one of id or nonempty unique owner-scoped UUID ids; input order authoritative; every selected ancestor/child classified independently",
+    "effects": "Existing atomic CAS/receipt/delta/Undo; Project root newly assigned append; other properties and other Tags unchanged",
+    "migration": false
+  },
+  "source_sha256": {
+    "lib/domain/core.ts": "81c6a81770c9bbfa8b0b5ffa8fd3b265e5f675daf9061f5682fcf0c1e9742bb1",
+    "app/mcp/route.ts": "e953ca4a16f7290eca086fa9c44126a517e3187c0f0cd6fafa4246c91fe594e1",
+    "docs/technical/mcp-api.md": "7903663474d9fbb0cbd9c016fb259ea09b4ead9ad853b7c357714f427c6dc651",
+    "tests/domain/classification-batch.test.mjs": "b74d796b3de7a02ef23567b9b6cbf8c2550b4e7e453430c5a969996a7d588ca9",
+    "tests/adapters/classification-batch.test.mjs": "a39f9948b89e6313661ca47fe6587091673202a0acaff8abca04f59cfa2ca9f7"
+  },
+  "verification": {
+    "selected_tests": {
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0,
+      "log": "/tmp/classification-batch-tests.log"
+    },
+    "typecheck": "passed",
+    "lint": "passed"
+  },
+  "limitations": [
+    "Real adapter proof uses SQLite D1 fixture; hosted D1 and actual ChatGPT host remain unverified.",
+    "Whole pnpm check/build and independent implementation review remain parent-owned."
+  ]
+}

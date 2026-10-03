@@ -1,0 +1,19 @@
+{
+  "cases": [
+    {
+      "theme": "light",
+      "passed": true,
+      "color": "rgb(184, 102, 22)",
+      "background": "rgba(0, 0, 0, 0)",
+      "svg": "rgb(184, 102, 22)"
+    },
+    {
+      "theme": "dark",
+      "passed": true,
+      "color": "rgb(238, 172, 89)",
+      "background": "rgba(0, 0, 0, 0)",
+      "svg": "rgb(238, 172, 89)"
+    }
+  ],
+  "htmlHash": "98054e976d9511e5919a6661c155c66f9eb51dfd1fc51ee940aef0a065e66e73"
+}

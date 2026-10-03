@@ -1,0 +1,25 @@
+✔ transient Add leaves authoritative snapshot untouched and untouched navigation writes nothing (1.939681ms)
+✔ transient edited empty is retained and notes-only content waits for a required Title (4.372713ms)
+✔ transient dependencies wait without retry loops and remap references without rewriting raw text (1.99706ms)
+✔ transient catalog description waits for valid name and saved action classification waits for UUID (2.638035ms)
+✔ transient unknown creation replays exact request and saves later typing on the same generated identity (1.335203ms)
+✔ transient selection protects its destination and saved proposals protect unresolved classifications (1.364562ms)
+✔ transient discard refuses transitive edited descendants and never drops saved records (0.253127ms)
+✔ transient overlay honors explicit null without changing authoritative records or names (0.179579ms)
+✔ clearing a saved Title retains invalid raw and never overwrites saved content; current named records allow Notes edits (1.003042ms)
+✔ unknown creation with newer empty Title replays only the captured valid request and preserves invalid proposal (0.772922ms)
+✔ current complete draft validation rejects empty names even when only other fields changed (0.185318ms)
+✔ persisted partial responses are rejected without replacing authoritative snapshot or local proposals (0.176672ms)
+✔ catalog inspector close prunes untouched drafts while retaining edited, dependent and unknown proposals (0.968433ms)
+✔ Add replaces the selected local proposal before flushing it across all object kinds (2.044801ms)
+✔ replacement blocks dependent or unknown local sources without dropping identities or replay state (0.746294ms)
+✔ replacement preserves explicitly cleared parent and rejects broken local ancestry (0.195078ms)
+✔ catalog IME pending Add replaces the captured local name without an intermediate creation (0.220949ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 686.871159

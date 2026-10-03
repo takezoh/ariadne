@@ -1,0 +1,29 @@
+{
+  "profile": "native independent boundary design review",
+  "status": "approved",
+  "findings": [],
+  "candidate_sha256": {
+    "/tmp/catalog-tree-drag-design.json": "a8b15778906a07a90705a6b548eb441bcdd0c2ea6c9a69f65420ff892880e156",
+    "/tmp/catalog-move-backend-plan.json": "6817d59deeb1ddca5f06f62a681814e9f886faa45dac0ea59441965a573a02c8",
+    "/tmp/tree-depth-requirements.json": "c37b260e4b70e9f54748323d532e86ae807ef941b1b18306c709d6c121bb71b0"
+  },
+  "reason": "Typed source-kind and semantic-path intent cleanly separates Action containment/classification, durable Project hierarchy/order and Tag parent-only hierarchy. Project persistence uses additive migration and existing atomic CAS/delta/receipt/Undo. Full snapshot checks preserve hidden siblings, cycle/name uniqueness and classifications. Mixed final Action edge permits requested root-end placement without empty space.",
+  "required_implementation_evidence": [
+    "Migration retains records/associations/revisions/receipts,DEFAULT0 preserves old nameUUIDtie sorting; normalruntime validates required nonnegative safeinteger order, creationappend handles safe rank exhaustion.",
+    "Project rows/rank peers/identitymarkers and ownerCAS/receipt share atomic D1 batch; source-only ranks preserved, destination-only normalizes whenchanged, no-op unchanged.",
+    "HistoricalProjectreceipt normalization applies to equality checks and restore shape only, never silently repairs current runtime data; oldUndo succeeds where safe and rejects later rank/hiddenpeer corrections.",
+    "Sameparent name collision and cycles rejected before commit; providedrelative intent strictXOR anchor rules.",
+    "Mixed final Action edges/catalogancestor paths, semanticdepth despite cappedindent, correct nativecoordinates/parent/rank and reload verified, not one-write-only.",
+    "Tag noorder; Actionclassification authorizedcenterdrops preserved; Project/Tag drag never cascades member classifications.",
+    "Unknown exact replay, newerAction/catalogdraftversion retention and keyboard/touch equivalent tested."
+  ],
+  "limits": [
+    "Designcandidate review only; no implementation/check/build/browser/host acceptance claimed.",
+    "Historicalreceipt normalization is tightly scoped compatibility for additive field migration, not API compatibility alias or general runtimefallback."
+  ],
+  "execution": {
+    "placement": "native subagent",
+    "repository_edits": false,
+    "kernel_receipt": false
+  }
+}

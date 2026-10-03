@@ -1,0 +1,20 @@
+{
+  "profile": "native implementation",
+  "status": "approved local integration",
+  "UItests": 74,
+  "failures": 0,
+  "skipped": 0,
+  "TODO": 0,
+  "typecheck": "passed",
+  "review": "approved",
+  "kernelExecuted": false,
+  "hostDeployed": false,
+  "integration": {
+    "check": 237,
+    "build": "passed",
+    "builtResources": 2,
+    "browserSuites": 4,
+    "realLocalPreview": "passed",
+    "hostDeployed": false
+  }
+}

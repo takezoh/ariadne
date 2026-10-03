@@ -1,0 +1,64 @@
+{
+  "profile": "native design",
+  "status": "candidate awaiting independent review",
+  "scope": "UI/application/adapters/widget/tests/built smoke/docs only; backend unchanged",
+  "userOutcome": "Editing saves without Save buttons or Review dialog. Add has no explanatory text in allowed contexts.",
+  "contracts": {
+    "presentation": [
+      "Remove Review changes dialog and routine Save changes, Save status/date/organization buttons.",
+      "Title and Notes remain single editor. Add retains one contextual empty-action operation.",
+      "Show compact Saving / Saved / Needs attention status; creation explanation hidden when allowed, disabled reason only when necessary.",
+      "Immediate flag/completion/status and Defer/date/organization controls save directly; cascade count/warnings can appear inline after result with Undo. No confirmation modal.",
+      "Rows display retained draft Title immediately; saved user data remains exact. Routine Unsaved badges, long proposal text, Saved comparison and ID/revision diagnostics are absent from primary UI. Comparison only appears for reconciliation/failure.",
+      "Empty list is one line. Static default filter summary is omitted; explicit active nondefault filters and saved Perspective definition remain visible for truthful selection semantics."
+    ],
+    "scheduling": [
+      "Inject timer effect port; debounce valid draft changes for 500 ms. Blur and editor close/navigation flush due edits without destroying drafts. Composition pauses debounce; compositionend captures final input then schedules.",
+      "One owner-wide write lane processes action draft groups and direct commands serially. Each request gets its operation ID and current owner revision only at dispatch. In-flight payload/captured fields freeze; subsequent input remains editable and queues the latest proposal.",
+      "Autosave acknowledges only fields still equal to captured values, before full-snapshot acceptance, retaining newer corrections and other action/group proposals. Dirty equality to current saved values can be removed by pure planning, avoiding redundant writes.",
+      "Routine draft/direct transitions call existing preview_change for validation/resolved date/cascade warning data, immediately followed by apply_change without UI approval. Preview is not a reservation.",
+      "Debounce is only for text/number/date input; select/check discrete changes enqueue immediately. Invalid/incomplete numeric/date inputs remain visible and unsent with inline feedback; no repeated busy loop."
+    ],
+    "recovery": [
+      "Unknown pauses the write lane while retaining exact request/operation ID/callback/captured fields and later drafts. Check/Retry replay the same request; no fresh mutation IDs until the result is definite. Navigation and Back/Close remain usable.",
+      "Editing can continue during ordinary saving, including other actions. Unknown retains proposal state; typing may remain available but persistence stays paused.",
+      "Definite validation keeps drafts and stops retries until its relevant input is corrected. Revision conflict refreshes latest state; touched-field overlap pauses for inline reconciliation, unrelated owner writes may resume safely with a bounded single refresh retry. No silent overwrite.",
+      "After unknown exact recovery, acknowledge frozen captured fields then process newer queued proposals at latest revision. Missing/deleted target stays unavailable with retained draft; no silent rebinding.",
+      "Before unload retains native unsaved-change protection. Debounce does not guarantee persistence if browser closes before request completion; close/navigation inside app flushes through the same lane."
+    ],
+    "creation": [
+      "Add remains atomic context creation with receipt-derived generated ID and Title focus. Created clean route, disabled ambiguous/deferred-only contexts and exact unknown recovery are preserved."
+    ],
+    "ports": [
+      "Pure autosave plan chooses group/payload/captured fields and input validity, without timers/DOM. Controller owns lane and acknowledgment; injected timer adapter owns scheduling.",
+      "DOM captures raw values/IME/focus and renders stable input nodes. Serialized factories remain closed; generated and built resources execute identical behavior.",
+      "Direct methods own a single controller write wrapper; DOM does not wrap a controller-owned action in another action() call. Commands queued during saving retain action ID and semantics, not an old expected revision."
+    ],
+    "conflicts": [
+      "Draft first-edit captures persisted field baselines (Defer variants compare the saved defer_until). Subsequent full-snapshot acceptance checks touched persisted fields against those baselines, not merely owner revision. Unrelated owner writes do not pause the draft.",
+      "If an externally changed touched field differs from both baseline and proposed value, pause that target and expose minimal inline Use my edits / Use saved. Do not automatically rebase and save over it. Target deletion retains all fields and disables persistence.",
+      "Use my edits explicitly rebases retained values to the current full snapshot and queues normal save. Use saved discards only conflicted fields and leaves unrelated proposals intact. No routine modal.",
+      "Own successful acknowledgment updates remaining newer field baselines to the confirmed saved captured value before full snapshot merge, preventing our earlier write from masquerading as an external conflict.",
+      "Definite revision conflict fetches latest state then field checks decide whether an unrelated revision can resume safely or touched fields need reconciliation; each rejected request is definite and any later dispatch uses a new operation ID. No unbounded retry storm."
+    ]
+  },
+  "acceptance": [
+    "Typing A, dispatch, then B before A response: input remains B; A acknowledgment cannot clear B; second serialized write saves B at latest revision.",
+    "IME intermediate input causes no write; final composition saves after debounce.",
+    "Blur/Back/navigation flush original target, retaining all nine fields and other actions; no dialog or Save button exists.",
+    "Unknown A plus later draft B: exact retry A selects same creation/action and later B saves once after confirmation.",
+    "Flag/complete/status/date changes issue existing preview/apply serially without modal; cascade and warnings remain observable inline and Undo available.",
+    "Malformed creation proof continues unknown; invalid raw inputs never written; definite revision conflict preserves proposal until explicit resume.",
+    "Allowed Add context shows no explanation; disabled Add has a concise reason."
+  ],
+  "counterexamples": [
+    "Debouncing while dropping input because busy",
+    "Saving every intermediate IME value",
+    "Fresh ID after timeout",
+    "Silent conflict overwrite",
+    "Changing selected action to identify pending payload",
+    "Removing warning/cascade meaning",
+    "Hidden quick capture forms",
+    "Rendering a modal automatically"
+  ]
+}

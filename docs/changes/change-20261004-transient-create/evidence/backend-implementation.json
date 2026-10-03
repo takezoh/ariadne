@@ -1,0 +1,35 @@
+{
+  "status": "source_fixed",
+  "profile": "native bounded backend implementation",
+  "kernelExecuted": false,
+  "contract": "New Project/Tag creation and explicit name writes require nonempty trimmed text. Existing blank records, their IDs, indexes/history and exact receipts remain preserved. Named direct creation stays public; Action empty titles stay valid.",
+  "sourceHashes": {
+    "lib/domain/core.ts": "4ae43150fdc19a186abdd69fc4464fa6e6bd9882f546036ce79827ae3323f7da",
+    "lib/application/action-service.ts": "06197d7b7d5b1811f78cf9df99d840ec39d4ad935ee2e8fbe161403828c336a6",
+    "app/mcp/route.ts": "7c0769202f8d2fd59022bd7e75f4b70823208dc2cebbde517bf664037e588b13",
+    "docs/technical/data-model.md": "41fbb1f52ece797d68acba44a271fc3c6c90e38f5445b5e88d0bdcaf97e3504b",
+    "docs/technical/mcp-api.md": "6b8124691f863ae8b3bbda5c7084a08ccfaaae354abd78351d2b53c4c07368dd",
+    "tests/domain/empty-catalog.test.mjs": "e3b3e05505b1efeeb876b2936eb1ccbb1d9d884e07683ac0334df8e6307fdc79",
+    "tests/adapters/empty-catalog.test.mjs": "8df736c017af5aaeaaa9e05b4290b2357e60e1d06dd64da96e24002070079508"
+  },
+  "protectedAppliedSourcesUnchanged": {
+    "db/schema.ts": true,
+    "drizzle/0014_empty_catalog_names.sql": true,
+    "drizzle/meta/_journal.json": true,
+    "drizzle/meta/0014_snapshot.json": true
+  },
+  "verification": {
+    "targetTests": {
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "log": "/tmp/catalog-empty-create/nonempty-target.log"
+    },
+    "typecheck": "passed",
+    "targetLint": "passed"
+  },
+  "proof": "Memory and real SQLite reject new blanks without allocation or state/revision change; retained legacy blank creation receipt replays exact ID before validation, description-only update preserves blank, rename Undo restores blank, replay does not overwrite correction. Existing named creation CAS/owner/Undo/lost response/rollback cases retained.",
+  "wholeCheckBuild": "Owned by root; not run by this agent",
+  "schemaMigration": "No new migration, applied SQL/journal/schema/index edits or data reset"
+}

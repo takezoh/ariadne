@@ -1,0 +1,32 @@
+{
+  "profile": "native bounded UI implementation",
+  "kernelExecuted": false,
+  "sourceFrozen": true,
+  "sourceHashes": {
+    "lib/ui/model/transient-create.ts": "5fc1f1bd2e2fbdf3b4eaab41b9e8b1e88e7aeeb098e976c7d3865d2c0882d8bf",
+    "lib/ui/model/catalog-drafts.ts": "99c9a4225caaad6398a60330b8115894ccdc2b8c72e203abbfb3d8fce1a6f181",
+    "lib/ui/application.ts": "a46ed08795d90c4be013d8507d83ff148fa797c56bafaebbc259493be68d2c5b",
+    "lib/ui/adapters/dom.js": "872d96616f046aec4847d652cd5178164b181dc8bc41559afb91a73d23545132",
+    "lib/widget.ts": "79c7d34591f9455eac352bb166dfaac805721cf4a7791438c8672482658d930e",
+    "tests/ui/transient-create.test.mjs": "567879c920a6b29246ccc3b1fb5ca1c486eeb21e3c6c04487f1669c9522be379",
+    "tests/ui/application.test.mjs": "8a1110012e841db826f43ed8f0eda44d45d7f03fa6c74e21813d7101ac71b225",
+    "tests/ui/dom.test.mjs": "b0bccd358b10317f22ea9e895dcfa5c82933a1761d883c0ee5b053de793007ee",
+    "scripts/testing/smoke-built-widget.mjs": "42ccde626b21adb910acf6ce8785fca5bf31e7f6897e47b49d936a084752907f",
+    "ARCHITECTURE.md": "f1e11c63c5afd3ae02ce83b88af7d9eaecdc0bb37e2e31c1596b982e7a9bbdb0",
+    "tests/ui/autosave.test.mjs": "d884af341cf5b70aba723c31950c90f41a043c176adff4069711d599371a27a8",
+    "tests/ui/movement-application.test.mjs": "8e1f6904a4789c66ff4f2fe1882ff5d65a6b8fc59eb373034813e6503d8bfa7f"
+  },
+  "widgetHash": "fbb4464523da35742b7630b1c29b438a8e31321bca967190941f89cab8b0853f",
+  "targetedTests": {
+    "transient": 8,
+    "migratedCreation": 10,
+    "localTreeDOM": 2,
+    "failures": 0,
+    "skipped": 0,
+    "todo": 0,
+    "migratedAdditionalRecovery": 4
+  },
+  "functionalBrowser": 6,
+  "authoritativeData": "not mutated by local overlay",
+  "wholeCheckBuild": "Parent check347/build/built2/actual preview passed; all21 reviewed hashes matched."
+}

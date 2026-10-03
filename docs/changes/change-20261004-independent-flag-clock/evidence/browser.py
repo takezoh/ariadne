@@ -1,0 +1,14 @@
+from playwright.sync_api import sync_playwright,expect
+from pathlib import Path
+import json
+out=[]
+with sync_playwright() as p:
+ b=p.chromium.launch()
+ for width in [320,390,1280]:
+  for theme in ['light','dark']:
+   page=b.new_page(viewport={'width':width,'height':1000},color_scheme=theme);page.goto('http://127.0.0.1:5221/?theme='+theme);f=page.frame_locator('iframe');expect(f.locator('.action-select').first).to_be_visible();f.locator('.action-select').first.click();assert f.locator('#statusIcons button').count()==4;assert f.locator('#statusIcons #editFlag').count()==0
+   geometry=f.locator('#editFlag').evaluate('e=>{const group=e.previousElementSibling,g=group.getBoundingClientRect(),r=e.getBoundingClientRect();return {gap:r.left-g.right,height:r.height,groupHeight:g.height,ownBorder:getComputedStyle(e).borderWidth,ownRadius:getComputedStyle(e).borderRadius}}');assert geometry['gap']==16;assert geometry['height']==geometry['groupHeight'];assert geometry['ownBorder']=='1px';f.locator('#editFlag').click();expect(f.locator('#editFlag')).to_have_attribute('aria-pressed','true');expect(f.locator('#refresh')).to_have_attribute('data-state','saved');assert len(page.evaluate('writes'))==1
+   clock=f.locator('#dueTime');clock.fill('');assert clock.locator('..').locator('.clock-tail').inner_text()=='--:--:--';clock.fill('1');assert clock.locator('..').locator('.clock-tail').inner_text()=='-:--:--';page.screenshot(path=f'/tmp/flag-independent/clock-one-{width}-{theme}.png');f.locator('#refresh').click();expect(clock).to_have_value('1');clock.fill('131');expect(clock).to_have_value('13:1');assert clock.locator('..').locator('.clock-tail').inner_text()=='-:--';clock.fill('');clock.press_sequentially('131715');expect(clock).to_have_value('13:17:15');clock.press('Backspace');expect(clock).to_have_value('13:17:1');assert clock.locator('..').locator('.clock-tail').inner_text()=='-';clock.press('Backspace');expect(clock).to_have_value('13:17:');assert clock.locator('..').locator('.clock-tail').inner_text()=='--';clock.fill('1317');expect(clock).to_have_value('13:17');clock.fill('13:17:45.123');expect(clock).to_have_value('13:17:45.123');clock.press('Home');clock.press('ArrowRight');clock.press('Delete');expect(clock).to_have_value('1:17:45.123');clock.fill('');
+   color=f.locator('#editFlag').evaluate('e=>getComputedStyle(e).color');assert color==('rgb(184, 102, 22)' if theme=='light' else 'rgb(238, 172, 89)');assert f.locator('html').evaluate('e=>e.scrollWidth<=e.clientWidth');f.locator('html').evaluate('e=>window.scrollTo(0,0)');page.screenshot(path=f'/tmp/flag-independent/{width}-{theme}.png');out.append({'width':width,'theme':theme,'fourExclusiveStatusControls':True,'independentFlag':True,'geometry':geometry,'orange':color,'oneWrite':True});page.close()
+ b.close()
+Path('/tmp/flag-independent/browser.json').write_text(json.dumps(out,indent=2));print(json.dumps(out))

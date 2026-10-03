@@ -1,0 +1,78 @@
+{
+  "contract_review": "approved",
+  "implementation_verdict": "approved",
+  "execution": "native independent review; no kernel execution",
+  "contract": [
+    "Required nonnegative safe integer Tag order; snapshot/delta missing order rejected without fallback.",
+    "Forward0016 only; previous migration history unchanged.",
+    "Tag create appends within same parent. Equal ranks compare order/name/UUID.",
+    "Direct parent_id exclusive with relative placement; before/after/inside require anchor, root forbids anchor.",
+    "Cycle/name collision reject, hidden destination siblings included, source gaps preserved.",
+    "Atomic owner CAS, identity, receipt, exact replay and conflict-safe Undo; no-op writes retain ordinary receipts.",
+    "UI Tag hierarchy uses durable order consistently; Action-to-Tag center retains classification semantics.",
+    "Tag source mixed Action edges use Tag semantic ancestry; finalchild left gutter center/edge reaches root end without separate root space."
+  ],
+  "counterexamples": [
+    "Missing Tag order old receipt does not normalize zero.",
+    "Moving Tag into descendant rejects without write.",
+    "Hidden destination peer survives ordering and later peer correction rejects destructive Undo.",
+    "Same-parent direct move is row no-op.",
+    "Action drop on Tag center must not accidentally reorder catalog.",
+    "Final child root drop asserts exact parent null and destination last rank, not write count alone."
+  ],
+  "remaining": "Root full check/build and deployment acceptance are separate.",
+  "verdict": "approved",
+  "findings": [],
+  "evidence": {
+    "source": [
+      "core catalogMoveEdits shared deterministic pure planner Project/Tag structural shape; destination rank-only edits, cycle and final graph named uniqueness reject",
+      "core Tag order required in validateGraph; operations validateDelta Tag order required; no historical zero fallback",
+      "store Tag order SELECT and changed-row columns, atomic CAS receipt and identity markers reuse",
+      "0016 additive safe integer SQL column default0, historical files unchanged",
+      "UI catalog-tree required rank/order-name-UUID, typed Tag move and chooser paths consistent"
+    ],
+    "owner": [
+      "/tmp/tag-order-backend.json:30 focused pass/type/lint",
+      "/tmp/tag-order/browser.json:trusted before/rootend/chooserafter/actionroot exact parent/rank/write",
+      "/tmp/tag-order/ui-implementation.json"
+    ],
+    "independent": "/tmp/tag-order/reviewer-adversarial.json:390px Inside chooser then Undo exact original parent/order, direct Action tag IDs/names and saved fields unchanged; derived tag paths legitimately change. Initial fixture assertion corrected from absent internal action_tags to public action tags; no product failure."
+  },
+  "candidate_sha256": {
+    "lib/domain/core.ts": "293267ffc54df86e4f49fb214c2998e8b51875002df3304bad2a95d0b92a5049",
+    "lib/domain/operations.ts": "cf7690ba23d412462afed061b25e6de7b3810b26c1d3b10ec4d76ca697ae5b7b",
+    "lib/adapters/d1-action-store.ts": "038f9f26ed30fe03c3475ce4dfcfe6897eb854e5acc198e9cf72c9d6fc6c2c96",
+    "db/schema.ts": "352de23db3ba4870cc726324576f0e2f1033ac3aa76d7581daeab055999e4f5d",
+    "app/mcp/route.ts": "f1445f55bc1f52177309a6478d7b3168effd717b4d12e1242fbe0116360442e1",
+    "drizzle/0016_tag_order.sql": "75640990a1ee58b3722a4afa28015d5db0cb3ddef6a6cb28014d1f8671d9e956",
+    "drizzle/meta/0016_snapshot.json": "8bad2be2bb03e1e2ffcca69bdf2e4a18ed5f4ff8aa4010a1b8c1bede90417c4b",
+    "drizzle/meta/_journal.json": "b9635429c17dfae63d0994732edc2c43309f08b79fb3450a8929ea08bb27d6fb",
+    "lib/ui/model/catalog-tree.ts": "f2c2726b6cc6067142eb01b6239def8bee9ca56a45b6afbb67e9a61a6cf17a34",
+    "lib/ui/model/navigation.ts": "d4d3becf756126551771cb005965195f54ee4da0d704796f414e8e5113361b7b",
+    "lib/ui/adapters/dom.js": "c3decae92b36ea9cba23052d474eacd256379fd3524f5ff4619e25c4b230d0c4",
+    "lib/widget.ts": "79c7d34591f9455eac352bb166dfaac805721cf4a7791438c8672482658d930e",
+    "scripts/testing/smoke-built-widget.mjs": "d47381cb74732fb656c72f1446603b036a0edd5cf12ddf0e06a4a546cc64a478",
+    "ARCHITECTURE.md": "8f73021e9e2bd94abfec0ccd7c9611d85af26c174a0d4094d3ef592858a378d4",
+    "docs/technical/data-model.md": "157669c1d5099510a90f42f0a711affecebd1703599d770d7d153fc8c6c92ae3",
+    "docs/technical/mcp-api.md": "37ab7c19f12d4a86af3738063440e2f5700b6fbff448c3e8646d962512c6e3fb",
+    "tests/adapters/action-model-migration.test.mjs": "27d8caf68f532e9b1a5d02739e7ecda04c6aaa58e68133505aa5a6a382f3c0e8",
+    "tests/adapters/perspective-migration.test.mjs": "18bb7294bcc0c39ad01373d5d739339b9a04fe1d5775209061319e503940132a",
+    "tests/adapters/empty-catalog.test.mjs": "07b7aff60ccb84b2c8550e57fa9cd379e0801fa31c6d138580b21af7df8e844e",
+    "tests/domain/empty-action.test.mjs": "fd23184d1e728fa11b7fc614a3b1697bd73cc4fb782861014db5f041ca753696"
+  },
+  "limitations": [
+    "Local isolated memory/actionCall Chromium evidence; no hosted D1/ChatGPT claim.",
+    "No full suite duplicated; only one bounded independent browser scenario executed.",
+    "Old Tag receipt rows lacking order explicitly reject, disclosed in technical docs."
+  ],
+  "fixture_correction_review": {
+    "status": "approved",
+    "assessment": "Historical target migration assertions remain before explicit0016 application required by current adapter. Index0015 preservation test installs current Tag column before populated API seed, then retains exact row/history comparisons. Pure initial association fixture now explicitly has current order0; no runtime fallback added.",
+    "owner_evidence": "/tmp/tag-order-backend.json fixtureCorrection focused14 pass",
+    "reviewer_tests": 0
+  },
+  "final_source_hash_recheck": {
+    "mismatches": [],
+    "ui_implementation_artifact": "/tmp/tag-order/ui-implementation.json"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "lib/widget.ts": true,
+  "lib/ui/adapters/dom.js": true,
+  "lib/ui/model/date-input.ts": true,
+  "tests/ui/dom.test.mjs": true,
+  "tests/ui/date-input.test.mjs": true,
+  "scripts/testing/smoke-built-widget.mjs": true,
+  "/tmp/flag-independent/widget.html": true
+}

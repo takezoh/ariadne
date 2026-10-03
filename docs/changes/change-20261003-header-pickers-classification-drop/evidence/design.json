@@ -1,0 +1,8 @@
+{
+  "profile": "native implementation",
+  "kernelExecuted": false,
+  "creation": "Header primary Add creates one ordinary empty Action in the existing exact context. Right menu chooses Action/Project/Tag; same-kind selected catalog is child parent. Standalone creation buttons are removed. Project/Tag pickers contain inline creation with exact raw search query prefill.",
+  "picker": "Stable UUID options; pure accent/kana/width-insensitive fuzzy search and deterministic tie order. Project combobox selects one membership; Tag linked chips plus multiselect picker preserve other associations. Overlay popovers retain input/IME and close without relayout or lost outside clicks.",
+  "drag": "Mouse native HTML5 and pointer/touch share a frozen intent and one write. Active gesture does not rebuild list nodes or reveal toolbar/feedback above rows. Primary title center means Into; row edges mean Before/After. Catalog Project/Tag header drops classify direct memberships, never Action containment. Unassigned clears Project; Untagged has no clear-all shortcut.",
+  "classification": "Existing action_project/action_tag accept id XOR nonempty unique ids. All selected UUIDs are classified without ancestor dedup in one atomic owner CAS/receipt/Undo. Earlier proposals flush; own acknowledged baselines update waiting intents, external drift pauses. Missing responses retain exact arguments and recovered callback baselines protect later edits."
+}

@@ -1,0 +1,10 @@
+savedParent parent visibleParent parent
+sentPreview {"name":"preview_change","args":{"expectedRevision":1,"kind":"edit","payload":{"id":"d2adf59d-e631-4e65-95d2-35a6558d36c5","title":"new title"}}}
+reviewText 操作：編集
+
+対象：保存済み
+
+アクション名
+保存済み：「保存済み」
+変更後：「new title」
+focusAfterFlagCancel  flag:d2adf59d-e631-4e65-95d2-35a6558d36c5

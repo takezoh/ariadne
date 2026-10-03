@@ -1,0 +1,13 @@
+{
+  "html": "0d997b55596409571ef9b9c51f5efd05f20a689cff0b37581c2a55d96414a03e",
+  "sources": {
+    "lib/ui/model/date-input.ts": "26e2a96119506de939e81b5bc0799eee2c681baef459f27b50a54736d35c9770",
+    "lib/ui/model/navigation.ts": "5663aaa9d8d5b9d4bc3c31637fce7a8d26ebafcdfc4e13953a84915e19405427",
+    "lib/ui/model/catalog-tree.ts": "8606d7eb6c348707e840c50493c52b1a5366fb55d7b5c7da53744fdc7b20dc78",
+    "lib/ui/model/catalog-drafts.ts": "b1682c26dc6e20b7ec9517a13dfb2aed37c2a5b309cfc6a437f0391df9e14e1a",
+    "lib/ui/model/controls.ts": "999baa7e43da070e070d516975f848b07a1814a6b5b7ef3f1e3e6d6d59b8528d",
+    "lib/ui/application.ts": "43e3b10105b448339ac3fcb9dd218a445d99339b5b00bb9b33e22cce8ef3fc72",
+    "lib/ui/adapters/dom.js": "489190a5415bb4a50f8594c1cb8d2ec11c47f29e055806e54ab3068508cf0146",
+    "lib/widget.ts": "70774bca53c64cfa42a1a9583821c9bf69e705878161a0656dd26e2005c7377a"
+  }
+}

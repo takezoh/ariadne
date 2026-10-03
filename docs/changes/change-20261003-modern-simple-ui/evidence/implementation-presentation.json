@@ -1,0 +1,67 @@
+{
+  "disposition": "candidate",
+  "summary": "Native contract-presentation author implements list-first selected-editor UX, wide companion panel and narrow labeled all-scope selector, original SVG icon source, progressive capture/details, stable editor nodes and raw/caret/IME continuity, retained-proposal route, modal cancel/focus and independent host display controls. UI suite: 49 tests passed without skips/failures. Typecheck passed. Logs: presentation-ui-tests.log and presentation-typecheck.log under /tmp/ariadne-ui-modern. Independent actual Chromium visual evaluation is owned by root.",
+  "changes": [
+    {
+      "path": "lib/ui/adapters/dom.js",
+      "rationale": "Implements accepted responsive presentation contract and preserves existing semantic DOM acceptance through explicit selection.",
+      "requirement_refs": [
+        "FR2",
+        "FR3",
+        "FR4",
+        "FR6",
+        "FR7"
+      ]
+    },
+    {
+      "path": "lib/ui/model/presentation.ts",
+      "rationale": "Implements accepted responsive presentation contract and preserves existing semantic DOM acceptance through explicit selection.",
+      "requirement_refs": [
+        "FR2",
+        "FR3",
+        "FR4",
+        "FR6",
+        "FR7"
+      ]
+    },
+    {
+      "path": "lib/ui/icons.ts",
+      "rationale": "Implements accepted responsive presentation contract and preserves existing semantic DOM acceptance through explicit selection.",
+      "requirement_refs": [
+        "FR2",
+        "FR3",
+        "FR4",
+        "FR6",
+        "FR7"
+      ]
+    },
+    {
+      "path": "lib/widget.ts",
+      "rationale": "Implements accepted responsive presentation contract and preserves existing semantic DOM acceptance through explicit selection.",
+      "requirement_refs": [
+        "FR2",
+        "FR3",
+        "FR4",
+        "FR6",
+        "FR7"
+      ]
+    },
+    {
+      "path": "tests/ui/dom.test.mjs",
+      "rationale": "Implements accepted responsive presentation contract and preserves existing semantic DOM acceptance through explicit selection.",
+      "requirement_refs": [
+        "FR2",
+        "FR3",
+        "FR4",
+        "FR6",
+        "FR7"
+      ]
+    }
+  ],
+  "addressed_findings": [],
+  "limitations": [
+    "Actual hosted ChatGPT acceptance is unexecuted. Root owns real-browser screenshots and complete check/build.",
+    "Raw incomplete numeric input is retained in stable per-action DOM effect state; wire order remains numeric and passes existing authoritative validation.",
+    "A bounded separately recorded proposal repair addresses differing direct-row flag versus unsaved patch acknowledgment."
+  ]
+}

@@ -1,0 +1,24 @@
+[
+  {
+    "width": 390,
+    "headerAddAndFilters": true,
+    "splitMenu3Kinds": true,
+    "currentSearchInspector": true,
+    "noTopLevelSpace": true,
+    "catalogNativeDraggable": true,
+    "stickyHeaderViewport": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "headerAddAndFilters": true,
+    "splitMenu3Kinds": true,
+    "currentSearchInspector": true,
+    "noTopLevelSpace": true,
+    "catalogNativeDraggable": true,
+    "stickyHeaderViewport": true,
+    "readOnly": true,
+    "errors": []
+  }
+]

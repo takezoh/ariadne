@@ -1,0 +1,141 @@
+{
+  "observed_on": "2026-10-01",
+  "source_commit": "c3171a04f3dab9970175a4f2866713b84e7038e7",
+  "project_id": "appgprj_6abe391bc8cc81918b4e842b4db293e8",
+  "private": true,
+  "conversation_urls": [
+    "https://chatgpt.com/c/6abe4f30-5b4c-83e8-83fe-ddf0e6b1714a",
+    "https://chatgpt.com/c/6abe501d-5528-83e8-90ba-af5c03afe6d4"
+  ],
+  "checks": [
+    {
+      "id": "M0-01",
+      "status": "passed",
+      "observation": "Signed in by email and MFA; private Ariadne plugin installed and connected in ChatGPT.",
+      "client": "cloud Chrome / desktop Web / Work"
+    },
+    {
+      "id": "M0-02",
+      "status": "passed",
+      "at": "2026-10-01T12:17:11Z",
+      "observation": "ariadne_open embedded the custom UI within a Work conversation; initial list empty."
+    },
+    {
+      "id": "M0-03",
+      "status": "passed",
+      "at": "2026-10-01T12:17:37.693Z",
+      "task_id": "3ddd2e2a-0d4f-42b5-86a7-67a383e2ad70",
+      "revision": 1,
+      "observation": "Created from embedded UI; independently read live D1; closed tab and reopened same conversation; same ID and revision at 12:18:04Z."
+    },
+    {
+      "id": "M0-04",
+      "status": "passed",
+      "task_id": "3ddd2e2a-0d4f-42b5-86a7-67a383e2ad70",
+      "revision": 2,
+      "title": "Verification only: changed to check packing list from conversation",
+      "observation": "Conversation list then rename; UI refresh showed same ID / revision 2 at 12:19:00Z."
+    },
+    {
+      "id": "M0-05",
+      "status": "passed",
+      "at": "2026-10-01T12:19:19.464Z",
+      "revision": 3,
+      "title": "Verification only: corrected to check packing list from UI",
+      "observation": "UI rename followed by conversation list and independent live D1 read."
+    },
+    {
+      "id": "M0-06",
+      "status": "passed",
+      "at": "2026-10-01T12:21:18Z",
+      "observation": "New Work conversation received no task title, ID, revision or old transcript. list and open returned the same task ID, title and revision 3."
+    },
+    {
+      "id": "I-01",
+      "status": "passed",
+      "task_id": "ae9cd678-7383-4a06-90f2-e1b9f69b36e0",
+      "observation": "Identical add twice returned one revision 1 task; changed add payload with same key rejected as idempotency_conflict; live D1 total 2 rows."
+    },
+    {
+      "id": "I-02",
+      "status": "passed",
+      "request_id": "44774580-c9a7-41b0-9e70-a3a304773d57",
+      "observation": "Identical rename twice kept revision 2. Replay of original add kept changed title and revision 2."
+    },
+    {
+      "id": "I-03",
+      "status": "passed",
+      "observation": "Second UI at revision 3 attempted save after first UI committed revision 4; conflict shown, draft held, D1 remained revision 4. Repeated from stale revision 4 after revision 5 with same result."
+    },
+    {
+      "id": "BUG-01",
+      "status": "failed",
+      "at": "2026-10-01T12:27:06.585Z",
+      "task_id": "ae9cd678-7383-4a06-90f2-e1b9f69b36e0",
+      "request_id": "44774580-c9a7-41b0-9e70-a3a304773d57",
+      "observation": "Same rename request_id reused with different title and expected_revision 2 was accepted, producing revision 3. Reproduced locally and on live MCP/D1."
+    },
+    {
+      "id": "BUG-02",
+      "status": "failed",
+      "at": "2026-10-01T12:27:49Z",
+      "observation": "After conflict, UI refresh replaced the unsaved draft “Verification only: unsaved correction to preserve” with the latest saved title “Verification only: preserve the latest correction.” No draft retention or comparison view."
+    },
+    {
+      "id": "L-01",
+      "status": "passed_local_only",
+      "at": "2026-10-01T12:26:01.171Z",
+      "observation": "SQLite fault injection: write committed, subsequent read threw lost-result error. Independent read found one row; identical add retry kept one row revision 1."
+    },
+    {
+      "id": "L-02",
+      "status": "passed_local_only",
+      "observation": "Synthetic owner B could not list owner A or rename its known ID; explicit owner field in arguments rejected; missing ID/email headers rejected. Not real account isolation proof."
+    },
+    {
+      "id": "L-03",
+      "status": "passed_local_only",
+      "observation": "Two simultaneous different rename requests for one revision yielded one success and one conflict, final revision 2."
+    },
+    {
+      "id": "MVP-C1-C4",
+      "status": "unmet_not_implemented",
+      "observation": "Only open/list/add/rename tools; schema has no parent/dependency/defer/deadline/completion/undo fields. Candidate unsupported operation names return unknown_tool. No timing or graph-behavior pass inferred."
+    },
+    {
+      "id": "REAL-ISOLATION",
+      "status": "blocked",
+      "observation": "Only one authenticated real account and owner-only Site. No sharing changed, second identity fabricated, or private owner headers spoofed."
+    },
+    {
+      "id": "HOSTED-LOST-RESULT",
+      "status": "not_exercised",
+      "observation": "Real host network interruption/timeout not induced. Ordinary replay is live-tested; lost-result storage behavior only fault-injected locally."
+    },
+    {
+      "id": "CSP-CONTEXT",
+      "status": "observed",
+      "observation": "Host showed CSP off; Enforce CSP for custom apps setting was off. Read only, not changed. No claim of CSP-on validation."
+    }
+  ],
+  "final_live_rows": [
+    {
+      "id": "3ddd2e2a-0d4f-42b5-86a7-67a383e2ad70",
+      "title": "Verification only: preserve the latest correction",
+      "initial_title": "Verification only: check packing for a fictional trip",
+      "revision": 5,
+      "last_request": "cb7ca127-4ff4-4a28-9b8f-bb77156b7dcc",
+      "created_at": "2026-10-01T12:17:37.693Z",
+      "updated_at": "2026-10-01T12:27:25.902Z"
+    },
+    {
+      "id": "ae9cd678-7383-4a06-90f2-e1b9f69b36e0",
+      "title": "Verification only: different correction using the same request ID",
+      "initial_title": "Verification only: idempotency check",
+      "revision": 3,
+      "last_request": "44774580-c9a7-41b0-9e70-a3a304773d57",
+      "created_at": "2026-10-01T12:21:39.990Z",
+      "updated_at": "2026-10-01T12:27:06.585Z"
+    }
+  ]
+}

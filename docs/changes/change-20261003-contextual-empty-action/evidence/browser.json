@@ -1,0 +1,150 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "contexts": [
+      {
+        "view": "inbox",
+        "createdId": "f7cdb5ab-627a-4ecd-aedf-4da3a72df08a",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "projects",
+        "createdId": "1c92ec18-645a-407a-9c89-0dbca2caf3b1",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "tags",
+        "createdId": "aa4e965d-288f-41f6-8638-295b4c52b908",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "flagged",
+        "createdId": "983a83a2-1678-477a-8bee-588a542fad25",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      }
+    ],
+    "disabledAmbiguousViews": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "contexts": [
+      {
+        "view": "inbox",
+        "createdId": "aa9f911f-70ff-4939-b873-7d78893197c4",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "projects",
+        "createdId": "7075181b-a3cf-4b39-98e0-9f69687ab3d2",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "tags",
+        "createdId": "d85d7c69-c832-4583-9ae6-53f8e304c1ad",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "flagged",
+        "createdId": "051c1515-bd39-4c08-830c-a296a5b55f20",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      }
+    ],
+    "disabledAmbiguousViews": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "contexts": [
+      {
+        "view": "inbox",
+        "createdId": "72a52d2f-842e-4166-b1f0-bb6d4513b7e9",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "projects",
+        "createdId": "0a6735ed-a422-4a63-8f73-4609127d4e8d",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "tags",
+        "createdId": "14e8c38d-edb4-4123-b186-cf14322b9103",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "flagged",
+        "createdId": "9e753774-0d7d-403a-a295-0b6170bdc1bb",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      }
+    ],
+    "disabledAmbiguousViews": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "contexts": [
+      {
+        "view": "inbox",
+        "createdId": "80373acc-acea-4fcd-8e82-7e9ea4e2249b",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "projects",
+        "createdId": "676fd996-5473-4393-9088-c2f8555b5df4",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "tags",
+        "createdId": "3b535e69-5239-43ea-8381-7a10dc8268d0",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      },
+      {
+        "view": "flagged",
+        "createdId": "e0d9e4da-b698-425c-83c8-88c08dfe14ff",
+        "emptySaved": true,
+        "focus": true,
+        "notesExact": true
+      }
+    ],
+    "disabledAmbiguousViews": true,
+    "overflow": false,
+    "errors": []
+  }
+]

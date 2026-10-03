@@ -1,0 +1,50 @@
+[
+  {
+    "kind": "action",
+    "editedReplacement": false,
+    "remainingLocal": 1,
+    "replacementWrites": 0,
+    "finalWrites": 1,
+    "rootParent": true
+  },
+  {
+    "kind": "action",
+    "editedReplacement": true,
+    "remainingLocal": 1,
+    "replacementWrites": 0,
+    "finalWrites": 1,
+    "rootParent": true
+  },
+  {
+    "kind": "project",
+    "editedReplacement": false,
+    "remainingLocal": 1,
+    "replacementWrites": 0,
+    "finalWrites": 1,
+    "rootParent": true
+  },
+  {
+    "kind": "project",
+    "editedReplacement": true,
+    "remainingLocal": 1,
+    "replacementWrites": 0,
+    "finalWrites": 1,
+    "rootParent": true
+  },
+  {
+    "kind": "tag",
+    "editedReplacement": false,
+    "remainingLocal": 1,
+    "replacementWrites": 0,
+    "finalWrites": 1,
+    "rootParent": true
+  },
+  {
+    "kind": "tag",
+    "editedReplacement": true,
+    "remainingLocal": 1,
+    "replacementWrites": 0,
+    "finalWrites": 1,
+    "rootParent": true
+  }
+]

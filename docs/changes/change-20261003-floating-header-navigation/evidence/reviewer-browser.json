@@ -1,0 +1,44 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "keyboardFocus": true,
+    "longPerspectiveRawSafeAndBounded": true,
+    "catalogPageSwitchInlineNameFocusNoWrite": true
+  },
+  {
+    "width": 320,
+    "theme": "dark",
+    "keyboardFocus": true,
+    "longPerspectiveRawSafeAndBounded": true,
+    "catalogPageSwitchInlineNameFocusNoWrite": true
+  },
+  {
+    "width": 390,
+    "theme": "light",
+    "keyboardFocus": true,
+    "longPerspectiveRawSafeAndBounded": true,
+    "catalogPageSwitchInlineNameFocusNoWrite": true
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "keyboardFocus": true,
+    "longPerspectiveRawSafeAndBounded": true,
+    "catalogPageSwitchInlineNameFocusNoWrite": true
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "keyboardFocus": true,
+    "longPerspectiveRawSafeAndBounded": true,
+    "catalogPageSwitchInlineNameFocusNoWrite": true
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "keyboardFocus": true,
+    "longPerspectiveRawSafeAndBounded": true,
+    "catalogPageSwitchInlineNameFocusNoWrite": true
+  }
+]

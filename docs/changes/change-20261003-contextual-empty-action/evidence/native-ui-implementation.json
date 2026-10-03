@@ -1,0 +1,37 @@
+{
+  "profile": "native implementation",
+  "result": "approved local integration",
+  "tests": {
+    "UI": 76,
+    "failure": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "typecheck": "pass"
+  },
+  "source": [
+    "lib/ui/application.ts",
+    "lib/ui/model/navigation.ts",
+    "lib/ui/model/operations.ts",
+    "lib/ui/model/presentation.ts",
+    "lib/ui/adapters/dom.js",
+    "lib/widget.ts",
+    "tests/ui/application.test.mjs",
+    "tests/ui/navigation.test.mjs",
+    "tests/ui/dom.test.mjs",
+    "tests/ui/mcp-display.test.mjs",
+    "scripts/testing/smoke-built-widget.mjs"
+  ],
+  "kernelExecuted": false,
+  "hostDeployed": false,
+  "machineGitEvidence": "UNKNOWN; standalone host Git approval constraint",
+  "integration": {
+    "check": 239,
+    "build": "pass",
+    "builtResources": 2,
+    "browserCreationCases": 16,
+    "browserRecoveryCases": 3,
+    "livePreview": "pass",
+    "independentReview": "approved"
+  }
+}

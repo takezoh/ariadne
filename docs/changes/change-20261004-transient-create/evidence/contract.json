@@ -1,0 +1,50 @@
+{
+  "profile": "native independent requirements and boundary design",
+  "kernel_receipt": null,
+  "status": "approved implementation contract",
+  "scope": "UI-local transient creation followed by eligible durable creation; no repository edits or tests in this planning turn",
+  "responsibilities": {
+    "pure_ui_model": "Transient identity, kind, frozen creation context, raw editable values, dirty provenance, eligibility, dependency graph, lifecycle and receipt remapping. No clock, UUID allocation, DOM or HTTP effects.",
+    "ui_application": "500ms debounce and serial dependency ordering through existing injected timers/call/ID ports. At most one retained create request per transient object. Never send temporary IDs to public APIs.",
+    "dom_adapter": "Render local rows and the ordinary typed inspector, bind IME to its original temporary object, retain date/time raw proposals and accessible errors, and move focus only if matching current invocation/selection.",
+    "backend": "Shared public populated creation remains one atomic caller request. Tighten new catalog create/edit names to nonempty without invalidating existing blank stored rows or rewriting applied migrations, receipts or migration ledger. Action title may stay empty for notes-only creation."
+  },
+  "eligibility": {
+    "action": "Nonwhitespace title OR nonwhitespace notes, plus valid editable fields and resolvable saved dependency references. Persist exact raw notes; do not invent a title. Flags/dates/classification alone do not trigger creation.",
+    "project_tag": "Valid nonempty trimmed name, plus valid description and resolvable saved parent dependency. Description-only is retained but ineligible.",
+    "dirty_provenance": "Distinguish inherited/default creation context and displayed defaults from genuine user editing. Untouched empty objects may purge; any genuinely edited object, including a later-cleared or invalid proposal, is retained until explicit discard.",
+    "persisted": "Eligibility and purge rules apply only before the first durable creation. A persisted record is never deleted merely because editable content becomes blank."
+  },
+  "scenarios": [
+    {"id":"T-001","given":"Any supported current view and explicit creation context","when":"Add Action, Project or Tag","then":"Insert one UI-local temporary row and open its inspector with no DB write, revision increment, receipt or server UUID allocation. Preserve contextual containment/direct classification without inferring meaning from perspective filters."},
+    {"id":"T-002","given":"Untouched empty temporary object","when":"Leave its creation/inspector context","then":"Remove that local object with zero writes. Default contextual Project/Tag, lifecycle and date suggestions alone do not count as user edits or commit eligibility. Do not purge a dependency of an edited child; retain it as a required unresolved local ancestor."},
+    {"id":"T-003","given":"Temporary Action with substantive title or notes, or catalog with valid nonempty name","when":"Debounce completes, blur or in-app navigation flushes","then":"Create through the existing serial mutation lane once dependencies are durable and all submitted fields are valid. Capture the exact proposal and immutable request identity. Notes-only Action commits with empty saved title and exact notes."},
+    {"id":"T-004","given":"User edited only a flag, date, classification, catalog description, invalid field or then cleared meaningful content","when":"Refresh, filter/view change, close or back","then":"Retain the local proposal and reachable re-entry without saving or erasing genuine input. Invalid raw clock/calendar input remains bound to that temporary identity. No automatic discard based only on final empty values."},
+    {"id":"T-005","given":"Temporary child or classification references another temporary object","when":"Child becomes eligible before its parent/catalog","then":"Keep the child pending with its exact dependency. Commit eligible dependencies first, remap their returned UUIDs, then create the child. Ineligible dependency blocks creation; never detach to root or send temporary IDs. Discard of a referenced temporary object requires explicit handling of its retained dependents."},
+    {"id":"T-006","given":"IME composing on a temporary object","when":"Debounce, blur, Add or navigation occurs","then":"No premature durable creation from intermediate composition. Capture final text for the original object, preserve later navigation intent and apply ordinary eligibility after composition ends."},
+    {"id":"T-007","given":"A temporary create is in flight and newer edits/navigation occur","when":"A typed matching receipt and normal snapshot return","then":"Remap temporary identity to exact server UUID across rows, children/catalog references, drafts/baselines, date raw state, retained routes and current selection. Acknowledge only captured fields; preserve newer edits and queue their eligible updates. Do not steal newer selection or navigation."},
+    {"id":"T-008","given":"Create response missing or malformed","when":"Refresh, receipt lookup or retry","then":"Keep the original temporary object, immutable operation ID/arguments, captured proposal and callback. Block duplicate creation; retry exact request only. Applied receipt plus failed snapshot read retains recovery gate; valid typed receipt plus normal snapshot lacking subsequently removed object confirms unavailable rather than recreating it."},
+    {"id":"T-009","given":"An already persisted Action or existing blank legacy catalog record","when":"User edits or clears content","then":"No transient purge. Ordinary Action edits retain existing empty-title semantics. New catalog names require nonempty validation; old blank rows remain readable and can be renamed without fabricated values or migration rollback."},
+    {"id":"T-010","given":"Authorized caller LLM supplies populated Action title/notes/classification","when":"Public create is invoked","then":"One request creates populated durable Action with existing atomic owner/revision/receipt/Undo semantics. UI transient identity and eligibility do not become backend workflow policy."}
+  ],
+  "counterexamples": [
+    "Add allocates server UUID or writes a blank object immediately.",
+    "Title-only eligibility rejects substantive notes-only Action.",
+    "Flag/date/default context triggers empty Action persistence.",
+    "Closing loses a genuinely edited but ineligible or invalid local object.",
+    "Empty parent purges while an edited child still references it.",
+    "Child commits under root because temporary parent is ineligible.",
+    "Temporary identity reaches API arguments or SQL.",
+    "Late receipt focuses a new object after explicit newer selection/navigation.",
+    "Acknowledgment replaces newer local text or raw date/time state.",
+    "Unknown retry allocates fresh operation ID or creates a second object.",
+    "Clearing a persisted record silently removes it.",
+    "Already applied 0014 is removed, replayed destructively, ledger changed or blank legacy names replaced with invented text."
+  ],
+  "bounded_assumptions": [
+    "Retained means surviving in-app Refresh, navigation, filters and host notification, matching current draft-retention guarantees; durable recovery across a complete browser reload is not added by this contract.",
+    "Untouched temporary purge is allowed only when no edited dependent requires it; this exception prevents data loss without inferring content for the parent.",
+    "Any invalid submitted Action/catalog field blocks that object's create so a partial valid subset is not silently persisted.",
+    "No new server-side placeholder state, draft table, auto naming, recommendation logic or background writer is introduced."
+  ]
+}

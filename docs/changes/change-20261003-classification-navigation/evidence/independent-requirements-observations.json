@@ -1,0 +1,302 @@
+{
+  "status": "pass",
+  "observations": [
+    {
+      "id": "NAV-01",
+      "expected_ids": [
+        "A3",
+        "A8"
+      ],
+      "actual_ids": [
+        "A3",
+        "A8"
+      ],
+      "summary": "Unassigned · Unfinished · Includes deferred"
+    },
+    {
+      "id": "NAV-02-exact",
+      "expected_ids": [
+        "A1",
+        "A2",
+        "A9"
+      ],
+      "actual_ids": [
+        "A1",
+        "A2",
+        "A9"
+      ],
+      "summary": "Unfinished · Not deferred · Exact classification"
+    },
+    {
+      "id": "NAV-02-desc",
+      "expected_ids": [
+        "A1",
+        "A2",
+        "A4",
+        "A9"
+      ],
+      "actual_ids": [
+        "A1",
+        "A2",
+        "A4",
+        "A9"
+      ],
+      "summary": "Unfinished · Not deferred · Includes classification descendants"
+    },
+    {
+      "id": "NAV-02-all",
+      "expected_ids": [
+        "A1",
+        "A2",
+        "A4",
+        "A7",
+        "A9"
+      ],
+      "actual_ids": [
+        "A1",
+        "A2",
+        "A4",
+        "A7",
+        "A9"
+      ],
+      "summary": "Unfinished · Not deferred · Exact classification"
+    },
+    {
+      "id": "NAV-02-unassigned",
+      "expected_ids": [
+        "A8"
+      ],
+      "actual_ids": [
+        "A8"
+      ],
+      "summary": "Unfinished · Not deferred · Exact classification"
+    },
+    {
+      "id": "NAV-02-deferred",
+      "expected_ids": [
+        "A3"
+      ],
+      "actual_ids": [
+        "A3"
+      ],
+      "summary": "Unfinished · Deferred · Exact classification"
+    },
+    {
+      "id": "NAV-02-any",
+      "expected_ids": [
+        "A3",
+        "A8"
+      ],
+      "actual_ids": [
+        "A3",
+        "A8"
+      ],
+      "summary": "Unfinished · Includes deferred · Exact classification"
+    },
+    {
+      "id": "NAV-03-exact",
+      "expected_ids": [
+        "A1",
+        "A2"
+      ],
+      "actual_ids": [
+        "A1",
+        "A2"
+      ],
+      "summary": "Unfinished · Not deferred · Exact classification"
+    },
+    {
+      "id": "NAV-03-desc",
+      "expected_ids": [
+        "A1",
+        "A2",
+        "A4"
+      ],
+      "actual_ids": [
+        "A1",
+        "A2",
+        "A4"
+      ],
+      "summary": "Unfinished · Not deferred · Includes classification descendants"
+    },
+    {
+      "id": "NAV-03-all",
+      "expected_ids": [
+        "A1",
+        "A2",
+        "A4",
+        "A7"
+      ],
+      "actual_ids": [
+        "A1",
+        "A2",
+        "A4",
+        "A7"
+      ],
+      "summary": "Unfinished · Not deferred · Exact classification"
+    },
+    {
+      "id": "NAV-03-untagged",
+      "expected_ids": [
+        "A8",
+        "A9"
+      ],
+      "actual_ids": [
+        "A8",
+        "A9"
+      ],
+      "summary": "Unfinished · Not deferred · Exact classification"
+    },
+    {
+      "id": "NAV-03-any",
+      "expected_ids": [
+        "A1",
+        "A2",
+        "A3"
+      ],
+      "actual_ids": [
+        "A1",
+        "A2",
+        "A3"
+      ],
+      "summary": "Unfinished · Includes deferred · Exact classification"
+    },
+    {
+      "id": "NAV-04-default",
+      "expected_ids": [
+        "A2",
+        "A7"
+      ],
+      "actual_ids": [
+        "A2",
+        "A7"
+      ],
+      "summary": "Unfinished · Not deferred"
+    },
+    {
+      "id": "NAV-04-any",
+      "expected_ids": [
+        "A2",
+        "A3",
+        "A7"
+      ],
+      "actual_ids": [
+        "A2",
+        "A3",
+        "A7"
+      ],
+      "summary": "Unfinished · Includes deferred"
+    },
+    {
+      "id": "NAV-05-P0",
+      "expected_ids": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "A9"
+      ],
+      "actual_ids": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "A9"
+      ],
+      "summary": "All statuses · Any Defer"
+    },
+    {
+      "id": "NAV-05-P1",
+      "expected_ids": [],
+      "actual_ids": [],
+      "summary": "No statuses · Any Defer"
+    },
+    {
+      "id": "NAV-05-P2",
+      "expected_ids": [
+        "A1",
+        "A4",
+        "A7",
+        "A8"
+      ],
+      "actual_ids": [
+        "A1",
+        "A4",
+        "A7",
+        "A8"
+      ],
+      "summary": "Active · Any Defer"
+    },
+    {
+      "id": "NAV-05-P3",
+      "expected_ids": [
+        "A3"
+      ],
+      "actual_ids": [
+        "A3"
+      ],
+      "summary": "On hold · Deferred · Flagged · Project: Unassigned · Tag: Red · Exact classification"
+    },
+    {
+      "id": "NAV-05-P4",
+      "expected_ids": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6"
+      ],
+      "actual_ids": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6"
+      ],
+      "summary": "All statuses · Any Defer · Tag: Red · Includes classification descendants"
+    },
+    {
+      "id": "NAV-07-all",
+      "expected_ids": [
+        "A5",
+        "A6"
+      ],
+      "actual_ids": [
+        "A5",
+        "A6"
+      ],
+      "summary": "Completed + Dropped"
+    },
+    {
+      "id": "NAV-07-completed",
+      "expected_ids": [
+        "A5"
+      ],
+      "actual_ids": [
+        "A5"
+      ],
+      "summary": "Completed"
+    },
+    {
+      "id": "NAV-07-dropped",
+      "expected_ids": [
+        "A6"
+      ],
+      "actual_ids": [
+        "A6"
+      ],
+      "summary": "Dropped"
+    }
+  ],
+  "missing_reference_fail_closed": true
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "view": "projects",
+    "destination": "website",
+    "atomicWrites": 1,
+    "exactClassification": true,
+    "nativeDrag": true
+  },
+  {
+    "view": "tags",
+    "destination": "email",
+    "atomicWrites": 1,
+    "exactClassification": true,
+    "nativeDrag": true
+  },
+  {
+    "view": "projects",
+    "destination": "unassigned",
+    "atomicWrites": 1,
+    "exactClassification": true,
+    "nativeDrag": true
+  }
+]

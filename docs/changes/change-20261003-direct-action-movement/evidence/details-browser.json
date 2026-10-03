@@ -1,0 +1,46 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "statusIconsAboveTitle": true,
+    "projectTagsSaved": true,
+    "noParentOrderInputs": true,
+    "orangeFlag": "rgb(184, 102, 22)",
+    "exactAutoSavedNotes": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "statusIconsAboveTitle": true,
+    "projectTagsSaved": true,
+    "noParentOrderInputs": true,
+    "orangeFlag": "rgb(238, 172, 89)",
+    "exactAutoSavedNotes": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "statusIconsAboveTitle": true,
+    "projectTagsSaved": true,
+    "noParentOrderInputs": true,
+    "orangeFlag": "rgb(184, 102, 22)",
+    "exactAutoSavedNotes": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "statusIconsAboveTitle": true,
+    "projectTagsSaved": true,
+    "noParentOrderInputs": true,
+    "orangeFlag": "rgb(238, 172, 89)",
+    "exactAutoSavedNotes": true,
+    "overflow": false,
+    "errors": []
+  }
+]

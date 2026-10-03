@@ -1,0 +1,30 @@
+[
+  {
+    "kind": "project",
+    "recovery": "check",
+    "newerSelectionPreserved": true,
+    "supersededCreatedClassificationNotAssigned": true,
+    "errors": []
+  },
+  {
+    "kind": "project",
+    "recovery": "retry",
+    "newerSelectionPreserved": true,
+    "supersededCreatedClassificationNotAssigned": true,
+    "errors": []
+  },
+  {
+    "kind": "tag",
+    "recovery": "check",
+    "newerSelectionPreserved": true,
+    "supersededCreatedClassificationNotAssigned": true,
+    "errors": []
+  },
+  {
+    "kind": "tag",
+    "recovery": "retry",
+    "newerSelectionPreserved": true,
+    "supersededCreatedClassificationNotAssigned": true,
+    "errors": []
+  }
+]

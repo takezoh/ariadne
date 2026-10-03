@@ -1,0 +1,44 @@
+{
+  "profile": "native independent catalog movement backend review",
+  "status": "approved",
+  "findings": [],
+  "candidate_sha256": {
+    "lib/domain/core.ts": "bcc9d2227c87691f3496507a52c6cd37a91d227ad8beaaabe2f633c1389accd0",
+    "lib/domain/operations.ts": "6070fa2b86f2ebf873e3a767673c24a17948d4b1b70d50fd2ce6c469e8258c6b",
+    "db/schema.ts": "c227b81e2c3d99e4a4de5236bf6bd52d00ee660b690729af22430aaec1afd743",
+    "lib/adapters/d1-action-store.ts": "f25b169aa7157f7f7044c405e103254f2e4b8d13a3953d8753c1cc05a97ece59",
+    "drizzle/0013_project_order.sql": "0f2c74ed0b45ed30585927c4c53c9bde7ec8744058249c04ad0c161b5e5e5c7b",
+    "drizzle/meta/_journal.json": "74d534eadc362f7ecdeb8ddd7e07bd3233f97fe5db62342e158e31eb61426fee",
+    "app/mcp/route.ts": "c1cbdfe001ad326ecda5499b852a219fcb01508d22eff9fccde2197b1131c0e7",
+    "tests/domain/project-move.test.mjs": "8cc4c52519bcc5985218a79f735032074728b871f16f2187c5ccfa5d1eb602cc",
+    "tests/adapters/project-move.test.mjs": "81dbacf5fe0a7ddbfc1269eeeab244dedd916c583b4e75563010d76659f252fe",
+    "tests/helpers/sqlite-d1.mjs": "f489f3112d43879615cbeb824865f5f0164abc174bda67666b440447cbc64a1f"
+  },
+  "design": "/tmp/catalog-tree-drag-design-verdict.json",
+  "evidence": {
+    "independent_tests": {
+      "command": "node --import ./scripts/testing/register-loader.mjs --test tests/domain/project-move.test.mjs tests/adapters/project-move.test.mjs",
+      "passed": 8,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "inspection": [
+      "Project requiredorder validated as nonnegative safeinteger in domain and SQLite typeofinteger constraint; no normalruntime defaultfallback. Additive0013 default0/journalappend preserves initial order,nameUUID ties and existing data.",
+      "Owner SELECT/changed-row INSERT/UPDATE include order; rank+parent+identity/CAS/receipt remain one existing atomic D1 batch.",
+      "Strict directparent XOR relativeplacement, owner references, cycle checks, destinationonlynormalization/sourcegaps and no-op intact; classifications/Action hierarchy/dates/Tag associations unchanged.",
+      "HistoricalUndo absentorder normalization limited to receiptProject before/after equality+restore; originalstoredreceipt bytes unchanged, later rank/revision/identity corrections reject Undo.",
+      "Independent realSQLite peer failure rolls back rowparent/ranks/identity/revision/receipt; lostresponse identicalreplay/CASonewinner/ownerseparation/Undo roundtrip proven.",
+      "Tag existingparentonly contract remains unordered; MCP/public docs expose durableProject order/placement extension."
+    ]
+  },
+  "limits": [
+    "Backend candidate only; final UI/full backend suite/pnpmcheck/build/built and actual hostedD1/Work remain root gates."
+  ],
+  "execution": {
+    "placement": "native subagent",
+    "repository_edits": false,
+    "kernel_receipt": false
+  }
+}

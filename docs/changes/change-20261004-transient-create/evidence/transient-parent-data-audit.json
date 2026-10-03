@@ -1,0 +1,54 @@
+{
+  "status": "readonly_investigation_complete",
+  "runtimeChanged": false,
+  "localDatabase": {
+    "mode": "ro",
+    "countsOnly": {
+      "actions": {
+        "rows": 0,
+        "blank": 0,
+        "untitledLiteral": 0
+      },
+      "projects": {
+        "rows": 0,
+        "blank": 0,
+        "untitledLiteral": 0
+      },
+      "tags": {
+        "rows": 0,
+        "blank": 0,
+        "untitledLiteral": 0
+      }
+    }
+  },
+  "isolatedProof": [
+    {
+      "adapter": "memory",
+      "blankSavedParentValidChildRejected": true,
+      "unchangedSnapshot": true,
+      "noReceipt": true,
+      "noNewID": true
+    },
+    {
+      "adapter": "SQLite",
+      "blankSavedParentValidChildRejected": true,
+      "unchangedSnapshot": true,
+      "noReceipt": true,
+      "noNewID": true
+    }
+  ],
+  "sourceHashes": {
+    "lib/application/action-service.ts": "16d70f8d44c72ae8638dc440e50843dcb35be568aee33224184f618c94326c98",
+    "lib/domain/core.ts": "293267ffc54df86e4f49fb214c2998e8b51875002df3304bad2a95d0b92a5049",
+    "lib/ui/model/transient-create.ts": "853b21a15875502d280c4756705f30e89da4979b624e912210645c53f4374817",
+    "lib/ui/application.ts": "a3d38a160c84a20233072174bd2440d55c8e69bd8906d4081000cfd416acd740"
+  },
+  "conclusions": [
+    "Blank saved parent fails current graph validation before child creation or ID allocation.",
+    "Local proposal parent identity cannot cross UUID validation.",
+    "UI transient eligibility requires a trimmed nonempty Title; payload uses draft Title and no Untitled default assignment was found.",
+    "Untitled literal is a valid caller-supplied nonempty title; backend cannot infer whether it was intended or a UI placeholder.",
+    "Local Untitled display may represent retained unsaved proposals; actual reported UI sequence requires UI-owner reproduction."
+  ],
+  "uncertainty": "No real user-hosted database accessed; current local rows are empty, so this proves boundaries but does not identify the reported UI root cause."
+}

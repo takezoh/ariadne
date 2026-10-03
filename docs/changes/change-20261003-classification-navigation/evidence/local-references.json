@@ -1,0 +1,14 @@
+{
+  "files": [
+    "docs/changes/change-20261003-classification-navigation/change.md",
+    "docs/changes/change-20261003-classification-navigation/implementation.md",
+    "docs/changes/change-20261003-classification-navigation/requirements.md",
+    "docs/changes/change-20261003-classification-navigation/verification.md",
+    "ARCHITECTURE.md",
+    "docs/technical/data-model.md",
+    "docs/technical/mcp-api.md"
+  ],
+  "checked": 36,
+  "missing": [],
+  "status": "pass"
+}

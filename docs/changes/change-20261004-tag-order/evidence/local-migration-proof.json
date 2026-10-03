@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "tables": {
+    "actions": {
+      "count": 0,
+      "original_fields_preserved": true
+    },
+    "action_tags": {
+      "count": 0,
+      "original_fields_preserved": true
+    },
+    "projects": {
+      "count": 0,
+      "original_fields_preserved": true
+    },
+    "tags": {
+      "count": 0,
+      "original_fields_preserved": true
+    },
+    "perspectives": {
+      "count": 0,
+      "original_fields_preserved": true
+    },
+    "catalog_identity_ledger": {
+      "count": 0,
+      "original_fields_preserved": true
+    },
+    "operations": {
+      "count": 0,
+      "original_fields_preserved": true
+    }
+  },
+  "tag_order_required": true,
+  "latest_migration": "0016_tag_order.sql",
+  "historical_migrations_preserved": true
+}

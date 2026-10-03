@@ -1,0 +1,62 @@
+✔ UI application preserves exact unknown request and callback executes only after confirmed retry (1.970945ms)
+✔ UI application receipt confirmation clears retained write and refreshes without overwriting dirty draft (0.503568ms)
+✔ UI application conflict keeps proposal and discard reconstructs latest saved action (0.563378ms)
+✔ UI application retains exact write after structurally malformed snapshot response (0.376515ms)
+✔ UI application rejects snapshot without matching receipt operation identity (0.450824ms)
+✔ UI application itself rejects fresh mutations while unknown, independently of DOM disabling (1.362255ms)
+✔ receipt check retains unknown request for absent, wrong, or malformed receipt identity (0.931277ms)
+✔ invalid read snapshot preserves previous state and never reports latest state fetched (0.259057ms)
+✔ group acknowledgment retains other proposals, merges latest untouched fields and clears stale review (0.66161ms)
+✔ canceled review cannot write; absent selected proposal remains accessible but cannot preview (1.002924ms)
+✔ review captures immutable payload; unknown retry acknowledges its group without clearing other groups (0.312339ms)
+✔ normalized date preview acknowledges submitted raw date/timezone and preserves alternate instant draft (0.232701ms)
+✔ legacy controller composition fallback acknowledges only captured group and preserves dirty groups (0.225815ms)
+✔ tool client waits for initialize and exposes structured snapshot (2.672701ms)
+✔ tool client preserves definite domain rejection and treats missing classification as unknown (0.439651ms)
+✔ tool client classifies absent or malformed successful wire content as outcome unknown (0.255599ms)
+✔ display context merges direct partial updates without changing omitted mode or mutating input (1.35042ms)
+✔ display bridge initializes host context and accepts actual response mode independently of target (0.554278ms)
+✔ new host notification defeats older mode reply and partial updates preserve capabilities (0.321032ms)
+✔ unsupported capability never requests and malformed or rejected reply preserves acknowledged mode (0.43733ms)
+✔ theme-only update during pending display request does not suppress authoritative mode response (0.20227ms)
+PASS BUG-02 dirty proposal survives refresh with latest comparison
+PASS explicit review applies retained proposal against current revision
+PASS timeout retains exact payload and ID for replay
+PASS model notification does not replace dirty draft
+PASS withdrawn record remains editable with ordinary status controls
+✔ self-contained resource preserves drafts, reviewed writes, replay and cancelled records (164.489701ms)
+✔ verification resource discards real successful write response and preserves exact-ID recovery (51.678268ms)
+✔ discarding a proposal restores latest saved state without clearing other proposals (34.647764ms)
+✔ date Defer sends client timezone and confirms resolved UTC payload (34.119229ms)
+✔ Inbox includes deferred unassigned actions and excludes assigned or ended records (41.873055ms)
+✔ raw Inbox input retains exact request after unknown outcome and renders ordinary action notes (42.786297ms)
+✔ Inbox capture requires ordinary title and explicit waiting survives unknown-result retry (40.428901ms)
+✔ cancelled ordinary action can preview active status without deleting relations (36.903617ms)
+✔ order and direct Flag proposals survive refresh and save through reviewed shared edits (40.145457ms)
+✔ complete raw editor survives scope removal, refresh, context and IME without node replacement (46.104917ms)
+✔ one edit acknowledgment retains lifecycle and date proposals, raw capture fields and unload guard (38.438447ms)
+✔ mode context updates keep modal review stable; Escape cancels with focus return and no write (25.629686ms)
+✔ display remains usable during unknown write; confirmed review closes before recovery focus (53.993098ms)
+✔ narrow scope selector exposes every scope and selected editor receives focus; labels remain escaped (26.075487ms)
+✔ host adapter ignores untrusted response and late timed out reply (1.690951ms)
+✔ host adapter routes responses, notifications and releases timers (0.740872ms)
+✔ host adapter disposal rejects outstanding requests (0.252137ms)
+✔ verification fixture discards exactly one trusted write response, while still executing request (0.425023ms)
+✔ host context notification has separate direct partial subscription and disposal (0.20099ms)
+✔ MCP open/list use existing resource identity with global/thread launch entrypoints (19.934497ms)
+✔ MCP resource declares supported host modes while retaining CSP and HTML identity (2.784895ms)
+✔ dirty draft retains original revision and content on host refresh without mutating inputs (1.048548ms)
+✔ clean drafts refresh and dirty drafts outside current snapshot remain retained (0.181764ms)
+✔ unknown operation retains independent exact wire arguments and success preserves prior Undo ID (0.614242ms)
+✔ control decisions distinguish read-only history from outstanding mutation and unsaved input (0.139714ms)
+✔ draft submission changes only edited fields after unrelated rank and flag updates (0.346094ms)
+✔ all raw editor inputs survive refresh while untouched saved fields merge and operation groups stay separate (0.298532ms)
+✔ acknowledgment only clears captured matching fields and retains newer corrections and other groups (0.242519ms)
+ℹ tests 49
+ℹ suites 0
+ℹ pass 49
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16296.087419

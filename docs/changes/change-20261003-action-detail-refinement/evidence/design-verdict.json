@@ -1,0 +1,20 @@
+{
+  "status": "approved",
+  "profile": "native independent boundary design review",
+  "findings": [],
+  "source_sha256": {
+    "/tmp/action-details/design.json": "dc58502d5686311d989622d7184b1ddbbd9f782c948b1665d13719abd6df7e91",
+    "/tmp/action-inspector-acceptance.json": "12e5d9633d7e937830a8513c290556e496268c29276a81268d6998fcfd730e87"
+  },
+  "reason": "One Defer value coordinates native date/time through existing explicit-zone strict resolver, preserving original saved instants and custom milliseconds. Global pure status projection separates proposals from DOM effects and retains inline actionable recovery. Flag and visible semantic sections change presentation only.",
+  "implementation_obligations": [
+    "Pure header status inputs include transient composition/local raw date errors and all offscreen Action/catalog proposals.",
+    "Clear date releases only explicit valid empty; partial/badInput must retain old saved instant/raw edit with blockedwrite.",
+    "Saving precedence over dirty while actual inflight; unknown/recovery/errors dominate and reduced-motion honored."
+  ],
+  "execution": {
+    "placement": "native subagent",
+    "repository_edits": false,
+    "kernel_receipt": false
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "disposition": "candidate",
+  "summary": "Separately delegated bounded contract-proposal repair: captured fields now require Object.is equality between retained patch and exact sent wire value before acknowledgement. Differing direct-row flag writes preserve unsaved editor flag/title. Application and actual generated DOM regression tests cover the repair; 29 targeted application/DOM tests pass, no skips/failures. Log /tmp/ariadne-ui-modern/proposal-repair-tests.log. Widget HTML regenerated /tmp/ariadne-ui-modern/presentation-widget.html.",
+  "changes": [
+    {
+      "path": "lib/ui/application.ts",
+      "rationale": "Require captured original proposal values to equal the submitted value, retaining differing field proposals after acknowledgment.",
+      "requirement_refs": [
+        "FR1",
+        "FR2",
+        "FR4"
+      ]
+    },
+    {
+      "path": "tests/ui/application.test.mjs",
+      "rationale": "Require captured original proposal values to equal the submitted value, retaining differing field proposals after acknowledgment.",
+      "requirement_refs": [
+        "FR1",
+        "FR2",
+        "FR4"
+      ]
+    },
+    {
+      "path": "tests/ui/dom.test.mjs",
+      "rationale": "Require captured original proposal values to equal the submitted value, retaining differing field proposals after acknowledgment.",
+      "requirement_refs": [
+        "FR1",
+        "FR2",
+        "FR4"
+      ]
+    }
+  ],
+  "addressed_findings": [],
+  "limitations": [
+    "Root/integrator owns complete check/build, independent review and final actual browser visual evidence.",
+    "Hosted acceptance remains unexecuted."
+  ]
+}

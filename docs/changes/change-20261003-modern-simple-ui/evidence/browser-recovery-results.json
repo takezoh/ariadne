@@ -1,0 +1,8 @@
+{
+  "confirmReachable320x500": true,
+  "modalClosedForUnknown": true,
+  "checkVisible": true,
+  "retryVisible": true,
+  "focus": "check",
+  "retryExact": true
+}

@@ -1,0 +1,61 @@
+{
+  "disposition": "candidate",
+  "summary": "Native implementation Profile author implements typed group-isolated proposals and immutable preview/recovery continuity. Targeted model/application suite: 20 passing tests, no skips/failures. Typecheck passed. Evidence: /tmp/ariadne-ui-modern/proposal-tests.log and /tmp/ariadne-ui-modern/proposal-typecheck.log. No runtime kernel or ledger acceptance is claimed.",
+  "changes": [
+    {
+      "path": "lib/ui/model/drafts.ts",
+      "rationale": "Complete contract-proposal ownership, raw input continuity, group acknowledgments and adverse recovery tests.",
+      "requirement_refs": [
+        "FR1",
+        "FR2",
+        "FR3",
+        "FR4"
+      ]
+    },
+    {
+      "path": "lib/ui/model/controls.ts",
+      "rationale": "Complete contract-proposal ownership, raw input continuity, group acknowledgments and adverse recovery tests.",
+      "requirement_refs": [
+        "FR1",
+        "FR2",
+        "FR3",
+        "FR4"
+      ]
+    },
+    {
+      "path": "lib/ui/application.ts",
+      "rationale": "Complete contract-proposal ownership, raw input continuity, group acknowledgments and adverse recovery tests.",
+      "requirement_refs": [
+        "FR1",
+        "FR2",
+        "FR3",
+        "FR4"
+      ]
+    },
+    {
+      "path": "tests/ui/model.test.mjs",
+      "rationale": "Complete contract-proposal ownership, raw input continuity, group acknowledgments and adverse recovery tests.",
+      "requirement_refs": [
+        "FR1",
+        "FR2",
+        "FR3",
+        "FR4"
+      ]
+    },
+    {
+      "path": "tests/ui/application.test.mjs",
+      "rationale": "Complete contract-proposal ownership, raw input continuity, group acknowledgments and adverse recovery tests.",
+      "requirement_refs": [
+        "FR1",
+        "FR2",
+        "FR3",
+        "FR4"
+      ]
+    }
+  ],
+  "addressed_findings": [],
+  "limitations": [
+    "DOM/widget/host presentation integration remains owned by subsequent contracts. Inject acknowledgeDraft into widget composition; self-contained legacy fallback has an explicit regression test.",
+    "No full pnpm check/build or hosted acceptance performed by this unit author. Integrator owns complete integration validation."
+  ]
+}

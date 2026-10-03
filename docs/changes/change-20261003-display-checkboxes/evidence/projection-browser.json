@@ -1,0 +1,397 @@
+{
+  "cases": [
+    {
+      "view": "projects",
+      "statuses": [
+        "active"
+      ],
+      "includeDeferred": false,
+      "count": 8
+    },
+    {
+      "view": "projects",
+      "statuses": [
+        "active"
+      ],
+      "includeDeferred": true,
+      "count": 9
+    },
+    {
+      "view": "projects",
+      "statuses": [
+        "on-hold"
+      ],
+      "includeDeferred": false,
+      "count": 1
+    },
+    {
+      "view": "projects",
+      "statuses": [
+        "on-hold"
+      ],
+      "includeDeferred": true,
+      "count": 1
+    },
+    {
+      "view": "projects",
+      "statuses": [
+        "completed"
+      ],
+      "includeDeferred": false,
+      "count": 1
+    },
+    {
+      "view": "projects",
+      "statuses": [
+        "completed"
+      ],
+      "includeDeferred": true,
+      "count": 1
+    },
+    {
+      "view": "projects",
+      "statuses": [
+        "dropped"
+      ],
+      "includeDeferred": false,
+      "count": 1
+    },
+    {
+      "view": "projects",
+      "statuses": [
+        "dropped"
+      ],
+      "includeDeferred": true,
+      "count": 1
+    },
+    {
+      "view": "projects",
+      "statuses": [
+        "active",
+        "completed"
+      ],
+      "includeDeferred": false,
+      "count": 9
+    },
+    {
+      "view": "projects",
+      "statuses": [
+        "active",
+        "completed"
+      ],
+      "includeDeferred": true,
+      "count": 10
+    },
+    {
+      "view": "projects",
+      "statuses": [
+        "active",
+        "on-hold",
+        "completed",
+        "dropped"
+      ],
+      "includeDeferred": false,
+      "count": 11
+    },
+    {
+      "view": "projects",
+      "statuses": [
+        "active",
+        "on-hold",
+        "completed",
+        "dropped"
+      ],
+      "includeDeferred": true,
+      "count": 12
+    },
+    {
+      "view": "projects",
+      "statuses": [],
+      "includeDeferred": false,
+      "count": 0
+    },
+    {
+      "view": "projects",
+      "statuses": [],
+      "includeDeferred": true,
+      "count": 0
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "active"
+      ],
+      "includeDeferred": false,
+      "count": 8
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "active"
+      ],
+      "includeDeferred": true,
+      "count": 9
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "on-hold"
+      ],
+      "includeDeferred": false,
+      "count": 1
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "on-hold"
+      ],
+      "includeDeferred": true,
+      "count": 1
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "completed"
+      ],
+      "includeDeferred": false,
+      "count": 1
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "completed"
+      ],
+      "includeDeferred": true,
+      "count": 1
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "dropped"
+      ],
+      "includeDeferred": false,
+      "count": 1
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "dropped"
+      ],
+      "includeDeferred": true,
+      "count": 1
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "active",
+        "completed"
+      ],
+      "includeDeferred": false,
+      "count": 9
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "active",
+        "completed"
+      ],
+      "includeDeferred": true,
+      "count": 10
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "active",
+        "on-hold",
+        "completed",
+        "dropped"
+      ],
+      "includeDeferred": false,
+      "count": 11
+    },
+    {
+      "view": "tags",
+      "statuses": [
+        "active",
+        "on-hold",
+        "completed",
+        "dropped"
+      ],
+      "includeDeferred": true,
+      "count": 12
+    },
+    {
+      "view": "tags",
+      "statuses": [],
+      "includeDeferred": false,
+      "count": 0
+    },
+    {
+      "view": "tags",
+      "statuses": [],
+      "includeDeferred": true,
+      "count": 0
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "active"
+      ],
+      "includeDeferred": false,
+      "count": 1
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "active"
+      ],
+      "includeDeferred": true,
+      "count": 1
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "on-hold"
+      ],
+      "includeDeferred": false,
+      "count": 1
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "on-hold"
+      ],
+      "includeDeferred": true,
+      "count": 1
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "completed"
+      ],
+      "includeDeferred": false,
+      "count": 1
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "completed"
+      ],
+      "includeDeferred": true,
+      "count": 1
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "dropped"
+      ],
+      "includeDeferred": false,
+      "count": 1
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "dropped"
+      ],
+      "includeDeferred": true,
+      "count": 1
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "active",
+        "completed"
+      ],
+      "includeDeferred": false,
+      "count": 2
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "active",
+        "completed"
+      ],
+      "includeDeferred": true,
+      "count": 2
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "active",
+        "on-hold",
+        "completed",
+        "dropped"
+      ],
+      "includeDeferred": false,
+      "count": 4
+    },
+    {
+      "view": "flagged",
+      "statuses": [
+        "active",
+        "on-hold",
+        "completed",
+        "dropped"
+      ],
+      "includeDeferred": true,
+      "count": 4
+    },
+    {
+      "view": "flagged",
+      "statuses": [],
+      "includeDeferred": false,
+      "count": 0
+    },
+    {
+      "view": "flagged",
+      "statuses": [],
+      "includeDeferred": true,
+      "count": 0
+    },
+    {
+      "view": "history",
+      "statuses": [],
+      "count": 0
+    },
+    {
+      "view": "history",
+      "statuses": [
+        "completed"
+      ],
+      "count": 1
+    },
+    {
+      "view": "history",
+      "statuses": [
+        "dropped"
+      ],
+      "count": 1
+    },
+    {
+      "view": "history",
+      "statuses": [
+        "completed",
+        "dropped"
+      ],
+      "count": 2
+    },
+    {
+      "perspective": "Everything",
+      "exactSavedDefinition": true,
+      "count": 12
+    },
+    {
+      "perspective": "No matches",
+      "exactSavedDefinition": true,
+      "count": 0
+    },
+    {
+      "perspective": "Focus time",
+      "exactSavedDefinition": true,
+      "count": 2
+    }
+  ],
+  "noWrites": true,
+  "savedStatusesDatesFlagsImmutable": true,
+  "nonzeroDroppedFixture": true
+}

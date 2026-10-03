@@ -1,0 +1,14 @@
+{
+  "same": true,
+  "hashes": [
+    "ac8eb7f97a1bf7a0af1e1c3b2a86ec032abe3b418b49d30c9307fac170a3caa6",
+    "ac8eb7f97a1bf7a0af1e1c3b2a86ec032abe3b418b49d30c9307fac170a3caa6"
+  ],
+  "normalizations": [
+    "source location/literal raw removed",
+    "if branch single statement block wrapping",
+    "object shorthand syntax",
+    "ChainExpression wrappers, preserving optional member/call flags"
+  ],
+  "limitation": "This compiler syntax comparison supplements browser tests, not a general proof of JavaScript semantic equivalence."
+}

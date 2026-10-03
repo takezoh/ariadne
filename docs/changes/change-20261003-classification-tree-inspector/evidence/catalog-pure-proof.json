@@ -1,0 +1,9 @@
+{
+  "passed": 7,
+  "immutable": true,
+  "typedIdentity": true,
+  "newerBothFieldsRetained": true,
+  "normalizedCapturedBaseline": true,
+  "fieldSpecificResolution": true,
+  "unavailableRetained": true
+}

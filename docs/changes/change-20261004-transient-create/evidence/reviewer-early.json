@@ -1,0 +1,61 @@
+{
+  "verdict": "changes_requested",
+  "stage": "early source audit; not frozen",
+  "contract": "/tmp/transient-create-contract.json",
+  "kernel_receipt": null,
+  "findings": [
+    {
+      "id": "TR-DEP-LOOP",
+      "severity": "major",
+      "evidence": "lib/ui/application.ts commitTransient dependency eligible check and jobs.unshift(child,parent)",
+      "issue": "An eligible but invalid/composing/failed parent does not resolve; requeued child schedules same dependency repeatedly.",
+      "required": "Wait on blocked dependency and requeue dependents only after successful remap or explicit relevant correction; prevent retry storms."
+    },
+    {
+      "id": "TR-RAW-REMAP",
+      "severity": "major",
+      "evidence": "lib/ui/model/transient-create.ts replace; application remapTransient contexts/drafts/catalogDrafts",
+      "issue": "Recursive replacement of every matching string corrupts raw title/notes/description equal to temporary identity.",
+      "required": "Replace typed identity/reference fields only; preserve all user-controlled raw content."
+    },
+    {
+      "id": "TR-SAVED-DEP",
+      "severity": "major",
+      "evidence": "DOM displayData classification pickers; application ordinary enqueueDraft/autosave plan",
+      "issue": "Saved Action can select temporary Project/Tag then send unresolved local reference via ordinary autosave.",
+      "required": "Wait for temporary catalog dependency, retain classification draft, remap and commit saved Action after catalog resolves; never send local IDs."
+    }
+  ],
+  "backend_assessment": "Current catalogName delegates nonempty text while validateNodes preserves historical blank rows; applied SQL/schema/journal untouched per owner. Owner 12 targeted tests passed; no duplicate reviewer execution.",
+  "limits": [
+    "Read-only source review; no new test/browser execution before final source readiness.",
+    "UI author still implementing fixes."
+  ],
+  "hashes": {
+    "lib/ui/model/transient-create.ts": "be43759a7ed2e1e164a6f6f064cff5573e987d639b2ee65b082078a4c556aaed",
+    "lib/ui/application.ts": "eb671403b25fb526cdbc22cbf3d3183d8b18d910688bdb239f9dfb6875a05149",
+    "lib/ui/adapters/dom.js": "16338acf1ac8a0a206df79d512062a00c621a5dd7fa5699bfe471d0cd96c0ad0",
+    "lib/domain/core.ts": "4ae43150fdc19a186abdd69fc4464fa6e6bd9882f546036ce79827ae3323f7da"
+  },
+  "resolved_source_observed": [
+    "TR-DEP-LOOP: dependenciesReady now checks validation/composition/pending/errors before scheduling dependency.",
+    "TR-RAW-REMAP: replacement limited to typed identity fields, not raw text.",
+    "TR-SAVED-DEP: ordinary saved Action draft path now uses dependenciesReady.",
+    "Authoritative state.data retained separately from local overlay; explicit null no longer falls back to creation context.",
+    "Typed applied receipt with missing record remaps ID and clears current selection rather than recreate temporary object."
+  ],
+  "additional_findings": [
+    {
+      "id": "TR-SAVED-PRUNE",
+      "severity": "major",
+      "issue": "Saved Action dirty classification references local catalog but prune dependency closure ignores saved drafts, allowing unresolved catalog to disappear.",
+      "requested": "Seed closure from dirty saved Action references as well as transient edited/pending records."
+    },
+    {
+      "id": "TR-CATALOG-PROOF",
+      "severity": "minor",
+      "issue": "Transient distinct project_add/tag_add receipt validator should require created:true in addition to same-kind UUID.",
+      "requested": "Malformed creation proof remains unknown with exact request."
+    }
+  ]
+}

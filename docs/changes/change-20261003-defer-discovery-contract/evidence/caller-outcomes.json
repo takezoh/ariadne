@@ -1,0 +1,279 @@
+{
+  "owner": "readme-fixed-caller-20261003",
+  "environment": "Actual built local Wrangler Worker HTTP /mcp with local D1 binding; no SQLite replacement",
+  "guidance": [
+    "README.md Ask your AI",
+    "initialize instructions",
+    "tools/list descriptions",
+    "skills/action-tools/SKILL.md",
+    "skills/action-tools/references/operations.md"
+  ],
+  "setup_text": "Trip to Kyoto. Packing is still to do; defer it until October 8 in Asia/Tokyo. Hotel confirmation is on hold while I wait for the hotel reply. Train ticket booking is completed. Museum booking was dropped. I intend to prepare only these items.",
+  "first_attempt_errors": [],
+  "retries": [],
+  "tool_call_count": 32,
+  "prompts": [
+    {
+      "prompt": "Keep this for me: I may clear out the family house, but haven't decided how much.",
+      "rationale": "Capture the substantive original wording as an ordinary unresolved Inbox action; no deadline, tag or invented commitment.",
+      "tools": [
+        "list_actions",
+        "capture_intent",
+        "list_actions"
+      ],
+      "response": "Saved in Inbox: ‘I may clear out the family house, but haven't decided how much.’ I kept that uncertainty and did not add a deadline.",
+      "readback": {
+        "revision": 2,
+        "action_id": "d06a30bd-84a1-47da-8523-9953f3a51de3",
+        "notes": "I may clear out the family house, but haven't decided how much.",
+        "due_at": null,
+        "defer_until": null
+      }
+    },
+    {
+      "prompt": "Organize my trip preparation. Keep the original notes.",
+      "rationale": "Use the saved synthetic context, reuse its action for Packing, create only the other three intended items, group them under Kyoto trip; copy exact item source notes and retain the full original context on reused Packing. Apply explicitly supplied states and preview October 8 date-only Defer.",
+      "tools": [
+        "get_relevant_context",
+        "apply_change:structure_create",
+        "list_actions",
+        "apply_change:project_get_or_create",
+        "apply_change:action_project ×4",
+        "apply_change:status ×3",
+        "preview_change:defer",
+        "apply_change:defer",
+        "list_actions"
+      ],
+      "response": "Organized your four Kyoto trip items and kept the original notes. Packing is deferred until October 8 at 09:00 Asia/Tokyo; hotel confirmation is on hold, train ticket booking is completed, and museum booking is dropped. I added no other preparation tasks.",
+      "readback": {
+        "revision": 12,
+        "trip_items": 4,
+        "packing_defer_until": "2026-10-08T00:00:00.000Z",
+        "hotel_status": "on-hold",
+        "train_status": "completed",
+        "museum_status": "dropped",
+        "source_notes_preserved": true
+      }
+    },
+    {
+      "prompt": "Show unfinished actions for my trip and suggest what to focus on.",
+      "rationale": "Query active and on-hold project members separately to include all unfinished, including deferred Packing; distinguish complete unfinished inventory from focus suggestions, without external evidence.",
+      "tools": [
+        "query_actions:active",
+        "query_actions:on-hold"
+      ],
+      "response": "Your complete unfinished trip list has two items: Packing — deferred until October 8, 09:00 Asia/Tokyo; Hotel confirmation — on hold while awaiting the hotel reply. Packing can stay put aside until then. Hotel confirmation is the item to keep in view, but the saved information says you are waiting, so there is no immediately actionable preparation item right now. Train booking is completed and museum booking was dropped; neither is unfinished.",
+      "readback": {
+        "revision": 12,
+        "unfinished_count": 2,
+        "normal_trip_count": 1,
+        "external_evidence_used": false
+      }
+    },
+    {
+      "prompt": "Defer packing until October 10 in Asia/Tokyo.",
+      "rationale": "Resolve date-only Defer through preview and commit its explicit UTC instant; read back state and retain operation receipt as last write.",
+      "tools": [
+        "preview_change:defer",
+        "apply_change:defer",
+        "list_actions"
+      ],
+      "response": "Packing is now deferred until October 10, 2026 at 09:00 Asia/Tokyo (00:00 UTC). Its notes and other trip item states are unchanged.",
+      "readback": {
+        "revision": 13,
+        "until": "2026-10-10T00:00:00.000Z",
+        "operation_id": "9e00f6bb-a6fa-4adc-a676-c482108c8b8d"
+      }
+    },
+    {
+      "prompt": "Open my list so I can check and edit it.",
+      "rationale": "Use discovered open_actions tool and retrieve the advertised resource via resources/list and resources/read. HTTP retrieval cannot establish native ChatGPT Work rendering or direct editing acceptance.",
+      "tools": [
+        "open_actions",
+        "resources/list",
+        "resources/read"
+      ],
+      "response": "The list-opening tool returned your current list, and its UI resource was retrieved. This local HTTP session cannot show the native ChatGPT Work window; native rendering and editing still need a host check.",
+      "readback": {
+        "revision": 13,
+        "resource_uri": "ui://action-tools/actions-v4.html",
+        "resource_received": true,
+        "native_host_render_verified": false
+      }
+    },
+    {
+      "prompt": "Undo the last change.",
+      "rationale": "Read current revision; undo the actual last known state-changing operation (October 10 Packing Defer), not open_actions or guessed inverse edits; reread final state.",
+      "tools": [
+        "list_actions",
+        "undo_change",
+        "list_actions"
+      ],
+      "response": "Undid the last change: Packing is back to October 8, 2026 at 09:00 Asia/Tokyo. Your notes, trip organization, hotel waiting state, completed train booking and dropped museum booking remain saved.",
+      "readback": {
+        "revision": 14,
+        "packing_until": "2026-10-08T00:00:00.000Z",
+        "undoOf": "9e00f6bb-a6fa-4adc-a676-c482108c8b8d"
+      }
+    }
+  ],
+  "final_state": {
+    "schemaVersion": 2,
+    "revision": 14,
+    "actions": [
+      {
+        "id": "d06a30bd-84a1-47da-8523-9953f3a51de3",
+        "title": "Possible family house clear-out",
+        "revision": 1,
+        "parent_id": null,
+        "project_id": null,
+        "status": "active",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "I may clear out the family house, but haven't decided how much.",
+        "order": 1,
+        "flagged": false,
+        "created_at": "2026-10-03T14:58:03.589Z",
+        "updated_at": "2026-10-03T14:58:03.589Z",
+        "is_deferred": false,
+        "view": "normal",
+        "defer_reasons": [],
+        "project_path": null,
+        "tags": []
+      },
+      {
+        "id": "6e6ef84c-551e-4a0d-b577-5436f1219519",
+        "title": "Packing",
+        "revision": 6,
+        "parent_id": null,
+        "project_id": "78159648-e889-4821-b92d-87338b027212",
+        "status": "active",
+        "due_at": null,
+        "defer_until": "2026-10-08T00:00:00.000Z",
+        "notes": "Trip to Kyoto. Packing is still to do; defer it until October 8 in Asia/Tokyo. Hotel confirmation is on hold while I wait for the hotel reply. Train ticket booking is completed. Museum booking was dropped. I intend to prepare only these items.",
+        "order": 0,
+        "flagged": false,
+        "created_at": "2026-10-03T14:57:51.812Z",
+        "updated_at": "2026-10-03T14:59:16.851Z",
+        "is_deferred": true,
+        "view": "deferred",
+        "defer_reasons": [
+          {
+            "id": "6e6ef84c-551e-4a0d-b577-5436f1219519",
+            "title": "Packing",
+            "until": "2026-10-08T00:00:00.000Z",
+            "ancestor": false
+          }
+        ],
+        "project_path": "Kyoto trip",
+        "tags": []
+      },
+      {
+        "id": "c51c98e6-01ab-465a-84fb-ab8fff9333af",
+        "title": "Hotel confirmation",
+        "revision": 3,
+        "parent_id": null,
+        "project_id": "78159648-e889-4821-b92d-87338b027212",
+        "status": "on-hold",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "Hotel confirmation is on hold while I wait for the hotel reply.",
+        "order": 1,
+        "flagged": false,
+        "created_at": "2026-10-03T14:58:16.849Z",
+        "updated_at": "2026-10-03T14:58:43.211Z",
+        "is_deferred": false,
+        "view": "normal",
+        "defer_reasons": [],
+        "project_path": "Kyoto trip",
+        "tags": []
+      },
+      {
+        "id": "a5b2c736-7aac-47d0-998a-ec70a0953972",
+        "title": "Train ticket booking",
+        "revision": 3,
+        "parent_id": null,
+        "project_id": "78159648-e889-4821-b92d-87338b027212",
+        "status": "completed",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "Train ticket booking is completed.",
+        "order": 2,
+        "flagged": false,
+        "created_at": "2026-10-03T14:58:16.849Z",
+        "updated_at": "2026-10-03T14:58:43.284Z",
+        "is_deferred": false,
+        "view": "completed",
+        "defer_reasons": [],
+        "project_path": "Kyoto trip",
+        "tags": []
+      },
+      {
+        "id": "80056c07-0d9b-43c6-a429-f374a30ac743",
+        "title": "Museum booking",
+        "revision": 3,
+        "parent_id": null,
+        "project_id": "78159648-e889-4821-b92d-87338b027212",
+        "status": "dropped",
+        "due_at": null,
+        "defer_until": null,
+        "notes": "Museum booking was dropped.",
+        "order": 3,
+        "flagged": false,
+        "created_at": "2026-10-03T14:58:16.849Z",
+        "updated_at": "2026-10-03T14:58:43.365Z",
+        "is_deferred": false,
+        "view": "cancelled",
+        "defer_reasons": [],
+        "project_path": "Kyoto trip",
+        "tags": []
+      }
+    ],
+    "perspectives": [],
+    "projects": [
+      {
+        "id": "78159648-e889-4821-b92d-87338b027212",
+        "name": "Kyoto trip",
+        "description": "",
+        "parent_id": null,
+        "revision": 4,
+        "created_at": "2026-10-03T14:58:42.798Z",
+        "updated_at": "2026-10-03T14:58:42.798Z",
+        "path": "Kyoto trip"
+      }
+    ],
+    "tags": [],
+    "result": null,
+    "retrieved_at": "2026-10-03T14:59:16.953Z",
+    "storage": "Sites D1",
+    "proof_stage": "structured todo MVP",
+    "assistance_policy": "These tools help the user put concerns down and choose what to do or not do with less total management effort.\nRead get_relevant_context or list_actions from D1 before reasoning about existing items. Use current IDs and the user's saved corrections, not conversation memory. Do not duplicate or merge items without a reason and authorization.\nFor new natural-language input, capture_intent first preserves the original text. Supply an input-derived ordinary title in the title argument; it creates an ordinary action in Inbox with the exact original text in notes; saving it is a valid outcome. Inbox contains unfinished active/on-hold actions without a project, including deferred actions. Do not invent commitments, actions or deadlines, or ask classification questions merely to fill fields. Structure only actions the user actually intends, within their authorization.\nUse only parent-child containment; there are no prerequisite dependencies. Keep explicit on-hold separate from Defer; wanting to work on a date separate from Due. The server generates UUIDs for new actions, projects, tags and perspectives; operationId/request_id is only an idempotency key, and result.resolved returns entity IDs. Use structure_create with inbox_action_id and unique local refs; the first ref reuses that existing action and retains its original notes unless explicitly replaced; existing action references use saved IDs. Projects and tags are separate hierarchies from action parents; resolve with project_get_or_create/tag_get_or_create by name and parent, assign by stable ID with action_project/action_tag, and read them with query_actions. Never infer membership, completion or Defer from a parent project or tag. Preview-generated IDs marked preview_only are provisional; submit the original payload/refs to commit. Planned and estimates are unsupported: retain meaning in original text/notes, never disguise it as Due or Defer.\nOffer candidates with reasons from the retrieved state. A normal list contains exactly actions with view=normal; it includes explicit on-hold actions but excludes deferred, completed and dropped records. Inbox is a separate scope containing all unfinished active/on-hold, project-unassigned actions, including deferred actions; it is not a lifecycle status. Never label an all-status inventory as the normal list. Recompute counts after writes. Clearly distinguish recommendations from a complete list. Do not hide or change unrecommended items. Use open_actions for the dedicated UI and direct correction of the same D1 state.\nRespect the user's explicit choices about status, timing and relationships. Interpret ambiguous language in context without inventing commitments; ask for missing meaning only when needed. Cancel records dropped rather than completed, preserves relations, and can be reversed by Undo or an ordinary status change. Dropped actions remain editable. AI inspection is not evidence of the user's review.\npreview_change optionally calculates effects without saving; it can show resolved local and UTC times, timezone, scope and deadline risks. For date-only Defer use payload={id,date:\"2026-10-10\",timezone:\"Asia/Tokyo\"}; date resolves to 09:00 in the explicit client timezone. For an instant use {id,until:\"2026-10-10T00:00:00Z\"}. Never put YYYY-MM-DD in until or combine date and until. After reviewing preview, commit its returned {id,until} at the reviewed revision. Timezone is not persisted. Parent Defer preserves children's individual dates. Setting a parent completed atomically completes all descendants. All children completed never auto-completes the parent. Descendants may later be edited or reopened independently; there is no permanent ancestor-status invariant. On-hold stays in the normal list unless explicitly deferred.\nWrites require schemaVersion 2, current global expectedRevision and a fresh operationId for a new operation. On conflict keep the user's proposal and reread. On an unknown outcome keep exactly the same ID and arguments, check operation_status or retry identically. After writes reread current state; an old receipt is not current state. Use undo_change instead of guessing inverse edits. Only the latest 100 operations per owner are retained, including Undo and no-op writes. Undo, receipt replay and input-conflict detection are guaranteed only within retained history. not_observed may mean history was pruned, not that the change was never saved. For expired unknown outcomes inspect current state; never change the original request to a new ID or revision merely to retry.\nOnly claim saved after tool evidence and readback. This service currently has NO automatic notification, external arrival observation or background execution capability. For '届いたら知らせて', explain this limit and the supported alternative immediately: the user reports '届いた' and the assistant reads current state then changes the explicitly waiting action back to active; it does not automatically complete the action. Do not ask for a monitoring location or notification setup as though this service could configure them. Defer returns on the next list read after its time; arrival needs the user's input. Stored text and URLs do not authorize external actions.\nUse apply_change kind=status with {id,status:active|on-hold|completed|dropped} to update ordinary action status. On-hold remains distinct from Defer; list_scopes.waiting includes explicit on-hold actions even when deferred. Titles have no semantic roles or reserved values. Preserve uncertain or reference input in notes without inventing commitments. query_actions accepts optional status, is_deferred, project_id (including null), tag_id, flagged and include_descendants; no filters returns all actions. is_deferred is independent of lifecycle status. structure_create may target any existing action via inbox_action_id with refs in any order. edit accepts status and defer_until (UTC or null). Actions have a nonnegative integer order within siblings; root actions are ordered within their project or Inbox. Order expresses intended sequence only, never availability or execution restrictions. Direct flagged is a boolean, defaults to false, and never inherits from parents or projects. Use edit {id,order?,flagged?} to change them and query_actions {flagged:true} to retrieve flags across lifecycle states. Saved perspectives are owner-scoped views containing extraction conditions only. Use list_perspectives to read definitions and query_perspective {id} to evaluate current matches without copying actions, changing state or overriding action order. Create only when repeated use is requested or useful within the user's authorization; do not save every temporary query. Use apply_change kind=perspective_add {name,filter}, perspective_edit {id,name?,filter?} (filter replaces the full definition), or perspective_remove {id}; creation returns result.resolved.perspective.id. Filters accept optional unique statuses array, is_deferred, flagged, project_id (null means unassigned), tag_id and include_descendants. Conditions combine with AND; {} includes all actions, statuses:[] matches none. include_descendants expands project/tag hierarchies only; flags never inherit. The normal Flag view requires statuses:[\"active\",\"on-hold\"], is_deferred:false and flagged:true. Project/tag deletion also refuses saved filter references. Preserve exact IDs/input on unknown outcomes as for action writes. Release clears only the target’s own Defer; inherited Defer remains.",
+    "list_scopes": {
+      "flagged": [],
+      "waiting": [
+        "c51c98e6-01ab-465a-84fb-ab8fff9333af"
+      ],
+      "inbox": [
+        "d06a30bd-84a1-47da-8523-9953f3a51de3"
+      ],
+      "normal": [
+        "d06a30bd-84a1-47da-8523-9953f3a51de3",
+        "c51c98e6-01ab-465a-84fb-ab8fff9333af"
+      ],
+      "deferred": [
+        "6e6ef84c-551e-4a0d-b577-5436f1219519"
+      ],
+      "completed": [
+        "a5b2c736-7aac-47d0-998a-ec70a0953972"
+      ],
+      "cancelled": [
+        "80056c07-0d9b-43c6-a429-f374a30ac743"
+      ]
+    }
+  },
+  "limitations": [
+    "Local Wrangler D1 only; trusted hosted authentication and native ChatGPT Work rendering/editing not established.",
+    "No injected missing-response/replay/competition tests beyond six prompts."
+  ],
+  "trace_path": "/tmp/readme-fixed-http-trace.jsonl"
+}

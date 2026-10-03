@@ -1,0 +1,31 @@
+{
+  "site_source": "8f894c54db538a7f0b3974616f6a31f63da788f2",
+  "github_code": "1da1a90",
+  "deployment_id": "appgdep_6abfd1e672888191900a671a02858c15",
+  "version_id": "appgprj_6abe391bc8cc81918b4e842b4db293e8~appgver_0ef3295d22e88191ad64c7fb280f84b8",
+  "status": "succeeded",
+  "published_at": "2026-10-02T15:48:50.861361+00:00",
+  "audience": "Existing owner-only access preserved",
+  "final_read": {
+    "revision": 86,
+    "retrieved_at": "2026-10-02T15:50:25.571Z",
+    "parent": "open",
+    "unfinished_child": "Verification 0301: Decide on the layout"
+  },
+  "ui_error": "Incomplete child task: Verification 0301: Decide on the layout. Review it first.",
+  "automatic_checks": {
+    "storage_core": 22,
+    "ui": 5,
+    "typecheck": "passed",
+    "lint": "passed",
+    "build": "passed",
+    "recorded_snapshot_assertions": "passed"
+  },
+  "excluded": [
+    "Separate account",
+    "Infrastructure-only",
+    "CSP",
+    "Cost",
+    "Long-term benefits"
+  ]
+}

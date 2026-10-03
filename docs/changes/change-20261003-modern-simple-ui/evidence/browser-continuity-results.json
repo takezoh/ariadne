@@ -1,0 +1,55 @@
+{
+  "allFieldsRetained": true,
+  "openDetailsRetained": true,
+  "modeCaretRetained": true,
+  "refreshCaretRetained": true,
+  "sameInputNode": true,
+  "hostThemeApplied": true,
+  "fields": [
+    [
+      "editTitle",
+      "入力中のアクション",
+      false
+    ],
+    [
+      "editNotes",
+      "編集中のメモ",
+      null
+    ],
+    [
+      "editFlag",
+      "on",
+      true
+    ],
+    [
+      "editParent",
+      "a2",
+      null
+    ],
+    [
+      "editDue",
+      "2026-11-02T18:00:00+09:00",
+      false
+    ],
+    [
+      "editOrder",
+      "7",
+      false
+    ],
+    [
+      "deferDate",
+      "2026-11-01",
+      false
+    ],
+    [
+      "deferUntil",
+      "2026-11-02T09:00:00+09:00",
+      false
+    ],
+    [
+      "editStatus",
+      "on-hold",
+      null
+    ]
+  ]
+}

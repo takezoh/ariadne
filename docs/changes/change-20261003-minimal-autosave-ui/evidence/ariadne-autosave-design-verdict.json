@@ -1,0 +1,26 @@
+{
+  "profile": "native independent review",
+  "subject_kind": "design",
+  "source_refs": [
+    "/tmp/ariadne-autosave-design.json",
+    "./lib/ui/application.ts",
+    "./lib/ui/model/drafts.ts"
+  ],
+  "verdict": "approved",
+  "findings": [],
+  "reason": "The candidate explicitly replaces routine save/review controls with effect-injected debounce and a single owner mutation lane while preserving frozen request recovery, captured-field acknowledgment, composition, current revision, and touched-field reconciliation. Backend contracts remain unchanged.",
+  "implementation_verification": [
+    "Check result recovery must not resume a fresh write until a complete post-receipt snapshot has been accepted; failed refresh must retain a recovery gate even after receipt is known applied.",
+    "Direct commands and queued draft edits of the same persisted field must obey user intent order. Successful direct commands update field baselines so their own mutations do not masquerade as external conflicts.",
+    "Composition prevents blur/navigation flushing intermediate input; finalized composition is retained and flushed for the original target after compositionend.",
+    "External touched-field conflict pauses only that target. Global unknown pauses every mutation. Use saved clears only overlapping conflicted fields.",
+    "Invalid date/number input is retained without repeated retry; incomplete Defer representation or missing timezone cannot send invented data.",
+    "Meaningful tests must exercise delayed replies with further typing, queued other-action edits, unknown receipt/retry, refresh failure after receipt, and field overlap across host refresh.",
+    "Generated and built widget must contain no ordinary Save or Review UI/dialog wiring, and stable focused inputs must preserve caret/IME while saving status rerenders."
+  ],
+  "limitations": [
+    "Implementation not yet reviewed",
+    "No runtime-kernel status claimed",
+    "No hosted acceptance evidence"
+  ]
+}

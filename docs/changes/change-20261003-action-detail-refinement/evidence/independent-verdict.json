@@ -1,0 +1,56 @@
+{
+  "status": "approved",
+  "profile": "native independent readonly verification",
+  "kernelExecuted": false,
+  "findings": [],
+  "proofs": {
+    "actualMemoryBrowser": {
+      "count": 15,
+      "path": "/tmp/action-detail-refinement/date-browser.json"
+    },
+    "trustedNativeDrag": {
+      "count": 12,
+      "path": "/tmp/action-detail-refinement/drag-matrix.json",
+      "matrix": "row-left +6/-1/-12/-30 \u00d7 final-row-bottom -2/+2/+8; root/last-rank/exact-one-write"
+    },
+    "independentPure": {
+      "count": 7,
+      "path": "/tmp/action-detail-refinement/pure-proof.json"
+    },
+    "finalFlagLayout": {
+      "count": 1,
+      "path": "/tmp/action-detail-refinement/flag-final.json"
+    },
+    "finalFlagColor": {
+      "count": 2,
+      "path": "/tmp/action-detail-refinement/flag-color-final.json"
+    }
+  },
+  "limits": [
+    "Actual actionCall through memory store; no real DB mutation, hosted D1 or ChatGPT host proof",
+    "IME events are synthetic; partial date raw value is instrumented and does not prove OS date-picker segment behavior",
+    "Catalog unknown/newer recovery unchanged existing serial lane; this proof covers catalog IME and pure offscreen catalog status aggregation, Action Defer exact unknown Check/Retry"
+  ],
+  "repositoryEdits": false,
+  "logicTestedCandidate": {
+    "html": "0674164d6cc8939c5fbe65ef015f176658179bdfcc16083f38fef576fce0e6fa",
+    "sources": {
+      "lib/ui/model/date-input.ts": "d5a974b1c72e977650f6d0542c48b935d5743ad2ee1fccf782725a12fd244336",
+      "lib/ui/model/save-status.ts": "89b352e246d64e3ffbf602738ccd5b7ef12c5852a280703711b2a4bb606fc0b5",
+      "lib/ui/adapters/dom.js": "c5991e6484a672f1a1f94d17f8f80f95179852420e5b82e7f8cefa654c30388d",
+      "lib/ui/application.ts": "5f17a0f68858ff9a43d9acfa4a2ed7397a9c7716e7357cba7dbfadc58faefa36",
+      "lib/widget.ts": "7192af40a50a05975bc30537bbbb8e2906dcfa6c27e55863d2575aa5f86c77ae"
+    }
+  },
+  "candidate": {
+    "html": "98054e976d9511e5919a6661c155c66f9eb51dfd1fc51ee940aef0a065e66e73",
+    "sources": {
+      "lib/ui/model/date-input.ts": "d5a974b1c72e977650f6d0542c48b935d5743ad2ee1fccf782725a12fd244336",
+      "lib/ui/model/save-status.ts": "89b352e246d64e3ffbf602738ccd5b7ef12c5852a280703711b2a4bb606fc0b5",
+      "lib/ui/adapters/dom.js": "c5991e6484a672f1a1f94d17f8f80f95179852420e5b82e7f8cefa654c30388d",
+      "lib/ui/application.ts": "5f17a0f68858ff9a43d9acfa4a2ed7397a9c7716e7357cba7dbfadc58faefa36",
+      "lib/widget.ts": "b0ca33bda4b7f064560a75078172c062a7462b65cbf1a91cd046d538476077d5"
+    }
+  },
+  "boundedFinalDelta": "Freeze4 CSS only: compact status group and adjacent right Flag; active Flag specificity renders orange and transparent background in light/dark. Date/model/DOM/controller hashes identical to freeze2."
+}

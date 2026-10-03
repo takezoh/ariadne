@@ -1,0 +1,11 @@
+{
+  "messages": [
+    "同じ親の下に同名のプロジェクトは作成できません。"
+  ],
+  "operationError": null,
+  "indicator": {
+    "kind": "saved",
+    "label": "All changes saved",
+    "icon": "tick"
+  }
+}

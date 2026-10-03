@@ -1,0 +1,66 @@
+[
+  {
+    "name": "sidebar",
+    "errors": [],
+    "sizes": {
+      "width": 390,
+      "scroll": 390
+    },
+    "scopeOptions": 7,
+    "editorFocus": "editTitle",
+    "hostThemeCaret": {
+      "colorScheme": "dark",
+      "id": "editNotes",
+      "start": 1,
+      "end": 3
+    }
+  },
+  {
+    "name": "full",
+    "errors": [],
+    "sizes": {
+      "width": 1280,
+      "scroll": 1280
+    },
+    "scopeOptions": null,
+    "editorFocus": "editTitle",
+    "hostThemeCaret": {
+      "colorScheme": "dark",
+      "id": "editNotes",
+      "start": 1,
+      "end": 3
+    }
+  },
+  {
+    "name": "compact",
+    "errors": [],
+    "sizes": {
+      "width": 320,
+      "scroll": 320
+    },
+    "scopeOptions": 7,
+    "editorFocus": "editTitle",
+    "hostThemeCaret": {
+      "colorScheme": "dark",
+      "id": "editNotes",
+      "start": 1,
+      "end": 3
+    }
+  },
+  {
+    "name": "dark",
+    "errors": [],
+    "sizes": {
+      "width": 390,
+      "scroll": 390
+    },
+    "scopeOptions": 7,
+    "editorFocus": "editTitle",
+    "hostThemeCaret": {
+      "colorScheme": "dark",
+      "id": "editNotes",
+      "start": 1,
+      "end": 3
+    }
+  }
+]

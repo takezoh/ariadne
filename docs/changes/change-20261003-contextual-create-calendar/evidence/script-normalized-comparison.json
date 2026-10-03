@@ -1,0 +1,17 @@
+{
+  "paths": [
+    "/tmp/contextual-create-calendar/widget.html",
+    "/tmp/contextual-create-calendar/live-widget.html"
+  ],
+  "same": true,
+  "hashes": [
+    "d796b8af66c03d5f010972b49bd390556d524af4beec8500afe314cb0b014c77",
+    "d796b8af66c03d5f010972b49bd390556d524af4beec8500afe314cb0b014c77"
+  ],
+  "normalizations": [
+    "source locations/literal raw/shorthand flags removed",
+    "single-statement if branch blocks",
+    "ChainExpression wrappers; optional member/call flags preserved"
+  ],
+  "limitation": "Supplementary compiler syntax comparison; not a general proof of JavaScript semantic equivalence."
+}

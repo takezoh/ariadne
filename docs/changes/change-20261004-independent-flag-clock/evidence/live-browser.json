@@ -1,0 +1,26 @@
+[
+  {
+    "width": 320,
+    "flagOutsideLifecycleBorder": true,
+    "bothClockGuides": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "flagOutsideLifecycleBorder": true,
+    "bothClockGuides": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "flagOutsideLifecycleBorder": true,
+    "bothClockGuides": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  }
+]

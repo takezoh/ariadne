@@ -1,0 +1,7 @@
+{
+  "status": "ok",
+  "indexed": 47,
+  "warnings": [
+    "summary coverage: 1 non-terminal doc(s) lack `summary` (ids: change-20261003-direct-action-movement). Add via `docs patch <id> set summary \"...\"` to improve find/context/digest candidate selection."
+  ]
+}

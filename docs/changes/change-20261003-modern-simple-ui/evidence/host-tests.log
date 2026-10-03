@@ -1,0 +1,20 @@
+✔ display context merges direct partial updates without changing omitted mode or mutating input (1.213231ms)
+✔ display bridge initializes host context and accepts actual response mode independently of target (0.391843ms)
+✔ new host notification defeats older mode reply and partial updates preserve capabilities (0.181251ms)
+✔ unsupported capability never requests and malformed or rejected reply preserves acknowledged mode (0.239806ms)
+✔ theme-only update during pending display request does not suppress authoritative mode response (0.155016ms)
+✔ host adapter ignores untrusted response and late timed out reply (1.713846ms)
+✔ host adapter routes responses, notifications and releases timers (0.649666ms)
+✔ host adapter disposal rejects outstanding requests (0.251449ms)
+✔ verification fixture discards exactly one trusted write response, while still executing request (0.291533ms)
+✔ host context notification has separate direct partial subscription and disposal (0.199882ms)
+✔ MCP open/list use existing resource identity with global/thread launch entrypoints (17.237324ms)
+✔ MCP resource declares supported host modes while retaining CSP and HTML identity (3.188691ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1206.487792

@@ -1,0 +1,38 @@
+{
+  "status": "source_fixed",
+  "profile": "native backend implementation",
+  "kernelExecuted": false,
+  "sourceHashes": {
+    "lib/domain/core.ts": "1120d62701b58ca9192f956ac235e631fd699f43e4d38058f9ca07e20e8e4121",
+    "lib/application/action-service.ts": "06197d7b7d5b1811f78cf9df99d840ec39d4ad935ee2e8fbe161403828c336a6",
+    "app/mcp/route.ts": "7e43180094d842cec09cee61dd1f1e1adeba75fb14b8524f05bd0812bfaa962c",
+    "db/schema.ts": "98bd9e5950b7ca1609e196d64aee0d535e30490521c2eb880f2c54ca5483b556",
+    "drizzle/0014_empty_catalog_names.sql": "80eed934eba4bd6ec374405b9a4cd9c398d8b1dbdd28cabb43b8fcd82288da17",
+    "drizzle/meta/_journal.json": "0d4af545899e66e57c8ad29ea5361363fdf76b4896727e6b43192d624ed46048",
+    "drizzle/meta/0014_snapshot.json": "760e01e693bd961e294d8c457339f468fea45c50c3bd11d9e22d173f5b772f0b",
+    "tests/helpers/sqlite-d1.mjs": "91acbb819292f2ff1f7f1c26c5febcd158c07fd9e8f920e2cdcfbb85ad3f0a4b",
+    "tests/domain/empty-catalog.test.mjs": "b2de115e16910bd33af86d2138c23661134a1087498ed769cdf9b99f067370cc",
+    "tests/adapters/empty-catalog.test.mjs": "a3ee6c88c8ac415c9d8c0b75a468b9dbe8ce9e6a4d8ea7770936be0e355d8401",
+    "tests/domain/empty-action.test.mjs": "55b174377d15bd387660a14580ffcbcb5cbd2354dae6793b7a1fcfc57dce4b6f",
+    "docs/technical/mcp-api.md": "fb4fa08c42a7e91f71e74010a53ab9fa69c17f2e6ad611ce95d3e8d5458844a5",
+    "docs/technical/data-model.md": "fa6a5d7db7e865429b150d32b6ff9ea6621c4c84a7d9526e2340d7cf3e36f0c4"
+  },
+  "verification": {
+    "backendAll": {
+      "tests": 189,
+      "passed": 189,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "log": "/tmp/catalog-empty-create/backend-all.log"
+    },
+    "typecheck": "passed",
+    "lint": "passed"
+  },
+  "migration": "0014 index-only; preserves rows, UUIDs, order and receipt bytes; real local/hosted migration not executed by this agent",
+  "contractArtifact": "/tmp/catalog-empty-create/backend-investigation.json",
+  "limitations": [
+    "Memory and SQLite do not prove hosted D1/authentication",
+    "Whole check/build and UI acceptance owned by root"
+  ]
+}

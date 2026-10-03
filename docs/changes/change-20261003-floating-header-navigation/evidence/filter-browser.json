@@ -1,0 +1,7 @@
+{
+  "exactDeferAndHistoryFilters": true,
+  "perViewMemory": true,
+  "readOnlyNoWrites": true,
+  "noSidebarOrMobileDuplicate": true,
+  "refreshIconOnlyAccessible": true
+}

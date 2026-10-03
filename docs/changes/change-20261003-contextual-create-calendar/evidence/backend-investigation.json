@@ -1,0 +1,40 @@
+{
+  "profile": "native readonly backend investigation",
+  "sourceEdited": false,
+  "facts": {
+    "publicKinds": "project_get_or_create/tag_get_or_create only; project_add/tag_add explicitly rejected by prepareChange",
+    "validation": "text trims, requires nonempty, raw length <=200; reused by internal add/edit",
+    "identity": "get_or_create matches same parent/name and returns existing without description overwrite; generatedId allocated after parent validation; owner receipt checked before prepare",
+    "uniqueness": "validateNodes prohibits any duplicate parent/name; SQL has root/parent unique indexes for Projects and Tags including empty names",
+    "order": "Project creates append within parent using durable order; Tag no durable order",
+    "associations": "Catalog creation itself does not assign Actions",
+    "undo": "Catalog creation delta, identity markers and receipt use existing atomic store; later edits/references cause conflict protection"
+  },
+  "recommendedContract": {
+    "kinds": [
+      "project_add",
+      "tag_add"
+    ],
+    "payload": {
+      "name": "empty-capable trimmed string max raw 200 UTF-16",
+      "parent_id": "optional null or owner-scoped same-kind UUID",
+      "description": "optional exact text max65536"
+    },
+    "forbidden": "Caller id; unknown extra fields",
+    "resolution": "result.resolved.project/tag = {id:serverGeneratedUUID,created:true}",
+    "semantics": "Always distinct creation for empty name, named duplicate same parent rejected; get_or_create remains nonempty lookup-or-create",
+    "editing": "project_edit/tag_edit name empty-capable; generic text/ref/perspective validators remain nonempty",
+    "migration": "New migration replaces four name unique indexes with matching owner/parent indexes restricted to name != empty string. Preserve every existing row/id/order/history/receipt and all prior migration files. No table reset/rebuild needed.",
+    "api": "schemaVersion2 retained, MCP envelope adds existing two operation kinds, description explains directcreate/getorcreate distinction",
+    "storage": "No adapter/storage schema column or application port change needed; schema index definitions updated"
+  },
+  "requiredVerification": [
+    "Multiple blank same-parent catalog creations distinct UUID and Project append order",
+    "Empty edit/clear valid; named uniqueness remains and owner isolation",
+    "Validation before ID allocation; caller ID rejected",
+    "Exact replay and missing response recover same IDs, no duplicate allocation",
+    "CAS competition and injected mid-batch failure preserve atomic receipts/markers/rows",
+    "Creation Undo clean removes only created catalog; later rename/membership/child references conflict",
+    "Populated migration preserves all rows and raw historical receipt bytes; SQL named uniqueness retained but blank duplicates allowed"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "profile": "native backend implementation",
+  "status": "source_fixed",
+  "boundary_verdict": "/tmp/catalog-tree-drag-design-verdict.json",
+  "contract": {
+    "project_move": "Existing {id,parent_id} OR strict relative {id,placement,anchor_id?}; every changed peer shares CAS/receipt/identity marker/Undo",
+    "project_order": "required nonnegative safe integer, comparator order/name/UUID, newappend, sourcegapskeep/destinationonlynormalize",
+    "tag": "existing tag_move parent only; no order",
+    "migration": "0013 single ALTER ADD Project order DEFAULT0 CHECK; no record/history reset",
+    "historical_undo": "Only historical Project receipt delta comparison/restoration adds absent order0; current snapshots reject invalid ranks"
+  },
+  "source_sha256": {
+    "lib/domain/core.ts": "bcc9d2227c87691f3496507a52c6cd37a91d227ad8beaaabe2f633c1389accd0",
+    "lib/domain/operations.ts": "6070fa2b86f2ebf873e3a767673c24a17948d4b1b70d50fd2ce6c469e8258c6b",
+    "lib/adapters/d1-action-store.ts": "f25b169aa7157f7f7044c405e103254f2e4b8d13a3953d8753c1cc05a97ece59",
+    "db/schema.ts": "c227b81e2c3d99e4a4de5236bf6bd52d00ee660b690729af22430aaec1afd743",
+    "drizzle/0013_project_order.sql": "0f2c74ed0b45ed30585927c4c53c9bde7ec8744058249c04ad0c161b5e5e5c7b",
+    "drizzle/meta/_journal.json": "74d534eadc362f7ecdeb8ddd7e07bd3233f97fe5db62342e158e31eb61426fee",
+    "drizzle/meta/0013_snapshot.json": "40e2739ae9579be03e3b2d20197e58477d8aa80d32b74a923202c720ff8f7b92",
+    "tests/helpers/sqlite-d1.mjs": "f489f3112d43879615cbeb824865f5f0164abc174bda67666b440447cbc64a1f",
+    "app/mcp/route.ts": "c1cbdfe001ad326ecda5499b852a219fcb01508d22eff9fccde2197b1131c0e7",
+    "docs/technical/mcp-api.md": "a08e6afc94a4ca3f1eb576ea2b8c51d5c013bee0328e72ebbf6062c927ee27b3",
+    "docs/technical/data-model.md": "48fca21745c81ad19257a7b7b0fb4fe191f8287122ca880b7d2d3634d3e783e8",
+    "tests/domain/project-move.test.mjs": "8cc4c52519bcc5985218a79f735032074728b871f16f2187c5ccfa5d1eb602cc",
+    "tests/adapters/project-move.test.mjs": "633d822ec881d91794d7379e1953b913dea3ff85ad8fe6a2879c64b30cb87ef9",
+    "tests/adapters/catalog-description.test.mjs": "621bf1ceb12785dfb7f470146722916e748e8ecfded343ea8157ab388fb655bd",
+    "tests/adapters/action-model-migration.test.mjs": "584892a4c06c4b8f4815617768128fef85ed5190cac5621dba9e64fed982bf45",
+    "tests/adapters/perspective-migration.test.mjs": "5676e24457efeae40982c0574e95f662c7f6596dad19671b4fb53757d311d0ae",
+    "tests/domain/action-move.test.mjs": "ca6b2aaf34c45e278ed1146e8218dc48a689b4f35755e282238d22d3ebcee7e8"
+  },
+  "verification": {
+    "backend_all": {
+      "passed": 179,
+      "failed": 0,
+      "skipped": 0,
+      "log": "/tmp/catalog-move-backend-all.log"
+    },
+    "focused": {
+      "passed": 21,
+      "failed": 0,
+      "log": "/tmp/catalog-move-backend-tests.log"
+    },
+    "populated_migration_final_recheck": {
+      "passed": 4,
+      "failed": 0
+    },
+    "typecheck": "passed",
+    "lint": "passed"
+  },
+  "storage_proof": [
+    "Real SQLite and memory CAS race/exact replay/missing response/owner isolation",
+    "Mid-peer project update injection rolls back ranks,parent,identity markers,receipt,owner revision",
+    "Hidden peer later correction blocks Undo in pure domain",
+    "Migration preserves populated actions/catalog/associations/perspectives/identitymarkers/receiptbytes for both owners",
+    "Historical oldreceipt Undo works after order0 migration; later correction conflicts"
+  ],
+  "limitations": [
+    "Hosted D1 and actual ChatGPT host are not proven by SQLite/memory tests.",
+    "Whole pnpm check/build/localmigrate and independent implementation review remain parent-owned."
+  ]
+}

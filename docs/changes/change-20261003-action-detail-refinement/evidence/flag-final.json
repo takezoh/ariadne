@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "compactStatusGroup": {
+    "x": 945,
+    "y": 152,
+    "width": 200,
+    "height": 44
+  },
+  "rightAdjacentFlag": {
+    "x": 1105,
+    "y": 156,
+    "width": 36,
+    "height": 36
+  },
+  "writes": 1,
+  "htmlHash": "7a836cf7a017ead3c3a467a148afe3ac1fef8640f49098fe5fa4c2ec64bca880"
+}

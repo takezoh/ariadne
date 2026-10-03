@@ -1,0 +1,68 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "separateFlag": {
+      "gap": 16,
+      "flagBorder": "1px",
+      "statusBorder": "1px"
+    },
+    "oneCharacterPersistentMaskBoth": true,
+    "refreshPartialRetainedNoWrite": true
+  },
+  {
+    "width": 320,
+    "theme": "dark",
+    "separateFlag": {
+      "gap": 16,
+      "flagBorder": "1px",
+      "statusBorder": "1px"
+    },
+    "oneCharacterPersistentMaskBoth": true,
+    "refreshPartialRetainedNoWrite": true
+  },
+  {
+    "width": 390,
+    "theme": "light",
+    "separateFlag": {
+      "gap": 16,
+      "flagBorder": "1px",
+      "statusBorder": "1px"
+    },
+    "oneCharacterPersistentMaskBoth": true,
+    "refreshPartialRetainedNoWrite": true
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "separateFlag": {
+      "gap": 16,
+      "flagBorder": "1px",
+      "statusBorder": "1px"
+    },
+    "oneCharacterPersistentMaskBoth": true,
+    "refreshPartialRetainedNoWrite": true
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "separateFlag": {
+      "gap": 16,
+      "flagBorder": "1px",
+      "statusBorder": "1px"
+    },
+    "oneCharacterPersistentMaskBoth": true,
+    "refreshPartialRetainedNoWrite": true
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "separateFlag": {
+      "gap": 16,
+      "flagBorder": "1px",
+      "statusBorder": "1px"
+    },
+    "oneCharacterPersistentMaskBoth": true,
+    "refreshPartialRetainedNoWrite": true
+  }
+]

@@ -1,0 +1,70 @@
+- link "Skip to content":
+  - /url: "#_r_1cd_"
+- text: Work with ChatGPT
+- main:
+  - button "Show sidebar":
+  - button "New chat":
+  - button "Meaning check title"
+  - button "Share":
+    - text: Share
+  - button "More":
+  - button "Toggle summary":
+  - heading "You said:" [level=4]
+  - generic: I want to stop for now with Ariadne's "Verification only: fictional clarification to recover from a meaning-judgment failure."
+  - button "Copy message":
+  - button "Worked for 15s":
+    - generic: Worked for 15s
+  - heading "ChatGPT said:" [level=4]
+  - paragraph:
+    - text: Does "stop for now" mean
+    - strong: put it on hold temporarily so you can work on it later
+    - text: or
+    - strong: cancel the intention to do it in the future
+    - text: ?
+  - paragraph: Ariadne's current policy is to clarify this distinction before making a change, so the task has not been changed yet.
+  - button "Copy":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - heading "You said:" [level=4]
+  - generic: I mean a temporary hold. I have not decided on a date, so there is no need to change the saved content now. Separately: let me know when the verification materials arrive.
+  - button "Copy message":
+  - heading "ChatGPT said:" [level=4]
+  - paragraph: I understand that you intend a temporary hold. I will not change the saved content.
+  - paragraph: Ariadne currently cannot automatically monitor for or notify you about the arrival of materials. When they arrive, tell me in this conversation, "The verification materials arrived." If related waiting information is saved, I can check the latest state and clear it.
+  - button "Copy":
+  - button "Share":
+  - button "Read aloud":
+  - button "Regenerate response":
+  - button "More actions":
+  - generic: ChatGPT can make mistakes. Check important info.
+  - button "Scroll to bottom":
+  - heading "Latest response" [level=4]
+  - status
+  - textbox "Work with ChatGPT":
+    - paragraph: Work with ChatGPT
+  - button "Add files and more":
+  - button "Select ChatGPT model":
+    - generic: GPT-6.1 Sol
+    - generic: Light
+    - generic: None
+    - generic: Minimal
+    - generic: Light
+    - generic: Medium
+    - generic: High
+    - generic: Extra High
+    - generic: Max
+    - generic: Ultra
+    - generic: Persistent
+  - button "Dictate":
+  - button "Start Voice":
+  - heading [level=3]: Outputs
+  - button:
+  - button:
+    - generic: Create file or site
+- status
+- status
+- status
+- status: Response complete
+- status: Response complete

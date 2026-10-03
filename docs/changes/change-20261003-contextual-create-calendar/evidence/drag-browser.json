@@ -1,0 +1,98 @@
+[
+  {
+    "width": 390,
+    "kind": "action",
+    "position": "center",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  },
+  {
+    "width": 390,
+    "kind": "action",
+    "position": "bottom+8",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  },
+  {
+    "width": 390,
+    "kind": "project",
+    "position": "center",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  },
+  {
+    "width": 390,
+    "kind": "project",
+    "position": "bottom+8",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  },
+  {
+    "width": 390,
+    "kind": "tag",
+    "position": "center",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  },
+  {
+    "width": 390,
+    "kind": "tag",
+    "position": "bottom+8",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  },
+  {
+    "width": 1280,
+    "kind": "action",
+    "position": "center",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  },
+  {
+    "width": 1280,
+    "kind": "action",
+    "position": "bottom+8",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  },
+  {
+    "width": 1280,
+    "kind": "project",
+    "position": "center",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  },
+  {
+    "width": 1280,
+    "kind": "project",
+    "position": "bottom+8",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  },
+  {
+    "width": 1280,
+    "kind": "tag",
+    "position": "center",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  },
+  {
+    "width": 1280,
+    "kind": "tag",
+    "position": "bottom+8",
+    "oneWrite": true,
+    "rootEnd": true,
+    "trustedMouse": true
+  }
+]

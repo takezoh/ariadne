@@ -1,0 +1,14 @@
+[
+  {
+    "case": "transitive discard protection and ordered three-level dependency",
+    "passed": true
+  },
+  {
+    "case": "raw ID literal and valid Defer survive saved UUID remap",
+    "passed": true
+  },
+  {
+    "case": "saved Action classification waits for local catalog across navigation with no transport ID leak",
+    "passed": true
+  }
+]

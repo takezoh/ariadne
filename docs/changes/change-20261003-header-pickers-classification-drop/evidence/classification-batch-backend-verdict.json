@@ -1,0 +1,38 @@
+{
+  "profile": "native independent backend review",
+  "status": "approved",
+  "findings": [],
+  "candidate_sha256": {
+    "lib/domain/core.ts": "81c6a81770c9bbfa8b0b5ffa8fd3b265e5f675daf9061f5682fcf0c1e9742bb1",
+    "app/mcp/route.ts": "e953ca4a16f7290eca086fa9c44126a517e3187c0f0cd6fafa4246c91fe594e1",
+    "docs/technical/mcp-api.md": "7903663474d9fbb0cbd9c016fb259ea09b4ead9ad853b7c357714f427c6dc651",
+    "tests/domain/classification-batch.test.mjs": "b74d796b3de7a02ef23567b9b6cbf8c2550b4e7e453430c5a969996a7d588ca9",
+    "tests/adapters/classification-batch.test.mjs": "a39f9948b89e6313661ca47fe6587091673202a0acaff8abca04f59cfa2ca9f7"
+  },
+  "requirements": "/tmp/action-add-search-requirements.json ADDSEARCH08",
+  "evidence": {
+    "independent_domain_store_tests": {
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0
+    },
+    "inspected": [
+      "Exact id XOR ids, nonempty unique existing owner IDs validation before mutations.",
+      "Every selected ancestor/child receives direct classification independently; no action_move ancestor absorption reused.",
+      "Project new root ranks append in supplied intent order; contained order stays unchanged. Tag association preserves other links.",
+      "Shared atomic owner CAS, changed rows/identity ledger/receipt/delta/Undo; actual SQLite middle action-row/tag-row failure rolls back all and receipt.",
+      "Identical replay/lost response preserve later corrections; changed ids order rejects replay; owner isolation and Undo overlap protect.",
+      "MCP and technical docs expose existing operation batch extension without new storage or migration."
+    ]
+  },
+  "limits": [
+    "Backend candidate only; final UI/full check/build/built and actual hosted D1/Work remain separate."
+  ],
+  "execution": {
+    "placement": "native subagent",
+    "repository_edits": false,
+    "kernel_receipt": false
+  }
+}

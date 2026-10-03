@@ -1,0 +1,45 @@
+{
+  "profile": "integration",
+  "role": "integrator",
+  "lane": "native subagents under explicit user placement",
+  "kernel_loop_acceptance": false,
+  "external_opencode_used": false,
+  "goal": "Modern simple intuitive shared Ariadne UI with generated icons, sidebar and full host/Web display",
+  "dependencies": [
+    {
+      "result": "Accepted observable UX requirements",
+      "artifact": "/tmp/ariadne-ui-modern/requirements-plan.json",
+      "verdict": "/tmp/ariadne-ui-modern/requirements-verdict.json"
+    },
+    {
+      "result": "Typed technical boundary contracts",
+      "status": "independently approved per root message",
+      "artifact": "/tmp/ariadne-ui-modern/design-plan.json"
+    },
+    {
+      "result": "Implementation of accepted boundary contracts",
+      "status": "implemented including independently reproduced finding repairs",
+      "artifacts": [
+        "implementation-proposal.json",
+        "implementation-host.json",
+        "implementation-presentation.json",
+        "implementation-proposal-repair.json",
+        "implementation-review-repair.json"
+      ]
+    },
+    {
+      "result": "Whole candidate verification and independent review",
+      "local_verification": "passed check/build/built UI smoke",
+      "independent_verdict": "approved",
+      "tests": 213,
+      "failures": 0,
+      "skipped": 0
+    }
+  ],
+  "limitations": [
+    "No runtime loop_ref or ledger_head is claimed.",
+    "No actual hosted D1, ChatGPT Work UI or deployment acceptance is claimed."
+  ],
+  "local_product_verification_complete": true,
+  "local_product_acceptance_complete": true
+}

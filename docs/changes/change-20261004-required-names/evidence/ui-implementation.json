@@ -1,0 +1,18 @@
+{
+  "profile": "native implementation",
+  "runtimeFrozen": true,
+  "targetTests": 10,
+  "namedDomApplicationTests": 2,
+  "focusedBrowser": "passed",
+  "lint": "passed",
+  "source_sha256": {
+    "lib/ui/model/transient-create.ts": "a5fa8333fda994ba4d31de06ebb6532c36612ce5ab13302852d216d4092f6fb3",
+    "lib/ui/model/autosave.ts": "ba88e0b80e1bdab4b744374af0345e58feb6ed020cc1c05460ec68d0dcd7123b",
+    "tests/ui/transient-create.test.mjs": "56f5fafa44207529b5cca52c09ed50588e7e90d29ce95e1e94e6327210e3bf59",
+    "tests/ui/dom.test.mjs": "1186c1d853a28e126bf7336daced884e73c7c367216c6e67ff6533f10c568786",
+    "tests/ui/movement-application.test.mjs": "dff1c2e649ecfe2d3e67f1cd38edfeeec9901aa2609667f8c94a810b9a2c721b",
+    "tests/ui/mcp-display.test.mjs": "00716ae0d1cf6f8d55d7d62aa0b66d22ab87d51ff40e282c99082779fba5be82",
+    "scripts/testing/smoke-built-widget.mjs": "3a85620d96ba40caa58ce484cc8c9a387de0f3e1986cfb6e299928d98d8530bb",
+    "ARCHITECTURE.md": "27d129ec4487e847b4befd982da8078427687e59d015fc64ac9e68f9b626e7cc"
+  }
+}

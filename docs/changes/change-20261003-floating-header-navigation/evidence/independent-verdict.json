@@ -1,0 +1,107 @@
+{
+  "profile": "native independent readonly browser",
+  "verdict": "approved",
+  "scope": "Header navigation/Add, draft and unknown preservation, existing gutter drag after layout changes",
+  "candidate": "Author source freeze confirmed; bounded menu accessibility changes covered by parent final gates and author UI114 suite.",
+  "source_sha256": {
+    "lib/ui/adapters/dom.js": "258deef5e8973cb456a44d5f0ca20a9027b6d8a73eadf01f044d09158351653e",
+    "lib/ui/model/navigation.ts": "368993c7b3f936a177e7c09d5e1fa2b0e9710b58cd5941c1de64d0800e1d6c39",
+    "lib/ui/application.ts": "8235d6be79905cde37b144ad827ff62bea547bd2c8eac7cb8b754ad4a2993ce1",
+    "lib/widget.ts": "106bb10ddddc1212c81cc404b9bbec1844a229673b68c1b769e1555eef93398e",
+    "/tmp/tree-movement/widget.html": "c7e77eaf6a716eb53c55052de223e0163532491e333bb9a512903cc1e463f714"
+  },
+  "proof": {
+    "navigation_and_recovery": [
+      {
+        "scenario": "project-check",
+        "addSwitchesMatchingPageBeforeWrite": true,
+        "exactUnknownRequestRetained": true,
+        "newerNavigationAndRawComposerRetained": true,
+        "errors": []
+      },
+      {
+        "scenario": "project-retry",
+        "addSwitchesMatchingPageBeforeWrite": true,
+        "exactUnknownRequestRetained": true,
+        "newerNavigationAndRawComposerRetained": true,
+        "errors": []
+      },
+      {
+        "scenario": "tag-check",
+        "addSwitchesMatchingPageBeforeWrite": true,
+        "exactUnknownRequestRetained": true,
+        "newerNavigationAndRawComposerRetained": true,
+        "errors": []
+      },
+      {
+        "scenario": "tag-retry",
+        "addSwitchesMatchingPageBeforeWrite": true,
+        "exactUnknownRequestRetained": true,
+        "newerNavigationAndRawComposerRetained": true,
+        "errors": []
+      },
+      {
+        "scenario": "action-IME-add-project",
+        "originalProposalRetained": true,
+        "deferredAddShowsProjects": true
+      },
+      {
+        "scenario": "catalog-IME-navigation",
+        "typedProjectProposalSavedToProject": true,
+        "newNavigationRetained": true
+      }
+    ],
+    "latest_intent_and_parent": [
+      {
+        "scenario": "action-IME-pendingAdd-laterNavigation",
+        "latestNavigationWins": true,
+        "proposalSavedToOriginalUUID": true
+      },
+      {
+        "scenario": "catalog-IME-pendingAdd-laterNavigation",
+        "latestNavigationWins": true,
+        "proposalSavedToOriginalUUID": true
+      },
+      {
+        "scenario": "project-Add-child",
+        "invocationParentUUIDCapturedBeforeNavigation": true
+      },
+      {
+        "scenario": "tag-Add-child",
+        "invocationParentUUIDCapturedBeforeNavigation": true
+      }
+    ],
+    "filters": {
+      "exactDeferAndHistoryFilters": true,
+      "perViewMemory": true,
+      "readOnlyNoWrites": true,
+      "noSidebarOrMobileDuplicate": true,
+      "refreshIconOnlyAccessible": true
+    }
+  },
+  "drag": {
+    "matrix_cases": 12,
+    "passed": 12,
+    "trustedNativeMouse": true,
+    "assertions": [
+      "root parent",
+      "last root rank",
+      "one exact root action_move write"
+    ],
+    "evidence": "/tmp/header-navigation/drag-matrix.json"
+  },
+  "findings": [],
+  "resolved_findings": [
+    "Pending header Add is cancelled by a newer explicit navigation during both Action and catalog composition."
+  ],
+  "limitations": [
+    "Synthetic composition events test node/draft retention, not OS IME delivery.",
+    "Memory fixture uses real actionCall; production DB and ChatGPT host not touched or proven."
+  ],
+  "fixture": {
+    "port": 5199,
+    "owned_session": 41938,
+    "status": "stopped after evidence preserved"
+  },
+  "final_parent_evidence": "Parent reports pnpm check305/build/built2resources/freshreal3203901280/actualservedHTMLnative12 all passed. Independently executed browser cases above apply to the preceding behavior-equivalent candidate; final accessibility changes were not broadly rerun by this reviewer."
+}

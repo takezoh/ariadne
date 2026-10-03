@@ -1,0 +1,24 @@
+[
+  {
+    "scenario": "ActionIME-ten-checkbox-toggles",
+    "originalRawInputRetained": true,
+    "oneSaveAfterCompositionEnd": true
+  },
+  {
+    "scenario": "partial-date-ten-checkbox-toggles",
+    "instrumentedUnsanitizedRawDateRetained": true,
+    "noInvalidDateWrite": true
+  },
+  {
+    "scenario": "unknown-check-ten-checkbox-toggles",
+    "exactUnknownRequestRetained": true,
+    "newerInputSavedAfterRecovery": true,
+    "onHoldUnchanged": true
+  },
+  {
+    "scenario": "unknown-retry-ten-checkbox-toggles",
+    "exactUnknownRequestRetained": true,
+    "newerInputSavedAfterRecovery": true,
+    "onHoldUnchanged": true
+  }
+]

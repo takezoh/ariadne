@@ -1,0 +1,65 @@
+{
+  "verdict": "approved",
+  "subject_kind": "integrated_implementation_and_visual_acceptance",
+  "execution": {
+    "host": "native_subagent",
+    "role": "independent_review",
+    "kernel_status": "not_executed"
+  },
+  "code_verdict": "approved",
+  "visual_verdict": "approved_for_inspected_local_browser_states",
+  "findings": [],
+  "evidence": {
+    "diff": "/tmp/ariadne-ui-english/review.diff",
+    "source_checked": [
+      "lib/widget.ts",
+      "lib/ui/model/presentation.ts",
+      "lib/ui/controller.ts",
+      "lib/ui/application.ts",
+      "lib/ui/adapters/dom.js",
+      "lib/ui/adapters/host.ts",
+      "app/board.tsx",
+      "app/layout.tsx",
+      "app/mcp/route.ts",
+      "tests/ui/dom.test.mjs",
+      "tests/ui/model.test.mjs"
+    ],
+    "screenshots_inspected": [
+      "wide.png",
+      "sidebar.png",
+      "compact.png",
+      "sidebar-editor.png",
+      "wide-dark-editor.png",
+      "live-preview.png",
+      "capture-320-light.png",
+      "capture-390-dark.png",
+      "capture-1280-light.png",
+      "review-320-light.png",
+      "review-390-dark.png",
+      "review-1280-light.png",
+      "unknown-320-light.png",
+      "unknown-390-dark.png",
+      "unknown-1280-light.png"
+    ],
+    "browser_results": "/tmp/ariadne-ui-english/visual-results.json",
+    "browser_states": "/tmp/ariadne-ui-english/browser-states.json"
+  },
+  "assessment": {
+    "aesthetic": "The continuous neutral shell, quiet navigation, stronger heading hierarchy and reduced badges constitute a coherent, materially simpler treatment in inspected screenshots. Wide unused detail space is reclaimed; narrow editor has a clear Back to list. This is an independent visual assessment, not a claim of user aesthetic approval.",
+    "english": "Authored UI copy, aria labels, dates, metadata and host display messages are English. Typed error/warning presentation prevents raw backend message leakage; stored Japanese user text remains intentionally unchanged. MCP backend messages remain Japanese but are never directly rendered in the shared UI.",
+    "semantics": "Nine draft fields, exact request retention, per-group acknowledgement, dropped-parent options and ordinary Undo are retained by code and meaningful updated DOM tests. No domain/storage contract changes observed.",
+    "board": "The message listener is installed before assigning iframe srcdoc, closing initialization race."
+  },
+  "limitations": [
+    "Final pnpm check/build are still running under root and not claimed passed by this review.",
+    "Actual ChatGPT Work acceptance and deployed resource cache checks are not performed.",
+    "No runtime kernel success receipt is claimed.",
+    "The inspected screenshot matrix covers 320 light, 390 light/dark and 1280 light/dark; 320 dark was not independently viewed. Single-line title fields scroll their long input as normal; full proposal is readable in review."
+  ],
+  "resolved_findings": [
+    {
+      "id": "R1",
+      "resolution": "Inspected actual Chromium capture/review/unknown screenshots at 320 light, 390 dark and 1280 light. Long proposed title wraps fully in review; recovery controls remain readable and reachable, modal closes, and exact draft is retained. Browser state evidence reports no document overflow."
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "unknownMoveIdenticalReplay": true,
+  "navigationPreservesFrozenMove": true,
+  "undoRecoveredMove": true,
+  "newerProjectDuringSavePreserved": true,
+  "errors": []
+}

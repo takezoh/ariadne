@@ -1,0 +1,11 @@
+{
+  "passed": 6,
+  "cases": [
+    "24h shorthand exact/partial remains incomplete",
+    "milliseconds and input immutability",
+    "partialtime/datebadInput differs explicit clear",
+    "allview empty root fallback",
+    "terminal Action ownProject and exactoneTag occurrence no mutation",
+    "typed selectedcatalog and missing root"
+  ]
+}

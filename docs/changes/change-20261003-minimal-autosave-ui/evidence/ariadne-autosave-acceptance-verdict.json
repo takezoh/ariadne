@@ -1,0 +1,75 @@
+{
+  "kind": "native_independent_requirements_verdict",
+  "status": "approved",
+  "candidate_hashes": {
+    "lib/ui/adapters/dom.js": "864630801e20817e21c22978149d18038b17ca20c277efd1b348d275ee2af4e0",
+    "lib/ui/application.ts": "c360c8f29bdb01b033cc48fe228fdb7554a022fc52ecffc52706fefcdd177b93",
+    "lib/ui/model/autosave.ts": "6cb28d8750b68530c81778b9affd2cf81a86888e2d6bc959f639c5b562a27398",
+    "tests/ui/autosave.test.mjs": "f25d3f916770e56a6deeada8bd14ce239e641a9d3065349aa52474a287d40398",
+    "tests/ui/dom.test.mjs": "031054920bf481e2098d7d54774bef11e696fdea4d34c28f175a0788e1e855ea",
+    "/tmp/ariadne-autosave/widget.html": "cdb43f2c211ae2ee53e1a74769250f2d5128d06017f9d2305bcf462bbf9a54ae"
+  },
+  "acceptance_basis": "/tmp/ariadne-autosave-acceptance.json",
+  "coverage": {
+    "source": "Pure autosave model, serial application lane, DOM composition/navigation/conflict/recovery reviewed.",
+    "independent_tests": "25 passed,0 failed/cancelled/skipped/todo; autosave lane9 + generated DOM16.",
+    "positive_repro": "/tmp/autosave-ime-navigation-repro.mjs: pending action switch preserves final A notes and saves A only without refresh.",
+    "provided_browser_evidence": [
+      "/tmp/ariadne-autosave/browser.json",
+      "/tmp/ariadne-autosave/recovery-browser.json",
+      "/tmp/ariadne-autosave/conflict-browser.json"
+    ],
+    "browser_summary": "4 layout/theme runs;2 unknown recovery modes;overlap Use saved/Use mine and unrelated revision passed in provided mock-host evidence.",
+    "focus_moved_refresh_repro": {
+      "script": "/tmp/autosave-ime-refresh-repro.mjs",
+      "during": "A composing final",
+      "savedA": "A composing final",
+      "write_count": 1,
+      "bound_target": "Original A only",
+      "exit_code": 0
+    },
+    "repair_assessment": "compositionInput tracks composing field independently of focus; setValue protects it through host/refresh render. Fixture now includes second action in authoritative Inbox scope and exercises focus move plus refresh."
+  },
+  "limits": [
+    "Full pnpm check/build and latest browser reruns remain root gates; no claim of pass here.",
+    "Local generated DOM/mock browser evidence does not prove actual ChatGPT Work host/auth/D1/cache."
+  ],
+  "execution": {
+    "placement": "native subagent",
+    "repository_edits": false,
+    "kernel_receipt": false
+  },
+  "approval_scope": "User-visible autosave behavioral requirements. Full check/build/built resource and latest browser gates owned by root remain independent release conditions.",
+  "resolved_findings": [
+    {
+      "id": "AUTO-R1",
+      "severity": "major",
+      "requirements": [
+        "AUTO-03",
+        "AUTO-09"
+      ],
+      "source": "lib/ui/adapters/dom.js:38",
+      "problem": "IME text is overwritten by render after focus leaves composition input, even though action switching is deferred. Composition is preserved only while input is document.activeElement.",
+      "reproduction": "A Notes compositionstart; set A composing final; input; focus/click B row; refresh while composition remains open; compositionend.",
+      "observed": {
+        "during": "",
+        "savedA": "",
+        "edits": []
+      },
+      "expected": "Original A composition text survives refresh and saves exactly once on compositionend before pending B selection.",
+      "evidence": "/tmp/autosave-ime-refresh-repro.mjs",
+      "requested_change": "Track actual composing input/field independently of focus; protect its live value/caret during every render until compositionend captures it. Add discriminating focus-moved + host-refresh DOM regression.",
+      "resolution": "Confirmed resolved in current candidate by independent generated DOM rerun and focused reproduction."
+    },
+    {
+      "id": "AUTO-R2",
+      "severity": "validation_failure",
+      "source": "tests/ui/dom.test.mjs:106",
+      "problem": "New IME switch regression fixture does not include second action in authoritative Inbox scope; row query is null and test fails before exercising behavior.",
+      "observed": "Independent lane+DOM run:25 tests,24 pass,1 fail,0 skip/cancel/todo.",
+      "requested_change": "Add second action ID to fixture list_scopes.inbox and rerun required checks.",
+      "resolution": "Confirmed resolved in current candidate by independent generated DOM rerun and focused reproduction."
+    }
+  ],
+  "findings": []
+}

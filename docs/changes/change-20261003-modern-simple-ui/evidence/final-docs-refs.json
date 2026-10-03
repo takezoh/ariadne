@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "analyzed_paths": [
+    "docs/changes/change-20261003-modern-simple-ui/change.md",
+    "docs/changes/change-20261003-modern-simple-ui/implementation.md",
+    "docs/changes/change-20261003-modern-simple-ui/requirements.md",
+    "docs/changes/change-20261003-modern-simple-ui/verification.md"
+  ],
+  "errors": []
+}

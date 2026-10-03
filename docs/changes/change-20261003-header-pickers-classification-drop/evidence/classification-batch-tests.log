@@ -1,0 +1,57 @@
+▶ memory ActionStore shared contract
+  ✔ new owners start at isolated revision zero (0.703204ms)
+  ✔ receipt and snapshot are atomically visible (2.650576ms)
+  ✔ owners remain isolated while the server generates entity IDs (0.390374ms)
+  ✔ same request replays, different input is rejected (0.52459ms)
+  ✔ stale revision does not create receipt (0.200516ms)
+  ✔ simultaneous writes have one winner (0.562393ms)
+  ✔ lost response preserves receipt and replay does not overwrite later correction (0.586368ms)
+  ✔ Undo receipts are owner isolated and cannot be reused (1.953592ms)
+  ✔ project and action-tag ABA markers survive snapshots and protect Undo (5.206501ms)
+✔ memory ActionStore shared contract (15.889528ms)
+▶ SQLite D1 ActionStore shared contract
+  ✔ new owners start at isolated revision zero (0.518091ms)
+  ✔ receipt and snapshot are atomically visible (1.117023ms)
+  ✔ owners remain isolated while the server generates entity IDs (0.683456ms)
+  ✔ same request replays, different input is rejected (0.240885ms)
+  ✔ stale revision does not create receipt (0.224743ms)
+  ✔ simultaneous writes have one winner (0.954707ms)
+  ✔ lost response preserves receipt and replay does not overwrite later correction (1.059451ms)
+  ✔ Undo receipts are owner isolated and cannot be reused (1.605117ms)
+  ✔ project and action-tag ABA markers survive snapshots and protect Undo (7.5458ms)
+✔ SQLite D1 ActionStore shared contract (42.449998ms)
+✔ memory commit derives coherent delta/result and enforces CAS (4.727729ms)
+✔ SQLite D1 commit derives coherent delta/result and enforces CAS (30.879649ms)
+✔ memory catalog entities stay owner isolated in one store (2.569701ms)
+✔ SQLite D1 catalog entities stay owner isolated in one store (33.283675ms)
+✔ memory action_project batch CAS, owner isolation, lost response replay and conflict-safe Undo (11.943436ms)
+✔ memory action_tag batch CAS, owner isolation, lost response replay and conflict-safe Undo (3.921185ms)
+✔ SQLite D1 action_project batch CAS, owner isolation, lost response replay and conflict-safe Undo (37.695809ms)
+✔ SQLite D1 action_tag batch CAS, owner isolation, lost response replay and conflict-safe Undo (34.220224ms)
+✔ SQLite action_project injected middle row failure rolls back all rows and receipt (30.26974ms)
+✔ SQLite action_tag injected middle row failure rolls back all rows and receipt (39.021408ms)
+✔ batch classification validates all IDs before effects, remains pure and has no count cap (7.869207ms)
+✔ batch Project directly classifies selected ancestor and child; appended root order follows intent (3.765746ms)
+✔ batch Tag adds and removes every direct association without replacing other Tags (1.649618ms)
+✔ project and tag hierarchies derive paths and reject cycles and dangling parents (3.925678ms)
+✔ action associations validate references and are reversible (2.701218ms)
+✔ deletion refuses while children or action references remain (1.073607ms)
+✔ project and tag queries expand descendants and deduplicate actions (1.486958ms)
+✔ project and tag hierarchy never changes action state, dates or action parents (0.537359ms)
+✔ cancelled action associations remain ordinary editable properties (0.738637ms)
+✔ preview includes descendant catalog nodes whose derived paths change only (2.146591ms)
+✔ delta and Undo cover catalog changes without mutating frozen inputs (1.170812ms)
+✔ Undo rejects when a project changed after the operation (0.392449ms)
+✔ project and tag IDs stay reserved after deletion and old Undo cannot erase a restored node (0.731272ms)
+✔ action_tag ABA is rejected even when the relation is absent again (0.399007ms)
+✔ catalog and query inputs reject missing, null and non-boolean values (0.612927ms)
+✔ preview reports catalog changes and path-only action effects (1.073644ms)
+✔ Undo drops a relation whose tag is missing and restores other changes (0.561378ms)
+ℹ tests 47
+ℹ suites 0
+ℹ pass 47
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1198.943398

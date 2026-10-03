@@ -1,0 +1,90 @@
+{
+  "kind": "native_design_candidate",
+  "basis": "/tmp/ariadne-navigation-explore-v2.json",
+  "scope": "Browsing/navigation only; preserve prior English UI edits, action mutations and entire backend.",
+  "contracts": [
+    {
+      "id": "NAV-PURE",
+      "statement": "Add pure typed navigation model reading the full authoritative API snapshot (actions with project_id/tags/is_deferred, catalogs, perspectives, list_scopes); filter with no IO, mutation, order override or duplication. Verify parity against domain queryResponse/perspectiveActions using shared fixture snapshots."
+    },
+    {
+      "id": "SNAPSHOT",
+      "statement": "No partial query response enters controller.accept. Existing full snapshot refresh/host updates remain sole source; saved filters are evaluated on its read-time projection. No query_perspective request race is introduced."
+    },
+    {
+      "id": "DEFAULT",
+      "statement": "Initial destination Inbox. Fixed nav Inbox/Projects/Tags/Flagged/History; separate Perspectives list with exact saved names. No normal/Open/On hold/Later top-level button."
+    },
+    {
+      "id": "CLASSIFY",
+      "statement": "Projects picker includes All projects (assigned only), Unassigned and exact catalog paths; Tags picker includes All tags (tagged actions), Untagged and exact paths. Both show unfinished active/on-hold. Exact selection excludes classification descendants unless visible Include descendants is explicitly checked. Preserve action tree relative order; no membership inheritance."
+    },
+    {
+      "id": "DEFER",
+      "statement": "Projects/Tags/Flagged default Not deferred, with visible Unfinished \u00b7 Not deferred scope summary and Defer dropdown Any/Not deferred/Deferred. On hold is always included independent of this date filter. Inbox preserves existing include-deferred scope; no Defer override. History filters completed/dropped independently of Defer."
+    },
+    {
+      "id": "PERSPECTIVES",
+      "statement": "Existing saved perspective name/description/filter display verbatim. Apply exact statuses/is_deferred/flagged/project_id/tag_id/include_descendants AND predicates with no hidden unfinished or Defer intersection. Omitted statuses means all; [] means none; project null means unassigned. Description is context, never rule."
+    },
+    {
+      "id": "MISSING",
+      "statement": "Missing selected catalog/perspective/reference yields unavailable selection and empty results with English feedback; keep ID, never silently select All. Preserve editor existence based on full snapshot, not matching list."
+    },
+    {
+      "id": "HISTORY",
+      "statement": "History contains completed and dropped; All/Completed/Dropped picker filters matches. Each row/detail keeps its lifecycle. No sorting by absent completion dates."
+    },
+    {
+      "id": "HOLD",
+      "statement": "On hold has readable normal title, pause SVG plus On hold label; same completion/flag/edit controls. No availability or recommendation interpretation."
+    },
+    {
+      "id": "DRAFTS",
+      "statement": "Navigation/filters/display/refresh retain nine editor fields, IME/caret, capture fields, review, group acknowledgment and exact unknown write. Navigation remains available while unknown; Back/Close are excluded from mutation disabling."
+    },
+    {
+      "id": "ADD",
+      "statement": "Quick add/capture still creates Inbox records on all views. Label and placeholder explicitly say Add to Inbox; never imply selected classification assignment."
+    },
+    {
+      "id": "LAYOUT",
+      "statement": "Wide uses compact view rail, contextual classification select above the list, conditional right inspector. Narrow uses primary view selector, contextual classification picker, list and existing focused detail/Back. Perspectives have exact named options and matching rail entries."
+    }
+  ],
+  "boundaries": {
+    "allowed": [
+      "lib/ui/model/navigation.ts",
+      "lib/widget.ts",
+      "lib/ui/adapters/dom.js",
+      "lib/ui/icons.ts",
+      "lib/ui/application.ts initial view only",
+      "tests/ui/",
+      "new change package"
+    ],
+    "forbidden": [
+      "Backend/domain/schema/storage changes",
+      "Catalog and perspective CRUD",
+      "Dependencies",
+      "New Site/plugin",
+      "Commit/push/deploy",
+      "Prior package changes"
+    ]
+  },
+  "model_surface": {
+    "initialNavigation": "returns immutable defaults",
+    "selectNavigation": "pure selection update resets only contextual temporary filters, retains saved ID within view",
+    "navigationPresentation": "returns visible ordered actions, heading, summary, exact description, unavailable state and options",
+    "snapshot_shape": "Typed projected records; effects remain in DOM/host/controller"
+  },
+  "verification": [
+    "Pure classification exact/descendant/unassigned/untagged parity and duplicate prevention",
+    "Saved perspective AND filters/status omission versus empty/description no effect/expiry snapshot refresh parity",
+    "Deleted selection/ref unavailable without silent broadening",
+    "Actual DOM English navigation and pause label/focus accessibility",
+    "Unknown navigation/Back reachable and original request replay unchanged",
+    "Nine-field/IME/dropped-parent/review retained existing tests",
+    "Narrow/wide light/dark screenshots and no overflow"
+  ],
+  "execution": "Native authored candidate, independent review pending; no runtime-kernel receipt claimed."
+}

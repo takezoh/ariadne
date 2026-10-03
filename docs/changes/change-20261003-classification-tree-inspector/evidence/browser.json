@@ -1,0 +1,41 @@
+[
+  {
+    "width": 390,
+    "theme": "light",
+    "catalogActionHierarchy": true,
+    "noDropdown": true,
+    "exactMembershipParentBadge": true,
+    "typeInspectorSwitch": true,
+    "catalogAutosaveExactDescription": true,
+    "collapseRetainedRefresh": true,
+    "duplicateTagSharedActionSingleSelection": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "catalogActionHierarchy": true,
+    "noDropdown": true,
+    "exactMembershipParentBadge": true,
+    "typeInspectorSwitch": true,
+    "catalogAutosaveExactDescription": true,
+    "collapseRetainedRefresh": true,
+    "duplicateTagSharedActionSingleSelection": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "catalogActionHierarchy": true,
+    "noDropdown": true,
+    "exactMembershipParentBadge": true,
+    "typeInspectorSwitch": true,
+    "catalogAutosaveExactDescription": true,
+    "collapseRetainedRefresh": true,
+    "duplicateTagSharedActionSingleSelection": true,
+    "overflow": false,
+    "errors": []
+  }
+]

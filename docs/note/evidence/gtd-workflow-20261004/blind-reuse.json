@@ -1,0 +1,338 @@
+{
+  "scope": "One read-only blind review using reusable playbook and live HTTP Worker/local Wrangler D1",
+  "chosen_tools": [
+    "initialize",
+    "tools/list",
+    "list_actions",
+    "query_perspective",
+    "query_actions"
+  ],
+  "before_revision": 49,
+  "after_revision": 49,
+  "saved_changes": false,
+  "facts": {
+    "total": 12,
+    "unfinished": 11,
+    "completed": [
+      {
+        "id": "3e831c0e-4556-4e2e-9015-a45b5040f48f",
+        "title": "Collect receipts",
+        "status": "completed",
+        "is_deferred": false,
+        "project_id": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d",
+        "tags": [
+          "Actionable"
+        ]
+      }
+    ],
+    "on_hold_count": 0,
+    "inventory_matches_saved_perspective": true,
+    "focus_matches_live_query": true
+  },
+  "complete_unfinished_inventory": [
+    {
+      "id": "05f2c485-8bab-41d7-9d35-a5218a75209d",
+      "title": "Replace desk chair someday",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": null,
+      "tags": [
+        "Someday/Maybe"
+      ]
+    },
+    {
+      "id": "c57b6889-ad7c-4244-a9b4-c03aadcfa6a9",
+      "title": "Await landlord repair reply",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": null,
+      "tags": []
+    },
+    {
+      "id": "19510c43-3c42-4604-90a7-cf3c382aa0d8",
+      "title": "Native plants reference",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": null,
+      "tags": [
+        "Reference"
+      ]
+    },
+    {
+      "id": "d4a85a56-018e-44f8-b344-c1c92a8bb1f3",
+      "title": "Sketch proposal",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": null,
+      "tags": [
+        "Next action",
+        "Actionable"
+      ]
+    },
+    {
+      "id": "64e5eaa6-c4c4-44c7-94c7-9eb6363b7e91",
+      "title": "Pay electricity bill",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": null,
+      "tags": [
+        "Next action",
+        "Actionable"
+      ]
+    },
+    {
+      "id": "aa09fbbe-26c1-4d56-aa91-6e2c393bc06e",
+      "title": "Undecided family house concern",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": null,
+      "tags": [
+        "Undecided"
+      ]
+    },
+    {
+      "id": "435c3392-f689-4577-955b-8189e45a827d",
+      "title": "Submit tax return",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d",
+      "tags": []
+    },
+    {
+      "id": "537f7f04-6d4d-4a5f-a048-9375eb5c9176",
+      "title": "Fill the form",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d",
+      "tags": [
+        "Next action",
+        "Actionable"
+      ]
+    },
+    {
+      "id": "ca8c1dc0-2597-42be-8c97-f93df0995668",
+      "title": "Prepare for Kyoto",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": "c6095303-5782-439b-94c2-5bc0a855df46",
+      "tags": []
+    },
+    {
+      "id": "c3508c95-de15-41c6-b52a-960452c7dedc",
+      "title": "Book the hotel",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": "c6095303-5782-439b-94c2-5bc0a855df46",
+      "tags": [
+        "Next action",
+        "Actionable"
+      ]
+    },
+    {
+      "id": "4c3a4671-ae18-49e2-a24d-044a8f08e874",
+      "title": "Pack",
+      "status": "active",
+      "is_deferred": true,
+      "project_id": "c6095303-5782-439b-94c2-5bc0a855df46",
+      "tags": [
+        "Actionable"
+      ]
+    }
+  ],
+  "committed_projects": [
+    {
+      "id": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d",
+      "name": "Tax return",
+      "next_actions": [
+        {
+          "id": "537f7f04-6d4d-4a5f-a048-9375eb5c9176",
+          "title": "Fill the form",
+          "status": "active",
+          "is_deferred": false,
+          "project_id": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d",
+          "tags": [
+            "Next action",
+            "Actionable"
+          ],
+          "reason": "領収書収集はcompleted、親の申告はactive。保存済み実行可能な次アクション。"
+        }
+      ],
+      "none_reason": null,
+      "other_unfinished": [
+        {
+          "id": "435c3392-f689-4577-955b-8189e45a827d",
+          "title": "Submit tax return",
+          "status": "active",
+          "is_deferred": false,
+          "project_id": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d",
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "c6095303-5782-439b-94c2-5bc0a855df46",
+      "name": "Kyoto preparation",
+      "next_actions": [
+        {
+          "id": "c3508c95-de15-41c6-b52a-960452c7dedc",
+          "title": "Book the hotel",
+          "status": "active",
+          "is_deferred": false,
+          "project_id": "c6095303-5782-439b-94c2-5bc0a855df46",
+          "tags": [
+            "Next action",
+            "Actionable"
+          ],
+          "reason": "京都準備の保存済み実行可能な次アクション。Packの順番・延期はこの項目を制限しない。"
+        }
+      ],
+      "none_reason": null,
+      "other_unfinished": [
+        {
+          "id": "ca8c1dc0-2597-42be-8c97-f93df0995668",
+          "title": "Prepare for Kyoto",
+          "status": "active",
+          "is_deferred": false,
+          "project_id": "c6095303-5782-439b-94c2-5bc0a855df46",
+          "tags": []
+        },
+        {
+          "id": "4c3a4671-ae18-49e2-a24d-044a8f08e874",
+          "title": "Pack",
+          "status": "active",
+          "is_deferred": true,
+          "project_id": "c6095303-5782-439b-94c2-5bc0a855df46",
+          "tags": [
+            "Actionable"
+          ]
+        }
+      ]
+    }
+  ],
+  "categories": {
+    "waiting_explicit": [],
+    "waiting_textual_context_only": [
+      {
+        "id": "c57b6889-ad7c-4244-a9b4-c03aadcfa6a9",
+        "title": "Await landlord repair reply",
+        "status": "active",
+        "is_deferred": false,
+        "project_id": null,
+        "tags": [],
+        "reason": "active、保存メモには返信待ち。返信内容・新しい具体的な手順は不明。"
+      }
+    ],
+    "someday": [
+      {
+        "id": "05f2c485-8bab-41d7-9d35-a5218a75209d",
+        "title": "Replace desk chair someday",
+        "status": "active",
+        "is_deferred": false,
+        "project_id": null,
+        "tags": [
+          "Someday/Maybe"
+        ]
+      }
+    ],
+    "reference": [
+      {
+        "id": "19510c43-3c42-4604-90a7-cf3c382aa0d8",
+        "title": "Native plants reference",
+        "status": "active",
+        "is_deferred": false,
+        "project_id": null,
+        "tags": [
+          "Reference"
+        ]
+      }
+    ],
+    "undecided": [
+      {
+        "id": "aa09fbbe-26c1-4d56-aa91-6e2c393bc06e",
+        "title": "Undecided family house concern",
+        "status": "active",
+        "is_deferred": false,
+        "project_id": null,
+        "tags": [
+          "Undecided"
+        ]
+      }
+    ],
+    "deferred": [
+      {
+        "id": "4c3a4671-ae18-49e2-a24d-044a8f08e874",
+        "title": "Pack",
+        "status": "active",
+        "is_deferred": true,
+        "project_id": "c6095303-5782-439b-94c2-5bc0a855df46",
+        "tags": [
+          "Actionable"
+        ]
+      }
+    ]
+  },
+  "selected_actionable_focus": [
+    {
+      "id": "d4a85a56-018e-44f8-b344-c1c92a8bb1f3",
+      "title": "Sketch proposal",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": null,
+      "tags": [
+        "Next action",
+        "Actionable"
+      ],
+      "reason": "保存済み Actionable/Next action。希望日時は期限ではなく、Due/Deferなし。"
+    },
+    {
+      "id": "64e5eaa6-c4c4-44c7-94c7-9eb6363b7e91",
+      "title": "Pay electricity bill",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": null,
+      "tags": [
+        "Next action",
+        "Actionable"
+      ],
+      "reason": "保存済み Actionable/Next action、明示期限10月12日。"
+    },
+    {
+      "id": "537f7f04-6d4d-4a5f-a048-9375eb5c9176",
+      "title": "Fill the form",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d",
+      "tags": [
+        "Next action",
+        "Actionable"
+      ],
+      "reason": "領収書収集はcompleted、親の申告はactive。保存済み実行可能な次アクション。"
+    },
+    {
+      "id": "c3508c95-de15-41c6-b52a-960452c7dedc",
+      "title": "Book the hotel",
+      "status": "active",
+      "is_deferred": false,
+      "project_id": "c6095303-5782-439b-94c2-5bc0a855df46",
+      "tags": [
+        "Next action",
+        "Actionable"
+      ],
+      "reason": "京都準備の保存済み実行可能な次アクション。Packの順番・延期はこの項目を制限しない。"
+    }
+  ],
+  "missing_info_questions": [
+    {
+      "id": "c57b6889-ad7c-4244-a9b4-c03aadcfa6a9",
+      "missing": "返信到着・内容・望む次の対応はライブ保存データから確認できない。",
+      "question": "大家からの返信内容と、次に行いたい対応は何ですか？",
+      "needed_for": "大家の項目について具体的な次アクションを決める時のみ。現在の4件の一覧に追加質問は不要。"
+    }
+  ],
+  "policy_sufficiency": {
+    "verdict": "sufficient_for_this_read_only_review",
+    "reason": "全未完了の読み取り、タグの確認、定義のライブ評価、次アクションと実行可能集合の区別、外部到着・未指定手順を推測しない規則で再利用可能。",
+    "limitation": "Waiting for は明示on-holdのみ。activeへ変更された待機項目はメモの現状を確認し、待機0件を外部返信到着の証拠と扱わない。"
+  },
+  "user_facing_review": "保存変更なし（revision 49 → 49）。未完了11件を確認しました。\n実行可能・延期なしの全4件：提案をスケッチする、電気料金を払う（10月12日期限）、申告用紙を記入する、京都のホテルを予約する。\nプロジェクト：確定申告は領収書収集が完了、次は用紙記入（親の申告は未完了、10月20日期限）。京都準備は次がホテル予約、荷造りは10月10日09:00 JSTまで延期。\nその他の未完了：椅子の買替え案（Someday/Maybe）、在来植物の資料（Reference）、実家片付けの懸案（Undecided）、大家への修理返信待ち、確定申告の親項目、京都準備の親項目、延期中の荷造り。\n明示on-holdは0件。大家の項目はactiveに戻っていますが、保存メモは返信待ちのままで内容や次の行動は不明です。返信が届いた事実や完了を推測せず、実行可能一覧から外しました。次の行動を決める際には、返信内容と依頼したい対応を確認してください。\n集中候補として、期限のある電気料金支払か、収集済みの資料を使う申告用紙記入を提案します。提案は保存していません。"
+}

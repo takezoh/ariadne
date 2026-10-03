@@ -1,0 +1,22 @@
+{
+  "status": "approved",
+  "summary": "Independent native requirements verifier approval of native-author-20261003-3. Source inspection supports the list-first reversible presentation defaults, current normal/Inbox/on-hold/containment/flag/date meanings, all-field draft retention, filtered-out proposal re-entry, exact unknown-request recovery, and conflict-aware Undo. Revised F-004/006/008/010 and their experience contracts now discriminate narrow/zoom modal clipping, inaccessible mode or recovery controls, lost focus, and host-initiated display updates. Approval establishes requirements readiness for design/implementation only; no usability experiment, implementation acceptance, runtime kernel success, deployed host mode support, or actual-host cache/authentication acceptance is claimed. Candidate SHA-256: ddfd23fbe8cd69f60b20348f9cd510db6907edfedf782138fb05f4600efbb99c",
+  "findings": [],
+  "open_questions": [],
+  "resolved_findings": [
+    {
+      "finding_ref": "REQ-MODAL-001",
+      "rationale": "UAC-008 and UAC-010 explicitly require full preview plus Confirm/Back keyboard/touch reachability under narrow width and zoom, modal focus containment, Escape/Back preserving unsaved proposal and meaningful return focus, and host-initiated mode updates preserving review. UAC-006 requires reachable result-check/retry after unknown save with no obsolete modal trapping focus. Then statements, observations and experience outcomes/exit observations carry consistent meaning.",
+      "evidence_refs": [
+        "/tmp/ariadne-ui-modern/requirements-plan.json"
+      ]
+    },
+    {
+      "finding_ref": "REQ-FLOW-002",
+      "rationale": "F-004 steps and When now agree on refresh, display/width changes, explicit view switch with dirty parent/lifecycle/date fields, and host correction removing the action from the selected view. Its Then and counterexample require a named retained-proposal route without false current-view membership; observable and experience statements are synchronized.",
+      "evidence_refs": [
+        "/tmp/ariadne-ui-modern/requirements-plan.json"
+      ]
+    }
+  ]
+}

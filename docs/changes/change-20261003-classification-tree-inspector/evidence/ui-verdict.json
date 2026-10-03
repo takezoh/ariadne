@@ -1,0 +1,88 @@
+{
+  "profile": "native independent tree UI integration review",
+  "status": "approved",
+  "findings": [],
+  "requirements": "/tmp/action-tree-requirements.json",
+  "candidate_hashes": {
+    "lib/ui/adapters/dom.js": "a8fa47762576bbd9350ad9fd52cef79da5aeae547dd61582d366a26dce309894",
+    "lib/ui/adapters/host.ts": "d0c8408d775285460d9c21a7e70debcc764e947606b08225c47de2bbffe0c385",
+    "lib/ui/adapters/verification.ts": "4705ece9a9ebb5956f8d01578dc751b92a81ffa82751cf2c2e12e7a42c990fff",
+    "lib/ui/application.ts": "79291d3f65e4dc8f0dfb82f180c471c276e0467ed9ed86c2b716aa414b805ac3",
+    "lib/ui/controller.ts": "c060bbb4d1a6aaf801c90fb38df14446d0edb5b899ee15706b029176637b36d8",
+    "lib/ui/icons.ts": "36883710c823337b3136e102c783710e6e78ea2c64ee5fb823e507da1484698c",
+    "lib/ui/model/autosave.ts": "69f2f3e2d56c65f8fd1b961b4b1cb079649f4833e4577b7cd5ab5003ef3b7a01",
+    "lib/ui/model/catalog-drafts.ts": "b1682c26dc6e20b7ec9517a13dfb2aed37c2a5b309cfc6a437f0391df9e14e1a",
+    "lib/ui/model/catalog-tree.ts": "81a12af55f6aa7f1cd916e95aa3bdfe4178fec9b7e0844a203cdf435139c37e5",
+    "lib/ui/model/controls.ts": "999baa7e43da070e070d516975f848b07a1814a6b5b7ef3f1e3e6d6d59b8528d",
+    "lib/ui/model/date-input.ts": "43166fd42fda60c87ee9d166532c18a488f053604ffb1f950e841b5e3f5f6ada",
+    "lib/ui/model/display.ts": "137f22f95c5e0608a00532ef8aa2397c7e83921bbe5d0eac3f5b9fbd7b2e6706",
+    "lib/ui/model/drafts.ts": "f7b8cc0b36a33c5949e775ab1fead7739ddd37bf30a464c0f03b868a96d7af03",
+    "lib/ui/model/movement.ts": "5fe4f9496542644d35fc9ba3d0ae8ef993d59003e377763ecfd5e1bfc0a9f072",
+    "lib/ui/model/navigation.ts": "271cbcc40dde9a2ec7c81c1b625ee7dd2ccdbdf332c246d58d8b1a434dc2f905",
+    "lib/ui/model/operations.ts": "f533a656964a93176b28cb226b6c5dfe6173105b484fbe523e03095216049a1f",
+    "lib/ui/model/presentation.ts": "c200cc6756e075ee9cdb5307fafb8c3be4af0615c8d86f735c50498ea1179d8f",
+    "lib/ui/ports.ts": "d74f99fbccd35308cecdc147e580d5d64edc2b189e07d1ea234f3c429d12d03f",
+    "lib/widget.ts": "a2e9c7df49eeb2ee8a641d3a9d64ca4963367bb1d2e3b57f8f2b2bd5f7f13cac",
+    "tests/ui/application.test.mjs": "078bb8a45a22441acd9f103fe03ed83dd96047ca463dde1334c426282faa6764",
+    "tests/ui/autosave.test.mjs": "f25d3f916770e56a6deeada8bd14ce239e641a9d3065349aa52474a287d40398",
+    "tests/ui/catalog-tree.test.mjs": "bc84cf7a0481096293b320722b861390f7ed240f5d2907d82f5be448343d2862",
+    "tests/ui/controller.test.mjs": "a1a30744583853fc0cf2be163eb173fa24dab710af36535a4935dcbfd0c4c557",
+    "tests/ui/date-input.test.mjs": "728d31d447ca175b35aa93c1968875ada67381b87f4432a016d5c0b69afc5970",
+    "tests/ui/display.test.mjs": "2c79650462f05f93887eac9a25b22abf4be8aa40956ea07c185ce860d4a79f57",
+    "tests/ui/dom.test.mjs": "a9676fcfdf87fc29506a0b6c45138cfbf812b5239bb01bab34eef72646653a13",
+    "tests/ui/host.test.mjs": "5ad85cc346fd142197a2f13d75e3edb24e711b0d83504b09051eff452dbcdb98",
+    "tests/ui/mcp-display.test.mjs": "e5250c96924843ad0d26f882fe4fd3e2557b28437b64ea27b94e52fef04da221",
+    "tests/ui/model.test.mjs": "3341085fc2d70f4e87b9a16d04ea1131d1891829736b5feacbf441fc16fedc64",
+    "tests/ui/movement-application.test.mjs": "9a2e694d67718523da4bfc49316e38603f61a9cb339e4f00d33e665fe653a3f4",
+    "tests/ui/movement.test.mjs": "b02f0cdbffff84a639c02c968a2b604107eddf65efff2329e68e843711f70114",
+    "tests/ui/navigation.test.mjs": "75f6bc400e64ec0702e86cae081f4f7280ec2f091cfba7ff98cf1f1abe3136bd"
+  },
+  "evidence": {
+    "independent_ui_harness": {
+      "command": "pnpm test:ui",
+      "passed": 95,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "independent_real_browser_reruns": [
+      {
+        "script": "/tmp/action-tree/range-create-browser.py",
+        "exit_code": 0,
+        "result": "Three visible occurrences/two unique Action interval, duplicate grip exact focus, atomic ancestor normalization, catalog drop no membership change, frozen child parent creation and exact contextual blank Add."
+      },
+      {
+        "script": "/tmp/action-tree/recovery-browser.py",
+        "exit_code": 0,
+        "result": "Project Check and Tag identical Retry preserve external C and newer local B, explicit Use saved reconciliation and pending newer typing; no page errors."
+      }
+    ],
+    "provided_tree_browser": "/tmp/action-tree/browser.json three width/theme runs: hierarchy+direct Action members, no classification dropdown, parent-outside-branch badge, kind inspector switch, raw Description autosave, collapse retention/shared Tag Action, no overflow/errors.",
+    "source_review": [
+      "Pure outline preserves full catalog hierarchy including empty catalogs, direct memberships and within-matching-group containment; Unassigned/Untagged remain reachable, no inherited classification.",
+      "Occurrence keys bind branch/action identity and exact visible interval. Highlight only interval; stable UUID dedup/canonical move prevents duplicate persistence, grip focus restoration distinguishes repeated Action occurrences.",
+      "Catalog click selects inspector/Add context without filtering entire tree. Catalog nodes unavailable as Action drop destinations; cross-catalog movement does not infer membership.",
+      "Separate kind:id catalog draft namespace, raw Description and nonempty Name validation, first touched baselines and captured acknowledgments preserve newer text; conflict resolution only discards explicitly conflicted fields.",
+      "Serial shared write lane uses project_edit/tag_edit and exact unknown receipt/replay. Confirmed older catalog edit advances its captured base before full snapshot, making external later C conflict explicit for newer B.",
+      "Catalog IME protects composition node independently of focus and defers kind switches; dirty absent catalogs retain named re-entry. Creation parent context freezes selected catalog UUID; generated identity validation remains.",
+      "Action autosave/calendar/IME/rawnotes/status/flag/structure/Undo and host display regression coverage retained; no source/backend alternative mutation path."
+    ]
+  },
+  "limits": [
+    "Approval covers reviewed source/UI candidate; full pnpm check/build/built source acceptance gates remain root responsibilities.",
+    "Local real browser uses shared actionCall/memory fixture and cannot prove hosted D1, trusted host auth, ChatGPT Work retrieval/cache or deployment."
+  ],
+  "execution": {
+    "placement": "native subagent",
+    "repository_edits": false,
+    "kernel_receipt": false
+  },
+  "final_delta": {
+    "files": [
+      "lib/ui/adapters/dom.js",
+      "lib/widget.ts"
+    ],
+    "assessment": "Reviewed bounded indentation max48px desktop/max36px narrow and long catalog name wrapping. Removed unused visibleIds helper. Application/tree/draft model hashes unchanged, no altered persistence/selection/identity behavior. Built catalog inspector smoke added by integrator; execution remains root gate."
+  }
+}

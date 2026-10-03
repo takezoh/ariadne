@@ -1,0 +1,14 @@
+[
+  {
+    "kind": "project",
+    "twoRacesBoundedThenExplicitRetry": true,
+    "ownerQueueActionPreserved": true,
+    "externalUnrelatedNotesPreserved": true
+  },
+  {
+    "kind": "tag",
+    "twoRacesBoundedThenExplicitRetry": true,
+    "ownerQueueActionPreserved": true,
+    "externalUnrelatedNotesPreserved": true
+  }
+]

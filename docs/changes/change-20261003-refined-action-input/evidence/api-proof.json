@@ -1,0 +1,15 @@
+{
+  "catalogExistingNameMatches": true,
+  "descriptionPreserved": true,
+  "unknownTagReplayExactID": true,
+  "createThenAssignSeparateWrites": true,
+  "compositeActionIdRejected": true,
+  "titleNotesPreserved": true,
+  "missingTimezoneRejected": true,
+  "Tokyo0900UTC": "2026-10-04T00:00:00.000Z",
+  "NewYorkSummer0900UTC": "2026-07-01T13:00:00.000Z",
+  "NewYorkWinter0900UTC": "2026-11-01T14:00:00.000Z",
+  "dueDateOnlyRejected": true,
+  "dueExplicitOffsetUTC": "2026-10-04T09:30:00.000Z",
+  "savedDeferInstantUnchanged": true
+}

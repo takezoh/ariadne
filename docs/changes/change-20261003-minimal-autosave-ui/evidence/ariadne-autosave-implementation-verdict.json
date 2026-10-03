@@ -1,0 +1,61 @@
+{
+  "profile": "native independent review",
+  "subject_kind": "implementation",
+  "verdict": "approved",
+  "findings": [],
+  "criterion": "Contextual empty Action creation then ordinary editing with automatic saving, no routine Save/Review dialog, exact unknown recovery, retained corrections, safe external conflict reconciliation.",
+  "source_hashes": {
+    "lib/ui/application.ts": "362561600a8d784d548923115d0e7bac602f7f643af714af04549a150f85fed6",
+    "lib/ui/model/autosave.ts": "6cb28d8750b68530c81778b9affd2cf81a86888e2d6bc959f639c5b562a27398",
+    "lib/ui/adapters/dom.js": "864630801e20817e21c22978149d18038b17ca20c277efd1b348d275ee2af4e0",
+    "lib/widget.ts": "3545d6bf369041a351b48d616daa72046db9570ff13772685db94454191205cd",
+    "tests/ui/autosave.test.mjs": "f25d3f916770e56a6deeada8bd14ce239e641a9d3065349aa52474a287d40398",
+    "tests/ui/dom.test.mjs": "031054920bf481e2098d7d54774bef11e696fdea4d34c28f175a0788e1e855ea"
+  },
+  "verified": [
+    "Pure autosave planner and injected timers; one owner write lane with captured frozen requests",
+    "Empty creation retains generated-ID proof and contextual initial classification",
+    "Captured-field acknowledgment preserves later edits and excludes already acknowledged queued fields",
+    "First-edit field baselines reset, own baseline uses confirmed operation input instead of latest external correction",
+    "Shared real application/memory-store probe preserves external correction after unknown for both check and identical retry",
+    "Global recovery gate blocks Add/Undo/direct/autosave until confirmed save snapshot is accepted",
+    "Monotonic owner snapshot acceptance prevents old refresh rollback",
+    "Date and instant Defer representations acknowledge one persisted field without stranding dirty alternatives",
+    "IME shared inspector switching defers rebinding until original composed value is captured; refresh preserves composition input",
+    "Ordinary Save/Review UI absent; raw Notes text remains literal; inline conflict saved values and date warning meaning retained",
+    "Generated widget contains the reviewed own-baseline and composition-input logic",
+    "Wide and 320px screenshots visibly match editor-first editing UX and show no apparent overflow",
+    "Final presentation-only amendment: diagnostics details are hidden in the normal resource and visible in verification; fetched DOM node remains present in both. Other reviewed source hashes unchanged."
+  ],
+  "evidence": {
+    "ui_suite": {
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0,
+      "log": "/tmp/ariadne-autosave-review-ui-final.log"
+    },
+    "shared_backend_probe": "/tmp/ariadne-autosave/reviewer-unknown-external.json",
+    "shared_backend_probe_source": "/tmp/ariadne-autosave/reviewer-unknown-external.mjs",
+    "visual": [
+      "/tmp/ariadne-autosave/autosave-inbox-1280-light.png",
+      "/tmp/ariadne-autosave/autosave-tags-320-light.png"
+    ],
+    "presentation_amendment": "Independent generated HTML/JSDOM assertions passed for normal/verification hidden state and retained fetched node."
+  },
+  "resolved_findings": [
+    "Actual CAS error code conflict handled",
+    "Clean field first-edit baseline reset",
+    "Full-refresh failure globally gates mutations",
+    "Old snapshots cannot regress revision",
+    "Queued acknowledged fields cannot overwrite external updates",
+    "Own unknown recovery cannot silently overwrite caller corrections",
+    "Cross-representation Defer patch cannot remain dirty forever",
+    "Conflict fields and saved values visible inline"
+  ],
+  "limits": [
+    "Root must complete whole-source check/build/built-resource verification",
+    "No hosted D1 or actual ChatGPT UI acceptance claimed",
+    "Native user override; no runtime-kernel success claimed",
+    "No commit/push/deployment performed"
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "kind": "native_autosave_requirements_acceptance",
+  "goal": "Minimal direct editing: ordinary valid Action changes save automatically without routine Save/Review UI, while preserving local intent and transactional/recovery contracts.",
+  "authority": "New user request rejects Save changes/Review changes and unnecessary Add explanation; delegated by root to native requirements verifier.",
+  "defaults_and_assumptions": [
+    {
+      "id": "DEFAULT-DEBOUNCE",
+      "statement": "The authored design chooses a 500 ms trailing debounce for free text/number/date, with blur/navigation flush and injected scheduler. This is a reversible implementation default, not a user-approved timing threshold; intermediate typing coalesces.",
+      "invalidation": "If rapid typing causes write backlog or delayed feedback harms usability, adjust the bounded interval without weakening integrity."
+    },
+    {
+      "id": "DEFAULT-CONTROLS",
+      "statement": "Discrete valid controls may save immediately; free text coalesces. Partial date/order input remains local until fully valid. Routine changes do not open review.",
+      "invalidation": "Explicit validation/recovery remains exceptional and concise."
+    },
+    {
+      "id": "DEFAULT-CONFLICT",
+      "statement": "Touched-field baselines distinguish external overlap from unrelated owner revisions. Overlapping external changes pause that target for minimal inline Use my edits / Use saved. A definite unrelated revision conflict may refresh and retry once only when each touched saved field still equals its captured baseline or proposed value; unknown outcomes are never rebased or assigned a fresh ID.",
+      "invalidation": "If the target is missing or any touched field changed to a third value, no automatic retry: retain proposal and show explicit reconciliation. Bound one refresh/retry to prevent storms."
+    },
+    {
+      "id": "DEFAULT-QUEUE",
+      "statement": "Pending/unknown writes do not prohibit local typing. Latest proposal versions queue by bound action ID/field; only one owner-wide mutation proceeds at a time.",
+      "invalidation": "Acknowledgments must discriminate submitted versions from newer local proposals."
+    },
+    {
+      "id": "DEFAULT-RETRY",
+      "statement": "No background retry storm or fresh-ID retry of an unknown operation. Explicit exact-request recovery uses existing receipt/replay semantics.",
+      "invalidation": "Definite rejected input requires correction or deliberate recovery trigger."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "AUTO-01",
+      "given": "A saved action is open with editable Title/Notes and secondary fields.",
+      "when": "Edit a valid value, pause, or leave the field.",
+      "then": [
+        "The change saves directly after the debounced pause or blur through the ordinary shared mutation/revision path, without Save changes/Review changes controls or a routine confirmation dialog.",
+        "Compact Saving / Saved / Needs attention feedback appears only as needed and communicates actual acknowledged outcome. No routine Unsaved badges, long proposal text, saved-value comparisons or ID/revision diagnostics in primary UI; comparison appears only for reconciliation/failure.",
+        "Allowed Add contexts show one minimal control with no explanation/hint; only unavailable Add retains a concise necessary reason. Empty lists are one line. Default scope commentary is omitted; explicit nondefault filters and saved Perspective definitions remain visible to prevent hidden filtering. Authored copy remains English.",
+        "The action row reflects its retained draft Title immediately while typing, without fabricating saved state; raw user content remains unchanged."
+      ],
+      "counterexample": "User must click Save/Review, every keystroke writes, or a pending/failed change displays Saved."
+    },
+    {
+      "id": "AUTO-02",
+      "given": "An autosave for value v1 is pending.",
+      "when": "Continue typing v2, including across navigation or response arrival.",
+      "then": [
+        "Typing stays enabled and v2 remains visible locally. The v1 acknowledgment clears only the submitted proposal version/fields; it never replaces or acknowledges newer unsent v2.",
+        "After confirmed v1 and valid current revision, the latest queued v2 saves once; transient intermediate keystrokes are coalesced rather than serialized into a write backlog.",
+        "Owner-wide writes remain serialized, preserving current revision and exact request identity. Read/navigation/display remain usable.",
+        "Own confirmed v1 acknowledgment advances baselines for remaining newer v2 proposals to v1 before accepting the full snapshot; our earlier write is not misclassified as external conflict."
+      ],
+      "counterexample": "Busy disables typing, v1 response restores old text, v2 disappears, or concurrent writes create avoidable revision conflicts."
+    },
+    {
+      "id": "AUTO-03",
+      "given": "A text field is in IME composition or a date/order input contains a partial invalid value.",
+      "when": "Pause, blur, switch action/view, or receive a host update during composition/incomplete input.",
+      "then": [
+        "No intermediate IME composition value is saved; final composition text enters the normal debounce/blur flow exactly once.",
+        "Partial/invalid values remain local with minimal meaningful validation feedback; saved values remain unchanged. No invented dates or valid-looking coercion of incomplete input.",
+        "Action ID and field identity stay bound to the original edit event, so late composition/blur cannot update the newly selected action."
+      ],
+      "counterexample": "Composition pause saves half a word, an empty order becomes zero, or switching editor redirects a late blur to another action."
+    },
+    {
+      "id": "AUTO-04",
+      "given": "Action A has dirty or queued changes; action B and another classification are available.",
+      "when": "Switch action, Project/Tag/Perspective, Back/Close or display width/mode before save settles.",
+      "then": [
+        "A retains its bound proposal/timer/request; B displays its own state. Navigation does not implicitly discard A, retarget its write, or pretend A matches a different filter.",
+        "Queued/failed proposals have a named minimal re-entry path when their action leaves the view. All nine existing fields, notes raw text, caret/selection and meaningful focus remain available.",
+        "A pending created blank action still resolves by its returned generated ID and keeps its clean return route."
+      ],
+      "counterexample": "Current editorId is used by an old timer, hidden dirty proposal becomes unreachable, or navigation silently cancels autosave data."
+    },
+    {
+      "id": "AUTO-05",
+      "given": "An autosave reached the server but its response is missing; newer typing exists locally.",
+      "when": "Wait for unknown outcome, check result or explicitly retry, while continuing edits/navigation.",
+      "then": [
+        "Outcome remains unknown; the exact sent operation ID/method/arguments are retained. Result checking and identical retry are named and reachable without a blocking obsolete modal.",
+        "Newer typing remains local and queued, while conflicting writes and fresh retry IDs stay blocked until the original outcome is resolved.",
+        "Receipt/replay acknowledgment clears only the original submitted proposal; later saved corrections and unsent newer edits survive. not_observed never becomes a confirmed failure."
+      ],
+      "counterexample": "Automatic fresh-ID retry duplicates a mutation, unknown clears local input, receipt check marks newer typing Saved, or scheduled retries storm indefinitely."
+    },
+    {
+      "id": "AUTO-06",
+      "given": "Another entry changes a touched action field after local first edit, or an unrelated owner-wide change increments revision.",
+      "when": "Receive a fresh snapshot before debounce dispatch, or resolve one definite revision rejection by refreshing the full snapshot.",
+      "then": [
+        "Capture each touched persisted field baseline on first edit; Defer input variants compare saved defer_until. If latest saved differs from both baseline and proposal, retain both values and pause that target before a stale proposal can dispatch or rebase.",
+        "A concise exceptional inline reconciliation shows relevant saved/proposed values with Use my edits / Use saved. Use my edits deliberately rebases conflicted retained fields to the current full snapshot and schedules normal saving; Use saved discards only conflicted fields and retains unrelated proposals. No routine review modal.",
+        "Unrelated owner-wide revision changes do not become false same-field conflicts. After one definite revision rejection, one bounded refresh/retry is permitted only when touched baselines still equal latest saved values or intended proposal; a missing target or third-value overlap stops automatic saving.",
+        "Definite rejected requests and safe resumed mutations use ordinary new operation IDs at dispatch; an unknown original request always retains its exact ID/arguments until receipt/identical replay proves outcome. State equality alone is never unknown-request acknowledgment.",
+        "Navigation/refresh retains the reconciliation and unrelated edits. Own acknowledgment updates newer local baselines so earlier self-written values do not trigger external-conflict feedback."
+      ],
+      "counterexample": "Latest owner revision is used to silently overwrite a touched field that externally changed, conflict comparison treats our own v1 as external, Use saved erases unrelated drafts, safe unrelated revision loops indefinitely, or unknown retry gets a fresh ID."
+    },
+    {
+      "id": "AUTO-07",
+      "given": "A save receives a validation, authentication, network or definite rejection.",
+      "when": "The user waits, navigates and continues editing.",
+      "then": [
+        "The last saved state is intact, proposal remains local/reachable and the affected action shows minimal failure/unsaved feedback. No false Saved state.",
+        "Definite validation failures wait for corrected relevant input; authentication/other definite failures wait for meaningful recovery. The only automatic revision recovery is the bounded, baseline-proven unrelated case in AUTO-06; no repeated timer retry loop.",
+        "Unknown transport outcomes follow AUTO-05 rather than assuming failure; recovery attempts retain exact requests until known."
+      ],
+      "counterexample": "Failure deletes proposal, repeated timer writes identical rejected input, or every failed save produces modal/verbose global notifications."
+    },
+    {
+      "id": "AUTO-08",
+      "given": "Secondary state controls such as Flag/status/parent/Due/Defer/completion/drop are available.",
+      "when": "Make an ordinary valid change.",
+      "then": [
+        "Routine mutations apply directly without a review screen. Pure validation, descendant completion/Defer effects, owner isolation, revision/receipt and Undo guarantees remain intact.",
+        "Dates use explicit timezone, Due and Defer stay distinct, original raw notes stay exact, and blank Action Title remains valid with Untitled display-only fallback.",
+        "Minimal Undo/recovery remains accessible for consequential direct changes; ambiguous/invalid input never causes an invented commitment or silent destructive correction.",
+        "Existing preview_change may run invisibly for validated/resolved payloads, then apply_change serially without user approval. Descendant cascade counts/warnings stay observable inline after the result with Undo; removing the modal does not erase consequential meaning."
+      ],
+      "counterexample": "Review removed by bypassing validation/CAS, parent completion becomes nonatomic, or autosave invents a date from partial input."
+    },
+    {
+      "id": "AUTO-09",
+      "given": "The application is narrow/full, light/dark and operated with keyboard/touch/assistive technology.",
+      "when": "Edit, navigate, receive host updates and recover from one pending/unknown/conflict state.",
+      "then": [
+        "Editing, Back/Close and recovery controls remain reachable with no horizontal overflow or hidden save dependency. Indicators expose actual state to assistive technology without announcing every keystroke.",
+        "Host notifications preserve local proposals and composition/caret; host display mode follows acknowledgment/capability rather than width.",
+        "Before unload, dirty/queued/pending/unknown/conflict state is recognized so unsaved work is not falsely treated as safely persisted."
+      ],
+      "counterexample": "A removed Save button leaves keyboard flow stranded, Saved is announced for queued text, or leaving the page silently loses unsent data."
+    }
+  ],
+  "required_real_browser": [
+    "Type v1, hold response, type v2 and navigate A\u2192B; return and release responses. Inspect actual text/focus/indicators and exact request sequence to prove no overwrite/retarget/backlog.",
+    "IME composition and incomplete date/order at narrow/full widths; timer advance and host notification cause no intermediate persistence. Final composition saves once.",
+    "Drop save response while continuing typing; navigate/Back and check/identical retry, proving same original request and newer local input survive. Separately inject touched-field external update before debounce and demonstrate Use my edits / Use saved; an unrelated owner revision allows at most one baseline-proven refresh/retry without a visible routine review.",
+    "Keyboard/touch/assistive labels and light/dark screenshots show no routine Save/Review controls, no allowed-Add explanation, one-line empty state, immediate row draft title, compact Saving/Saved/Needs attention feedback and reachable exceptional reconciliation/Undo/recovery."
+  ],
+  "gates": [
+    "Pure scheduling/state decisions use injected clock/timer/effect ports, immutable proposal versions and no input mutation.",
+    "Application/real adapter tests verify CAS competition, identical replay, missing responses, later correction preservation, Undo and owner isolation.",
+    "Generated DOM tests cover all nine field groups, blank-title/raw-note editing, navigation ID binding and state indicators.",
+    "Required pnpm check/build and built-resource smoke; failures/skips/unexecuted checks reported honestly.",
+    "Actual ChatGPT Work/cache/auth/D1 acceptance remains distinct from local mock/browser proof."
+  ],
+  "scope_limits": [
+    "No independent recommendation engine, background management workflow, catalog CRUD, deployment or data reset introduced.",
+    "User-requested ordinary direct mutation intentionally replaces routine preview UI; backend validation/revision/replay/Undo contracts remain.",
+    "Existing empty Action contextual Add policy and one-request contentful MCP creation remain separate preserved contracts."
+  ],
+  "execution": {
+    "placement": "native requirements",
+    "repository_edits": false,
+    "kernel_receipt": false,
+    "status": "Acceptance reconciled with authored native autosave design; final implementation acceptance pending"
+  },
+  "design_basis": "/tmp/ariadne-autosave-design.json",
+  "reconciliation": {
+    "status": "reconciled",
+    "adopted": [
+      "500 ms reversible debounce with blur/navigation flush and composition pause.",
+      "Touched-field baseline checks including before debounce dispatch; bounded one unrelated-revision refresh/retry permitted, never unknown fresh-ID retry.",
+      "Use my edits / Use saved resolves overlap minimally and preserves unrelated proposals.",
+      "Allowed Add hint hidden; one-line empty state; row draft Title updates immediately; no routine unsaved/proposal/comparison/diagnostic clutter."
+    ],
+    "preserved": [
+      "Direct ordinary editing without Save/Review UI.",
+      "Newer typing during saving and immutable original unknown requests.",
+      "All action/store/receipt/Undo/owner/creation contracts."
+    ],
+    "limitations": "Backend remains unchanged in this design. No code, tests, host evidence or kernel acceptance established by this artifact update."
+  }
+}

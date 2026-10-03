@@ -1,0 +1,48 @@
+{
+  "profile": "native implementation",
+  "scope": [
+    "TITLE",
+    "ADDTAGS",
+    "ATOMIC",
+    "MCP",
+    "UNDO"
+  ],
+  "result": "implemented",
+  "source": [
+    "lib/domain/core.ts",
+    "lib/application/action-service.ts",
+    "app/mcp/route.ts",
+    "tests/domain/empty-action.test.mjs",
+    "tests/adapters/empty-action-store.test.mjs",
+    "tests/application/action-service.test.mjs"
+  ],
+  "evidence": {
+    "backend_full_before_extra_case": {
+      "passed": 150,
+      "failed": 0,
+      "skipped": 0,
+      "log": "/tmp/ariadne-empty-action-backend-all.log"
+    },
+    "application_final": {
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "log": "/tmp/ariadne-empty-action-backend-application.log"
+    },
+    "typecheck": "passed",
+    "lint": "passed"
+  },
+  "facts": [
+    "Action-only title validator permits empty; text/catalog/ref validator unchanged",
+    "Initial tag associations and mutation identity markers enter existing atomic owner CAS commit/receipt/delta/Undo",
+    "No schema/migration/store adapter changes required",
+    "SQLite association insert failure rolls back action/tag/identity/receipt",
+    "Exact missing-response replay preserves returned generated ID without ID allocation",
+    "Creation Undo drops/detaches/removes tags; subsequent association ABA rejects Undo"
+  ],
+  "limitations": [
+    "No hosted D1 or ChatGPT host acceptance",
+    "No runtime-kernel status claimed",
+    "No commit/push/deployment"
+  ]
+}

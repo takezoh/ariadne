@@ -1,0 +1,14 @@
+{
+  "messages": [
+    "同じ親の下に同名のプロジェクトは作成できません。"
+  ],
+  "operationError": {
+    "key": "[\"apply_change\",\"project_move\",\"dc441866-e4a7-4d53-8202-05eef8b7003d\"]",
+    "message": "同じ親の下に同名のプロジェクトは作成できません。"
+  },
+  "indicator": {
+    "kind": "error",
+    "label": "Changes need attention",
+    "icon": "waiting"
+  }
+}

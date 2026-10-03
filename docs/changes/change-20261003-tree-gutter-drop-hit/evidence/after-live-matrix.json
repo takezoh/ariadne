@@ -1,0 +1,3872 @@
+[
+  {
+    "dx": 6,
+    "dy": -2,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 258,
+      "y": 1016.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "action-row",
+      "row": true,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "6451cd44-8b72-456a-83ba-7ab8e6cac7e9",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 259,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 259,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 259,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 258,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": 6,
+    "dy": 2,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 258,
+      "y": 1020.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "a499e89a-b2d4-4f91-93a3-99d856efe770",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 259,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 259,
+        "y": 1017,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 259,
+        "y": 1018,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1019,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1020,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1020,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 258,
+        "y": 1020,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": 6,
+    "dy": 8,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 258,
+      "y": 1026.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "dc56c0da-538d-4c04-bc30-ec02b4fab782",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 259,
+        "y": 1017,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 259,
+        "y": 1021,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1022,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1024,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1026,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1026,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 258,
+        "y": 1026,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -1,
+    "dy": -2,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 251,
+      "y": 1016.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "cd029824-982b-44f2-9a24-95ebe5426142",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 257,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 255,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 254,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 252,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 251,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 251,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -1,
+    "dy": 2,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 251,
+      "y": 1020.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "eb335e3c-5b06-4e48-9971-820105972c52",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 257,
+        "y": 1017,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 255,
+        "y": 1018,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 252,
+        "y": 1019,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 251,
+        "y": 1020,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 251,
+        "y": 1020,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -1,
+    "dy": 8,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 251,
+      "y": 1026.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "8d525dc5-a060-475f-8816-a305b32492ec",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1017,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 255,
+        "y": 1021,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 254,
+        "y": 1022,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 252,
+        "y": 1024,
+        "id": "moveStatus",
+        "cls": "move-status",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 251,
+        "y": 1026,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 251,
+        "y": 1026,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -1,
+    "dy": "center",
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 251,
+      "y": 989.09375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "An action cannot move into its own subtree.",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "be61077e-9068-4412-abb1-cc867c43620f",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1011,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 257,
+        "y": 1006,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 255,
+        "y": 1002,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 254,
+        "y": 997,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 252,
+        "y": 993,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 251,
+        "y": 989,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 251,
+        "y": 989,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -1,
+    "dy": "top",
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 251,
+      "y": 961.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "An action cannot move into its own subtree.",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "32fa1e9a-6de5-481a-a2fd-ee4aff2cee04",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 258,
+        "y": 1006,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 257,
+        "y": 997,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 255,
+        "y": 988,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 254,
+        "y": 979,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 252,
+        "y": 970,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 251,
+        "y": 961,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 251,
+        "y": 961,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -12,
+    "dy": -2,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 240,
+      "y": 1016.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "bcbef3e2-0552-49ee-a50e-aaa8c651dffa",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 256,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 253,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 246,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 243,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 240,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 240,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 240,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -12,
+    "dy": 2,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 240,
+      "y": 1020.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "de10c4a4-e1e8-4590-b279-c092b6f9bdbf",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 256,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 253,
+        "y": 1017,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 246,
+        "y": 1018,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 243,
+        "y": 1019,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 240,
+        "y": 1020,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 240,
+        "y": 1020,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 240,
+        "y": 1020,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -12,
+    "dy": 8,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 240,
+      "y": 1026.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "8dcc5019-22e7-45c3-9916-faa1f52faebd",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 256,
+        "y": 1017,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 246,
+        "y": 1022,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 243,
+        "y": 1024,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 240,
+        "y": 1026,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 240,
+        "y": 1026,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 240,
+        "y": 1026,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -12,
+    "dy": "center",
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 240,
+      "y": 989.09375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "ad5f302e-51ad-44e7-9ed0-b7b011a3f34a",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 256,
+        "y": 1011,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 253,
+        "y": 1006,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 246,
+        "y": 997,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 243,
+        "y": 993,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 240,
+        "y": 989,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 240,
+        "y": 989,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 240,
+        "y": 989,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -12,
+    "dy": "top",
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 240,
+      "y": 961.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "0e2d4103-a129-4f9d-8007-0cd666aca266",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 256,
+        "y": 1006,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 253,
+        "y": 997,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 246,
+        "y": 979,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 243,
+        "y": 970,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 240,
+        "y": 961,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 240,
+        "y": 961,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 240,
+        "y": 961,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -30,
+    "dy": -2,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 222,
+      "y": 1016.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "49e56a2a-1922-4cfa-a6fd-a767f1623910",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 253,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 241,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 234,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 228,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 222,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 222,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 222,
+        "y": 1016,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -30,
+    "dy": 2,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 222,
+      "y": 1020.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "0096f0ca-653e-4a27-a7ec-4280bef83c42",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 253,
+        "y": 1016,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 241,
+        "y": 1018,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 234,
+        "y": 1018,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 228,
+        "y": 1019,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 222,
+        "y": 1020,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 222,
+        "y": 1020,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 222,
+        "y": 1020,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -30,
+    "dy": 8,
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 222,
+      "y": 1026.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "1a9d1a13-9a87-4600-83b4-119321cab5ff",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 253,
+        "y": 1017,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 241,
+        "y": 1021,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 234,
+        "y": 1022,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 228,
+        "y": 1024,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 222,
+        "y": 1026,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 222,
+        "y": 1026,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 222,
+        "y": 1026,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -30,
+    "dy": "center",
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 222,
+      "y": 989.09375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "4f5f45cf-3fcd-4c0a-8039-8de034c2e158",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 253,
+        "y": 1011,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 241,
+        "y": 1002,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 234,
+        "y": 997,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 228,
+        "y": 993,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 222,
+        "y": 989,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 222,
+        "y": 989,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 222,
+        "y": 989,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  },
+  {
+    "dx": -30,
+    "dy": "top",
+    "row": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    },
+    "point": {
+      "x": 222,
+      "y": 961.59375
+    },
+    "hit": {
+      "tag": "DIV",
+      "id": "",
+      "cls": "list-panel",
+      "row": false,
+      "list": true
+    },
+    "statusBeforeDrop": "1 action \u00b7 At Top level",
+    "oldParent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "expectedParent": null,
+    "actualParent": null,
+    "actualOrder": 2,
+    "writes": [
+      {
+        "name": "apply_change",
+        "args": {
+          "schemaVersion": 2,
+          "operationId": "23e347e3-c48f-4289-b4ab-4cc179a31cab",
+          "expectedRevision": 1,
+          "kind": "action_move",
+          "payload": {
+            "ids": [
+              "4d581bb6-2167-5033-bfd7-a88364e6651b"
+            ],
+            "placement": "root"
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "kind": "dragstart",
+        "trusted": true,
+        "x": 421,
+        "y": 987,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 428,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 431,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 433,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 436,
+        "y": 987,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 418,
+        "y": 989,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 400,
+        "y": 992,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 383,
+        "y": 995,
+        "id": "",
+        "cls": "",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 312,
+        "y": 1007,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 295,
+        "y": 1009,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 277,
+        "y": 1012,
+        "id": "",
+        "cls": "action-row",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 260,
+        "y": 1015,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 253,
+        "y": 1006,
+        "id": "",
+        "cls": "action-row drop-after",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 241,
+        "y": 988,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 234,
+        "y": 979,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 228,
+        "y": 970,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 222,
+        "y": 961,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "dragover",
+        "trusted": true,
+        "x": 222,
+        "y": 961,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      },
+      {
+        "kind": "drop",
+        "trusted": true,
+        "x": 222,
+        "y": 961,
+        "id": "",
+        "cls": "list-panel",
+        "defaultPrevented": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,1403 @@
+[
+  {
+    "at": "2026-10-03T15:37:12.289Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "aafeea53-3873-4df5-8ad7-bd915d422315",
+      "method": "initialize",
+      "params": {
+        "protocolVersion": "2025-11-25",
+        "capabilities": {},
+        "clientInfo": {
+          "name": "detected-event-caller",
+          "version": "1"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false
+  },
+  {
+    "at": "2026-10-03T15:37:12.703Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "de7453af-46a8-405b-9144-a29a4ad816f9",
+      "method": "tools/list",
+      "params": {}
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false
+  },
+  {
+    "at": "2026-10-03T15:37:36.529Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "aa084209-8ece-48dd-a77c-54e15ae7667a",
+      "method": "initialize",
+      "params": {
+        "protocolVersion": "2025-11-25",
+        "capabilities": {},
+        "clientInfo": {
+          "name": "detected-event-caller",
+          "version": "1"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false
+  },
+  {
+    "at": "2026-10-03T15:37:36.914Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "a2d9ca28-c223-4f65-b9b7-4880d01fef37",
+      "method": "tools/list",
+      "params": {}
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false
+  },
+  {
+    "at": "2026-10-03T15:38:44.119Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "ae9967a1-648a-4acd-9c66-03027b138a76",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 0,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:44.191Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "befd459a-b9ac-4ae2-9c0a-7bcd38575bd3",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 0,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:44.281Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "4b6026d5-cc3a-46fa-8817-65acce4f6b4c",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "4ded5f40-b63f-49af-80ec-187a3d3d6628",
+          "expectedRevision": 0,
+          "kind": "project_get_or_create",
+          "payload": {
+            "name": "Personal"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 1,
+    "result": {
+      "operationId": "4ded5f40-b63f-49af-80ec-187a3d3d6628",
+      "revision": 1,
+      "changedIds": [],
+      "resolved": {
+        "project": {
+          "id": "24b7ce59-28b8-488e-9302-68d0757f12ff",
+          "created": true
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:44.352Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "0bc988fc-1cd1-4c21-a22c-274328bed16a",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 1,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:44.435Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e671905f-c372-4449-a197-88a9a8264003",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "35ad1f57-a1d7-4b6c-a387-44f6093319bd",
+          "expectedRevision": 1,
+          "kind": "project_get_or_create",
+          "payload": {
+            "name": "Work"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 2,
+    "result": {
+      "operationId": "35ad1f57-a1d7-4b6c-a387-44f6093319bd",
+      "revision": 2,
+      "changedIds": [],
+      "resolved": {
+        "project": {
+          "id": "f886aff3-be79-4d12-8175-1df7e47531fa",
+          "created": true
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:44.501Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "b9e6d1d3-1e16-433c-8ca5-aac04901667a",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 2,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:44.582Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "dd2782b5-e916-4df5-9d7f-17a20d498b45",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "28d6dc2b-67cd-4108-a2b4-80cecc6da5a5",
+          "expectedRevision": 2,
+          "kind": "tag_get_or_create",
+          "payload": {
+            "name": "Notification",
+            "description": "User-authorized saved confirmation/action-needed label; not a push notification."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 3,
+    "result": {
+      "operationId": "28d6dc2b-67cd-4108-a2b4-80cecc6da5a5",
+      "revision": 3,
+      "changedIds": [],
+      "resolved": {
+        "tag": {
+          "id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "created": true
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:44.655Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "1a9cd740-6777-4653-a55a-3200c8fcde5e",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 3,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:44.746Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "a1a9df93-19e9-48e7-895b-35680a8ead54",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "f0ce9693-b4c5-4937-9e03-96814e39d300",
+          "expectedRevision": 3,
+          "title": "Confirm whether Sunday lunch works",
+          "text": "Can you confirm whether Sunday lunch works for you? No need to decide now.",
+          "source": "https://example.invalid/slack/personal/1"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 4,
+    "result": {
+      "operationId": "f0ce9693-b4c5-4937-9e03-96814e39d300",
+      "revision": 4,
+      "changedIds": [
+        "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:44.813Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "07b9140b-6c58-4155-9c07-302a834211bb",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 4,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:44.908Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f5521500-750d-4545-b543-fc61e4bb4291",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "8235f35d-63a8-4336-81eb-322585810d51",
+          "expectedRevision": 4,
+          "kind": "edit",
+          "payload": {
+            "id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+            "notes": "Can you confirm whether Sunday lunch works for you? No need to decide now.\n\nSource event ID: personal-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/personal/1\nTrusted source scope: personal"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 5,
+    "result": {
+      "operationId": "8235f35d-63a8-4336-81eb-322585810d51",
+      "revision": 5,
+      "changedIds": [
+        "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:44.986Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f2285b5e-cd5a-473c-9df0-83f1f71df977",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 5,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:45.076Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "d6bb830d-4327-4333-be9e-8a2500e19ea1",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "24113eef-e916-45a3-9e4f-d9f26a1b4a2e",
+          "expectedRevision": 5,
+          "kind": "action_project",
+          "payload": {
+            "id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+            "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 6,
+    "result": {
+      "operationId": "24113eef-e916-45a3-9e4f-d9f26a1b4a2e",
+      "revision": 6,
+      "changedIds": [
+        "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:45.152Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "584382ec-ad75-45f9-9093-1d13f7e9f409",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 6,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:45.232Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "84cd8408-156f-41a3-89f9-c5e1f6259504",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "29500e57-78dc-4312-959f-9675fcb7849a",
+          "expectedRevision": 6,
+          "kind": "action_tag",
+          "payload": {
+            "id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+            "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 7,
+    "result": {
+      "operationId": "29500e57-78dc-4312-959f-9675fcb7849a",
+      "revision": 7,
+      "changedIds": [
+        "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:45.300Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "501ce696-92bc-4882-bab6-0bcf695afcfd",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 7,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:45.385Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "6058fcdf-a39c-4fc7-9d31-fab496869f48",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "f1a4b049-47f2-4523-a233-da82b251d964",
+          "expectedRevision": 7,
+          "title": "Check the electricity bill amount",
+          "text": "Please check the attached electricity bill. The amount looks different from last month.",
+          "source": "https://example.invalid/mail/personal/1"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 8,
+    "result": {
+      "operationId": "f1a4b049-47f2-4523-a233-da82b251d964",
+      "revision": 8,
+      "changedIds": [
+        "a26fcdc8-c36f-494e-b7f0-310373ccdb7f"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:45.452Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "7199b20c-1831-467f-9fca-9383e8dd4459",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 8,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:45.529Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "12867a40-e43a-44d7-9112-2423b0d15158",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "2986b579-619e-427b-a16a-057da23a6657",
+          "expectedRevision": 8,
+          "kind": "edit",
+          "payload": {
+            "id": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+            "notes": "Please check the attached electricity bill. The amount looks different from last month.\n\nSource event ID: personal-email-1\nSource: Email\nSource URL: https://example.invalid/mail/personal/1\nTrusted source scope: personal"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 9,
+    "result": {
+      "operationId": "2986b579-619e-427b-a16a-057da23a6657",
+      "revision": 9,
+      "changedIds": [
+        "a26fcdc8-c36f-494e-b7f0-310373ccdb7f"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:45.594Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "b6addd66-1eb3-4a7b-9da9-a02140d51af5",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 9,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:45.670Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "0286aa96-ca4a-4f8a-a0ea-effada17b8c7",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "de1e0de8-bf48-47cb-89da-d1b5e07b486b",
+          "expectedRevision": 9,
+          "kind": "action_project",
+          "payload": {
+            "id": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+            "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 10,
+    "result": {
+      "operationId": "de1e0de8-bf48-47cb-89da-d1b5e07b486b",
+      "revision": 10,
+      "changedIds": [
+        "a26fcdc8-c36f-494e-b7f0-310373ccdb7f"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:45.740Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "9e6407d0-0158-42a0-884c-2adb79996963",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 10,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:45.827Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "8a0eedfc-79f5-4bb4-ba1b-9f96acd9f996",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "4a346c30-4e73-497b-a82a-2b323620501f",
+          "expectedRevision": 10,
+          "kind": "action_tag",
+          "payload": {
+            "id": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+            "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 11,
+    "result": {
+      "operationId": "4a346c30-4e73-497b-a82a-2b323620501f",
+      "revision": 11,
+      "changedIds": [
+        "a26fcdc8-c36f-494e-b7f0-310373ccdb7f"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:45.902Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "4e6a32d7-d388-4fc6-8a3f-e01a94ea98ac",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 11,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:45.984Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "03b4245f-3e7c-42b9-9a63-8cc7e60ceb60",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "a46fdbac-044c-408f-a2b9-aab65e3b5bb4",
+          "expectedRevision": 11,
+          "title": "Review the release proposal",
+          "text": "Please review the release proposal and let us know if there are concerns. We have not agreed on a release date.",
+          "source": "https://example.invalid/slack/work/1"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 12,
+    "result": {
+      "operationId": "a46fdbac-044c-408f-a2b9-aab65e3b5bb4",
+      "revision": 12,
+      "changedIds": [
+        "f04e0c6a-9fe2-4628-b700-b8eb41243368"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "f04e0c6a-9fe2-4628-b700-b8eb41243368"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:46.050Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "dae0f6e2-4371-41eb-aa86-b06dbb6c6982",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 12,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:46.136Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "4ef4daa2-401e-418f-bd5b-ec42c5e4f952",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "2cace1fe-bb71-41e2-964c-e6040449d7b6",
+          "expectedRevision": 12,
+          "kind": "edit",
+          "payload": {
+            "id": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+            "notes": "Please review the release proposal and let us know if there are concerns. We have not agreed on a release date.\n\nSource event ID: work-slack-1\nSource: Slack\nSource URL: https://example.invalid/slack/work/1\nTrusted source scope: work"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 13,
+    "result": {
+      "operationId": "2cace1fe-bb71-41e2-964c-e6040449d7b6",
+      "revision": 13,
+      "changedIds": [
+        "f04e0c6a-9fe2-4628-b700-b8eb41243368"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:46.207Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f503877b-c99d-4c21-ab4e-10086ddb55e9",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 13,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:46.292Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "ae2f2714-22ba-4cea-8145-1c92bd92e5c7",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "59d5756a-97a2-4f82-96e8-03ee30742625",
+          "expectedRevision": 13,
+          "kind": "action_project",
+          "payload": {
+            "id": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+            "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 14,
+    "result": {
+      "operationId": "59d5756a-97a2-4f82-96e8-03ee30742625",
+      "revision": 14,
+      "changedIds": [
+        "f04e0c6a-9fe2-4628-b700-b8eb41243368"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:46.368Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "1fd360f1-9dca-4607-a9ad-ab40c35ea109",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 14,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:46.451Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "b0e0c18d-ad34-47f7-8d77-f6ef66c6a218",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "0f4c038a-6f2a-45e3-931b-01461a654b05",
+          "expectedRevision": 14,
+          "kind": "action_tag",
+          "payload": {
+            "id": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+            "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 15,
+    "result": {
+      "operationId": "0f4c038a-6f2a-45e3-931b-01461a654b05",
+      "revision": 15,
+      "changedIds": [
+        "f04e0c6a-9fe2-4628-b700-b8eb41243368"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:46.519Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "0774a0c3-7aca-4373-a876-5133a737661f",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 15,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:46.601Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e2060b2c-4a3f-443f-b7dd-59e7d5bbbb2b",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "22a86650-389a-4dd8-a9a7-579a676bdd0f",
+          "expectedRevision": 15,
+          "title": "Confirm which estimate to use",
+          "text": "Could you confirm which estimate we should use? The two versions have different assumptions.",
+          "source": "https://example.invalid/mail/work/1"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 16,
+    "result": {
+      "operationId": "22a86650-389a-4dd8-a9a7-579a676bdd0f",
+      "revision": 16,
+      "changedIds": [
+        "db997cb9-ab77-4d7b-8867-51fced88228b"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "db997cb9-ab77-4d7b-8867-51fced88228b"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:46.669Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e9b146f9-b7e2-4708-9ad0-6387972f19df",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 16,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:46.748Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "981c7bae-aeb1-47c5-84cc-658e3d7fad41",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "5934753d-3511-4c1c-b3ee-3479271f5005",
+          "expectedRevision": 16,
+          "kind": "edit",
+          "payload": {
+            "id": "db997cb9-ab77-4d7b-8867-51fced88228b",
+            "notes": "Could you confirm which estimate we should use? The two versions have different assumptions.\n\nSource event ID: work-email-1\nSource: Email\nSource URL: https://example.invalid/mail/work/1\nTrusted source scope: work"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 17,
+    "result": {
+      "operationId": "5934753d-3511-4c1c-b3ee-3479271f5005",
+      "revision": 17,
+      "changedIds": [
+        "db997cb9-ab77-4d7b-8867-51fced88228b"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:46.827Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "bd6b5d8b-4a03-409a-8ad7-be2b5ff63597",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 17,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:46.910Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "4ba2569c-5d43-45d5-a1dd-39f07f8402e8",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "0752c2b1-5ba1-4dc2-969e-4fdc40a5ff21",
+          "expectedRevision": 17,
+          "kind": "action_project",
+          "payload": {
+            "id": "db997cb9-ab77-4d7b-8867-51fced88228b",
+            "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 18,
+    "result": {
+      "operationId": "0752c2b1-5ba1-4dc2-969e-4fdc40a5ff21",
+      "revision": 18,
+      "changedIds": [
+        "db997cb9-ab77-4d7b-8867-51fced88228b"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:46.989Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "0dc3b5f4-70b4-4459-a4fd-6c52ce4edb56",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 18,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:47.076Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "53a0e838-5285-4360-8d2d-8f0442304259",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "acca735c-8d92-43c1-bdc5-784f909ed5c2",
+          "expectedRevision": 18,
+          "kind": "action_tag",
+          "payload": {
+            "id": "db997cb9-ab77-4d7b-8867-51fced88228b",
+            "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19,
+    "result": {
+      "operationId": "acca735c-8d92-43c1-bdc5-784f909ed5c2",
+      "revision": 19,
+      "changedIds": [
+        "db997cb9-ab77-4d7b-8867-51fced88228b"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:47.154Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "d7ee97e1-2448-4b47-925f-cd78dae3106d",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:47.224Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "09f8972e-67e5-4ab1-8184-5df7c32e5165",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:47.297Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "ede1423e-6635-4741-80f1-51a2f09eab25",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:47.369Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e6b80399-5eae-429f-b54b-a2f8b9814583",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:47.442Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "1be5b545-d407-40b9-8654-ab530eeed181",
+      "method": "tools/call",
+      "params": {
+        "name": "query_actions",
+        "arguments": {
+          "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19
+  },
+  {
+    "at": "2026-10-03T15:38:47.513Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "060027e3-e211-4d49-b8d2-22af84c43705",
+      "method": "tools/call",
+      "params": {
+        "name": "query_actions",
+        "arguments": {
+          "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19
+  },
+  {
+    "at": "2026-10-03T15:38:47.585Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "5f97c220-74f1-4c00-8ed0-294cca0ba9c2",
+      "method": "tools/call",
+      "params": {
+        "name": "query_actions",
+        "arguments": {
+          "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19
+  },
+  {
+    "at": "2026-10-03T15:38:47.659Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "c721634d-565e-4243-9c15-afc30c1bda0b",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:47.730Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "c28267f7-20d0-4b3d-8f8e-74d9c32e876e",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:47.830Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "207a96ca-6344-430c-baff-63a4d6b6896d",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "4034eb05-4de7-4bd8-af83-f79931195767",
+          "expectedRevision": 19,
+          "kind": "action_tag",
+          "payload": {
+            "id": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+            "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+            "enabled": false
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 20,
+    "result": {
+      "operationId": "4034eb05-4de7-4bd8-af83-f79931195767",
+      "revision": 20,
+      "changedIds": [
+        "a26fcdc8-c36f-494e-b7f0-310373ccdb7f"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:38:47.914Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e2759a5e-06cc-4f3c-a157-8dc0efcc56af",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 20,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:47.985Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "ca231a33-4106-4809-829f-04a9bef05010",
+      "method": "tools/call",
+      "params": {
+        "name": "query_actions",
+        "arguments": {
+          "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 20
+  },
+  {
+    "at": "2026-10-03T15:38:48.062Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "6569db35-bb07-470c-8221-7b37ade4746d",
+      "method": "tools/call",
+      "params": {
+        "name": "query_actions",
+        "arguments": {
+          "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "project_id": "24b7ce59-28b8-488e-9302-68d0757f12ff"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 20
+  },
+  {
+    "at": "2026-10-03T15:38:48.138Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "479d3684-40c9-4992-b84a-1d861ddc84d5",
+      "method": "tools/call",
+      "params": {
+        "name": "query_actions",
+        "arguments": {
+          "tag_id": "e026363e-f158-4d46-9e4a-74b6385f2d25",
+          "project_id": "f886aff3-be79-4d12-8175-1df7e47531fa"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 20
+  },
+  {
+    "at": "2026-10-03T15:38:48.209Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e1f73878-3d16-4981-812f-0e1c4d09dc9e",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 20,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:38:48.277Z",
+    "owner": "dot-detected-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "8ec09769-7083-4af2-9033-6a6191c1cba4",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 20,
+    "result": null
+  }
+]

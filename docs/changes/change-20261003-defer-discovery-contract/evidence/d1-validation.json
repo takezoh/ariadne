@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "environment": "Built Worker HTTP and Wrangler local D1",
+  "cases": [
+    {
+      "label": "calendar date",
+      "expectedError": null,
+      "passed": true
+    },
+    {
+      "label": "offset instant",
+      "expectedError": null,
+      "passed": true
+    },
+    {
+      "label": "date in until",
+      "expectedError": "invalid_input",
+      "passed": true
+    },
+    {
+      "label": "mixed forms",
+      "expectedError": "invalid_input",
+      "passed": true
+    },
+    {
+      "label": "mixed null",
+      "expectedError": "invalid_input",
+      "passed": true
+    },
+    {
+      "label": "unknown key",
+      "expectedError": "invalid_input",
+      "passed": true
+    },
+    {
+      "label": "missing timezone",
+      "expectedError": "timezone_required",
+      "passed": true
+    }
+  ],
+  "previewKeptRevisionAndState": true
+}

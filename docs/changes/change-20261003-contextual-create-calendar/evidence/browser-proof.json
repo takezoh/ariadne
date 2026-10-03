@@ -1,0 +1,154 @@
+[
+  {
+    "case": "root-add-inbox",
+    "passed": true
+  },
+  {
+    "case": "root-add-projects",
+    "passed": true
+  },
+  {
+    "case": "root-add-tags",
+    "passed": true
+  },
+  {
+    "case": "root-add-flagged",
+    "passed": true
+  },
+  {
+    "case": "root-add-history",
+    "passed": true
+  },
+  {
+    "case": "root-add-perspective",
+    "passed": true
+  },
+  {
+    "case": "selected-projects-action-context",
+    "passed": true
+  },
+  {
+    "case": "selected-projects-project-context",
+    "passed": true
+  },
+  {
+    "case": "selected-tags-tag-context",
+    "passed": true
+  },
+  {
+    "case": "selected-tags-action-context",
+    "passed": true
+  },
+  {
+    "case": "header-project-repeated-distinct-empty-name-autosave",
+    "passed": true
+  },
+  {
+    "case": "header-tag-repeated-distinct-empty-name-autosave",
+    "passed": true
+  },
+  {
+    "case": "due_at-enUS-24h-default09-ms-invalidtime-clear",
+    "passed": true
+  },
+  {
+    "case": "defer_until-enUS-24h-default09-ms-invalidtime-clear",
+    "passed": true
+  },
+  {
+    "case": "completed-parent-child-active-parent-unchanged",
+    "passed": true
+  },
+  {
+    "case": "header-project-projects-parentcontext",
+    "passed": true
+  },
+  {
+    "case": "header-tag-tags-parentcontext",
+    "passed": true
+  },
+  {
+    "case": "header-project-tags-parentcontext",
+    "passed": true
+  },
+  {
+    "case": "header-tag-projects-parentcontext",
+    "passed": true
+  },
+  {
+    "case": "header-project-unknown-check-sameUUID",
+    "passed": true
+  },
+  {
+    "case": "header-project-unknown-retry-sameUUID",
+    "passed": true
+  },
+  {
+    "case": "header-tag-unknown-check-sameUUID",
+    "passed": true
+  },
+  {
+    "case": "header-tag-unknown-retry-sameUUID",
+    "passed": true
+  },
+  {
+    "case": "due_at-DSTgap-blocked",
+    "passed": true
+  },
+  {
+    "case": "defer_until-DSTgap-blocked",
+    "passed": true
+  },
+  {
+    "case": "header-project-selectedAction-occurrence-parent",
+    "passed": true
+  },
+  {
+    "case": "header-tag-selectedAction-occurrence-parent",
+    "passed": true
+  },
+  {
+    "case": "due_at-unknown-check-newerPartialClock",
+    "passed": true
+  },
+  {
+    "case": "due_at-unknown-retry-newerPartialClock",
+    "passed": true
+  },
+  {
+    "case": "defer_until-unknown-check-newerPartialClock",
+    "passed": true
+  },
+  {
+    "case": "defer_until-unknown-retry-newerPartialClock",
+    "passed": true
+  },
+  {
+    "case": "ActionIME-before-header-create-exact-original-save",
+    "passed": true
+  },
+  {
+    "case": "catalogIME-before-header-create-preserved",
+    "passed": true
+  },
+  {
+    "case": "late-action-creation-explicit-navigation-wins",
+    "passed": true
+  },
+  {
+    "case": "late-project-creation-explicit-navigation-wins",
+    "passed": true
+  },
+  {
+    "case": "late-tag-creation-explicit-navigation-wins",
+    "passed": true
+  },
+  {
+    "case": "dropped-parent-child-active-parent-unchanged",
+    "passed": true
+  },
+  {
+    "case": "primaryAddAction-originalIME-target-retained",
+    "passed": true
+  }
+]

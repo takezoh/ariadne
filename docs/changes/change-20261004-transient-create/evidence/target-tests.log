@@ -1,0 +1,16 @@
+✔ transient Add leaves authoritative snapshot untouched and untouched navigation writes nothing (1.852919ms)
+✔ transient edited empty is retained and notes-only content creates one ordinary action (2.836704ms)
+✔ transient dependencies wait without retry loops and remap references without rewriting raw text (1.514375ms)
+✔ transient catalog description waits for valid name and saved action classification waits for UUID (1.842112ms)
+✔ transient unknown creation replays exact request and saves later typing on the same generated identity (1.23119ms)
+✔ transient selection protects its destination and saved proposals protect unresolved classifications (0.760695ms)
+✔ transient discard refuses transitive edited descendants and never drops saved records (0.294611ms)
+✔ transient overlay honors explicit null without changing authoritative records or names (0.888187ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1048.312357

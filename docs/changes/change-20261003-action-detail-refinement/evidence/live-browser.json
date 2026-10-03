@@ -1,0 +1,32 @@
+[
+  {
+    "width": 320,
+    "flagGroupedRight": true,
+    "globalSavedIcon": true,
+    "alwaysVisibleSections": true,
+    "oneDateTimePair": true,
+    "noClassificationOrTimezoneParagraph": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "flagGroupedRight": true,
+    "globalSavedIcon": true,
+    "alwaysVisibleSections": true,
+    "oneDateTimePair": true,
+    "noClassificationOrTimezoneParagraph": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "flagGroupedRight": true,
+    "globalSavedIcon": true,
+    "alwaysVisibleSections": true,
+    "oneDateTimePair": true,
+    "noClassificationOrTimezoneParagraph": true,
+    "readOnly": true,
+    "errors": []
+  }
+]

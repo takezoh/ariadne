@@ -1,0 +1,70 @@
+[
+  {
+    "allowedByActualPanel": true,
+    "savedOrder": 2,
+    "exactRootEndVerified": true,
+    "width": 1280,
+    "kind": "action",
+    "dx": -12,
+    "dy": -29.5,
+    "writeCount": 1,
+    "parent": null,
+    "rowBounds": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    }
+  },
+  {
+    "allowedByActualPanel": true,
+    "savedOrder": 2,
+    "exactRootEndVerified": true,
+    "width": 1280,
+    "kind": "project",
+    "dx": -12,
+    "dy": -29.5,
+    "writeCount": 1,
+    "parent": null,
+    "rowBounds": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    }
+  },
+  {
+    "allowedByActualPanel": true,
+    "savedOrder": 2,
+    "exactRootEndVerified": true,
+    "width": 390,
+    "kind": "action",
+    "dx": -12,
+    "dy": -29.5,
+    "writeCount": 1,
+    "parent": null,
+    "rowBounds": {
+      "x": 20,
+      "y": 1097.796875,
+      "width": 350,
+      "height": 59
+    }
+  },
+  {
+    "allowedByActualPanel": true,
+    "savedOrder": 2,
+    "exactRootEndVerified": true,
+    "width": 390,
+    "kind": "project",
+    "dx": -12,
+    "dy": -29.5,
+    "writeCount": 1,
+    "parent": null,
+    "rowBounds": {
+      "x": 20,
+      "y": 1097.796875,
+      "width": 350,
+      "height": 59
+    }
+  }
+]

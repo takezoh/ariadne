@@ -1,0 +1,20 @@
+[
+  {
+    "kind": "project",
+    "recovery": "check",
+    "exactReplay": true,
+    "externalCorrectionAndNewerProposalPreserved": true,
+    "inlineUseSaved": true,
+    "pendingNewerTyping": true,
+    "errors": []
+  },
+  {
+    "kind": "tag",
+    "recovery": "retry",
+    "exactReplay": true,
+    "externalCorrectionAndNewerProposalPreserved": true,
+    "inlineUseSaved": true,
+    "pendingNewerTyping": true,
+    "errors": []
+  }
+]

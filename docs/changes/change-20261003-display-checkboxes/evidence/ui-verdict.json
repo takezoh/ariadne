@@ -1,0 +1,81 @@
+{
+  "status": "approved",
+  "profile": "native independent requirements/design and UI integration reviewer",
+  "findings": [],
+  "candidate_sha256": {
+    "./lib/ui/application.ts": "8235d6be79905cde37b144ad827ff62bea547bd2c8eac7cb8b754ad4a2993ce1",
+    "./lib/ui/controller.ts": "c060bbb4d1a6aaf801c90fb38df14446d0edb5b899ee15706b029176637b36d8",
+    "./lib/ui/icons.ts": "3cb07634a40e7d2f959c6c5958aaa46e8bd08c721aa75fa12c2c4a3af037e019",
+    "./lib/ui/ports.ts": "d74f99fbccd35308cecdc147e580d5d64edc2b189e07d1ea234f3c429d12d03f",
+    "./lib/ui/adapters/dom.js": "66c8e293ffbafea7e9f1185d582ca71e4e36a54d8adc6393ac707203bd70d1f3",
+    "./lib/ui/adapters/host.ts": "d0c8408d775285460d9c21a7e70debcc764e947606b08225c47de2bbffe0c385",
+    "./lib/ui/adapters/verification.ts": "4705ece9a9ebb5956f8d01578dc751b92a81ffa82751cf2c2e12e7a42c990fff",
+    "./lib/ui/model/autosave.ts": "69f2f3e2d56c65f8fd1b961b4b1cb079649f4833e4577b7cd5ab5003ef3b7a01",
+    "./lib/ui/model/catalog-drafts.ts": "b1682c26dc6e20b7ec9517a13dfb2aed37c2a5b309cfc6a437f0391df9e14e1a",
+    "./lib/ui/model/catalog-tree.ts": "09f3932b1cd48c3381eaa23802d1c9a142412d152283346c1b92dfbb2b00e3c0",
+    "./lib/ui/model/controls.ts": "999baa7e43da070e070d516975f848b07a1814a6b5b7ef3f1e3e6d6d59b8528d",
+    "./lib/ui/model/date-input.ts": "43166fd42fda60c87ee9d166532c18a488f053604ffb1f950e841b5e3f5f6ada",
+    "./lib/ui/model/display.ts": "137f22f95c5e0608a00532ef8aa2397c7e83921bbe5d0eac3f5b9fbd7b2e6706",
+    "./lib/ui/model/drafts.ts": "f7b8cc0b36a33c5949e775ab1fead7739ddd37bf30a464c0f03b868a96d7af03",
+    "./lib/ui/model/movement.ts": "5fe4f9496542644d35fc9ba3d0ae8ef993d59003e377763ecfd5e1bfc0a9f072",
+    "./lib/ui/model/navigation.ts": "69e15d8abdffa09e952a6398ad5a5e957dcfcf4cefe454ca5e244e72debfe4ca",
+    "./lib/ui/model/operations.ts": "f533a656964a93176b28cb226b6c5dfe6173105b484fbe523e03095216049a1f",
+    "./lib/ui/model/picker.ts": "b51cd1db423dd0e037c745ef26d0119647e082ab4f82c453cf495e102090810b",
+    "./lib/ui/model/presentation.ts": "c200cc6756e075ee9cdb5307fafb8c3be4af0615c8d86f735c50498ea1179d8f",
+    "./lib/ui/model/tree-drop.ts": "8da06ccdc7101545c6bcf58b3acea1a9027e7899842bd2350694ea0d2c257b72",
+    "./lib/widget.ts": "25eabf714c0b863a441b7080fae58e75e5123d77d396ae6265e57d6d2b47180c",
+    "./tests/ui/application.test.mjs": "078bb8a45a22441acd9f103fe03ed83dd96047ca463dde1334c426282faa6764",
+    "./tests/ui/autosave.test.mjs": "f25d3f916770e56a6deeada8bd14ce239e641a9d3065349aa52474a287d40398",
+    "./tests/ui/catalog-tree.test.mjs": "d29cee84d60cb1423ee772e806bf16d5f464351dcf0927ce9902171a08434464",
+    "./tests/ui/controller.test.mjs": "a1a30744583853fc0cf2be163eb173fa24dab710af36535a4935dcbfd0c4c557",
+    "./tests/ui/date-input.test.mjs": "728d31d447ca175b35aa93c1968875ada67381b87f4432a016d5c0b69afc5970",
+    "./tests/ui/display.test.mjs": "2c79650462f05f93887eac9a25b22abf4be8aa40956ea07c185ce860d4a79f57",
+    "./tests/ui/dom.test.mjs": "6a8b90a33846287ec4c246f97d611d1b8e0ff751e07bd0ca7ef9fd4dfb8ee866",
+    "./tests/ui/host.test.mjs": "5ad85cc346fd142197a2f13d75e3edb24e711b0d83504b09051eff452dbcdb98",
+    "./tests/ui/mcp-display.test.mjs": "e5250c96924843ad0d26f882fe4fd3e2557b28437b64ea27b94e52fef04da221",
+    "./tests/ui/model.test.mjs": "3341085fc2d70f4e87b9a16d04ea1131d1891829736b5feacbf441fc16fedc64",
+    "./tests/ui/movement-application.test.mjs": "da4507615aa2f274091944bc8bf4e6f1326b19f274c61e9f1d51e1df758b6e72",
+    "./tests/ui/movement.test.mjs": "23bbf9a839a44812b60ba8abb1e2163c8ad2d47a9268e4960749da9de540ee23",
+    "./tests/ui/navigation.test.mjs": "5d5572c07111b9715ba99c0af4691725e9795fc6fd595f570620d6257bdab1e0",
+    "./tests/ui/picker.test.mjs": "ee245a6c7a79f7dc4b490a045e289bcee8d32051cd4847d9dc73890e0fc3117e",
+    "./tests/ui/tree-drop.test.mjs": "703293a673163068b32ecd6ed220059ccaff3d6a8711e019ebd01f8032a51a01",
+    "/tmp/display-checkboxes/widget.html": "6d95b8916c4c5ba1c36af682b39560fc6619c6a0597f235c25fd43ea196a9adc",
+    "/tmp/display-checkbox-acceptance.json": "4084e409f24694906e7e90d92589facd0d05a8b026ca8f0b4efbb2fa71b7221f",
+    "/tmp/display-checkboxes/design.json": "9487ab970a9d010be3bc76c5fb5874334284f039148d6040e6afe0c6d0c37d44"
+  },
+  "reason": "Lifecycle checkboxes are independent includes; empty status selection remains empty. Deferred toggle includes both deferred and nondeferred. Pure presentation and catalog tree agree; History statuses are independent, Inbox and saved Perspective semantics remain fixed. Instruction/combination summary removed without hiding unavailable indication. Active visibility gate protects blank Add context.",
+  "evidence": [
+    {
+      "path": "/tmp/display-checkboxes/reviewer-ui.log",
+      "result": "Independent pnpm test:ui exit0;117pass,0fail/cancel/skip/TODO; includes32status/defer combinations,historynone,rememberedarrayclone,treeparity,draft/IME/recovery/rootend regressions"
+    },
+    {
+      "path": "/tmp/display-checkboxes/reviewer-browser.json",
+      "result": "Independent native Chromium fixture6runs320/390/1280 lightdark; Projects/Tags/Flagged/History nonechecked empty; allchecked actualActionIDs exactsnapshot; popupstaysopen,Escapefocus,nohint/noordinarysummary,no writes"
+    },
+    {
+      "result": "Final freeze2 removes duplicate unavailable summary only; verified scopeSummary empty+hidden and existing distinct Selection unavailable empty state. No new behavior beyond restoring reviewed minimal presentation."
+    }
+  ],
+  "coverage": [
+    "Pure clonedstatusarrays and per-view memory",
+    "Deferred inclusive not exclusive",
+    "ActiveoffAdddisabled with determinatecontext unchanged",
+    "Inbox server unfinishedscope includes deferred and Onhold",
+    "SavedPerspective exact filter {} /statuses[] /missing classification unavailable",
+    "No Action-selection checkboxes or selection-mode changes",
+    "Multicheck keyboard Space/Enter toggles once; Arrow roving and Escape/Tab/outside close",
+    "Complete Project/Tag catalogstructure/exactmemberships retained",
+    "Autosave/rawtext/IME/unknown exactreplay and recent boundedcenter-left rootdrop unchanged"
+  ],
+  "limits": [
+    "Independent browser isolated memory actionCall fixture5199 only, no hosted D1 or ChatGPT Work proof.",
+    "Root finalcheck/build/livepreview and native drag gates separate.",
+    "Initial missingref-summary concern withdrawn after verifying explicit Selection unavailable empty state."
+  ],
+  "execution": {
+    "placement": "native subagent",
+    "kernel_receipt": false,
+    "repository_edits": false
+  }
+}

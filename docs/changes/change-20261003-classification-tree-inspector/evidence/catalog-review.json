@@ -1,0 +1,100 @@
+{
+  "profile": "native independent source review",
+  "verdict": "approved",
+  "scope": "Pure catalog drafts and catalog UI application persistence; presentation tree source reviewed, browser and DOM acceptance remain parent-owned.",
+  "source_sha256": {
+    "lib/ui/model/catalog-drafts.ts": "b1682c26dc6e20b7ec9517a13dfb2aed37c2a5b309cfc6a437f0391df9e14e1a",
+    "lib/ui/model/catalog-tree.ts": "81a12af55f6aa7f1cd916e95aa3bdfe4178fec9b7e0844a203cdf435139c37e5",
+    "lib/ui/application.ts": "79291d3f65e4dc8f0dfb82f180c471c276e0467ed9ed86c2b716aa414b805ac3",
+    "lib/ui/adapters/dom.js": "b9a49a36b5769d5b9ef54b0c4faed600a576d535e31d9429653db783962dc9e8",
+    "lib/widget.ts": "20ad09e6b3cc6565ab8271564553b76143b34296f17f275f4db2fca1e2fd376e"
+  },
+  "proof": {
+    "catalog-pure-proof": {
+      "passed": 7,
+      "immutable": true,
+      "typedIdentity": true,
+      "newerBothFieldsRetained": true,
+      "normalizedCapturedBaseline": true,
+      "fieldSpecificResolution": true,
+      "unavailableRetained": true
+    },
+    "catalog-recovery-proof": [
+      {
+        "kind": "project",
+        "recovery": "check",
+        "externalCorrectionPreserved": true,
+        "localProposalRetained": true,
+        "conflict": [
+          "name"
+        ]
+      },
+      {
+        "kind": "project",
+        "recovery": "retry",
+        "externalCorrectionPreserved": true,
+        "localProposalRetained": true,
+        "conflict": [
+          "name"
+        ]
+      },
+      {
+        "kind": "tag",
+        "recovery": "check",
+        "externalCorrectionPreserved": true,
+        "localProposalRetained": true,
+        "conflict": [
+          "name"
+        ]
+      },
+      {
+        "kind": "tag",
+        "recovery": "retry",
+        "externalCorrectionPreserved": true,
+        "localProposalRetained": true,
+        "conflict": [
+          "name"
+        ]
+      }
+    ],
+    "catalog-cas-proof": [
+      {
+        "kind": "project",
+        "unrelatedCASRetried": true,
+        "ownerQueueActionPreserved": true,
+        "externalUnrelatedNotesPreserved": true
+      },
+      {
+        "kind": "tag",
+        "unrelatedCASRetried": true,
+        "ownerQueueActionPreserved": true,
+        "externalUnrelatedNotesPreserved": true
+      }
+    ],
+    "catalog-explicit-retry-proof": [
+      {
+        "kind": "project",
+        "twoRacesBoundedThenExplicitRetry": true,
+        "ownerQueueActionPreserved": true,
+        "externalUnrelatedNotesPreserved": true
+      },
+      {
+        "kind": "tag",
+        "twoRacesBoundedThenExplicitRetry": true,
+        "ownerQueueActionPreserved": true,
+        "externalUnrelatedNotesPreserved": true
+      }
+    ]
+  },
+  "findings": [],
+  "limitations": [
+    "Tests use real actionCall with memory store, not hosted D1 or ChatGPT UI.",
+    "Source is evolving; this verdict applies to the recorded hashes."
+  ],
+  "observations": [
+    "Retry changes is only visible for known catalog errors; it is gated by unknown outcome, recoveryRequired and field conflicts.",
+    "Two unrelated CAS races stop after one automatic retry; explicit retry uses the latest owner revision and keeps queued Action edits.",
+    "Catalog name validation now checks raw length<=200 and nonempty trimmed content, matching backend."
+  ],
+  "final_recheck": "Updated known-error retry and raw name length validation reviewed; all independent pure/service proofs rerun successfully."
+}

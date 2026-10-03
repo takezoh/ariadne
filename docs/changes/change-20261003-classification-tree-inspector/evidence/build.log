@@ -1,0 +1,45 @@
+$ node scripts/run-framework.mjs build
+
+  vinext build  (Vite 8.0.13)
+
+[1/5] analyze client references...
+[2Ktransforming...✓ 271 modules transformed.
+rendering chunks...
+[33m[PLUGIN_TIMINGS] [0mYour build spent significant time in plugins. Here is a breakdown:
+  - vinext:css-data-url (77%)
+  - vinext:og-inline-fetch-assets (5%)
+  - rsc:virtual-client-package (5%)
+  - vinext:jsx-in-js (4%)
+  - vite-plugin-commonjs (4%)
+See https://rolldown.rs/options/checks#plugintimings for more details.
+
+✓ built in 1m 41s
+[2/5] analyze server references...
+[2Ktransforming...✓ 98 modules transformed.
+rendering chunks...
+✓ built in 666ms
+[3/5] build rsc environment...
+[2Ktransforming...✓ 268 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 2.62s
+[4/5] build client environment...
+[2Ktransforming...✓ 144 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 1.32s
+[5/5] build ssr environment...
+[2Ktransforming...✓ 104 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 840ms
+[0m
+  Route (app)
+  ┌ ƒ /           
+  ├ λ /api/actions
+  └ λ /mcp        
+
+  λ API  ƒ Dynamic
+
+  Build complete. Run `vinext start` to start the production server.
+

@@ -1,0 +1,86 @@
+{
+  "status": "source_fixed",
+  "profile": "native implementation",
+  "kernelExecuted": false,
+  "sourceHashes": {
+    "lib/domain/core.ts": "293267ffc54df86e4f49fb214c2998e8b51875002df3304bad2a95d0b92a5049",
+    "lib/domain/operations.ts": "cf7690ba23d412462afed061b25e6de7b3810b26c1d3b10ec4d76ca697ae5b7b",
+    "lib/adapters/d1-action-store.ts": "038f9f26ed30fe03c3475ce4dfcfe6897eb854e5acc198e9cf72c9d6fc6c2c96",
+    "db/schema.ts": "352de23db3ba4870cc726324576f0e2f1033ac3aa76d7581daeab055999e4f5d",
+    "app/mcp/route.ts": "f1445f55bc1f52177309a6478d7b3168effd717b4d12e1242fbe0116360442e1",
+    "drizzle/0016_tag_order.sql": "75640990a1ee58b3722a4afa28015d5db0cb3ddef6a6cb28014d1f8671d9e956",
+    "drizzle/meta/0016_snapshot.json": "8bad2be2bb03e1e2ffcca69bdf2e4a18ed5f4ff8aa4010a1b8c1bede90417c4b",
+    "drizzle/meta/_journal.json": "b9635429c17dfae63d0994732edc2c43309f08b79fb3450a8929ea08bb27d6fb",
+    "tests/helpers/sqlite-d1.mjs": "740e0eef3d214f407cbb03597020b7d5a378edbbcddf7a8220290484ae76eeb3",
+    "tests/domain/tag-move.test.mjs": "4d070618f0cb5573444746a1720f13b5fbeba4c4e8265b478fc952045c3f366b",
+    "tests/domain/project-move.test.mjs": "20fce3bc1c786590b14c832009ee2d429bd43571bb3361f5bdc22b54501f1542",
+    "tests/adapters/tag-move.test.mjs": "2dcba91035c343a52b846809349b100f47e154ec0e1273381eb28bb91ad61f09",
+    "tests/adapters/project-move.test.mjs": "d847f260142e39e1d595f95f2cfa882dbb6b70ffc6035f20ff7cc7b131c4cd17",
+    "tests/adapters/catalog-description.test.mjs": "8cdec1526193757b8cf6c77b3f4c0c34f127c7f7c35cffd899ea8f733c73f38f",
+    "docs/technical/data-model.md": "157669c1d5099510a90f42f0a711affecebd1703599d770d7d153fc8c6c92ae3",
+    "docs/technical/mcp-api.md": "37ab7c19f12d4a86af3738063440e2f5700b6fbff448c3e8646d962512c6e3fb",
+    "tests/adapters/action-model-migration.test.mjs": "27d8caf68f532e9b1a5d02739e7ecda04c6aaa58e68133505aa5a6a382f3c0e8",
+    "tests/adapters/empty-catalog.test.mjs": "07b7aff60ccb84b2c8550e57fa9cd379e0801fa31c6d138580b21af7df8e844e",
+    "tests/adapters/perspective-migration.test.mjs": "18bb7294bcc0c39ad01373d5d739339b9a04fe1d5775209061319e503940132a",
+    "tests/domain/empty-action.test.mjs": "fd23184d1e728fa11b7fc614a3b1697bd73cc4fb782861014db5f041ca753696"
+  },
+  "protectedMigrationHashes": {
+    "drizzle/0013_project_order.sql": "0f2c74ed0b45ed30585927c4c53c9bde7ec8744058249c04ad0c161b5e5e5c7b",
+    "drizzle/0014_empty_catalog_names.sql": "80eed934eba4bd6ec374405b9a4cd9c398d8b1dbdd28cabb43b8fcd82288da17",
+    "drizzle/0015_required_catalog_names.sql": "3477a12c96567fcb08bca8aac013d87668c2de1414776aa39c1836ade7ccaca7",
+    "drizzle/meta/0013_snapshot.json": "40e2739ae9579be03e3b2d20197e58477d8aa80d32b74a923202c720ff8f7b92",
+    "drizzle/meta/0014_snapshot.json": "760e01e693bd961e294d8c457339f468fea45c50c3bd11d9e22d173f5b772f0b",
+    "drizzle/meta/0015_snapshot.json": "bce23464465986c929c66c109ed73373945f0241be19a4882ff82761db3aae8c"
+  },
+  "verification": {
+    "focusedTests": {
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0,
+      "log": "/tmp/tag-order-target.log"
+    },
+    "typecheck": {
+      "exitCode": 0,
+      "log": "/tmp/tag-order-typecheck.log"
+    },
+    "lint": {
+      "exitCode": 0,
+      "log": "/tmp/tag-order-lint.log",
+      "scope": "Focused lint on final backend source and tests; final repeat completed with exit 0."
+    },
+    "fixtureCorrection": {
+      "log": "/tmp/tag-order-fixture-target.log",
+      "reason": "Root full gate identified four historical/current fixtures missing newly required Tag order. Historical migration assertions retained; required columns explicitly migrated before current adapter use.",
+      "runtimeChanges": false,
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "todo": 0
+    }
+  },
+  "contract": {
+    "requiredTagOrder": "nonnegative safe integer; absent Snapshot and Delta values reject",
+    "create": "append after max sibling order",
+    "move": "direct parent_id XOR placement before/after/inside/root; destination normalization only; source gaps retained; current owner scoped anchors; no-op retains rows",
+    "tie": "local name then UUID",
+    "atomicity": "changed catalog peers, identity markers, revision, receipt and Undo share existing batch",
+    "migration": "0016 additive constrained column SQL default0; historical rows/receipts preserved; no runtime or historical receipt adaptation"
+  },
+  "coverage": [
+    "hidden sibling normalization and later correction Undo conflicts",
+    "direct append/no-op/root/cycle/exclusive argument validation",
+    "memory and real SQLite lost response/exact replay/CAS competition/owner isolation",
+    "injected SQL peer update failure full rollback",
+    "Tag order migration all-table row retention and receipt byte preservation",
+    "missing order snapshot/status/Undo/exact receipt replay reject without mutation or ID allocation",
+    "Action lifecycle/dates/flags and Tag associations unchanged"
+  ],
+  "limitations": [
+    "No hosted D1 or actual host acceptance by this subagent.",
+    "No actual local DB migration, reset, data deletion, rename, deploy or Git operation performed.",
+    "Full repository check/build owned by root."
+  ]
+}

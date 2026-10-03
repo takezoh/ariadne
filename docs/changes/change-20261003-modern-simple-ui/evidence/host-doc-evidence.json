@@ -1,0 +1,22 @@
+{
+  "observed_at": "2026-10-03",
+  "sources": [
+    {
+      "url": "https://developers.openai.com/plugins/build/extensions",
+      "observations": [
+        "Global entrypoint launches app from ChatGPT sidebar in fullscreen.",
+        "Thread entrypoint launches app in conversation side panel."
+      ],
+      "carrier": "tool _meta[openai/ui].entrypoints"
+    },
+    {
+      "url": "https://developers.openai.com/plugins/reference",
+      "observations": [
+        "Resource metadata declares supported inline, fullscreen and pip display modes.",
+        "Supported display modes are also declared during MCP Apps initialization."
+      ],
+      "carrier": "resource _meta[openai/ui].availableDisplayModes"
+    }
+  ],
+  "scope": "official documentation observation; exact host protocol and live host behavior remain separate validation obligations"
+}

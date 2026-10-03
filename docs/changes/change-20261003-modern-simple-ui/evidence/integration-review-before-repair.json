@@ -1,0 +1,50 @@
+{
+  "status": "changes_requested",
+  "summary": "Native independent integration code review of current working candidate. Requirements/design and changed UI/controller/host/resource/test code were inspected; self-contained widget JSDOM adversarial reproduction confirmed unintended parent clearing, undisclosed multi-field review and row-control focus return defects. Blocking acceptance gaps below require repair. Pure/effect host display sequencing and exact retained-request paths otherwise align with the approved design. Root/integrator reported required pnpm check lint failure; build/full check not yet accepted. Local mock browser screenshots are available but prove no actual ChatGPT host/cache/auth/D1 acceptance. Native direct assessment, no runtime kernel success claim.",
+  "findings": [
+    {
+      "finding_id": "UI-REVIEW-001",
+      "severity": "major",
+      "location": "lib/ui/adapters/dom.js:showReview; lib/widget.ts:saveOrganization",
+      "description": "Review omits submitted title, exact notes, parent, due and lifecycle values; it shows only operation, affected names and optional order/flag/Defer. saveEdit and the button labeled \u4e26\u3073\u9806\u3092\u4fdd\u5b58 both submit every dirty edit field. A reproduced title edit plus implicit parent clearing displayed only \u64cd\u4f5c\uff1a\u7de8\u96c6 / \u5bfe\u8c61\uff1a\u4fdd\u5b58\u6e08\u307f, giving no way to identify the actual persisted changes before confirmation. Render a named per-field saved/proposed or equivalent explicit changes summary for every submitted field and date/status/release operation; label grouped saves according to their actual scope. Test mixed edits and lifecycle/date/parent previews in generated HTML, including escaped raw notes.",
+      "evidence_refs": [
+        "/tmp/ariadne-ui-modern/review-repro.mjs",
+        "lib/ui/adapters/dom.js",
+        "/tmp/ariadne-ui-modern/requirements-plan.json:UAC-004"
+      ]
+    },
+    {
+      "finding_id": "UI-PARENT-002",
+      "severity": "major",
+      "location": "lib/ui/adapters/dom.js:renderEditor parent options; syncFields(edit)",
+      "description": "An existing or proposed dropped parent is filtered out of options. Fallback option is added only when the parent is absent from all snapshot actions, so a present dropped parent yields select.value=\"\" although draft.parent_id remains its ID. Saving an unrelated title runs syncFields and adds parent_id:null, silently detaching and reordering the action. Reproduction with saved parent parent, status dropped, and title new title sent payload {id,title:\"new title\",parent_id:null}. Domain status/drop retains containment and permits this existing relation. Preserve an option for the current/proposed parent even when excluded from new choices, and ensure untouched parent is never manufactured into a patch. Test saved dropped parents and a dirty proposed parent becoming dropped across host refresh.",
+      "evidence_refs": [
+        "/tmp/ariadne-ui-modern/review-repro.mjs",
+        "lib/domain/core.ts:97",
+        "lib/ui/adapters/dom.js"
+      ]
+    },
+    {
+      "finding_id": "UI-BOUNDARY-003",
+      "severity": "major",
+      "location": "lib/ui/model/display.ts:1; lib/ui/ports.ts",
+      "description": "Pure display model imports HostContext from effect-facing ports, violating the repository enforced dependency direction. Integrator/root reported pnpm check lint failure for this import. Move pure display state/context types into the model-owned boundary and have ports import or re-export them; keep lint enforcement. Repair the reported unused w in DOM tests and rerun required check/build.",
+      "evidence_refs": [
+        "lib/ui/model/display.ts:1",
+        "/tmp/ariadne-ui-modern/integration-check.log"
+      ]
+    },
+    {
+      "finding_id": "UI-FOCUS-004",
+      "severity": "minor",
+      "location": "lib/ui/adapters/dom.js:button/controller.action render/showReview/focusReturn",
+      "description": "Row mutation action publishes busy state and replaces its invoking row before showReview records reviewInvoker. The replacement mutation control is disabled, so restoration fails and the stored invoker defaults to editor. Reproduction focused the Flag row button, opened review, canceled, and returned to editTitle rather than the still-existing Flag control. Capture the invoker identity before entering the async busy/render cycle, and restore that control after cancellation/known outcome; use retained proposal/editor fallback only when the original control actually disappeared. Add row Flag/Complete keyboard focus tests.",
+      "evidence_refs": [
+        "/tmp/ariadne-ui-modern/review-repro.mjs",
+        "lib/ui/adapters/dom.js",
+        "/tmp/ariadne-ui-modern/requirements-plan.json:UAC-008"
+      ]
+    }
+  ],
+  "open_questions": []
+}

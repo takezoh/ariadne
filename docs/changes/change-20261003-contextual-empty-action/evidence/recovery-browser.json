@@ -1,0 +1,41 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "mode": "check",
+    "frozenOriginalProject": true,
+    "oneCreatedRecord": true,
+    "resolvedId": "0d4dae68-8ace-4f6c-94ae-6419cbeec2ef",
+    "titleFocus": true,
+    "cleanCreatedRoute": true,
+    "otherDraftRetained": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "mode": "retry",
+    "frozenOriginalProject": true,
+    "oneCreatedRecord": true,
+    "resolvedId": "28697ffd-4360-4e05-bded-a7602ed99acb",
+    "titleFocus": true,
+    "cleanCreatedRoute": true,
+    "otherDraftRetained": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "mode": "malformed",
+    "frozenOriginalProject": true,
+    "oneCreatedRecord": true,
+    "resolvedId": "6f38ce50-77f8-4f0e-941f-561ebf0c5594",
+    "titleFocus": true,
+    "cleanCreatedRoute": true,
+    "otherDraftRetained": true,
+    "overflow": false,
+    "errors": []
+  }
+]

@@ -1,0 +1,41 @@
+✔ UI application preserves exact unknown request and callback executes only after confirmed retry (1.988208ms)
+✔ UI application receipt confirmation clears retained write and refreshes without overwriting dirty draft (1.16179ms)
+✔ UI application conflict keeps proposal and discard reconstructs latest saved action (0.429105ms)
+✔ UI application retains exact write after structurally malformed snapshot response (0.224974ms)
+✔ UI application rejects snapshot without matching receipt operation identity (0.205925ms)
+✔ UI application retains newer proposals but rejects fresh writes while unknown (0.332291ms)
+✔ receipt check retains unknown request for absent, wrong, or malformed receipt identity (0.842483ms)
+✔ invalid read snapshot preserves previous state and never reports latest state fetched (0.365787ms)
+✔ group acknowledgment retains other proposals, merges latest untouched fields and clears stale review (0.768597ms)
+✔ canceled review cannot write; absent selected proposal remains accessible but cannot preview (0.642085ms)
+✔ review captures immutable payload; unknown retry acknowledges its group without clearing other groups (0.518864ms)
+✔ normalized date preview acknowledges submitted raw date/timezone and preserves alternate instant draft (0.323429ms)
+✔ current controller composition acknowledges only captured group and preserves dirty groups (0.285209ms)
+✔ direct flag write cannot acknowledge a differing retained editor proposal (0.240885ms)
+✔ empty creation retains frozen context and all proposals, validates receipt identity before clearing unknown (1.881463ms)
+✔ applied creation receipt recovers the exact ID and refreshes before focus, missing created row remains unavailable (1.029461ms)
+✔ saving marks only actual writes and scoped failed creation is not erased by an unrelated edit (0.735272ms)
+✔ failed catalog creation survives unrelated autosave and refresh until its matching intent is canceled (0.938823ms)
+✔ catalog move preview failure is global attention before any write and survives unrelated correction (1.266035ms)
+✔ typed catalog receipt followed by a removed record is confirmed unavailable without selecting or duplicating (0.68441ms)
+✔ partial write response retains exact unknown request and never acknowledges proposals (0.144212ms)
+✔ transient Add leaves authoritative snapshot untouched and untouched navigation writes nothing (1.775173ms)
+✔ transient edited empty is retained and notes-only content waits for a required Title (3.207597ms)
+✔ transient dependencies wait without retry loops and remap references without rewriting raw text (1.43665ms)
+✔ transient catalog description waits for valid name and saved action classification waits for UUID (2.110363ms)
+✔ transient unknown creation replays exact request and saves later typing on the same generated identity (1.218839ms)
+✔ transient selection protects its destination and saved proposals protect unresolved classifications (1.319829ms)
+✔ transient discard refuses transitive edited descendants and never drops saved records (0.255856ms)
+✔ transient overlay honors explicit null without changing authoritative records or names (0.177067ms)
+✔ clearing a saved Title retains invalid raw and never overwrites saved content; current named records allow Notes edits (0.949466ms)
+✔ unknown creation with newer empty Title replays only the captured valid request and preserves invalid proposal (0.777476ms)
+✔ current complete draft validation rejects empty names even when only other fields changed (0.197682ms)
+✔ persisted partial responses are rejected without replacing authoritative snapshot or local proposals (0.096275ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 698.112519

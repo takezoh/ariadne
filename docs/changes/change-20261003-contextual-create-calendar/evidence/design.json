@@ -1,0 +1,51 @@
+{
+  "profile": "native implementation",
+  "kernelExecuted": false,
+  "calendar": {
+    "both": "native date plus visibly 24-hour text time (HH:mm; optional :ss.SSS), inputmode numeric",
+    "initialDateChoice": "09:00 in explicit client timezone for both; selected date and displayed default are explicit UI choices",
+    "precision": "saved seconds/milliseconds preserved, not rounded to minutes",
+    "clear": "valid date empty clears; time empty/partial retains invalid proposal; badInput never clears",
+    "persistence": "Due->due_at ISO/null; Defer->deferUntil ISO/release; same strict DST resolver; no render writes"
+  },
+  "actionCreation": {
+    "allViews": "enabled regardless checked lifecycle/defer/History/Perspective; only write gate blocks",
+    "selection": "only an explicit current visible object/occurrence; retained off-view inspector does not count",
+    "selectedAction": "Selected existing visible Action is containment parent regardless lifecycle. New Action stays ordinary active; existing parent lifecycle/dates never change.",
+    "classification": "Selected Action keeps its own direct Project; a Tags occurrence additionally contributes that single exact Tag. Selected Project creates a project-assigned root; selected Tag creates a tag-associated root. No ancestor/tag/flag inheritance.",
+    "unselected": "Root with no Project or Tags; Flagged view preserves direct flagged=true.",
+    "filteredOut": "Returned UUID is temporarily revealed as an exact row under its appropriate branch and opened in inspector, regardless current filter; no filter changes; Close/Back retain reachable route.",
+    "frozen": "context frozen at click; validate parent/catalog existence before write without silent rebasing; unknown exact replay immutable",
+    "reply": "Matching invocation/selection epoch alone opens the inspector. Explicit later navigation expires temporary reveal; retained generated ID remains reachable. Full snapshot read failure preserves exact unknown request; valid applied receipt with a subsequently missing record is confirmed-but-unavailable without selection or duplicate creation."
+  },
+  "catalogCreation": {
+    "API": "project_add/tag_add name empty, server UUID/resolved receipt; backend owns new empty-name/migration contract",
+    "header": "samekind view selected catalog or selected Action catalog occurrence ->parent; other view switches to target full tree then root; no inline header composer",
+    "success": "select exact resolved UUID/focus Name after full snapshot and UI invocation-token guard; newer navigation/composition wins",
+    "display": "Untitled project/Untitled tag is presentation-only; raw name/path identity remains exact; no invented saved values",
+    "detailPicker": "named inline get_or_create retained",
+    "recovery": "Validate same-kind resolved UUID/created proof; retain exact request on read failure/malformed proof. Valid applied receipt with normal full snapshot and missing record retains the ID as confirmed-unavailable, without recreating or focusing."
+  },
+  "UIFiles": [
+    "lib/ui/model/date-input.ts",
+    "lib/ui/model/navigation.ts or new creation.ts",
+    "lib/ui/model/catalog-tree.ts",
+    "lib/ui/model/picker.ts",
+    "lib/ui/model/catalog-drafts.ts",
+    "lib/ui/application.ts",
+    "lib/ui/adapters/dom.js",
+    "lib/widget.ts",
+    "tests/ui/date-input.test.mjs",
+    "tests/ui/navigation.test.mjs",
+    "tests/ui/application.test.mjs",
+    "tests/ui/dom.test.mjs",
+    "scripts/testing/smoke-built-widget.mjs"
+  ],
+  "tests": [
+    "all view/no selection/catalog/action/duplicate Tag occurrence contexts",
+    "Completed/Dropped selected parent remains unchanged; new child active",
+    "both 24h Date/time09 custom seconds/ms DST partial clear unknown",
+    "blank catalog repeated unique UUID proof/typed receipt same retry/context token",
+    "all earlier draft/IME/checkbox/flag/gutter regressions"
+  ]
+}

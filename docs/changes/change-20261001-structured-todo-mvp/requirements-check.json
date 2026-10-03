@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "verification_type": "approval-provenance-structural-and-link-check",
+  "independent_review": false,
+  "implementation_test": false,
+  "flows": 7,
+  "scenarios": 16,
+  "product_choices_approved": 4,
+  "product_choices_unapproved": 0,
+  "requirements_plan_sha256": "8284c5903c9a8690543f4dff7c5616ffa584ae97940793f4c1fd7ddde3cb2d9c",
+  "decision_evidence_sha256": "6a009846b6a4a6b9c25ced6e88131c7140878aadb4bac9b039a5c40322475f5e"
+}

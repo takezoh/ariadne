@@ -1,0 +1,10 @@
+{
+  "url": "http://127.0.0.1:5173/",
+  "projectTagTree": true,
+  "classificationDropdownAbsent": true,
+  "typedActionInspector": true,
+  "typedCatalogInspector": true,
+  "unassignedUntagged": true,
+  "readOnly": true,
+  "errors": []
+}

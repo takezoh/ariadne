@@ -1,0 +1,53 @@
+{
+  "contract_review": "approved",
+  "implementation_verdict": "approved",
+  "execution": "native independent readonly review; no kernel",
+  "requirements": [
+    "Explicit Add replaces selected local Action/Project/Tag, discarding its unsaved edits as user-authorized exception.",
+    "Replacement never adopts replaced local ID as parent; preserve valid stable intended context.",
+    "Ordinary repeated empty Add has one local record, not local child chain.",
+    "Pending/unknown exact request remains protected; no forgetting or fresh-ID duplicate write.",
+    "Dependent references cannot become dangling or silently detach; replacement must have explicit coherent reference handling or refuse with retained state.",
+    "Navigation/Refresh/Close proposal rules otherwise unchanged; persisted saved records never purged by local replacement."
+  ],
+  "counterexamples": [
+    "Edited selected local Action Notes/flags/dates then Add replaces without persistence.",
+    "Project/Tag Description-only edited local then Add replaces one row at same stable parent.",
+    "Unknown creation then Add cannot erase exact original request.",
+    "Selected temp referenced by another edited child cannot be removed leaving invalid parent.",
+    "Current saved catalog selected Add remains ordinary newchild creation; no purge persisted record."
+  ],
+  "remaining": "Root whole check/build gates separate. Approval applies to recorded hashes.",
+  "verdict": "approved",
+  "findings": [],
+  "resolved_counterexamples": [
+    "Explicit draft.parent_id:null retained; no ?? substitution with original context parent.",
+    "Missing/cyclic local ancestor blocks replacement with visible reason, no silent root repair."
+  ],
+  "evidence": [
+    "/tmp/transient-replace-after.json:6 actual isolated browser cases all3kinds untouched/edited singlelocal,0replacementwrites,1validcommit/rootparent",
+    "/tmp/transient-replace-final-guards.log:3focusedpass dependentunknown exact/nullparent/invalidancestry/IME",
+    "/tmp/transient-replace-target.log:17focusedpass",
+    "/tmp/transient-replace-dom.log:2DOMpass"
+  ],
+  "source_review": "Pure replacement refuses pending/unknown and transitive required source; clears selected draft jobs/timers before new transient creation and enqueue. Add-only user-authorized discard does not alter ordinary pruning protections. Blur and composition Add handoff avoids intermediate creation. Close fix remains.",
+  "candidate_sha256": {
+    "lib/ui/model/transient-create.ts": "4ac6f9e5375d4c4acf6dfcff1a000749e3cd1efc8db3ca490c4a854eea77031d",
+    "lib/ui/application.ts": "8ce2f3a2afd8f8a8d78f4bc4c17ca1938e7cfd917815a924f34f8ec031690f80",
+    "lib/ui/adapters/dom.js": "7fa66aab974696d8877723eb3990c666a95edf585e002d0c5d9196f492251e1c",
+    "tests/ui/transient-create.test.mjs": "e47799fc0e7942fc0236692de6819e27284715e03e0d700762471088e73284b3",
+    "tests/ui/dom.test.mjs": "12060dcfcaa82b49394e967f889d9143bb3d2ef3ff05d0929e26b48528f51a07"
+  },
+  "limitations": [
+    "Read-only source and owner focused evidence review; no duplicate tests/browser executed.",
+    "Isolated memory Chromium, not hosted acceptance."
+  ],
+  "final_freeze_delta": {
+    "changed_files": [
+      "lib/ui/model/transient-create.ts"
+    ],
+    "assessment": "persistedParent parameter is no longer reassigned; initial parameter copied into local value. Static equivalent traversal and validation, no behavior changes. Owner final lint passed, no reviewer tests repeated.",
+    "owner_artifact": "/tmp/transient-replace-fix.json",
+    "html_hash": "5ff29ea25f5530cdc2a58db62d3664d04ecab28830639dd7029854818edb6e1d"
+  }
+}

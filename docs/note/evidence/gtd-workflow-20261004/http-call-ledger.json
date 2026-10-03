@@ -1,0 +1,3158 @@
+[
+  {
+    "at": "2026-10-03T15:10:30.520Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "d4beac59-6184-475a-b118-cc3f62d70159",
+      "method": "initialize",
+      "params": {
+        "protocolVersion": "2025-11-25",
+        "capabilities": {},
+        "clientInfo": {
+          "name": "workflow-caller",
+          "version": "1"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false
+  },
+  {
+    "at": "2026-10-03T15:10:30.925Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "3f23286b-4a85-4e2b-b296-d41616452f7b",
+      "method": "tools/list",
+      "params": {}
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false
+  },
+  {
+    "at": "2026-10-03T15:11:04.507Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "5ed26a22-f926-4154-814d-1bc73b01b962",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 0,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:04.588Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "840847fa-d978-40c1-b537-79f315338e8f",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "2c4c98fa-2be0-4dd6-8870-da1e081036ac",
+          "expectedRevision": 0,
+          "title": "Submit tax return",
+          "text": "I want to submit my tax return by October 20. Collect receipts, then fill the form."
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 1,
+    "result": {
+      "operationId": "2c4c98fa-2be0-4dd6-8870-da1e081036ac",
+      "revision": 1,
+      "changedIds": [
+        "435c3392-f689-4577-955b-8189e45a827d"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "435c3392-f689-4577-955b-8189e45a827d"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:04.651Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "388c13fb-77d7-48ef-9ec9-4c6eee8dc125",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 1,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:04.732Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e07bca55-916d-4116-aa0d-c1901325bbf1",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "2f21d76a-585e-46b5-942e-cd6352ed587a",
+          "expectedRevision": 1,
+          "title": "Replace desk chair someday",
+          "text": "Replace my desk chair someday; just an idea, no commitment yet."
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 2,
+    "result": {
+      "operationId": "2f21d76a-585e-46b5-942e-cd6352ed587a",
+      "revision": 2,
+      "changedIds": [
+        "05f2c485-8bab-41d7-9d35-a5218a75209d"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "05f2c485-8bab-41d7-9d35-a5218a75209d"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:04.789Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "7be1f020-2f8e-450e-8c43-3b0d0095e898",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 2,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:04.862Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f3fbde24-01aa-4322-a569-bba01a87ac28",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "e85e9b12-c1e7-4d2f-8258-c3306a324096",
+          "expectedRevision": 2,
+          "title": "Await landlord repair reply",
+          "text": "I sent the repair request to my landlord and am waiting for a reply."
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 3,
+    "result": {
+      "operationId": "e85e9b12-c1e7-4d2f-8258-c3306a324096",
+      "revision": 3,
+      "changedIds": [
+        "c57b6889-ad7c-4244-a9b4-c03aadcfa6a9"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "c57b6889-ad7c-4244-a9b4-c03aadcfa6a9"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:04.924Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "eeb0db23-3fcf-4977-afca-00577fb40a6b",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 3,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:04.999Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "aee14141-ec54-428e-8247-84dccaf81822",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "0c5898a9-931b-4284-a96b-913da3c7d8cf",
+          "expectedRevision": 3,
+          "title": "Native plants reference",
+          "text": "https://example.invalid/article — reference about native plants; keep for reference, not a commitment to read it."
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 4,
+    "result": {
+      "operationId": "0c5898a9-931b-4284-a96b-913da3c7d8cf",
+      "revision": 4,
+      "changedIds": [
+        "19510c43-3c42-4604-90a7-cf3c382aa0d8"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "19510c43-3c42-4604-90a7-cf3c382aa0d8"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:05.062Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "43630461-5de2-432b-9b7b-2a7f58d8c833",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 4,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:05.143Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "5177efff-f410-4ed7-b105-95fe5989f3cd",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "a15a2a98-b4dd-431d-9bfd-f5b53796fecf",
+          "expectedRevision": 4,
+          "title": "Sketch proposal",
+          "text": "I would like to sketch the proposal tomorrow. That is a preference, not a deadline."
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 5,
+    "result": {
+      "operationId": "a15a2a98-b4dd-431d-9bfd-f5b53796fecf",
+      "revision": 5,
+      "changedIds": [
+        "d4a85a56-018e-44f8-b344-c1c92a8bb1f3"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "d4a85a56-018e-44f8-b344-c1c92a8bb1f3"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:05.203Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "7edec01c-d1fc-4870-8e6f-9e7c36e5672e",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 5,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:05.280Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "fb53fe33-97e0-4a70-86b2-87129f30169e",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "ec466a91-237f-48bc-b7b6-b90113d89937",
+          "expectedRevision": 5,
+          "title": "Prepare for Kyoto",
+          "text": "Prepare for Kyoto: book the hotel and pack."
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 6,
+    "result": {
+      "operationId": "ec466a91-237f-48bc-b7b6-b90113d89937",
+      "revision": 6,
+      "changedIds": [
+        "ca8c1dc0-2597-42be-8c97-f93df0995668"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "ca8c1dc0-2597-42be-8c97-f93df0995668"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:05.344Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "8699dcb1-8113-4c2f-8afb-21ba184931c1",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 6,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:05.419Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "b6baa9be-e161-4daa-a24d-604e60c7b328",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "b68c9097-4720-4a09-bc24-3363194cf734",
+          "expectedRevision": 6,
+          "title": "Pay electricity bill",
+          "text": "Pay the electricity bill by October 12."
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 7,
+    "result": {
+      "operationId": "b68c9097-4720-4a09-bc24-3363194cf734",
+      "revision": 7,
+      "changedIds": [
+        "64e5eaa6-c4c4-44c7-94c7-9eb6363b7e91"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "64e5eaa6-c4c4-44c7-94c7-9eb6363b7e91"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:05.479Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "cbebd00d-bf1a-4d11-ba01-1751d4eb0770",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 7,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:05.554Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f0c35cb1-da56-4a82-8472-060d606ee2a6",
+      "method": "tools/call",
+      "params": {
+        "name": "capture_intent",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "7e891344-7bd8-4070-9f48-40a6d798fdf1",
+          "expectedRevision": 7,
+          "title": "Undecided family house concern",
+          "text": "I may clear out the family house, but have not decided whether or how much."
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 8,
+    "result": {
+      "operationId": "7e891344-7bd8-4070-9f48-40a6d798fdf1",
+      "revision": 8,
+      "changedIds": [
+        "aa09fbbe-26c1-4d56-aa91-6e2c393bc06e"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "id": "aa09fbbe-26c1-4d56-aa91-6e2c393bc06e"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:05.612Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "a58e7444-7328-4de8-bb25-66e323f91aa3",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 8,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:57.887Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "7d529d7d-1f3e-4c3a-b22a-7b17bc386c56",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 8,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:57.969Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "1311ec3a-b95e-449a-a087-a5525b7b206c",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "fd5c6db8-a64d-4101-ac44-2ac736f0e135",
+          "expectedRevision": 8,
+          "kind": "tag_get_or_create",
+          "payload": {
+            "name": "Someday/Maybe",
+            "description": "Caller classification only; does not alter lifecycle or authorize execution."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 9,
+    "result": {
+      "operationId": "fd5c6db8-a64d-4101-ac44-2ac736f0e135",
+      "revision": 9,
+      "changedIds": [],
+      "resolved": {
+        "tag": {
+          "id": "a04e65c1-dc70-4d80-af5a-d71f4d7ea492",
+          "created": true
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:58.031Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "a55b9a54-8993-4fed-bdbd-adbb12117c91",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 9,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:58.115Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "1985278c-b511-4445-8c68-08e4d0b2aa77",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "99d7f6ab-597b-437e-9626-3a653e629189",
+          "expectedRevision": 9,
+          "kind": "tag_get_or_create",
+          "payload": {
+            "name": "Reference",
+            "description": "Caller classification only; does not alter lifecycle or authorize execution."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 10,
+    "result": {
+      "operationId": "99d7f6ab-597b-437e-9626-3a653e629189",
+      "revision": 10,
+      "changedIds": [],
+      "resolved": {
+        "tag": {
+          "id": "214c2a30-338b-4a54-80af-5deb6382eeb0",
+          "created": true
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:58.181Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "8ae2bdad-331b-4f0c-add0-318dc70bafb1",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 10,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:58.262Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "880646bb-3bc8-4045-82d2-71df79d2195b",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "904f85cf-93d0-4af2-9237-e5be7485caef",
+          "expectedRevision": 10,
+          "kind": "tag_get_or_create",
+          "payload": {
+            "name": "Undecided",
+            "description": "Caller classification only; does not alter lifecycle or authorize execution."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 11,
+    "result": {
+      "operationId": "904f85cf-93d0-4af2-9237-e5be7485caef",
+      "revision": 11,
+      "changedIds": [],
+      "resolved": {
+        "tag": {
+          "id": "bb319455-970d-4825-89aa-5a8f1f108467",
+          "created": true
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:58.330Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "bc30a6e4-87c6-40d5-a0e3-095bed0e387d",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 11,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:58.421Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "0dbb3ec9-d54a-4448-8d29-3713e0c76cd1",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "8c76b5a9-5d20-42bd-a2ad-22fdd3c1c6f3",
+          "expectedRevision": 11,
+          "kind": "tag_get_or_create",
+          "payload": {
+            "name": "Actionable",
+            "description": "Caller classification only; does not alter lifecycle or authorize execution."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 12,
+    "result": {
+      "operationId": "8c76b5a9-5d20-42bd-a2ad-22fdd3c1c6f3",
+      "revision": 12,
+      "changedIds": [],
+      "resolved": {
+        "tag": {
+          "id": "f8619690-2c07-4d5f-888c-a39dcc59b5df",
+          "created": true
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:58.507Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "c8039f8e-62a3-4a80-8553-8f036d03bfba",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 12,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:58.591Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "9c876d3b-43ac-42ce-b529-89f2448c6f5f",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "9cc1417e-eb04-445e-aa21-367b7c50e4e2",
+          "expectedRevision": 12,
+          "kind": "tag_get_or_create",
+          "payload": {
+            "name": "Next action",
+            "description": "Caller classification only; does not alter lifecycle or authorize execution."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 13,
+    "result": {
+      "operationId": "9cc1417e-eb04-445e-aa21-367b7c50e4e2",
+      "revision": 13,
+      "changedIds": [],
+      "resolved": {
+        "tag": {
+          "id": "c8a96d6d-f237-47b5-b358-9d5878f4d369",
+          "created": true
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:58.671Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e6cb3c68-d20c-42e0-b171-ddc8e63375a4",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 13,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:58.754Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "6f8188bb-c999-45ed-9b1f-e2939598f5d5",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "6d927c9d-18ea-4e9f-9a94-aa4b11c247cc",
+          "expectedRevision": 13,
+          "kind": "action_tag",
+          "payload": {
+            "id": "05f2c485-8bab-41d7-9d35-a5218a75209d",
+            "tag_id": "a04e65c1-dc70-4d80-af5a-d71f4d7ea492",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 14,
+    "result": {
+      "operationId": "6d927c9d-18ea-4e9f-9a94-aa4b11c247cc",
+      "revision": 14,
+      "changedIds": [
+        "05f2c485-8bab-41d7-9d35-a5218a75209d"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:58.827Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "68a53997-1207-49c1-87e0-5e16ce710a36",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 14,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:58.904Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "87b1a933-51c6-4a25-b87a-728d531b507d",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "383d24f9-89cd-4b3a-b5b6-99a7e7604f54",
+          "expectedRevision": 14,
+          "kind": "action_tag",
+          "payload": {
+            "id": "19510c43-3c42-4604-90a7-cf3c382aa0d8",
+            "tag_id": "214c2a30-338b-4a54-80af-5deb6382eeb0",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 15,
+    "result": {
+      "operationId": "383d24f9-89cd-4b3a-b5b6-99a7e7604f54",
+      "revision": 15,
+      "changedIds": [
+        "19510c43-3c42-4604-90a7-cf3c382aa0d8"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:58.971Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f41dffd7-a689-4025-b37c-9388c7c31fa8",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 15,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:59.059Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "30951c30-5875-4dd0-9663-c1b63fe48bf4",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "8d51af64-ff92-429c-a940-f004e2c9b12e",
+          "expectedRevision": 15,
+          "kind": "action_tag",
+          "payload": {
+            "id": "aa09fbbe-26c1-4d56-aa91-6e2c393bc06e",
+            "tag_id": "bb319455-970d-4825-89aa-5a8f1f108467",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 16,
+    "result": {
+      "operationId": "8d51af64-ff92-429c-a940-f004e2c9b12e",
+      "revision": 16,
+      "changedIds": [
+        "aa09fbbe-26c1-4d56-aa91-6e2c393bc06e"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:59.128Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "4ef05386-62f9-456d-aca8-8af6812aca76",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 16,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:59.208Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f41aab98-50c0-48a1-a318-583a76ebec76",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "1ca9fdc6-df5f-4dd5-9a6d-4bf063b3b924",
+          "expectedRevision": 16,
+          "kind": "status",
+          "payload": {
+            "id": "c57b6889-ad7c-4244-a9b4-c03aadcfa6a9",
+            "status": "on-hold"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 17,
+    "result": {
+      "operationId": "1ca9fdc6-df5f-4dd5-9a6d-4bf063b3b924",
+      "revision": 17,
+      "changedIds": [
+        "c57b6889-ad7c-4244-a9b4-c03aadcfa6a9"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:59.275Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "2bca453e-9992-4903-93a6-2395682c39f3",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 17,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:59.367Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "eb8304bc-29b4-40ee-97ca-31545d793b29",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "493b6c8b-ab0b-41ca-b145-8569927a5b9d",
+          "expectedRevision": 17,
+          "kind": "edit",
+          "payload": {
+            "id": "435c3392-f689-4577-955b-8189e45a827d",
+            "due_at": "2026-10-20T14:59:00Z"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 18,
+    "result": {
+      "operationId": "493b6c8b-ab0b-41ca-b145-8569927a5b9d",
+      "revision": 18,
+      "changedIds": [
+        "435c3392-f689-4577-955b-8189e45a827d"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:59.439Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "561d8a03-1f6a-458d-a5cf-f494180eb2fb",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 18,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:59.521Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "06e9aec2-fa65-49ba-ba8e-e99906d8f55c",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "1dfc5790-e473-4c1a-9c0d-e6a72bb037cd",
+          "expectedRevision": 18,
+          "kind": "edit",
+          "payload": {
+            "id": "64e5eaa6-c4c4-44c7-94c7-9eb6363b7e91",
+            "due_at": "2026-10-12T14:59:00Z"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19,
+    "result": {
+      "operationId": "1dfc5790-e473-4c1a-9c0d-e6a72bb037cd",
+      "revision": 19,
+      "changedIds": [
+        "64e5eaa6-c4c4-44c7-94c7-9eb6363b7e91"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:59.605Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "91ffcc90-91fb-4c49-a446-3dc8e796aad6",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 19,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:59.698Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "0eceb2ba-07e3-4e8a-bd8d-b02b951a1050",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "58484302-c460-4cf4-a2b8-d9d4ea475063",
+          "expectedRevision": 19,
+          "kind": "structure_create",
+          "payload": {
+            "inbox_action_id": "435c3392-f689-4577-955b-8189e45a827d",
+            "actions": [
+              {
+                "ref": "root",
+                "title": "Submit tax return"
+              },
+              {
+                "ref": "step0",
+                "title": "Collect receipts",
+                "parent_ref": "root",
+                "order": 0
+              },
+              {
+                "ref": "step1",
+                "title": "Fill the form",
+                "parent_ref": "root",
+                "order": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 20,
+    "result": {
+      "operationId": "58484302-c460-4cf4-a2b8-d9d4ea475063",
+      "revision": 20,
+      "changedIds": [
+        "435c3392-f689-4577-955b-8189e45a827d",
+        "3e831c0e-4556-4e2e-9015-a45b5040f48f",
+        "537f7f04-6d4d-4a5f-a048-9375eb5c9176"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "ref": "root",
+            "id": "435c3392-f689-4577-955b-8189e45a827d"
+          },
+          {
+            "ref": "step0",
+            "id": "3e831c0e-4556-4e2e-9015-a45b5040f48f"
+          },
+          {
+            "ref": "step1",
+            "id": "537f7f04-6d4d-4a5f-a048-9375eb5c9176"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:59.781Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "4091b5cb-3bd5-4859-8096-cbf9cf515a4a",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 20,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:11:59.866Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "c6de41bc-ac98-4191-a4b7-279304417efa",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "424f1fff-b5f1-40e3-85dc-965c56317331",
+          "expectedRevision": 20,
+          "kind": "project_get_or_create",
+          "payload": {
+            "name": "Tax return",
+            "description": "User-committed outcome; child order is intended sequence, not an execution gate."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 21,
+    "result": {
+      "operationId": "424f1fff-b5f1-40e3-85dc-965c56317331",
+      "revision": 21,
+      "changedIds": [],
+      "resolved": {
+        "project": {
+          "id": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d",
+          "created": true
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:11:59.951Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "7b4adfb5-6904-4e11-a844-a51fa136c570",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 21,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:00.046Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "c5c1ac30-059c-4890-b9f0-1edb10add60b",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "1a0ee3c1-c7d7-4f6d-9a3d-3815a5ee3840",
+          "expectedRevision": 21,
+          "kind": "action_project",
+          "payload": {
+            "id": "435c3392-f689-4577-955b-8189e45a827d",
+            "project_id": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 22,
+    "result": {
+      "operationId": "1a0ee3c1-c7d7-4f6d-9a3d-3815a5ee3840",
+      "revision": 22,
+      "changedIds": [
+        "435c3392-f689-4577-955b-8189e45a827d"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:00.123Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "a22f04d9-1911-4f69-a18d-d22229e629b0",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 22,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:00.215Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "65c45ae3-0fae-4079-a7d0-9e167d6743c4",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "8ca843c6-5d56-4512-afe3-def460ef78b3",
+          "expectedRevision": 22,
+          "kind": "action_project",
+          "payload": {
+            "id": "3e831c0e-4556-4e2e-9015-a45b5040f48f",
+            "project_id": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 23,
+    "result": {
+      "operationId": "8ca843c6-5d56-4512-afe3-def460ef78b3",
+      "revision": 23,
+      "changedIds": [
+        "3e831c0e-4556-4e2e-9015-a45b5040f48f"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:00.297Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "a79b640a-91cb-4829-8587-6491559e0d50",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 23,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:00.385Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "bf12fd53-ae7f-46dd-8845-eb1287e90616",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "596feeb6-d674-46ca-9555-02ddb38f628c",
+          "expectedRevision": 23,
+          "kind": "action_project",
+          "payload": {
+            "id": "537f7f04-6d4d-4a5f-a048-9375eb5c9176",
+            "project_id": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 24,
+    "result": {
+      "operationId": "596feeb6-d674-46ca-9555-02ddb38f628c",
+      "revision": 24,
+      "changedIds": [
+        "537f7f04-6d4d-4a5f-a048-9375eb5c9176"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:00.460Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "0263168c-285b-4b43-acb9-bf68136404a8",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 24,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:00.545Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "c6d586a4-c11f-40fb-aff8-ac010c46c709",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "c47c990a-7a94-404b-a271-0e964edeb269",
+          "expectedRevision": 24,
+          "kind": "structure_create",
+          "payload": {
+            "inbox_action_id": "ca8c1dc0-2597-42be-8c97-f93df0995668",
+            "actions": [
+              {
+                "ref": "root",
+                "title": "Prepare for Kyoto"
+              },
+              {
+                "ref": "step0",
+                "title": "Book the hotel",
+                "parent_ref": "root",
+                "order": 0
+              },
+              {
+                "ref": "step1",
+                "title": "Pack",
+                "parent_ref": "root",
+                "order": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 25,
+    "result": {
+      "operationId": "c47c990a-7a94-404b-a271-0e964edeb269",
+      "revision": 25,
+      "changedIds": [
+        "ca8c1dc0-2597-42be-8c97-f93df0995668",
+        "c3508c95-de15-41c6-b52a-960452c7dedc",
+        "4c3a4671-ae18-49e2-a24d-044a8f08e874"
+      ],
+      "resolved": {
+        "actions": [
+          {
+            "ref": "root",
+            "id": "ca8c1dc0-2597-42be-8c97-f93df0995668"
+          },
+          {
+            "ref": "step0",
+            "id": "c3508c95-de15-41c6-b52a-960452c7dedc"
+          },
+          {
+            "ref": "step1",
+            "id": "4c3a4671-ae18-49e2-a24d-044a8f08e874"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:00.623Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "84e7c40c-e4ac-4032-91df-9195ddd190fc",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 25,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:00.700Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "7715cd7e-b269-4078-ab26-5c43ed1a8d92",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "249e5ca1-6278-422b-9710-6c0f5ae5db15",
+          "expectedRevision": 25,
+          "kind": "project_get_or_create",
+          "payload": {
+            "name": "Kyoto preparation",
+            "description": "User-committed outcome; child order is intended sequence, not an execution gate."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 26,
+    "result": {
+      "operationId": "249e5ca1-6278-422b-9710-6c0f5ae5db15",
+      "revision": 26,
+      "changedIds": [],
+      "resolved": {
+        "project": {
+          "id": "c6095303-5782-439b-94c2-5bc0a855df46",
+          "created": true
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:00.774Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "ad7d0ec0-1ae7-4ca2-a998-78e3bdbbeabb",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 26,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:00.860Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "facba489-a177-4cdb-b2ab-2533e2c248c3",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "e1f05363-155e-424c-9849-e804c792ff09",
+          "expectedRevision": 26,
+          "kind": "action_project",
+          "payload": {
+            "id": "ca8c1dc0-2597-42be-8c97-f93df0995668",
+            "project_id": "c6095303-5782-439b-94c2-5bc0a855df46"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 27,
+    "result": {
+      "operationId": "e1f05363-155e-424c-9849-e804c792ff09",
+      "revision": 27,
+      "changedIds": [
+        "ca8c1dc0-2597-42be-8c97-f93df0995668"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:00.939Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "d5a4a8fc-8eb2-4323-ad06-f7a750bae982",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 27,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:01.024Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "6c5664da-43ff-4ab8-bfc0-79c87e34ff65",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "f44c4f72-81d1-427b-9a9c-fde10a978801",
+          "expectedRevision": 27,
+          "kind": "action_project",
+          "payload": {
+            "id": "c3508c95-de15-41c6-b52a-960452c7dedc",
+            "project_id": "c6095303-5782-439b-94c2-5bc0a855df46"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 28,
+    "result": {
+      "operationId": "f44c4f72-81d1-427b-9a9c-fde10a978801",
+      "revision": 28,
+      "changedIds": [
+        "c3508c95-de15-41c6-b52a-960452c7dedc"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:01.099Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "25fd5fc6-b0ec-462f-b87c-80f7f50af4d9",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 28,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:01.176Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "44c27a7f-5f8c-4502-a13a-47e3669eadb2",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "754e92a7-9969-47b7-a11f-bba379b97e4c",
+          "expectedRevision": 28,
+          "kind": "action_project",
+          "payload": {
+            "id": "4c3a4671-ae18-49e2-a24d-044a8f08e874",
+            "project_id": "c6095303-5782-439b-94c2-5bc0a855df46"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 29,
+    "result": {
+      "operationId": "754e92a7-9969-47b7-a11f-bba379b97e4c",
+      "revision": 29,
+      "changedIds": [
+        "4c3a4671-ae18-49e2-a24d-044a8f08e874"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:01.241Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "b00cac21-13ed-495c-9531-ce1ed82bc472",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 29,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:01.327Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "89d70f2e-6ba2-4157-969d-a5f3fc029836",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "92f1324e-6e18-4aaf-9916-d5ef52df6b23",
+          "expectedRevision": 29,
+          "kind": "action_tag",
+          "payload": {
+            "id": "d4a85a56-018e-44f8-b344-c1c92a8bb1f3",
+            "tag_id": "f8619690-2c07-4d5f-888c-a39dcc59b5df",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 30,
+    "result": {
+      "operationId": "92f1324e-6e18-4aaf-9916-d5ef52df6b23",
+      "revision": 30,
+      "changedIds": [
+        "d4a85a56-018e-44f8-b344-c1c92a8bb1f3"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:01.405Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "c1e0379f-5b1b-4c20-9145-6bd75c22e8d0",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 30,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:01.484Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "bf310e81-790f-460d-abdd-18850961ee7e",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "abd3d392-90ef-4bb2-a15a-9919c940b1c1",
+          "expectedRevision": 30,
+          "kind": "action_tag",
+          "payload": {
+            "id": "64e5eaa6-c4c4-44c7-94c7-9eb6363b7e91",
+            "tag_id": "f8619690-2c07-4d5f-888c-a39dcc59b5df",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 31,
+    "result": {
+      "operationId": "abd3d392-90ef-4bb2-a15a-9919c940b1c1",
+      "revision": 31,
+      "changedIds": [
+        "64e5eaa6-c4c4-44c7-94c7-9eb6363b7e91"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:01.554Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "433761a5-6957-4cea-b1a4-17cd8e80be5b",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 31,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:01.635Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "1a8c2952-6e4d-4302-9261-d44c25aca051",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "bd311076-d0dc-4463-95f7-38f25ac6b5fb",
+          "expectedRevision": 31,
+          "kind": "action_tag",
+          "payload": {
+            "id": "3e831c0e-4556-4e2e-9015-a45b5040f48f",
+            "tag_id": "f8619690-2c07-4d5f-888c-a39dcc59b5df",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 32,
+    "result": {
+      "operationId": "bd311076-d0dc-4463-95f7-38f25ac6b5fb",
+      "revision": 32,
+      "changedIds": [
+        "3e831c0e-4556-4e2e-9015-a45b5040f48f"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:01.714Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "6a9ed08b-1a9b-44c1-acf6-613e3487ea2a",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 32,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:01.801Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "7d31e209-2c7a-4d5c-8b77-12ff67b144f2",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "ab6327b5-3812-4b1b-bffb-b26ee344ca7c",
+          "expectedRevision": 32,
+          "kind": "action_tag",
+          "payload": {
+            "id": "537f7f04-6d4d-4a5f-a048-9375eb5c9176",
+            "tag_id": "f8619690-2c07-4d5f-888c-a39dcc59b5df",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 33,
+    "result": {
+      "operationId": "ab6327b5-3812-4b1b-bffb-b26ee344ca7c",
+      "revision": 33,
+      "changedIds": [
+        "537f7f04-6d4d-4a5f-a048-9375eb5c9176"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:01.885Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "d27e005b-1bea-4be6-a0f4-fb82567da7cc",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 33,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:01.970Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "1a65d58d-bd57-49d7-8e94-148c35fd3774",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "57da096b-f765-4e44-8fe0-41ce4b2ecca8",
+          "expectedRevision": 33,
+          "kind": "action_tag",
+          "payload": {
+            "id": "c3508c95-de15-41c6-b52a-960452c7dedc",
+            "tag_id": "f8619690-2c07-4d5f-888c-a39dcc59b5df",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 34,
+    "result": {
+      "operationId": "57da096b-f765-4e44-8fe0-41ce4b2ecca8",
+      "revision": 34,
+      "changedIds": [
+        "c3508c95-de15-41c6-b52a-960452c7dedc"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:02.051Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "0dd1abf0-fec7-4ca4-9fe4-b6fcc07e9015",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 34,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:02.138Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f3c82dac-c557-43c2-9b5d-f1162db07c3d",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "a9777a13-92ef-46fd-b370-2222b5b31d33",
+          "expectedRevision": 34,
+          "kind": "action_tag",
+          "payload": {
+            "id": "4c3a4671-ae18-49e2-a24d-044a8f08e874",
+            "tag_id": "f8619690-2c07-4d5f-888c-a39dcc59b5df",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 35,
+    "result": {
+      "operationId": "a9777a13-92ef-46fd-b370-2222b5b31d33",
+      "revision": 35,
+      "changedIds": [
+        "4c3a4671-ae18-49e2-a24d-044a8f08e874"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:02.221Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "01f91aac-ce9d-4de8-904f-4ebbd2ca59d4",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 35,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:02.302Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f8e5729c-6282-4253-a5d2-538eb3b61e63",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "7462a634-e6ad-4a8b-b8f5-f47bc3180627",
+          "expectedRevision": 35,
+          "kind": "action_tag",
+          "payload": {
+            "id": "d4a85a56-018e-44f8-b344-c1c92a8bb1f3",
+            "tag_id": "c8a96d6d-f237-47b5-b358-9d5878f4d369",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 36,
+    "result": {
+      "operationId": "7462a634-e6ad-4a8b-b8f5-f47bc3180627",
+      "revision": 36,
+      "changedIds": [
+        "d4a85a56-018e-44f8-b344-c1c92a8bb1f3"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:02.380Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "d6805b96-349b-4382-ae1b-f7eee468b51d",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 36,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:02.466Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "2ed162d1-3bcc-46e3-a641-decdaf7565ae",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "d1dae599-96b9-4df9-8c2c-3ebf4829887b",
+          "expectedRevision": 36,
+          "kind": "action_tag",
+          "payload": {
+            "id": "64e5eaa6-c4c4-44c7-94c7-9eb6363b7e91",
+            "tag_id": "c8a96d6d-f237-47b5-b358-9d5878f4d369",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 37,
+    "result": {
+      "operationId": "d1dae599-96b9-4df9-8c2c-3ebf4829887b",
+      "revision": 37,
+      "changedIds": [
+        "64e5eaa6-c4c4-44c7-94c7-9eb6363b7e91"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:02.551Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "6fc83c92-e5b0-4896-9b1c-48857da2fe58",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 37,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:02.646Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e5ebe7e7-6dca-4a9c-b9f4-e879241140cd",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "dbee3483-a7f8-40a0-b801-8d8da10d0c87",
+          "expectedRevision": 37,
+          "kind": "action_tag",
+          "payload": {
+            "id": "3e831c0e-4556-4e2e-9015-a45b5040f48f",
+            "tag_id": "c8a96d6d-f237-47b5-b358-9d5878f4d369",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 38,
+    "result": {
+      "operationId": "dbee3483-a7f8-40a0-b801-8d8da10d0c87",
+      "revision": 38,
+      "changedIds": [
+        "3e831c0e-4556-4e2e-9015-a45b5040f48f"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:02.744Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "323d9d7d-65e8-4040-81d7-6b7f5ddeb301",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 38,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:02.844Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "36276439-de43-4224-a4a6-4e9c14cf58c8",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "d5bb2a3c-0ac3-4643-a00e-bbfb696b0c1a",
+          "expectedRevision": 38,
+          "kind": "action_tag",
+          "payload": {
+            "id": "c3508c95-de15-41c6-b52a-960452c7dedc",
+            "tag_id": "c8a96d6d-f237-47b5-b358-9d5878f4d369",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 39,
+    "result": {
+      "operationId": "d5bb2a3c-0ac3-4643-a00e-bbfb696b0c1a",
+      "revision": 39,
+      "changedIds": [
+        "c3508c95-de15-41c6-b52a-960452c7dedc"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:02.938Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "6c988e4a-6bfa-4381-bcfc-bb4658039ae9",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 39,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:03.028Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "72dbb0b3-084f-44cb-9874-72cb416b65e2",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "e8fad8b6-5d4a-4c25-8059-eb450e0d4d10",
+          "expectedRevision": 39,
+          "kind": "perspective_add",
+          "payload": {
+            "name": "Complete unfinished inventory",
+            "filter": {
+              "statuses": [
+                "active",
+                "on-hold"
+              ]
+            },
+            "description": "Reusable caller review extraction; advice never changes saved state."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 40,
+    "result": {
+      "operationId": "e8fad8b6-5d4a-4c25-8059-eb450e0d4d10",
+      "revision": 40,
+      "changedIds": [],
+      "resolved": {
+        "perspective": {
+          "id": "538da542-3998-444b-bab3-07bf29898bd7"
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:03.115Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "b2eafe50-bf17-49cc-a6f5-df80cb67baff",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 40,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:03.199Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "01744e0e-16ce-41d3-8f51-a8b5e5eb7c54",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "e68ee339-e65f-488f-9af4-b509f674b303",
+          "expectedRevision": 40,
+          "kind": "perspective_add",
+          "payload": {
+            "name": "Waiting for",
+            "filter": {
+              "statuses": [
+                "on-hold"
+              ]
+            },
+            "description": "Reusable caller review extraction; advice never changes saved state."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 41,
+    "result": {
+      "operationId": "e68ee339-e65f-488f-9af4-b509f674b303",
+      "revision": 41,
+      "changedIds": [],
+      "resolved": {
+        "perspective": {
+          "id": "3e490cec-40c5-40d0-94c6-c3b5d6f73a49"
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:03.285Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "9c4b807a-02e2-46c9-9cdc-5186af9930df",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 41,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:03.374Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "15855ec4-a20f-42cf-8f03-1caacc94e86a",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "ee94377d-2115-49a5-91dd-035947026605",
+          "expectedRevision": 41,
+          "kind": "perspective_add",
+          "payload": {
+            "name": "Someday/Maybe",
+            "filter": {
+              "statuses": [
+                "active",
+                "on-hold"
+              ],
+              "tag_id": "a04e65c1-dc70-4d80-af5a-d71f4d7ea492"
+            },
+            "description": "Reusable caller review extraction; advice never changes saved state."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 42,
+    "result": {
+      "operationId": "ee94377d-2115-49a5-91dd-035947026605",
+      "revision": 42,
+      "changedIds": [],
+      "resolved": {
+        "perspective": {
+          "id": "04b6dd43-579c-46f0-8b01-9e2bee2bc184"
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:03.456Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "4caec46d-e232-41ee-bce4-e181dd255741",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 42,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:03.550Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "0fad315f-be17-4b92-866d-e646c52ef1dd",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "e45623cb-7c04-42d7-9e55-73c40a0adc5c",
+          "expectedRevision": 42,
+          "kind": "perspective_add",
+          "payload": {
+            "name": "Reference",
+            "filter": {
+              "tag_id": "214c2a30-338b-4a54-80af-5deb6382eeb0"
+            },
+            "description": "Reusable caller review extraction; advice never changes saved state."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 43,
+    "result": {
+      "operationId": "e45623cb-7c04-42d7-9e55-73c40a0adc5c",
+      "revision": 43,
+      "changedIds": [],
+      "resolved": {
+        "perspective": {
+          "id": "18a712a1-90fc-405e-a765-e100baf581f1"
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:03.644Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "87a29416-de48-4709-9a1a-1545bc35db60",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 43,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:12:03.736Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "55204bac-5de6-4a1f-98b0-8a25ffeb36ad",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "5e4de26d-72da-4832-8686-d61d36890fc9",
+          "expectedRevision": 43,
+          "kind": "perspective_add",
+          "payload": {
+            "name": "Next actions",
+            "filter": {
+              "statuses": [
+                "active"
+              ],
+              "is_deferred": false,
+              "tag_id": "c8a96d6d-f237-47b5-b358-9d5878f4d369"
+            },
+            "description": "Reusable caller review extraction; advice never changes saved state."
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 44,
+    "result": {
+      "operationId": "5e4de26d-72da-4832-8686-d61d36890fc9",
+      "revision": 44,
+      "changedIds": [],
+      "resolved": {
+        "perspective": {
+          "id": "9e78c6b8-6b98-4c47-b6a5-d94c8878c1a5"
+        }
+      }
+    }
+  },
+  {
+    "at": "2026-10-03T15:12:03.833Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "d1c82d8a-aa23-4aac-9af9-7fe8f49775d2",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 44,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:00.229Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "469a00ed-02c2-4679-9859-e1e78bb8c954",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 44,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:00.316Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "452329e3-e7e1-45d0-b505-f5760bcd8039",
+      "method": "tools/call",
+      "params": {
+        "name": "query_perspective",
+        "arguments": {
+          "id": "538da542-3998-444b-bab3-07bf29898bd7"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 44
+  },
+  {
+    "at": "2026-10-03T15:13:00.404Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "75d55a9a-f81a-4d8b-8cfb-737cea33e625",
+      "method": "tools/call",
+      "params": {
+        "name": "query_perspective",
+        "arguments": {
+          "id": "3e490cec-40c5-40d0-94c6-c3b5d6f73a49"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 44
+  },
+  {
+    "at": "2026-10-03T15:13:00.488Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "d1eb8399-c304-4f03-839d-d610144f8bf6",
+      "method": "tools/call",
+      "params": {
+        "name": "query_perspective",
+        "arguments": {
+          "id": "04b6dd43-579c-46f0-8b01-9e2bee2bc184"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 44
+  },
+  {
+    "at": "2026-10-03T15:13:00.568Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f269c356-4413-42df-8081-185b6530e4b5",
+      "method": "tools/call",
+      "params": {
+        "name": "query_perspective",
+        "arguments": {
+          "id": "18a712a1-90fc-405e-a765-e100baf581f1"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 44
+  },
+  {
+    "at": "2026-10-03T15:13:00.655Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "5b119cfe-6997-4895-917b-3457d8568150",
+      "method": "tools/call",
+      "params": {
+        "name": "query_perspective",
+        "arguments": {
+          "id": "9e78c6b8-6b98-4c47-b6a5-d94c8878c1a5"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 44
+  },
+  {
+    "at": "2026-10-03T15:13:00.744Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "b143ce82-4a4c-4460-b99d-8a9b3b8096a8",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 44,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:00.836Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "4f036cc3-8a52-4e4d-9690-43fe35c8f9f2",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 44,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:00.942Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "5d63bad6-68de-4bf1-bff0-c2369ac088be",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "b1891e44-fa81-47ba-a933-957433479c16",
+          "expectedRevision": 44,
+          "kind": "status",
+          "payload": {
+            "id": "c57b6889-ad7c-4244-a9b4-c03aadcfa6a9",
+            "status": "active"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 45,
+    "result": {
+      "operationId": "b1891e44-fa81-47ba-a933-957433479c16",
+      "revision": 45,
+      "changedIds": [
+        "c57b6889-ad7c-4244-a9b4-c03aadcfa6a9"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:13:01.045Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "ff7493b5-d275-45dd-a3eb-354f868caaba",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 45,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:01.158Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "b114a478-aad3-47c5-8411-59424fb87f1d",
+      "method": "tools/call",
+      "params": {
+        "name": "preview_change",
+        "arguments": {
+          "expectedRevision": 45,
+          "kind": "defer",
+          "payload": {
+            "id": "4c3a4671-ae18-49e2-a24d-044a8f08e874",
+            "date": "2026-10-10",
+            "timezone": "Asia/Tokyo"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false
+  },
+  {
+    "at": "2026-10-03T15:13:01.243Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "41b818cf-fb5b-4923-af3e-9ab6ae295580",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 45,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:01.339Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e26e5467-ac71-4fae-bc7f-bc25b67cf3d6",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "c1bd4b96-dc08-444b-bb7b-5d9587deb29b",
+          "expectedRevision": 45,
+          "kind": "defer",
+          "payload": {
+            "id": "4c3a4671-ae18-49e2-a24d-044a8f08e874",
+            "until": "2026-10-10T00:00:00.000Z"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 46,
+    "result": {
+      "operationId": "c1bd4b96-dc08-444b-bb7b-5d9587deb29b",
+      "revision": 46,
+      "changedIds": [
+        "4c3a4671-ae18-49e2-a24d-044a8f08e874"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:13:01.434Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "099b264f-8f37-4e3a-9e8c-b68d18067624",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 46,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:01.507Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "c6439f68-f814-46bd-bc1d-11f99510ba58",
+      "method": "tools/call",
+      "params": {
+        "name": "preview_change",
+        "arguments": {
+          "expectedRevision": 46,
+          "kind": "complete",
+          "payload": {
+            "id": "3e831c0e-4556-4e2e-9015-a45b5040f48f"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false
+  },
+  {
+    "at": "2026-10-03T15:13:01.581Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "66523b69-cbfd-4333-aab3-ce06d1ef5b04",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 46,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:01.673Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f3b48128-f8cb-4bdc-8d43-68dfefaac1ad",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "616a0da6-c133-4243-a442-66f30cb57bff",
+          "expectedRevision": 46,
+          "kind": "complete",
+          "payload": {
+            "id": "3e831c0e-4556-4e2e-9015-a45b5040f48f"
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 47,
+    "result": {
+      "operationId": "616a0da6-c133-4243-a442-66f30cb57bff",
+      "revision": 47,
+      "changedIds": [
+        "3e831c0e-4556-4e2e-9015-a45b5040f48f"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:13:01.771Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "956632bc-22a1-4499-945d-752f442dcdad",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 47,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:01.864Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "82910d03-a6bf-4f48-ad39-7b7cbe049fc1",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "2bfd06d3-c9f2-4690-8f2b-88d1d6742bb9",
+          "expectedRevision": 47,
+          "kind": "action_tag",
+          "payload": {
+            "id": "3e831c0e-4556-4e2e-9015-a45b5040f48f",
+            "tag_id": "c8a96d6d-f237-47b5-b358-9d5878f4d369",
+            "enabled": false
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 48,
+    "result": {
+      "operationId": "2bfd06d3-c9f2-4690-8f2b-88d1d6742bb9",
+      "revision": 48,
+      "changedIds": [
+        "3e831c0e-4556-4e2e-9015-a45b5040f48f"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:13:01.963Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e177c414-1aa3-4d18-9cbf-ac3759cc223a",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 48,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:02.069Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "758f3bfe-0fed-4f76-916b-12da959404ef",
+      "method": "tools/call",
+      "params": {
+        "name": "apply_change",
+        "arguments": {
+          "schemaVersion": 2,
+          "operationId": "0f1bf73d-5dfe-4f9e-834e-21830a95550b",
+          "expectedRevision": 48,
+          "kind": "action_tag",
+          "payload": {
+            "id": "537f7f04-6d4d-4a5f-a048-9375eb5c9176",
+            "tag_id": "c8a96d6d-f237-47b5-b358-9d5878f4d369",
+            "enabled": true
+          }
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 49,
+    "result": {
+      "operationId": "0f1bf73d-5dfe-4f9e-834e-21830a95550b",
+      "revision": 49,
+      "changedIds": [
+        "537f7f04-6d4d-4a5f-a048-9375eb5c9176"
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T15:13:02.168Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "f52f3cf3-8128-44de-85b2-91acc0d04d52",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 49,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:02.245Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "491a12c7-8aec-4058-84be-4f535b846e73",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 49,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:02.332Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "e8556987-ab0f-4cb4-b884-7b2f2704c61c",
+      "method": "tools/call",
+      "params": {
+        "name": "query_perspective",
+        "arguments": {
+          "id": "538da542-3998-444b-bab3-07bf29898bd7"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 49
+  },
+  {
+    "at": "2026-10-03T15:13:02.413Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "4c4a4f6b-0888-4670-91fd-2b8499fe12b7",
+      "method": "tools/call",
+      "params": {
+        "name": "query_perspective",
+        "arguments": {
+          "id": "3e490cec-40c5-40d0-94c6-c3b5d6f73a49"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 49
+  },
+  {
+    "at": "2026-10-03T15:13:05.158Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "bfcfff10-5fd2-4b5b-8ffe-7d9113902c80",
+      "method": "tools/call",
+      "params": {
+        "name": "query_perspective",
+        "arguments": {
+          "id": "04b6dd43-579c-46f0-8b01-9e2bee2bc184"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 49
+  },
+  {
+    "at": "2026-10-03T15:13:05.235Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "08ac669f-cb24-4137-abcf-d048f991d95c",
+      "method": "tools/call",
+      "params": {
+        "name": "query_perspective",
+        "arguments": {
+          "id": "18a712a1-90fc-405e-a765-e100baf581f1"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 49
+  },
+  {
+    "at": "2026-10-03T15:13:05.317Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "c4577e70-d1a1-4132-8476-36184f4c9887",
+      "method": "tools/call",
+      "params": {
+        "name": "query_perspective",
+        "arguments": {
+          "id": "9e78c6b8-6b98-4c47-b6a5-d94c8878c1a5"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 49
+  },
+  {
+    "at": "2026-10-03T15:13:05.401Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "1b2b0dff-4ef8-4cca-b8a7-8d1f2b52bca1",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 49,
+    "result": null
+  },
+  {
+    "at": "2026-10-03T15:13:05.482Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "ac6531d6-9082-41b2-9d67-14cb0686c12f",
+      "method": "tools/call",
+      "params": {
+        "name": "query_actions",
+        "arguments": {
+          "status": "active",
+          "is_deferred": false,
+          "tag_id": "f8619690-2c07-4d5f-888c-a39dcc59b5df"
+        }
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 49
+  },
+  {
+    "at": "2026-10-03T15:13:05.568Z",
+    "owner": "gtd-workflow-20261004",
+    "request": {
+      "jsonrpc": "2.0",
+      "id": "20e03c32-5bf7-4623-9d43-b1aad70a5da6",
+      "method": "tools/call",
+      "params": {
+        "name": "list_actions",
+        "arguments": {}
+      }
+    },
+    "httpStatus": 200,
+    "error": null,
+    "isError": false,
+    "revision": 49,
+    "result": null
+  }
+]

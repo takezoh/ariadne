@@ -1,0 +1,170 @@
+[
+  {
+    "width": 1280,
+    "kind": "action",
+    "dx": -1,
+    "dy": -2,
+    "writeCount": 0,
+    "parent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "rowBounds": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    }
+  },
+  {
+    "width": 1280,
+    "kind": "action",
+    "dx": -12,
+    "dy": 2,
+    "writeCount": 0,
+    "parent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "rowBounds": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    }
+  },
+  {
+    "width": 1280,
+    "kind": "action",
+    "dx": -30,
+    "dy": 8,
+    "writeCount": 0,
+    "parent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "rowBounds": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    }
+  },
+  {
+    "width": 1280,
+    "kind": "project",
+    "dx": -1,
+    "dy": -2,
+    "writeCount": 0,
+    "parent": "ad96d965-8d04-5b25-8f69-d2979fbbac69",
+    "rowBounds": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    }
+  },
+  {
+    "width": 1280,
+    "kind": "project",
+    "dx": -12,
+    "dy": 2,
+    "writeCount": 0,
+    "parent": "ad96d965-8d04-5b25-8f69-d2979fbbac69",
+    "rowBounds": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    }
+  },
+  {
+    "width": 1280,
+    "kind": "project",
+    "dx": -30,
+    "dy": 8,
+    "writeCount": 0,
+    "parent": "ad96d965-8d04-5b25-8f69-d2979fbbac69",
+    "rowBounds": {
+      "x": 252,
+      "y": 959.59375,
+      "width": 892,
+      "height": 59
+    }
+  },
+  {
+    "width": 390,
+    "kind": "action",
+    "dx": -1,
+    "dy": -2,
+    "writeCount": 0,
+    "parent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "rowBounds": {
+      "x": 20,
+      "y": 1097.796875,
+      "width": 350,
+      "height": 59
+    }
+  },
+  {
+    "width": 390,
+    "kind": "action",
+    "dx": -12,
+    "dy": 2,
+    "writeCount": 0,
+    "parent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "rowBounds": {
+      "x": 20,
+      "y": 1097.796875,
+      "width": 350,
+      "height": 59
+    }
+  },
+  {
+    "width": 390,
+    "kind": "action",
+    "dx": -30,
+    "dy": 8,
+    "writeCount": 0,
+    "parent": "229eb943-82c5-5789-b817-fce28908fe09",
+    "rowBounds": {
+      "x": 20,
+      "y": 1097.796875,
+      "width": 350,
+      "height": 59
+    }
+  },
+  {
+    "width": 390,
+    "kind": "project",
+    "dx": -1,
+    "dy": -2,
+    "writeCount": 0,
+    "parent": "ad96d965-8d04-5b25-8f69-d2979fbbac69",
+    "rowBounds": {
+      "x": 20,
+      "y": 1097.796875,
+      "width": 350,
+      "height": 59
+    }
+  },
+  {
+    "width": 390,
+    "kind": "project",
+    "dx": -12,
+    "dy": 2,
+    "writeCount": 0,
+    "parent": "ad96d965-8d04-5b25-8f69-d2979fbbac69",
+    "rowBounds": {
+      "x": 20,
+      "y": 1097.796875,
+      "width": 350,
+      "height": 59
+    }
+  },
+  {
+    "width": 390,
+    "kind": "project",
+    "dx": -30,
+    "dy": 8,
+    "writeCount": 0,
+    "parent": "ad96d965-8d04-5b25-8f69-d2979fbbac69",
+    "rowBounds": {
+      "x": 20,
+      "y": 1097.796875,
+      "width": 350,
+      "height": 59
+    }
+  }
+]

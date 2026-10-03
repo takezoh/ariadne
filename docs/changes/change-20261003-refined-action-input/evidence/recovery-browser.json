@@ -1,0 +1,9 @@
+{
+  "catalogUnknownIdenticalReplayNoDuplicate": true,
+  "originalActionAssignmentAfterNavigation": true,
+  "newerCatalogNameRetained": true,
+  "newerProjectWinsOverCreate": true,
+  "dstAmbiguousRawRetainedRefreshNavigation": true,
+  "validTimeRecovers": true,
+  "errors": []
+}

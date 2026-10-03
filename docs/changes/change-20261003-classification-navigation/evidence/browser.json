@@ -1,0 +1,77 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "counts": {
+      "projects": "3",
+      "tags": "3",
+      "flagged": "2",
+      "history": "2"
+    },
+    "overflow": false,
+    "draftRetained": true,
+    "everythingIncludesHistoryAndDefer": true,
+    "emptyPerspective": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "theme": "light",
+    "counts": {
+      "projects": "3",
+      "tags": "3",
+      "flagged": "2",
+      "history": "2"
+    },
+    "overflow": false,
+    "draftRetained": true,
+    "everythingIncludesHistoryAndDefer": true,
+    "emptyPerspective": true,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "counts": {
+      "projects": "3",
+      "tags": "3",
+      "flagged": "2",
+      "history": "2"
+    },
+    "overflow": false,
+    "draftRetained": true,
+    "everythingIncludesHistoryAndDefer": true,
+    "emptyPerspective": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "counts": {
+      "projects": "3",
+      "tags": "3",
+      "flagged": "2",
+      "history": "2"
+    },
+    "overflow": false,
+    "draftRetained": true,
+    "everythingIncludesHistoryAndDefer": true,
+    "emptyPerspective": true,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "counts": {
+      "projects": "3",
+      "tags": "3",
+      "flagged": "2",
+      "history": "2"
+    },
+    "overflow": false,
+    "draftRetained": true,
+    "everythingIncludesHistoryAndDefer": true,
+    "emptyPerspective": true,
+    "errors": []
+  }
+]

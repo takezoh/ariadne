@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "blocked_write_attempts": [],
+  "cases": [
+    "Action temporary Add and abandonment",
+    "Project temporary Add",
+    "Tag temporary Add"
+  ],
+  "host": "local real Worker Web preview"
+}

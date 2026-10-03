@@ -1,0 +1,203 @@
+{
+  "artifact_kind": "native_author_requirements_design_candidate",
+  "execution": {
+    "host": "native_subagent",
+    "profile_roles": [
+      "requirements",
+      "design"
+    ],
+    "kernel_status": "not_executed",
+    "acceptance_status": "candidate_for_independent_review"
+  },
+  "request": "Replace the rejected UI with a modern, simple, intuitive action workspace, supporting narrow/sidebar and full display. All application-authored UI copy must be English.",
+  "legacy_context": {
+    "source": "lib/widget.ts; lib/ui/adapters/dom.js; lib/ui/model/presentation.ts; app/board.tsx; app/layout.tsx",
+    "user_verdict": "rejected",
+    "problems": [
+      "An empty detail card occupies a permanent third column.",
+      "Multiple cards, badges and diagnostic rows compete with action titles.",
+      "Narrow layout becomes a stacked form rather than a focused workspace.",
+      "Incomplete actions use the same checked icon as completed actions.",
+      "Japanese and English UI copy are mixed."
+    ]
+  },
+  "visual_direction": {
+    "name": "Quiet action workspace",
+    "canvas": "white content surface with a faint neutral navigation rail and near-black text; dark mode uses equally quiet neutral surfaces",
+    "accent": "one restrained indigo accent for primary action, selection and active flags",
+    "typography": "system sans; 28px scope heading in full display, 23px narrow; 14px regular row titles; clear secondary 12px metadata",
+    "shape": "continuous app shell, restrained 6-8px controls, separators rather than nested cards, no decorative gradients or shadows",
+    "rows": "52-60px natural rows, unchecked completion circle for unfinished actions, selected state background, metadata as subdued text, optional direct flag at trailing edge",
+    "icons": "consistent 18-20px stroke SVG family, no raster assets; decorative SVGs aria-hidden; icon controls have English accessible names",
+    "wide": "200-220px pale navigation rail, flexible action list; 320-380px right detail panel only while selected; empty detail space is reclaimed",
+    "narrow": "one canvas, compact top toolbar, clear scope picker, action list fills available width; selecting an action opens an inline detail region before the list, with Back to list and keyboard focus return",
+    "narrow_alternative_rejected": "Modal bottom sheet adds focus/scroll/unknown-review overlay complexity. Inline detail is simpler, supports long nine-field proposals and existing review dialog without nested modal behavior.",
+    "secondary_content": "Capture notes, organization, Defer, lifecycle and diagnostics stay behind labeled progressive disclosures; remove idle technical text from the primary surface",
+    "containment": "Subtle bounded indent for child rows, plus subdued parent context when relevant; cap indentation to protect narrow widths. Preserve authoritative parent-first saved order; never infer hierarchy from title."
+  },
+  "english_contract": {
+    "authored_copy": "English across labels, placeholders, accessibility names, empty/loading states, status/errors, confirmation dialogs, capture, lifecycle, display-mode messages, diagnostics, page metadata and preview iframe title.",
+    "document_language": "en for both widget and web layout",
+    "dates": "English locale, explicit client timezone where date interpretation matters; retain exact UTC instants and English before/after review.",
+    "user_data": "Never translate stored titles, notes, project/tag names or parent titles.",
+    "error_boundary": "Map typed API/transport error codes to English UI messages. Do not display backend message strings directly. Unknown codes use an English fallback. Preserve exact request recovery semantics.",
+    "preview_warnings": "Translate known warning codes to English; never insert raw server warning.message. User-authored affected titles remain exact.",
+    "host_metadata": "English tool titles and UI resource names/descriptions in app/mcp/route.ts; runtime assistance conversation policy is unchanged."
+  },
+  "flows": [
+    {
+      "id": "UX-01",
+      "entry": "Action workspace opens",
+      "exit": "Current view and its action titles are visible",
+      "given": "A full display has no selected action",
+      "when": "The workspace loads",
+      "then": "The list takes the available content width and no empty detail card is shown",
+      "counterexample": "A blank editor reserves one third of the content area."
+    },
+    {
+      "id": "UX-02",
+      "entry": "An action list is visible",
+      "exit": "The selected action can be edited and the list remains reachable",
+      "given": "The app is narrow or in a sidebar",
+      "when": "The user selects an action",
+      "then": "Its detail region is brought into view, title receives focus, and Back to list is available",
+      "counterexample": "Details are appended far below a long list without a direct return route."
+    },
+    {
+      "id": "UX-03",
+      "entry": "An English navigation scope is visible",
+      "exit": "The chosen authoritative scope is shown",
+      "given": "Actions exist in distinct scopes",
+      "when": "The user selects Inbox, Flagged, On hold, Later, Completed or Dropped",
+      "then": "Scope labels, heading and empty state are English and selection reflects the authoritative scope",
+      "counterexample": "A renamed scope changes domain filtering or hides on-hold actions from normal view."
+    },
+    {
+      "id": "UX-04",
+      "entry": "An incomplete action is visible",
+      "exit": "The completion proposal describes its actual effects",
+      "given": "An action is active or on-hold",
+      "when": "The user examines and activates its completion control",
+      "then": "The control appears unchecked before saving and the existing review describes affected descendants",
+      "counterexample": "Every incomplete row already displays a checkmark."
+    },
+    {
+      "id": "UX-05",
+      "entry": "An editor contains unsaved edits",
+      "exit": "Edits remain reachable after refresh, scope change or display switch",
+      "given": "One or more of the nine draft fields differ from saved values",
+      "when": "The host refreshes, the view changes or display mode switches",
+      "then": "Unsaved values and exact input formatting remain; out-of-view proposals have an English access control",
+      "counterexample": "A scope switch or responsive layout erases a date, order, flag or IME input."
+    },
+    {
+      "id": "UX-06",
+      "entry": "A write response is missing",
+      "exit": "The original request can be checked or identically retried",
+      "given": "A submitted write has an unknown outcome",
+      "when": "The UI reports uncertainty",
+      "then": "An English recovery message offers Check result and Retry same request; unrelated writes remain blocked",
+      "counterexample": "The UI says Save failed or retries with a new operation ID."
+    },
+    {
+      "id": "UX-07",
+      "entry": "The user reviews dates or backend validation feedback",
+      "exit": "Meaning and safe recovery are clear in English",
+      "given": "The server returns a known error or date warning",
+      "when": "The message is rendered",
+      "then": "The UI presents English meaning without backend Japanese and preserves exact before/after fields and timezone",
+      "counterexample": "Raw warning.message or error.message appears in the interface."
+    },
+    {
+      "id": "UX-08",
+      "entry": "A row flag control is available",
+      "exit": "The direct flag proposal is accessible",
+      "given": "The user uses keyboard, mouse or touch",
+      "when": "They reach the flag control",
+      "then": "The unflagged control is available on hover/focus and always available on touch; a set flag remains visible",
+      "counterexample": "Opacity-only styling leaves an unreachable control or hides a set flag."
+    }
+  ],
+  "technical_contracts": [
+    {
+      "id": "FR-INV-01",
+      "ears": "The UI shall preserve the existing nine-field draft, operation ID, exact arguments, revision, preview, replay and Undo contracts while changing presentation and language.",
+      "scope": "Invariant across all affected files"
+    },
+    {
+      "id": "FR-02",
+      "ears": "When no action is selected, the workspace shall omit the detail column from layout.",
+      "implementation": "CSS selection class/data attribute driven by existing selection; no domain changes."
+    },
+    {
+      "id": "FR-03",
+      "ears": "When a narrow viewport selects an action, the DOM adapter shall focus its title and show the existing editor before the list, exposing a return control.",
+      "implementation": "Reuse the existing editor node and draft controller; retain event handlers, IME/caret logic and review focus restoration."
+    },
+    {
+      "id": "FR-04",
+      "ears": "When a known error or warning reaches the UI, pure presentation functions shall map its code to English recovery text.",
+      "implementation": "English mapping in pure model, explicitly included in widget serialization model; effect adapters never render raw server messages."
+    },
+    {
+      "id": "FR-05",
+      "ears": "When display context changes, the UI shall preserve drafts and trust reported host displayMode rather than derive it from width.",
+      "implementation": "Retain mergeHostContext and display bridge version-race behavior; responsiveness is independent from host mode."
+    },
+    {
+      "id": "NFR-01",
+      "ears": "The UI shall remain usable at widths 320, 380, 640 and 1440 pixels without horizontal document overflow.",
+      "verification": "Browser screenshots and DOM bounds for populated and selected-detail states."
+    },
+    {
+      "id": "NFR-02",
+      "ears": "The UI shall expose English accessible names, visible focus and keyboard paths for every control.",
+      "verification": "DOM assertions and actual focus interactions; touch flag visibility via coarse-pointer rule."
+    }
+  ],
+  "bounded_scope": {
+    "allowed": [
+      "lib/widget.ts",
+      "lib/ui/icons.ts",
+      "lib/ui/model/presentation.ts",
+      "lib/ui/adapters/dom.js",
+      "lib/ui/application.ts English messages only",
+      "lib/ui/adapters/host.ts English messages only",
+      "lib/ui/controller.ts English error boundary",
+      "app/board.tsx",
+      "app/layout.tsx",
+      "relevant UI tests",
+      "app/mcp/route.ts host-visible tool/resource labels only"
+    ],
+    "forbidden": [
+      "domain/storage/schema changes",
+      "new features or perspective controls",
+      "dependencies/lockfile changes",
+      "new Site/plugin",
+      "deployment",
+      "translation of user data",
+      "editing completed history"
+    ]
+  },
+  "implementation_order": [
+    "Audit every UI and transport message/code/warning and add pure English presentation mapping.",
+    "Replace the shell, hierarchy, navigation, row styling, icons and selected-only detail layout.",
+    "Wire compact return-to-list/focus behavior, preserving drafts and review recovery.",
+    "Update English metadata/lang and UI assertions.",
+    "Run pnpm check and pnpm build; verify built UI and actual screenshots in full/narrow light/dark, then independent native review."
+  ],
+  "verification": [
+    "English authored-copy scan does not mistake saved Japanese fixture data for UI text.",
+    "Nine-field draft retention, IME/caret, per-group acknowledgement and dropped-parent option tests remain meaningful.",
+    "Unknown outcome while a review dialog is open offers reachable recovery.",
+    "Preview review includes exact before/after for cleared and empty values and preserves date-only 09:00 semantics.",
+    "Host display notification/request race cannot reset proposals.",
+    "Use visual evidence for the new source; old screenshots and old approval are historical only.",
+    "English visual sample data includes Plan next week, Review landing page and Book dentist; separate Japanese raw-text fixtures establish exact preservation."
+  ],
+  "limitations": [
+    "This native author candidate is not a runtime-kernel SUCCEEDED receipt.",
+    "Local browser evidence cannot establish actual ChatGPT Work host acceptance.",
+    "Visual success must be assessed on new screenshots; the user's rejection remains authoritative for the old UI."
+  ]
+}

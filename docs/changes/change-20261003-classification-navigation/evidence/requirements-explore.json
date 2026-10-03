@@ -1,0 +1,103 @@
+{
+  "kind": "requirements_explore_revision",
+  "prior_candidate": "/tmp/ariadne-navigation-explore.json",
+  "authority": "User rejects Open as redundant and requires On hold to be a visual state, not a default exclusion. OmniFocus is an information-architecture reference, not imported domain behavior.",
+  "revision": [
+    "Remove Open/Unfinished/Current as primary navigation.",
+    "Promote Tags to a first-class navigation destination alongside Projects.",
+    "Do not exclude On hold because it is on hold. Represent with a pause icon and English label."
+  ],
+  "official_reference": {
+    "url": "https://support.omnigroup.com/documentation/omnifocus/universal/4.9.3/en/perspectives/",
+    "supporting_retrieved_source": "https://support.omnigroup.com/documentation/omnifocus/universal/4.8.11/en/perspectives/",
+    "observations": [
+      "OmniFocus has task-oriented perspectives such as Inbox, Projects, Tags and Flagged.",
+      "Projects and Tags are useful distinct browsing entrances with a sidebar and outline.",
+      "Custom perspectives offer saved ways to view existing data."
+    ],
+    "adopt": "Navigation by Inbox, classification and chosen saved view, with selected list and inspector.",
+    "do_not_adopt": [
+      "OmniFocus project lifecycle",
+      "Sequential/parallel availability",
+      "Flag inheritance",
+      "Grouped tags that duplicate an action",
+      "Forecast calendars or planning fields",
+      "OmniFocus availability rules that hide on-hold items"
+    ]
+  },
+  "recommended_navigation": [
+    "Inbox",
+    "Projects",
+    "Tags",
+    "Flagged",
+    "History"
+  ],
+  "custom_navigation": "Perspectives as a separate section with exact saved names; use the same selected list and inspector rather than a second app mode.",
+  "layout": {
+    "wide": "Compact view rail; Projects/Tags expose selected classification list in their own context; main pane presents selected title and actions; inspector opens only on action selection. Avoid permanently showing all classification trees and empty inspector columns.",
+    "narrow": "View selector with Inbox/Projects/Tags/Flagged/History and Perspectives; Project/Tag selection appears before its action list; details open in the existing focused editor with Back. Classification list and action list are sequential screens when width requires it."
+  },
+  "view_contracts": {
+    "Inbox": "Existing unfinished, project-unassigned scope. On hold is included. Defer inclusion remains the existing Inbox contract.",
+    "Projects": "Top-level first-class entrance. Select an exact Project/path; show matching unfinished active and on-hold actions. No implicit active-only availability filter. Defer and include-descendants behavior is explicit and independent from on-hold state.",
+    "Tags": "Top-level first-class entrance. Select exact Tag/path; show exact matches once, preserving action-tree relative order. Show Project context in rows where helpful. No tag inheritance or grouping-based action duplication.",
+    "Flagged": "Both active and on-hold directly flagged actions included subject to the explicitly communicated Defer scope. Existing direct-only flags remain; on-hold is never a separate exclusion rule.",
+    "History": "Completed and Dropped share one navigation entry, with All / Completed / Dropped controls. Distinct lifecycle labels remain; no data merge or removal.",
+    "Perspectives": "Saved filter-only definitions govern exact matches and retain order. Excluding On hold requires an explicit saved status filter selected by the user; no hidden built-in intersection.",
+    "On hold": "Pause icon plus On hold label, same readable action title contrast and selection/completion/flag access as active actions. Do not fade it to imply disabled or impossible. It is a persisted explicit status, not external observation or execution gating."
+  },
+  "scope_notes": [
+    "Reference navigation and visual hierarchy only; do not recreate the OmniFocus GTD/availability model.",
+    "Project/Tag display and selection are in this exploration; full catalog management remains separate.",
+    "Perspective selection and filter summary are primary. Create/edit/remove need their existing revision, preview, exact-request replay and Undo flow when later implemented.",
+    "Do not modify normal API/list_scopes merely to satisfy a UI label; the new classification entrances define explicit projection contracts.",
+    "Saved user names and descriptions remain exact; authored UI stays English.",
+    "Defer and lifecycle remain independent. Removing on-hold hiding does not itself remove parent Defer or date visibility behavior."
+  ],
+  "scenarios": [
+    {
+      "id": "HOLD-01",
+      "given": "Matching active and on-hold actions exist in the selected Project or Tag",
+      "when": "The user opens that classification",
+      "then": "Both appear; on-hold has pause icon and On hold label, with readable title and ordinary controls",
+      "counterexample": "An implicit available/active-only filter hides the on-hold action."
+    },
+    {
+      "id": "HOLD-02",
+      "given": "An on-hold action is project-unassigned or directly flagged",
+      "when": "The corresponding Inbox or Flagged view is selected",
+      "then": "On hold alone does not exclude it; any Defer restriction is visibly separate",
+      "counterexample": "Paused appearance also disables completion, editing or flagging."
+    },
+    {
+      "id": "TAGS-01",
+      "given": "An action has multiple tags",
+      "when": "The user selects a tag",
+      "then": "Its exact matching action appears once with Project context and preserved order",
+      "counterexample": "The app inherits tags from an action parent or duplicates matching rows."
+    },
+    {
+      "id": "PERSPECTIVE-01",
+      "given": "A user-selected saved view explicitly selects only active status",
+      "when": "That view is evaluated",
+      "then": "On-hold actions are excluded by the visible user-authored filter; built-in classification views still include them",
+      "counterexample": "All perspectives silently impose active-only filtering regardless of definition."
+    },
+    {
+      "id": "HISTORY-01",
+      "given": "Completed and dropped records both exist",
+      "when": "History opens with All selected",
+      "then": "Both appear with distinct status, while Completed/Dropped toggles filter matches without mutations",
+      "counterexample": "Dropped is relabeled Completed or deleted."
+    },
+    {
+      "id": "DRAFT-01",
+      "given": "Unsaved action details or an exact unknown write are retained",
+      "when": "The user changes Project/Tag/Perspective or display width",
+      "then": "The proposal remains reachable and recovery uses its original request; matching membership is not mistaken for existence",
+      "counterexample": "Classification selection clears a draft or retries an unknown write with a fresh ID."
+    }
+  ],
+  "code_changes": "None. UX proposal only.",
+  "short_recommendation": "Open は削除し、Inbox / Projects / Tags / Flagged / History を入口にします。Perspectives は保存した絞り込みとして別セクションに置きます。On hold は隠さず、同じ一覧で pause アイコンとラベルで区別します。広い画面は選択一覧＋必要時の inspector、狭い画面は view selector→一覧→詳細にします。OmniFocus はこの構造の参考にし、availability・sequential・project state・flag inheritance は持ち込みません。"
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "case": "first-date-Tokyo09",
+    "passed": true
+  },
+  {
+    "case": "custom-seconds-ms-preserved-datechange",
+    "passed": true
+  },
+  {
+    "case": "empty-time-invalid-keeps-saved-instant",
+    "passed": true
+  },
+  {
+    "case": "explicit-dateclear-release",
+    "passed": true
+  },
+  {
+    "case": "unknown-check-newer-time",
+    "passed": true
+  },
+  {
+    "case": "unknown-retry-newer-time",
+    "passed": true
+  },
+  {
+    "case": "DST-America/New_York-2026-03-08",
+    "passed": true
+  },
+  {
+    "case": "DST-America/New_York-2026-11-01",
+    "passed": true
+  },
+  {
+    "case": "DST-Australia/Lord_Howe-2026-10-04",
+    "passed": true
+  },
+  {
+    "case": "DST-Australia/Lord_Howe-2026-04-05",
+    "passed": true
+  },
+  {
+    "case": "global-actual-inflight-saving-to-saved",
+    "passed": true
+  },
+  {
+    "case": "Action-IME-global-pending-no-premature-write",
+    "passed": true
+  },
+  {
+    "case": "catalog-IME-global-pending",
+    "passed": true
+  },
+  {
+    "case": "instrumented-partial-date-refresh-raw-retained",
+    "passed": true
+  },
+  {
+    "case": "Flag-onewrite-sections-open-timezone-copy-removed",
+    "passed": true
+  }
+]

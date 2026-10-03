@@ -1,0 +1,194 @@
+[
+  {
+    "width": 320,
+    "field": "dueTime",
+    "steps": [
+      {
+        "value": "1",
+        "guide": "-:--:--"
+      },
+      {
+        "value": "12",
+        "guide": ":--:--"
+      },
+      {
+        "value": "12:3",
+        "guide": "-:--"
+      },
+      {
+        "value": "12:34",
+        "guide": ":--"
+      },
+      {
+        "value": "12:34:5",
+        "guide": "-"
+      },
+      {
+        "value": "12:34:56",
+        "guide": ""
+      }
+    ],
+    "endDeleteGuide": true,
+    "partialRefreshNoWrite": true
+  },
+  {
+    "width": 320,
+    "field": "deferUntil",
+    "steps": [
+      {
+        "value": "1",
+        "guide": "-:--:--"
+      },
+      {
+        "value": "12",
+        "guide": ":--:--"
+      },
+      {
+        "value": "12:3",
+        "guide": "-:--"
+      },
+      {
+        "value": "12:34",
+        "guide": ":--"
+      },
+      {
+        "value": "12:34:5",
+        "guide": "-"
+      },
+      {
+        "value": "12:34:56",
+        "guide": ""
+      }
+    ],
+    "endDeleteGuide": true,
+    "partialRefreshNoWrite": true
+  },
+  {
+    "width": 390,
+    "field": "dueTime",
+    "steps": [
+      {
+        "value": "1",
+        "guide": "-:--:--"
+      },
+      {
+        "value": "12",
+        "guide": ":--:--"
+      },
+      {
+        "value": "12:3",
+        "guide": "-:--"
+      },
+      {
+        "value": "12:34",
+        "guide": ":--"
+      },
+      {
+        "value": "12:34:5",
+        "guide": "-"
+      },
+      {
+        "value": "12:34:56",
+        "guide": ""
+      }
+    ],
+    "endDeleteGuide": true,
+    "partialRefreshNoWrite": true
+  },
+  {
+    "width": 390,
+    "field": "deferUntil",
+    "steps": [
+      {
+        "value": "1",
+        "guide": "-:--:--"
+      },
+      {
+        "value": "12",
+        "guide": ":--:--"
+      },
+      {
+        "value": "12:3",
+        "guide": "-:--"
+      },
+      {
+        "value": "12:34",
+        "guide": ":--"
+      },
+      {
+        "value": "12:34:5",
+        "guide": "-"
+      },
+      {
+        "value": "12:34:56",
+        "guide": ""
+      }
+    ],
+    "endDeleteGuide": true,
+    "partialRefreshNoWrite": true
+  },
+  {
+    "width": 1280,
+    "field": "dueTime",
+    "steps": [
+      {
+        "value": "1",
+        "guide": "-:--:--"
+      },
+      {
+        "value": "12",
+        "guide": ":--:--"
+      },
+      {
+        "value": "12:3",
+        "guide": "-:--"
+      },
+      {
+        "value": "12:34",
+        "guide": ":--"
+      },
+      {
+        "value": "12:34:5",
+        "guide": "-"
+      },
+      {
+        "value": "12:34:56",
+        "guide": ""
+      }
+    ],
+    "endDeleteGuide": true,
+    "partialRefreshNoWrite": true
+  },
+  {
+    "width": 1280,
+    "field": "deferUntil",
+    "steps": [
+      {
+        "value": "1",
+        "guide": "-:--:--"
+      },
+      {
+        "value": "12",
+        "guide": ":--:--"
+      },
+      {
+        "value": "12:3",
+        "guide": "-:--"
+      },
+      {
+        "value": "12:34",
+        "guide": ":--"
+      },
+      {
+        "value": "12:34:5",
+        "guide": "-"
+      },
+      {
+        "value": "12:34:56",
+        "guide": ""
+      }
+    ],
+    "endDeleteGuide": true,
+    "partialRefreshNoWrite": true
+  }
+]

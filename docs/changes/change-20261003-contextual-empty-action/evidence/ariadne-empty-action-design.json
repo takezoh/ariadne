@@ -1,0 +1,163 @@
+{
+  "kind": "native_requirements_design_candidate",
+  "request": "UI Add directly persists an empty Action in the opened deterministic context, then edits its Title/Notes. MCP callers can create populated actions with all initial context in one request.",
+  "facts": [
+    {
+      "source": "lib/domain/core.ts:91,97; lib/application/action-service.ts:23-30",
+      "statement": "Current Action titles use generic nonempty text validation. Catalog names/refs use the same helper and must not be relaxed globally."
+    },
+    {
+      "source": "db/schema.ts; drizzle/0009_action_model.sql",
+      "statement": "SQL title is TEXT NOT NULL and accepts empty string; no migration is needed."
+    },
+    {
+      "source": "lib/application/action-service.ts:prepareChange; lib/domain/core.ts:action_tag",
+      "statement": "Add supports project/notes/flag but not initial tags. Existing action_tag delta and identity ledger can supply atomic initial association semantics."
+    },
+    {
+      "source": "lib/ui/application.ts:write/check",
+      "statement": "Unknown writes retain exact arguments and callback, but callbacks receive no result. Creation must consume resolved.actions identity; pre-accept acknowledgment ordering must remain."
+    }
+  ],
+  "ux_contract": {
+    "creation": "One Add button, no precreation Title/Notes input or capture form. Click commits an ordinary action with saved title empty string and notes empty string. After confirmed save, select returned generated ID and focus the normal Title editor. Title/Notes edits follow ordinary existing review/save.",
+    "placeholder": "Rows and accessibility use Untitled as a display fallback only. Persisted title remains empty string. Title input value remains empty with placeholder Untitled. No invented user text, special draft entity, temporary DB row or auto deletion.",
+    "contexts": {
+      "Inbox": "project_id:null; title empty; notes empty",
+      "Project exact": "selected exact project_id (even with classification descendants enabled); never assign descendant automatically",
+      "Projects Unassigned": "project_id:null",
+      "Tag exact": "project_id:null; tag_ids:[selected exact tag ID], assigned atomically",
+      "Tags Untagged": "project_id:null; tag_ids:[]",
+      "Flagged": "project_id:null; flagged:true",
+      "All projects / All tags": "Add disabled; Choose a project/tag or explicit Unassigned/Untagged target.",
+      "History": "Add disabled; Choose Inbox, a project or a tag to add an action.",
+      "Perspective": "Add disabled with visible reason; a saved filter is not a single creation destination.",
+      "Defer=Deferred in Project/Tag/Flagged": "Add disabled with visible reason; do not invent a future date to satisfy the view. Select Any Defer or Not deferred to add."
+    },
+    "focus": "Confirmed returned ID, never title/last-row/guess. Narrow scrolls existing editor into reach, wide inspector opens. Other drafts persist. If navigation changed while waiting, retain current navigation and open the created action based on full snapshot; creation payload stays frozen.",
+    "unknown": "Keep exact context payload, operation name/ID/revision. Check result or identical retry confirms same generated action. Receipt resolution selects that ID after full snapshot accept. No fresh Add while unknown.",
+    "empty_lifecycle": "Blank actions remain active ordinary records. Closing details, navigation, reload or untouched title does not delete them. Completing/dropping/Undo follow existing contracts.",
+    "language": "All authored controls/reasons/empty-title fallbacks are English. User title/notes text stays exact under existing title-trimming and exact-notes contracts."
+  },
+  "alternatives": [
+    {
+      "choice": "Create Action then action_tag in a second write",
+      "verdict": "reject",
+      "reason": "A missing response or tag validation failure can leave an incomplete contextual creation and two revisions/Undo receipts."
+    },
+    {
+      "choice": "Extend existing add with tag_ids",
+      "verdict": "adopt",
+      "reason": "One operation, one generated Action ID, one owner CAS, one receipt/delta/Undo and atomic initial tags; no new general batch API."
+    },
+    {
+      "choice": "Temporary UI-only empty draft until title is nonempty",
+      "verdict": "reject",
+      "reason": "User explicitly requests a saved empty Action first; also introduces a separate draft/storage concept."
+    },
+    {
+      "choice": "Infer creation fields from arbitrary saved Perspective",
+      "verdict": "defer",
+      "reason": "Filters are extraction definitions with ambiguous lifecycle/Defer choices and conjunctions. This change exposes an explicit disabled reason rather than silently adding to Inbox."
+    },
+    {
+      "choice": "Allow Add while Defer=Deferred, open an out-of-filter new action",
+      "verdict": "reject for this scope",
+      "reason": "It cannot directly match the selected date filter without inventing a date. Disable Add with a clear Change Defer filter reason; retain normal date semantics. Pending navigation still needs a generated-ID access route after confirmation."
+    }
+  ],
+  "backend_contracts": [
+    {
+      "id": "TITLE",
+      "statement": "Add actionTitle validator: require string, allow empty after existing trim semantics, max200 UTF-16 code units. Use only action creation/edit/rename and action structure titles; generic text/catalog/ref names remain nonempty. Capture_intent retains its existing nonempty caller-title/raw-text contract."
+    },
+    {
+      "id": "ADDTAGS",
+      "statement": "Public apply_change kind=add payload adds optional tag_ids: unique array of UUIDs. Reject nonarray, duplicate/invalid/nonexistent owner-scoped tags. Omission means none. Validate before generating persisted effects. Domain add creates initial action_tags plus association identity markers at the same next owner revision; notes/project/flag remain ordinary fields."
+    },
+    {
+      "id": "ATOMIC",
+      "statement": "Action row, initial associations, identity markers, latest-revision guard, receipt and history pruning use the existing single commit/D1 batch. No schema, DB binding or infrastructure change. Invalid or competing creation persists nothing."
+    },
+    {
+      "id": "MCP",
+      "statement": "Tool definitions explain empty-capable action title and one-request populated add with notes/project_id/tag_ids/flagged/order/parent_id. Convenience action add/rename title schema allows empty; catalog name schemas remain minLength1. No new tool or compatibility alias. Existing capture_intent remains available to caller LLM."
+    },
+    {
+      "id": "UNDO",
+      "statement": "Creation Undo preserves existing addition semantics (drop created action and detach initial project), removes the initial tag associations through their ordinary delta/identity path and rejects later action/association conflicts. Do not delete blank actions as a cleanup rule."
+    }
+  ],
+  "ui_application_contracts": [
+    {
+      "id": "CREATE_TARGET",
+      "statement": "Pure creation-context resolver consumes current navigation and full snapshot. Returns allowed immutable payload/English destination label or disabled reason; unknown/deleted selection fails closed. View changes do not alter pending payload."
+    },
+    {
+      "id": "RESULT",
+      "statement": "Extend success callback to receive confirmed OperationResolution result. The same callback is used by ordinary success, identical retry and applied receipt lookup. Require a valid resolved.actions[0].id for contextual creation; no guessed ID. A malformed resolution retains uncertain request rather than claims completed creation. Validate its UUID format; a write response also must contain that exact action in its complete snapshot. Applied receipt lookup validates resolution before clearing unknown, then refreshes full snapshot to determine current action availability."
+    },
+    {
+      "id": "ORDER",
+      "statement": "Preserve onSuccess-before-accept ordering for existing per-group draft acknowledgment. Creation callback records selected generated ID and pending focus intent; accept full snapshot merges drafts/renders; then injected view effect focuses Title once if that target exists. Never merge partial operation_status result as snapshot. If absent after refresh, preserve pending identity and explicit unavailable/recovery feedback."
+    },
+    {
+      "id": "RECOVERY",
+      "statement": "Receipt-applied validates saved resolution and invokes original callback before full refresh. Malformed/missing resolution must not clear retained unknown creation. Replay returns existing receipt with current snapshot and never rolls back later edits."
+    },
+    {
+      "id": "REMOVE_CAPTURE",
+      "statement": "Remove precreation title form/capture disclosure and their DOM wiring/unload fields. Keep ordinary Notes editor as the sole human text-entry area. Existing API capture_intent remains caller-only; no new alternative UI capture path."
+    },
+    {
+      "id": "RETURN_ROUTE",
+      "statement": "If navigation changes while a creation is pending or unknown, confirmation opens the returned action in the inspector without changing navigation. Keep its last-created ID as a clean out-of-filter access route alongside retained proposals until it is visible or superseded by a later creation. Closing details never makes that newly saved blank unreachable. The route stores ID only, not copied action data, and reads current full snapshot."
+    }
+  ],
+  "implementation_order": [
+    "Pure action title/initial tag validation and atomic domain transition tests",
+    "Application envelope/MCP metadata and shared real-store contract cases",
+    "Pure context resolver plus result-aware creation/recovery callback and injected focus effect",
+    "Shared widget/DOM Add and editor-only text UX, empty display fallback",
+    "Whole-source checks, adapter race/replay/Undo/owner tests and actual browser acceptance"
+  ],
+  "verification": [
+    "Pure title empty/max/nonstring tests; catalog/ref still reject blanks; raw notes exact",
+    "Single populated MCP add returns generated ID and initial tags/project/notes with one revision",
+    "Real SQLite/shared contracts: atomic injected failure, CAS competition, identical replay, missing-response recovery, owner isolation, initial association identity markers, Undo conflict preservation",
+    "UI create from Inbox/exact Project/exact Tag/Flagged and explicit unassigned/untagged",
+    "Disabled ambiguous/all/history/perspective/deferred/missing targets explain reason without writes",
+    "Different context selected during unknown/pending creation does not alter original operation arguments",
+    "Success/check/retry select exactly resolved ID and focus only after accepting full snapshot",
+    "All nine other drafts/IME/caret/review/groups preserved; blank record stays saved across closure/refresh",
+    "MCP populated action remains one write and UI text editing uses normal editor save",
+    "Narrow/wide light/dark screenshots, no overflow and live preview on final source",
+    "Missing/malformed resolved UUID in write/receipt proof retains unknown before callbacks; absent current target after full refresh shows explicit unavailable state. Clean last-created action remains reachable after pending navigation switch and inspector closure."
+  ],
+  "scope": [
+    "lib/domain/core.ts",
+    "lib/application/action-service.ts",
+    "lib/ui/model/navigation.ts",
+    "lib/ui/model/presentation.ts",
+    "lib/ui/application.ts",
+    "lib/ui/adapters/dom.js",
+    "lib/widget.ts",
+    "app/mcp/route.ts",
+    "tests/domain/",
+    "tests/application/",
+    "tests/adapters/",
+    "tests/ui/",
+    "ARCHITECTURE.md",
+    "docs/technical/data-model.md",
+    "docs/technical/mcp-api.md",
+    "new change package"
+  ],
+  "non_goals": [
+    "No schema/migration reset",
+    "No catalog or perspective CRUD",
+    "No deployment/commit/push",
+    "No independent recommendation or workflow engine",
+    "No implicit invented deadlines or commitments"
+  ],
+  "execution": "Native author candidate for independent design review. Source implementation not started; no runtime-kernel completion claimed."
+}

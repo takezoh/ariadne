@@ -1,0 +1,25 @@
+[
+  {
+    "scenario": "before",
+    "exactParentAndRank": true,
+    "oneWrite": true,
+    "refreshStable": true
+  },
+  {
+    "scenario": "root-end",
+    "exactParentAndRank": true,
+    "oneWrite": true,
+    "refreshStable": true
+  },
+  {
+    "scenario": "chooser-after",
+    "exactParentAndRank": true,
+    "oneWrite": true,
+    "refreshStable": true
+  },
+  {
+    "scenario": "action-root-end",
+    "exactParentAndRank": true,
+    "oneWrite": true
+  }
+]

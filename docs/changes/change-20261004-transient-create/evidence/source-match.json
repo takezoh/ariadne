@@ -1,0 +1,7 @@
+{
+  "lib/ui/model/transient-create.ts": true,
+  "lib/ui/application.ts": true,
+  "lib/ui/adapters/dom.js": true,
+  "tests/ui/transient-create.test.mjs": true,
+  "tests/ui/dom.test.mjs": true
+}

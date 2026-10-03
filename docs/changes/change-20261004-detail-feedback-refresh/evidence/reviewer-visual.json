@@ -1,0 +1,266 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "passed": true,
+    "observations": {
+      "overflow": false,
+      "refresh": {
+        "x": 274,
+        "y": 58,
+        "width": 32,
+        "height": 32,
+        "color": "rgb(152, 96, 24)",
+        "animation": "none"
+      },
+      "flag": {
+        "x": 180,
+        "y": 225.5,
+        "width": 40,
+        "height": 36,
+        "color": "rgb(184, 102, 22)",
+        "animation": "none"
+      },
+      "lastStatus": 210,
+      "due": {
+        "x": 177.8125,
+        "y": 811.5,
+        "width": 128.171875,
+        "height": 42,
+        "color": "rgb(34, 34, 40)",
+        "animation": "none"
+      },
+      "error": {
+        "x": 14,
+        "y": 867.5,
+        "width": 292,
+        "height": 18,
+        "color": "rgb(152, 96, 24)",
+        "animation": "none"
+      },
+      "footer": "",
+      "refreshLabel": "Refresh",
+      "status": "Changes need attention"
+    }
+  },
+  {
+    "width": 320,
+    "theme": "dark",
+    "passed": true,
+    "observations": {
+      "overflow": false,
+      "refresh": {
+        "x": 274,
+        "y": 58,
+        "width": 32,
+        "height": 32,
+        "color": "rgb(227, 183, 110)",
+        "animation": "none"
+      },
+      "flag": {
+        "x": 180,
+        "y": 225.5,
+        "width": 40,
+        "height": 36,
+        "color": "rgb(238, 172, 89)",
+        "animation": "none"
+      },
+      "lastStatus": 210,
+      "due": {
+        "x": 177.8125,
+        "y": 811.5,
+        "width": 128.171875,
+        "height": 42,
+        "color": "rgb(239, 239, 243)",
+        "animation": "none"
+      },
+      "error": {
+        "x": 14,
+        "y": 867.5,
+        "width": 292,
+        "height": 18,
+        "color": "rgb(227, 183, 110)",
+        "animation": "none"
+      },
+      "footer": "",
+      "refreshLabel": "Refresh",
+      "status": "Changes need attention"
+    }
+  },
+  {
+    "width": 390,
+    "theme": "light",
+    "passed": true,
+    "observations": {
+      "overflow": false,
+      "refresh": {
+        "x": 338,
+        "y": 58,
+        "width": 32,
+        "height": 34,
+        "color": "rgb(152, 96, 24)",
+        "animation": "none"
+      },
+      "flag": {
+        "x": 186,
+        "y": 226.5,
+        "width": 40,
+        "height": 36,
+        "color": "rgb(184, 102, 22)",
+        "animation": "none"
+      },
+      "lastStatus": 210,
+      "due": {
+        "x": 215.453125,
+        "y": 812.5,
+        "width": 154.546875,
+        "height": 42,
+        "color": "rgb(34, 34, 40)",
+        "animation": "none"
+      },
+      "error": {
+        "x": 20,
+        "y": 868.5,
+        "width": 350,
+        "height": 18,
+        "color": "rgb(152, 96, 24)",
+        "animation": "none"
+      },
+      "footer": "",
+      "refreshLabel": "Refresh",
+      "status": "Changes need attention"
+    }
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "passed": true,
+    "observations": {
+      "overflow": false,
+      "refresh": {
+        "x": 338,
+        "y": 58,
+        "width": 32,
+        "height": 34,
+        "color": "rgb(227, 183, 110)",
+        "animation": "none"
+      },
+      "flag": {
+        "x": 186,
+        "y": 226.5,
+        "width": 40,
+        "height": 36,
+        "color": "rgb(238, 172, 89)",
+        "animation": "none"
+      },
+      "lastStatus": 210,
+      "due": {
+        "x": 215.453125,
+        "y": 812.5,
+        "width": 154.546875,
+        "height": 42,
+        "color": "rgb(239, 239, 243)",
+        "animation": "none"
+      },
+      "error": {
+        "x": 20,
+        "y": 868.5,
+        "width": 350,
+        "height": 18,
+        "color": "rgb(227, 183, 110)",
+        "animation": "none"
+      },
+      "footer": "",
+      "refreshLabel": "Refresh",
+      "status": "Changes need attention"
+    }
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "passed": true,
+    "observations": {
+      "overflow": false,
+      "refresh": {
+        "x": 1218,
+        "y": 15,
+        "width": 32,
+        "height": 34,
+        "color": "rgb(152, 96, 24)",
+        "animation": "none"
+      },
+      "flag": {
+        "x": 1111,
+        "y": 156,
+        "width": 40,
+        "height": 36,
+        "color": "rgb(184, 102, 22)",
+        "animation": "none"
+      },
+      "lastStatus": 210,
+      "due": {
+        "x": 1119.171875,
+        "y": 742,
+        "width": 136.828125,
+        "height": 42,
+        "color": "rgb(34, 34, 40)",
+        "animation": "none"
+      },
+      "error": {
+        "x": 945,
+        "y": 798,
+        "width": 311,
+        "height": 18,
+        "color": "rgb(152, 96, 24)",
+        "animation": "none"
+      },
+      "footer": "",
+      "refreshLabel": "Refresh",
+      "status": "Changes need attention"
+    }
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "passed": true,
+    "observations": {
+      "overflow": false,
+      "refresh": {
+        "x": 1218,
+        "y": 15,
+        "width": 32,
+        "height": 34,
+        "color": "rgb(227, 183, 110)",
+        "animation": "none"
+      },
+      "flag": {
+        "x": 1111,
+        "y": 156,
+        "width": 40,
+        "height": 36,
+        "color": "rgb(238, 172, 89)",
+        "animation": "none"
+      },
+      "lastStatus": 210,
+      "due": {
+        "x": 1119.171875,
+        "y": 742,
+        "width": 136.828125,
+        "height": 42,
+        "color": "rgb(239, 239, 243)",
+        "animation": "none"
+      },
+      "error": {
+        "x": 945,
+        "y": 798,
+        "width": 311,
+        "height": 18,
+        "color": "rgb(227, 183, 110)",
+        "animation": "none"
+      },
+      "footer": "",
+      "refreshLabel": "Refresh",
+      "status": "Changes need attention"
+    }
+  }
+]

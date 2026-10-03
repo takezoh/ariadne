@@ -1,0 +1,484 @@
+{
+  "schema_version": 1,
+  "artifact_type": "architecture-plan",
+  "status": "design-revised-after-work-m0",
+  "change": "change-20261001-structured-todo-mvp",
+  "source_requirements": "requirements-plan/plan.json",
+  "decision_evidence": "decision-evidence.json",
+  "decisions": [
+    {
+      "id": "D1",
+      "choice": "Sites + D1 + MCP Apps UI in Work",
+      "adr": "../../adr/adr-20261001-sites-d1-work-mvp.md",
+      "authority": "Technical selection based on the user’s serverless direction, candidate review, and instruction to continue design",
+      "validation_gate": "M0 basic path passed; MVP and BUG fixes not verified"
+    },
+    {
+      "id": "D2",
+      "choice": "Project Defer at read time and serialize using per-user revisions",
+      "adr": "../../adr/adr-20261001-defer-graph-consistency.md",
+      "authority": "User approval of C1–C4"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "FR01",
+      "ears_pattern": "invariant",
+      "statement": "Ariadne shall read and change only data belonging to the user represented by the authenticated principal, and shall reject attempts to add authority through a user ID in the input or embedded instructions.",
+      "scenarios": [
+        "S15",
+        "S16"
+      ],
+      "owner": "auth"
+    },
+    {
+      "id": "FR02",
+      "ears_pattern": "event",
+      "statement": "When an input-saving request is received, Ariadne shall persist the original input and processing status, and shall return the save result separately from the structuring result.",
+      "scenarios": [
+        "S01",
+        "S02"
+      ],
+      "owner": "application"
+    },
+    {
+      "id": "FR03",
+      "ears_pattern": "event",
+      "statement": "When a structural change is requested, Ariadne shall validate references within the same user, self-references, parent-child and dependency cycles, and revisions; if validation fails, it shall apply no changes.",
+      "scenarios": [
+        "S03",
+        "S04"
+      ],
+      "owner": "core"
+    },
+    {
+      "id": "FR04",
+      "ears_pattern": "state",
+      "statement": "While an unfinished task or any of its ancestors has a future Defer time, Ariadne shall exclude it from the normal list and show the reason and individual times in the deferred list.",
+      "scenarios": [
+        "S05",
+        "S07",
+        "S08",
+        "S09"
+      ],
+      "owner": "projection"
+    },
+    {
+      "id": "FR05",
+      "ears_pattern": "event",
+      "statement": "When a list is requested at or after a Defer time, Ariadne shall return a projection in which that Defer has expired, without changing completion, due dates, or individual Defer values.",
+      "scenarios": [
+        "S05",
+        "S07",
+        "S13"
+      ],
+      "owner": "projection"
+    },
+    {
+      "id": "FR06",
+      "ears_pattern": "event",
+      "statement": "When resolving a date-only Defer time, Ariadne shall display the concrete 09:00 time in the configured IANA time zone and preserve the resulting instant after saving, even if settings later change.",
+      "scenarios": [
+        "S06"
+      ],
+      "owner": "time"
+    },
+    {
+      "id": "FR07",
+      "ears_pattern": "event",
+      "statement": "Before saving a Defer, Ariadne shall show the scope affected by a parent and any earlier due date, and shall indicate that a current or past time will not hide the task.",
+      "scenarios": [
+        "S08",
+        "S09"
+      ],
+      "owner": "application"
+    },
+    {
+      "id": "FR08",
+      "ears_pattern": "state",
+      "statement": "While a prerequisite is unfinished or waiting on another person remains unresolved, Ariadne shall show the dependency reason and shall not clear an individual Defer merely because the dependency is resolved.",
+      "scenarios": [
+        "S10",
+        "S11"
+      ],
+      "owner": "core"
+    },
+    {
+      "id": "FR09",
+      "ears_pattern": "event",
+      "statement": "When asked to complete a parent, Ariadne shall reject the request if descendants remain unfinished, and shall not complete the parent automatically when all descendants are complete.",
+      "scenarios": [
+        "S12"
+      ],
+      "owner": "core"
+    },
+    {
+      "id": "FR10",
+      "ears_pattern": "event",
+      "statement": "When reopening a task, Ariadne shall preserve its saved Defer and, if an ancestor is complete, shall reopen the confirmed scope at the same time.",
+      "scenarios": [
+        "S11",
+        "S13"
+      ],
+      "owner": "core"
+    },
+    {
+      "id": "FR11",
+      "ears_pattern": "event",
+      "statement": "When an undo is requested, Ariadne shall compare the applied version of affected items with their current versions, shall not roll back later corrections, and shall preserve relationship invariants after the inverse operation.",
+      "scenarios": [
+        "S14"
+      ],
+      "owner": "application"
+    },
+    {
+      "id": "FR12",
+      "ears_pattern": "event",
+      "statement": "When a request with the same operationId is received again, Ariadne shall return the saved result for identical content, reject different content, and make no duplicate business change.",
+      "scenarios": [
+        "S02",
+        "S16"
+      ],
+      "owner": "storage",
+      "evidence": "BUG-01"
+    },
+    {
+      "id": "FR13",
+      "ears_pattern": "unwanted",
+      "statement": "When a change request targets stale state, Ariadne shall report a conflict and provide a way to retrieve the latest state.",
+      "scenarios": [
+        "S14",
+        "S15"
+      ],
+      "owner": "application"
+    },
+    {
+      "id": "FR14",
+      "ears_pattern": "event",
+      "statement": "When the UI is shown, refreshed, or finishes a change, Ariadne shall display the latest list and retrieval time, and distinguish save failure, unknown outcome, and pending judgment from success.",
+      "scenarios": [
+        "S02",
+        "S15",
+        "S16"
+      ],
+      "owner": "ui"
+    },
+    {
+      "id": "FR15",
+      "ears_pattern": "unwanted",
+      "statement": "When a conflict or refresh occurs, the UI shall retain dirty drafts for comparison with the latest values and shall not overwrite them before explicit discard or save.",
+      "scenarios": [
+        "S02",
+        "S14",
+        "S15",
+        "S16"
+      ],
+      "owner": "ui",
+      "evidence": "BUG-02"
+    }
+  ],
+  "boundaries": [
+    {
+      "id": "B1",
+      "owner": "auth",
+      "contract": "Obtain the principal through the existing Sites/Plugin authentication boundary. Reject owner input. Authentication acceptance is out of scope for this change."
+    },
+    {
+      "id": "B2",
+      "owner": "application",
+      "contract": "Use a shared command envelope and preview/apply/status/undo operations. Unify the source of truth for conversation and UI."
+    },
+    {
+      "id": "B3",
+      "owner": "core",
+      "contract": "GraphSnapshot + Command + now → ChangeSet. Independent of D1, HTTP, and LLM."
+    },
+    {
+      "id": "B4",
+      "owner": "storage",
+      "contract": "Atomically save per-user revision CAS, business diffs, immutable receipts, and history in a D1 batch."
+    },
+    {
+      "id": "B5",
+      "owner": "projection",
+      "contract": "GraphSnapshot + now → normal/deferred/completed projections and all waiting/Defer reasons."
+    },
+    {
+      "id": "B6",
+      "owner": "mcp",
+      "contract": "Continue using the existing Sites /mcp and versioned MCP Apps resource/bridge."
+    },
+    {
+      "id": "B7",
+      "owner": "ui",
+      "contract": "Separate snapshot from dirty drafts. Preserve operationId and payload when the outcome is unknown."
+    }
+  ],
+  "chunks": [
+    {
+      "id": "T0",
+      "task_id": "task-20261001-mcp-auth-spike",
+      "title": "Bring in the Sites validation source and connection contract",
+      "depends_on": [],
+      "requirements": [
+        "FR01"
+      ],
+      "scenarios": [
+        "S15",
+        "S16"
+      ],
+      "completion_witness": "Retrieve the recorded source commit and verify its relationship to the existing Site/Plugin, source, dependencies, and migrations. Do not rerun all connection tests."
+    },
+    {
+      "id": "T1",
+      "task_id": "task-20261001-core-contract",
+      "title": "Domain logic, display projections, and date handling",
+      "depends_on": [],
+      "requirements": [],
+      "scenarios": [
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09",
+        "S10",
+        "S11",
+        "S12",
+        "S13"
+      ],
+      "completion_witness": "Implement C1–C4, graph, and date contracts in the pure core. Work acceptance evidence belongs to T5."
+    },
+    {
+      "id": "T2",
+      "task_id": "task-20261001-firestore-store",
+      "title": "D1 migration, revisions, receipts, history, and BUG-01 fix",
+      "depends_on": [
+        "T0",
+        "T1"
+      ],
+      "requirements": [
+        "FR02",
+        "FR03",
+        "FR11",
+        "FR12",
+        "FR13"
+      ],
+      "scenarios": [
+        "S02",
+        "S04",
+        "S14",
+        "S15",
+        "S16"
+      ],
+      "completion_witness": "Use conditional batches to prevent partial changes and reject reuse of the same ID with different input. Preserve existing data. Verify BUG-01 regression in Work."
+    },
+    {
+      "id": "T3",
+      "task_id": "task-20261001-mcp-tools",
+      "title": "Authenticated tools and primary Skill",
+      "depends_on": [
+        "T0",
+        "T1",
+        "T2"
+      ],
+      "requirements": [
+        "FR01",
+        "FR02",
+        "FR07",
+        "FR12",
+        "FR13"
+      ],
+      "scenarios": [
+        "S01",
+        "S02",
+        "S08",
+        "S09",
+        "S15",
+        "S16"
+      ],
+      "completion_witness": "From a Work conversation, capture/context/preview/apply/status/undo operate on the same source of truth as the UI."
+    },
+    {
+      "id": "T4",
+      "task_id": "task-20261001-todo-ui",
+      "title": "List, detail, Defer, and corrections",
+      "depends_on": [
+        "T3"
+      ],
+      "requirements": [
+        "FR07",
+        "FR14",
+        "FR15"
+      ],
+      "scenarios": [
+        "S03",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09",
+        "S12",
+        "S13",
+        "S14",
+        "S15"
+      ],
+      "completion_witness": "Verify list/detail/Defer/Undo in Work, dirty-draft preservation, and unknown-outcome display. Verify BUG-02 regression in Work."
+    },
+    {
+      "id": "T5",
+      "task_id": "task-20261001-mvp-acceptance",
+      "title": "Integration and personal trial",
+      "depends_on": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "requirements": [
+        "FR01",
+        "FR02",
+        "FR03",
+        "FR04",
+        "FR05",
+        "FR06",
+        "FR07",
+        "FR08",
+        "FR09",
+        "FR10",
+        "FR11",
+        "FR12",
+        "FR13",
+        "FR14",
+        "FR15"
+      ],
+      "scenarios": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "S09",
+        "S10",
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S16"
+      ],
+      "completion_witness": "Measure in Work the in-scope S01–S16 behaviors, BUG-01/02, timeout, and retry. Do not add separate-account, infrastructure-only, CSP, or cost checks to completion criteria."
+    }
+  ],
+  "evidence_gates": [
+    {
+      "id": "G1",
+      "status": "passed-for-m0-basic-path",
+      "owner": "T0",
+      "question": "Work UI/conversation/D1/restoration in another conversation",
+      "blocks": []
+    },
+    {
+      "id": "G2",
+      "status": "excluded-from-current-work-verification",
+      "owner": "T5",
+      "question": "Infrastructure-only, cost, separate account/CSP",
+      "blocks": []
+    },
+    {
+      "id": "G3",
+      "status": "unverified",
+      "owner": "T5",
+      "question": "BUG regressions, all MVP functions, and Work unknown-outcome display",
+      "blocks": [
+        "MVP acceptance"
+      ]
+    }
+  ],
+  "implementation_status": "local MVP candidate implemented; Sites deployment and Work acceptance pending",
+  "execution_note": "The user’s permission to remove the external-delegation constraint remains in effect, and the main session designed this directly. Do not claim an external Loop succeeded or that an independent review occurred.",
+  "nonfunctional_requirements": [
+    {
+      "id": "NFR01",
+      "owner": "transport",
+      "contract": "Sites request processing. Defer correctness must not depend on a scheduler or background processing.",
+      "witness_owner": "T0",
+      "scenarios": [
+        "S15",
+        "S16"
+      ]
+    },
+    {
+      "id": "NFR02",
+      "owner": "storage",
+      "contract": "Per-user revisions, bounded retries, and complete snapshots.",
+      "witness_owner": "T2",
+      "scenarios": [
+        "S04",
+        "S12",
+        "S14",
+        "S15",
+        "S16"
+      ]
+    },
+    {
+      "id": "NFR03",
+      "owner": "integration",
+      "contract": "Verify complete lists, retrieval time, and unknown outcomes in Work. Cost and infrastructure performance are out of scope.",
+      "witness_owner": "T5",
+      "scenarios": [
+        "S05",
+        "S15",
+        "S16"
+      ]
+    },
+    {
+      "id": "NFR04",
+      "owner": "auth",
+      "contract": "Preserve existing server identity and owner constraints. Do not include secrets in UI or routine logs. Authentication acceptance is out of scope.",
+      "witness_owner": "T0",
+      "scenarios": [
+        "S15",
+        "S16"
+      ]
+    },
+    {
+      "id": "NFR05",
+      "owner": "mcp",
+      "contract": "Manage schemaVersion and versioned UI; explicitly reject changes from unknown versions.",
+      "witness_owner": "T4",
+      "scenarios": [
+        "S14",
+        "S15"
+      ]
+    }
+  ],
+  "evidence_sources": [
+    "../../note/note-20261001-work-m0-sites-proof.md",
+    "../../note/evidence/work-m0-live-20261001.json"
+  ],
+  "verification_scope": {
+    "included": "Display, operations, saved outcomes, and MVP behavior in Work",
+    "excluded": [
+      "ChatGPT-side authentication/separation between accounts",
+      "CSP configuration",
+      "Infrastructure-only tests/fault injection/cost evaluation"
+    ]
+  },
+  "local_verification": {
+    "domain_storage_checks": 18,
+    "widget_dom_checks": 4,
+    "typecheck": "passed",
+    "lint": "passed",
+    "build": "passed",
+    "local_worker_mcp_d1_smoke": "passed",
+    "Work_acceptance": "not-run",
+    "independent_review": "not-run"
+  },
+  "language": "en"
+}

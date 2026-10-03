@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-03",
+  "github_source_commit": "0a903812c63c73ce6201e62a044e3e524f1e9bc2",
+  "sites_source_commit": "0177c1c04cdf113dec350ef4bfd8f5347ec33170",
+  "source_tree": "7f88127179d46db824cf0265a5b351417b72bce5",
+  "project_id": "appgprj_6abe391bc8cc81918b4e842b4db293e8",
+  "audience": "owner-private",
+  "validation": {
+    "lint": "passed",
+    "typecheck": "passed",
+    "tests": {
+      "passed": 213,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "local_build": "passed",
+    "packaging": "Windows shell path prevented bundled local packaging; exact pushed source uses remote build."
+  },
+  "repairs": {
+    "windows_test_runner": "Use file URLs for loader/reporter and directory junction for fixture.",
+    "migration_0005": "Parenthesize CASE in revision trigger; observed catalog ledger and owner_state plus retired task columns establish 0004 applied and 0005 unapplied after atomic failure.",
+    "reference": "https://github.com/cloudflare/workers-sdk/issues/4727",
+    "boundary": {
+      "owner_state_present": true,
+      "catalog_revision_present": true,
+      "catalog_identity_ledger_present": true,
+      "task_columns": [
+        "owner",
+        "id",
+        "title",
+        "initial_title",
+        "revision",
+        "last_request",
+        "created_at",
+        "updated_at",
+        "parent_id",
+        "status",
+        "due_at",
+        "defer_until",
+        "defer_zone",
+        "manual_wait",
+        "notes",
+        "source_capture_id",
+        "project_id"
+      ]
+    }
+  },
+  "failed_attempt": {
+    "id": "appgdep_6ac0afd681048191b0546f9afb7e85e1",
+    "project_id": "appgprj_6abe391bc8cc81918b4e842b4db293e8",
+    "title": "Ariadne · Work検証",
+    "version_id": "appgprj_6abe391bc8cc81918b4e842b4db293e8~appgver_778b078051e081919b311ecb810e2661",
+    "type": "publish",
+    "status": "failed",
+    "url": null,
+    "has_mcp": true,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6abe391bc8cc81918b4e842b4db293e8",
+    "failure_message": "incomplete input: SQLITE_ERROR",
+    "env_set_revision": 0,
+    "updated_at": "2026-10-03T07:36:12.998882+00:00"
+  },
+  "deployment": {
+    "id": "appgdep_6ac0b161d0bc8191abe284681d9e6524",
+    "project_id": "appgprj_6abe391bc8cc81918b4e842b4db293e8",
+    "title": "Ariadne · Work検証",
+    "version_id": "appgprj_6abe391bc8cc81918b4e842b4db293e8~appgver_5379fb09cf3081919b67049143680583",
+    "type": "publish",
+    "status": "succeeded",
+    "url": "https://redacted.invalid/ariadne-historical-host",
+    "has_mcp": true,
+    "screenshot_asset_pointer": null,
+    "provider_deployment_id": "site---6abe391bc8cc81918b4e842b4db293e8",
+    "failure_message": null,
+    "env_set_revision": 0,
+    "updated_at": "2026-10-03T07:42:30.561233+00:00"
+  },
+  "host_acceptance": {
+    "read_only_call": "get_relevant_context",
+    "retrieved_at": "2026-10-03T07:42:48.278Z",
+    "schemaVersion": 2,
+    "revision": 0,
+    "actions": 0,
+    "perspectives": 0,
+    "projects": 0,
+    "tags": 0,
+    "ariadne_open": "Successful tool response with new action snapshot.",
+    "database_tables": [
+      "action_tags",
+      "actions",
+      "catalog_identity_ledger",
+      "operations",
+      "perspectives",
+      "projects",
+      "tags"
+    ],
+    "ui_limit": "No expanded MCP App tab available in this task; visual and interactive Work acceptance was not rerun.",
+    "tool_catalog_limit": "This turn began with cached pre-action tool definitions. Reconnection or a fresh host session may be needed for new tool discovery."
+  }
+}

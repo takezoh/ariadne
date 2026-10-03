@@ -1,0 +1,34 @@
+[
+  {
+    "kind": "project",
+    "recovery": "check",
+    "exactCatalogRequestReplay": true,
+    "oneAssignment": true,
+    "rawIMEProposalRetained": true,
+    "errors": []
+  },
+  {
+    "kind": "project",
+    "recovery": "retry",
+    "exactCatalogRequestReplay": true,
+    "oneAssignment": true,
+    "rawIMEProposalRetained": true,
+    "errors": []
+  },
+  {
+    "kind": "tag",
+    "recovery": "check",
+    "exactCatalogRequestReplay": true,
+    "oneAssignment": true,
+    "rawIMEProposalRetained": true,
+    "errors": []
+  },
+  {
+    "kind": "tag",
+    "recovery": "retry",
+    "exactCatalogRequestReplay": true,
+    "oneAssignment": true,
+    "rawIMEProposalRetained": true,
+    "errors": []
+  }
+]

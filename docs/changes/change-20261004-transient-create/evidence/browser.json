@@ -1,0 +1,32 @@
+[
+  {
+    "case": "untouched navigation zero writes",
+    "passed": true,
+    "writes": 0
+  },
+  {
+    "case": "notes-only one populated creation",
+    "passed": true,
+    "writes": 1
+  },
+  {
+    "case": "catalog name first with exact description",
+    "passed": true,
+    "writes": 1
+  },
+  {
+    "case": "partial clock blocks then valid Defer survives UUID remap and raw title exact",
+    "passed": true,
+    "writes": 2
+  },
+  {
+    "case": "unknown check exact creation and later text same identity",
+    "passed": true,
+    "writes": 2
+  },
+  {
+    "case": "unknown retry exact creation and later text same identity",
+    "passed": true,
+    "writes": 3
+  }
+]

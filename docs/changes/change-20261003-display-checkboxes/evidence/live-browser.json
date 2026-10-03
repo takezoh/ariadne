@@ -1,0 +1,35 @@
+[
+  {
+    "width": 320,
+    "independentStatusAndDeferredCheckboxes": true,
+    "multipleToggleMenuRemainsOpen": true,
+    "emptySelectionExact": true,
+    "catalogTreeRetained": true,
+    "noInstructionOrCombinationCopy": true,
+    "perViewMemory": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "independentStatusAndDeferredCheckboxes": true,
+    "multipleToggleMenuRemainsOpen": true,
+    "emptySelectionExact": true,
+    "catalogTreeRetained": true,
+    "noInstructionOrCombinationCopy": true,
+    "perViewMemory": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "independentStatusAndDeferredCheckboxes": true,
+    "multipleToggleMenuRemainsOpen": true,
+    "emptySelectionExact": true,
+    "catalogTreeRetained": true,
+    "noInstructionOrCombinationCopy": true,
+    "perViewMemory": true,
+    "readOnly": true,
+    "errors": []
+  }
+]

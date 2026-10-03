@@ -1,0 +1,17 @@
+{
+  "lib/domain/core.ts": true,
+  "lib/domain/operations.ts": true,
+  "lib/application/action-service.ts": true,
+  "app/mcp/route.ts": true,
+  "lib/ui/model/transient-create.ts": true,
+  "lib/ui/model/autosave.ts": true,
+  "tests/ui/transient-create.test.mjs": true,
+  "tests/domain/empty-action.test.mjs": true,
+  "tests/adapters/empty-action-store.test.mjs": true,
+  "db/schema.ts": true,
+  "drizzle/0013_project_order.sql": true,
+  "drizzle/0014_empty_catalog_names.sql": true,
+  "drizzle/meta/_journal.json": true,
+  "drizzle/meta/0013_snapshot.json": true,
+  "drizzle/meta/0014_snapshot.json": true
+}

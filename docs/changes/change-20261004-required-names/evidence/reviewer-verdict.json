@@ -1,0 +1,59 @@
+{
+  "verdict": "approved",
+  "execution": "native independent profile; no kernel receipt",
+  "contract_review": "approved",
+  "requirements": {
+    "new_and_explicit_name_write": "Action Title and Project/Tag Name must contain nonwhitespace text; Notes optional. UI temporary inputs may remain blank but cannot commit until valid name.",
+    "legacy": "Existing blank records remain readable and mutable when name omitted. Identical historical receipt replay precedes current validators. Historical Undo may restore blank values.",
+    "persistence": "Protected schema/migrations/journal/meta unchanged; no data rewrite or fabricated names."
+  },
+  "counterexamples": [
+    "Notes-only local Action stays zero-write until Title valid.",
+    "Local catalog Description-only stays zero-write until Name valid.",
+    "Saved Title emptied retains raw invalid proposal and adjacent error through Refresh/navigation without name write.",
+    "IME provisional nonempty text does not create.",
+    "Unknown create retry retains original exact arguments despite newer empty Title; acknowledgment preserves newer invalid proposal.",
+    "Legacy blank saved record permits notes/status/move when title omitted.",
+    "Old blank receipt replays before strict validation and ID generation.",
+    "Historical Undo restores blank rather than requiring invented names.",
+    "structure_create validates every explicit new/edit title, not just top-level add."
+  ],
+  "remaining": "Root full integration gates remain separate; no duplicate tests executed by reviewer.",
+  "findings": [],
+  "evidence": {
+    "source": [
+      "lib/domain/core.ts:21 strict actionTitle text(200)",
+      "lib/domain/core.ts:138 add and explicit edit share validator; validateGraph does not reject existing blank titles",
+      "lib/application/action-service.ts:120 receipt prior to validation/allocation",
+      "lib/domain/operations.ts:43 historical restoration bypasses new-name writes",
+      "lib/ui/model/transient-create.ts:11 eligibility Title nonempty and raw length <=200",
+      "lib/ui/model/autosave.ts:9 validation only dirty explicit Title; legacy title omission permitted"
+    ],
+    "owner_focused_tests": [
+      "/tmp/required-names/backend-target.log:30 pass",
+      "/tmp/required-names/target.log: transient targets including unknown newer blank and eligibility max raw",
+      "/tmp/required-names/browser.json: Notes-only0writes, Title1creation exactNotes, clearedTitle0writes adjacent accessible error and Refresh rawretention"
+    ],
+    "protected_hashes_match": true,
+    "tests_run_by_reviewer": 0
+  },
+  "candidate_sha256": {
+    "lib/domain/core.ts": "f24160b01429d3a65a741847ca821fa62ed08741403926c08c1928fc519b2856",
+    "lib/domain/operations.ts": "6070fa2b86f2ebf873e3a767673c24a17948d4b1b70d50fd2ce6c469e8258c6b",
+    "lib/application/action-service.ts": "06197d7b7d5b1811f78cf9df99d840ec39d4ad935ee2e8fbe161403828c336a6",
+    "app/mcp/route.ts": "2d5d6713cdf20c33216a0e604f1b9ef14b2c354bd74b4d36a14837dc8f11542e",
+    "lib/ui/model/transient-create.ts": "a5fa8333fda994ba4d31de06ebb6532c36612ce5ab13302852d216d4092f6fb3",
+    "lib/ui/model/autosave.ts": "ba88e0b80e1bdab4b744374af0345e58feb6ed020cc1c05460ec68d0dcd7123b",
+    "tests/ui/transient-create.test.mjs": "56f5fafa44207529b5cca52c09ed50588e7e90d29ce95e1e94e6327210e3bf59",
+    "tests/domain/empty-action.test.mjs": "bc0603b773fb87e7f59d106ea1f46ae433fb3678b6c9df07d2f01e39a8ba5a9e",
+    "tests/adapters/empty-action-store.test.mjs": "8022b7a8c029a1aaaaa93321c3996f40935449588f102df3b769291088b3d220"
+  },
+  "protected_sha256": {
+    "db/schema.ts": "98bd9e5950b7ca1609e196d64aee0d535e30490521c2eb880f2c54ca5483b556",
+    "drizzle/0013_project_order.sql": "0f2c74ed0b45ed30585927c4c53c9bde7ec8744058249c04ad0c161b5e5e5c7b",
+    "drizzle/0014_empty_catalog_names.sql": "80eed934eba4bd6ec374405b9a4cd9c398d8b1dbdd28cabb43b8fcd82288da17",
+    "drizzle/meta/_journal.json": "0d4af545899e66e57c8ad29ea5361363fdf76b4896727e6b43192d624ed46048",
+    "drizzle/meta/0013_snapshot.json": "40e2739ae9579be03e3b2d20197e58477d8aa80d32b74a923202c720ff8f7b92",
+    "drizzle/meta/0014_snapshot.json": "760e01e693bd961e294d8c457339f468fea45c50c3bd11d9e22d173f5b772f0b"
+  }
+}

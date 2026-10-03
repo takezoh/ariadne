@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "status": 400,
+  "error": "invalid_input",
+  "write_requests": 0,
+  "behavior": "Real local preview rejects incompatible stored blank Titles"
+}

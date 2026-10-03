@@ -1,0 +1,220 @@
+{
+  "turns": [
+    {
+      "phase": "A",
+      "prompt": "Help me build a GTD routine I can run by asking you. Capture everything first, preserve exact original words and uncertainties, clarify only what changes the next step, then organize actionable items, waiting-for, someday/maybe and reference. Keep all items inspectable; suggestions alone must not change state. Use reusable saved views when helpful. No automatic schedule is requested.",
+      "decision": "Capture ordinary Inbox actions first; caller tags provide categories. Use explicit on-hold for an evidenced wait. Committed multi-action work gets containment and a catalog project. Next-action designation is a caller tag, never a dependency gate. Saved views support repeat review. No scheduling."
+    },
+    {
+      "phase": "B",
+      "prompt": "Capture these separately without organizing yet."
+    },
+    {
+      "phase": "C",
+      "prompt": "Clarify and organize them using the routine. Tax deadline is 2026-10-20 23:59 Asia/Tokyo; electricity deadline is 2026-10-12 23:59 Asia/Tokyo. Treat replacement chair as Someday/Maybe and native-plants URL as Reference. I intend to do the tax and Kyoto preparations. Keep the undecided family concern as undecided. Do not set dates from my proposal preference. The proposal sketch and electricity payment can be next actions; choose concrete next actions for committed projects without inventing new work.",
+      "decision": "No necessary question: explicit commitments, deadlines and source steps suffice. Active records can represent noncommitments; tags carry caller classification. Tag all actionable leaf steps Actionable, and only selected immediate candidates Next action. This permits one-time less structured query later without negative filters."
+    },
+    {
+      "phase": "D",
+      "prompt": "Run a weekly review now: show the complete unfinished inventory, waiting-for, someday/maybe and reference separately. Show each committed project and its next action or the reason it has none. Suggest what I could focus on today. Do not change anything just because you recommend it.",
+      "answer": {
+        "completeUnfinished": [
+          "Replace desk chair someday",
+          "Await landlord repair reply",
+          "Native plants reference",
+          "Sketch proposal",
+          "Pay electricity bill",
+          "Undecided family house concern",
+          "Submit tax return",
+          "Collect receipts",
+          "Fill the form",
+          "Prepare for Kyoto",
+          "Book the hotel",
+          "Pack"
+        ],
+        "waiting": [
+          "Await landlord repair reply"
+        ],
+        "someday": [
+          "Replace desk chair someday"
+        ],
+        "reference": [
+          "Native plants reference"
+        ],
+        "committedProjects": [
+          {
+            "project": "Tax return",
+            "next": "Collect receipts"
+          },
+          {
+            "project": "Kyoto preparation",
+            "next": "Book the hotel"
+          }
+        ],
+        "suggestion": "Pay electricity bill (earliest explicit deadline October 12), or collect tax receipts (advance October 20 commitment). Sketch proposal is available without a deadline; book hotel is a valid project next action. Reference, someday and undecided concern are inspectable but not recommended commitments.",
+        "stateChanges": 0
+      }
+    },
+    {
+      "phase": "E",
+      "prompt": "The landlord replied. Mark the waiting item active, not completed. Defer packing until October 10 in Asia/Tokyo. I have collected the tax receipts; mark that action completed, but do not automatically complete the tax project. Update next-action organization only where these reported changes justify it.",
+      "answer": "Landlord active, not completed; no new follow-up action invented. Pack deferred until 2026-10-10T00:00:00Z (09:00 Asia/Tokyo). Collect receipts completed; Submit tax return remains active. Fill the form replaces Collect receipts as selected next action; Kyoto booking remains selected."
+    },
+    {
+      "phase": "F",
+      "prompt": "Run the review again and show what changed. I want to use the same saved actions with a less structured routine now: give me all unfinished nondeferred actionable items, excluding reference and someday ideas. Do not delete or recreate data or save a new perspective for this one-time query.",
+      "answer": {
+        "changes": [
+          "Landlord moved from on-hold to active; no remaining waiting-for items.",
+          "Collect receipts completed; tax root remains active, next action now Fill the form.",
+          "Pack excluded from current actionable list until October 10 09:00 Asia/Tokyo."
+        ],
+        "allUnfinished": [
+          "Replace desk chair someday",
+          "Await landlord repair reply",
+          "Native plants reference",
+          "Sketch proposal",
+          "Pay electricity bill",
+          "Undecided family house concern",
+          "Submit tax return",
+          "Fill the form",
+          "Prepare for Kyoto",
+          "Book the hotel",
+          "Pack"
+        ],
+        "oneTimeActionable": [
+          "Sketch proposal",
+          "Pay electricity bill",
+          "Fill the form",
+          "Book the hotel"
+        ],
+        "decision": "One-time positive Actionable tag query excludes reference/someday/undecided and project outcome headings. Landlord is active but no executable next step is specified; caller does not invent one.",
+        "stateChanges": 0
+      }
+    }
+  ],
+  "ids": {
+    "tax": "435c3392-f689-4577-955b-8189e45a827d",
+    "chair": "05f2c485-8bab-41d7-9d35-a5218a75209d",
+    "landlord": "c57b6889-ad7c-4244-a9b4-c03aadcfa6a9",
+    "reference": "19510c43-3c42-4604-90a7-cf3c382aa0d8",
+    "proposal": "d4a85a56-018e-44f8-b344-c1c92a8bb1f3",
+    "kyoto": "ca8c1dc0-2597-42be-8c97-f93df0995668",
+    "electricity": "64e5eaa6-c4c4-44c7-94c7-9eb6363b7e91",
+    "family": "aa09fbbe-26c1-4d56-aa91-6e2c393bc06e",
+    "taxStep0": "3e831c0e-4556-4e2e-9015-a45b5040f48f",
+    "taxStep1": "537f7f04-6d4d-4a5f-a048-9375eb5c9176",
+    "kyotoStep0": "c3508c95-de15-41c6-b52a-960452c7dedc",
+    "kyotoStep1": "4c3a4671-ae18-49e2-a24d-044a8f08e874"
+  },
+  "writes": 49,
+  "tags": {
+    "Someday/Maybe": "a04e65c1-dc70-4d80-af5a-d71f4d7ea492",
+    "Reference": "214c2a30-338b-4a54-80af-5deb6382eeb0",
+    "Undecided": "bb319455-970d-4825-89aa-5a8f1f108467",
+    "Actionable": "f8619690-2c07-4d5f-888c-a39dcc59b5df",
+    "Next action": "c8a96d6d-f237-47b5-b358-9d5878f4d369"
+  },
+  "projects": {
+    "tax": "b8b27ae2-8cc3-4c7f-b91a-ac14aba3a93d",
+    "kyoto": "c6095303-5782-439b-94c2-5bc0a855df46"
+  },
+  "views": {
+    "Complete unfinished inventory": "538da542-3998-444b-bab3-07bf29898bd7",
+    "Waiting for": "3e490cec-40c5-40d0-94c6-c3b5d6f73a49",
+    "Someday/Maybe": "04b6dd43-579c-46f0-8b01-9e2bee2bc184",
+    "Reference": "18a712a1-90fc-405e-a765-e100baf581f1",
+    "Next actions": "9e78c6b8-6b98-4c47-b6a5-d94c8878c1a5"
+  },
+  "assertions": {
+    "originalNotesStable": true,
+    "taxRootActive": true,
+    "landlordActive": true,
+    "proposalUndated": true,
+    "reviewsReadOnly": true
+  },
+  "counts": {
+    "persistentOperations": 49,
+    "toolCalls": 121,
+    "readOnlyReviewRuns": 2,
+    "errors": 0,
+    "initialRevision": 0,
+    "finalRevision": 49
+  },
+  "savedViewDefinitions": [
+    {
+      "id": "04b6dd43-579c-46f0-8b01-9e2bee2bc184",
+      "name": "Someday/Maybe",
+      "description": "Reusable caller review extraction; advice never changes saved state.",
+      "filter": {
+        "statuses": [
+          "active",
+          "on-hold"
+        ],
+        "tag_id": "a04e65c1-dc70-4d80-af5a-d71f4d7ea492"
+      },
+      "definition_version": 1,
+      "revision": 42,
+      "created_at": "2026-10-03T15:12:03.347Z",
+      "updated_at": "2026-10-03T15:12:03.347Z"
+    },
+    {
+      "id": "18a712a1-90fc-405e-a765-e100baf581f1",
+      "name": "Reference",
+      "description": "Reusable caller review extraction; advice never changes saved state.",
+      "filter": {
+        "tag_id": "214c2a30-338b-4a54-80af-5deb6382eeb0"
+      },
+      "definition_version": 1,
+      "revision": 43,
+      "created_at": "2026-10-03T15:12:03.521Z",
+      "updated_at": "2026-10-03T15:12:03.521Z"
+    },
+    {
+      "id": "3e490cec-40c5-40d0-94c6-c3b5d6f73a49",
+      "name": "Waiting for",
+      "description": "Reusable caller review extraction; advice never changes saved state.",
+      "filter": {
+        "statuses": [
+          "on-hold"
+        ]
+      },
+      "definition_version": 1,
+      "revision": 41,
+      "created_at": "2026-10-03T15:12:03.173Z",
+      "updated_at": "2026-10-03T15:12:03.173Z"
+    },
+    {
+      "id": "538da542-3998-444b-bab3-07bf29898bd7",
+      "name": "Complete unfinished inventory",
+      "description": "Reusable caller review extraction; advice never changes saved state.",
+      "filter": {
+        "statuses": [
+          "active",
+          "on-hold"
+        ]
+      },
+      "definition_version": 1,
+      "revision": 40,
+      "created_at": "2026-10-03T15:12:03.000Z",
+      "updated_at": "2026-10-03T15:12:03.000Z"
+    },
+    {
+      "id": "9e78c6b8-6b98-4c47-b6a5-d94c8878c1a5",
+      "name": "Next actions",
+      "description": "Reusable caller review extraction; advice never changes saved state.",
+      "filter": {
+        "is_deferred": false,
+        "statuses": [
+          "active"
+        ],
+        "tag_id": "c8a96d6d-f237-47b5-b358-9d5878f4d369"
+      },
+      "definition_version": 1,
+      "revision": 44,
+      "created_at": "2026-10-03T15:12:03.708Z",
+      "updated_at": "2026-10-03T15:12:03.708Z"
+    }
+  ],
+  "artifactGenerationFailure": "First finalizer failed because post-call state assignment was not flushed; reconstructed capture/final snapshots from retained actual calls. No API failure or retry."
+}

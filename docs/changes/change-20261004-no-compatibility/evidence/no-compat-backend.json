@@ -1,0 +1,86 @@
+{
+  "status": "source_fixed",
+  "profile": "native backend implementation",
+  "kernelExecuted": false,
+  "sourceHashes": {
+    "lib/domain/core.ts": "d68499d418981902ab62c1ab89b8fbff18f898600bb4255d8231ad5aca8649ff",
+    "lib/domain/operations.ts": "55817d3f41e262889d6b9e1793a1d324b2405548bda0c314093eaf69b7035a76",
+    "lib/application/action-service.ts": "16d70f8d44c72ae8638dc440e50843dcb35be568aee33224184f618c94326c98",
+    "app/mcp/route.ts": "a6c98a2798de341eb4a9c7b1bd1010800344b3c3d3bbd3234a83531df51544e1",
+    "db/schema.ts": "c227b81e2c3d99e4a4de5236bf6bd52d00ee660b690729af22430aaec1afd743",
+    "drizzle/0015_required_catalog_names.sql": "3477a12c96567fcb08bca8aac013d87668c2de1414776aa39c1836ade7ccaca7",
+    "drizzle/meta/0015_snapshot.json": "bce23464465986c929c66c109ed73373945f0241be19a4882ff82761db3aae8c",
+    "drizzle/meta/_journal.json": "5a910c997cccf2dd2ad139083741fe59d5a10b135ce272e3320e5d6e1bb6cec9",
+    "tests/helpers/sqlite-d1.mjs": "aa16df491c66b60d0492b40d2c764178e8a9cae24e2f8aa6512d5ec3192db4e4",
+    "tests/domain/empty-action.test.mjs": "03f116371c242920791c2fb6b3f48e08bde8a0d255f7dd80737612654654c6c8",
+    "tests/domain/empty-catalog.test.mjs": "7226be5a08fc7f355d0bbb3c10c7ed1f7dfe4a0ad974e9d986c6156562b5e514",
+    "tests/domain/current-schema.test.mjs": "c2a718e384bf7901438663e0f668e87cbe1087382f421c7c6e3ad25785a53429",
+    "tests/domain/project-move.test.mjs": "7c2b9ed041bbe38f81c79094719fe6ce7328769cf3bff8952d757eeabefb8be2",
+    "tests/domain/action-model.test.mjs": "7fc164f7f84a798ea33301a1d17b546eefd938c30e5b18443aea4acf3360e2cc",
+    "tests/domain/action-order-flag.test.mjs": "49163d222a4b9367c6f2e05dda804d34a7821acf9e91a9a8cd0e051b608d2914",
+    "tests/domain/project-tag.test.mjs": "ceb16525e308422729bec7f13ce5dc5a294d9a3cafb2d7eec955829dfe141ef5",
+    "tests/adapters/empty-action-store.test.mjs": "0006ea62b7ef83301b5617f4da277a2e3c2c1cea98e23eb06be1fdf74a51171c",
+    "tests/adapters/empty-catalog.test.mjs": "a68e114aca84bc4e4e41b44a987beb4421d9df6c214058fc9d424e4c3740e4c4",
+    "tests/adapters/project-move.test.mjs": "fa76a8f75e459aa1f41c50e648884f2591b87b1699f9d6786ee245b62e7a5eb1",
+    "tests/adapters/catalog-description.test.mjs": "e5b9a12c9e737428373211c01262c44757299857c3c5fccee4b5bf20cafbff7c",
+    "tests/application/current-schema.test.mjs": "bfce09c9af65cd2bd9c1aa3a99071e051d6469b7e1ba896c4ee111cbe3bf07e0",
+    "tests/application/action-service.test.mjs": "45a6f9662e0257018594f31e21aa64eb2a4bdc8005a26138b03241821a789cc2",
+    "docs/technical/data-model.md": "bf9b03365a540a7f90a392b07684fb1ed563c2fcc63a39030d550a1f5ffec865",
+    "docs/technical/mcp-api.md": "fee08ddbbbaed884eddab576cdb63a3b31ee24885b6438f330568cdd8c30251f"
+  },
+  "protectedAppliedMigration": {
+    "drizzle/0014_empty_catalog_names.sql": {
+      "sha256": "80eed934eba4bd6ec374405b9a4cd9c398d8b1dbdd28cabb43b8fcd82288da17",
+      "unchanged": true
+    },
+    "drizzle/meta/0014_snapshot.json": {
+      "sha256": "760e01e693bd961e294d8c457339f468fea45c50c3bd11d9e22d173f5b772f0b",
+      "unchanged": true
+    }
+  },
+  "migrationJournal": "Only forward 0015 appended; historical migrations preserved.",
+  "verification": {
+    "backendSuite": {
+      "passed": 194,
+      "failed": 0,
+      "skipped": 0,
+      "log": "/tmp/no-compat-backend-tests.log",
+      "scope": "Full backend suite before final mandatory-array preview access cleanup and new receipt validation test."
+    },
+    "finalFocused": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "log": "/tmp/no-compat-final-target.log"
+    },
+    "receiptTarget": {
+      "passed": 1,
+      "log": "/tmp/no-compat-receipt-test.log"
+    },
+    "typecheck": {
+      "exitCode": 0,
+      "log": "/tmp/no-compat-typecheck.log"
+    },
+    "lint": {
+      "exitCode": 0,
+      "log": "/tmp/no-compat-lint.log"
+    }
+  },
+  "behavior": [
+    "Current snapshots and receipt deltas require all collections and required row fields; no historical defaults or blank-name exceptions.",
+    "Title and catalog Name require trimmed nonempty input; Notes optional.",
+    "Current-schema replay/CAS/unknown/Undo remain tested; incomplete historical receipts and invalid snapshots are rejected.",
+    "0015 restores full sibling-name uniqueness without rewriting rows; duplicate-data migration fails and transaction rollback preserves data/indexes."
+  ],
+  "runtimeEffects": {
+    "actualDatabaseModified": false,
+    "migrationExecutedOnActualDatabase": false,
+    "resetOrCleanup": false,
+    "deployment": false
+  },
+  "knownLocalInvalidRecords": {
+    "blankActionTitles": 8,
+    "source": "/tmp/no-compatibility/local-invalid-name-counts.json",
+    "behavior": "Rejected as invalid current state; retained without rename/delete."
+  }
+}

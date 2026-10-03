@@ -1,0 +1,37 @@
+{
+  "verdict": "approved",
+  "subject_kind": "requirements_and_design",
+  "execution": {
+    "host": "native_subagent",
+    "role": "independent_review",
+    "kernel_status": "not_executed"
+  },
+  "source_refs": [
+    "/tmp/ariadne-ui-english/design.json",
+    "/tmp/ariadne-ui-english/notes.md",
+    "./lib/widget.ts",
+    "./lib/ui/adapters/dom.js",
+    "./lib/ui/model/presentation.ts",
+    "./lib/ui/application.ts",
+    "./lib/ui/controller.ts",
+    "./docs/development.md",
+    "./ARCHITECTURE.md",
+    "./docs/technical/data-model.md",
+    "./docs/technical/mcp-api.md"
+  ],
+  "findings": [],
+  "assessment": "The proposed continuous neutral shell, reduced idle information, reclaimable detail area and unchecked completion affordance directly address observed visual defects without changing action semantics. Pure English code-to-message mapping closes current backend-copy leakage. Native independent design review approves implementation, not aesthetic acceptance of an unrendered result.",
+  "implementation_acceptance_conditions": [
+    "Assess new screenshots at 320, 390 and 1280 pixels in both light and dark; include normal, selected editor, capture, long title, empty and unknown-outcome/review states. Additional planned 380/640/1440 widths do not replace these requested samples.",
+    "Preserve all nine draft fields, per-group acknowledgement, dropped-parent option, exact replay IDs/arguments, Undo conflicts and date-only 09:00 timezone interpretation.",
+    "Verify narrow selection focuses title and Back to list returns focus to selected row; repeated host renders, IME composition and dialog focus restoration must not steal focus.",
+    "Make unknown-result recovery reachable when a modal review is open while retaining exact draft and reviewed context.",
+    "Translate all authored labels, tool/resource titles, aria text, warnings, dates, host/display/transport and verification fixture messages. Preserve user text without translation.",
+    "Assess visual evidence independently; behavioral test passes alone do not prove modern/simple appearance. Actual ChatGPT Work acceptance remains unverified by local tests."
+  ],
+  "notes": [
+    "No additional user approval gate is needed for reversible visual defaults.",
+    "Generated coherent stroke SVG icons are an appropriate artifact for this interface.",
+    "Existing rejected screenshots and prior approvals are not evidence for this candidate."
+  ]
+}

@@ -1,0 +1,11 @@
+# Native author candidate
+
+The previous visual outcome was rejected by the user. Existing passing behavioral tests and historical screenshots do not demonstrate that it meets the updated visual requirement.
+
+The candidate uses a continuous neutral app shell rather than detached cards: a faint navigation rail, a white action canvas, strong but restrained scope typography, plain row metadata, and detail content only after selection. Narrow displays retain the same identity and use an inline focused editor before the list with a direct return control. A modal sheet was considered but rejected because the existing long editor, review dialog and unknown-result flow would create nested focus and recovery complexity.
+
+Preserve the existing save groups and their operation semantics. Do not casually combine them into a new universal Save operation: doing so changes acknowledgement and date-only timezone behavior. Reduce visual competition through progressive disclosures and clear English labels instead.
+
+English covers authored interface copy and accessibility, including server error/warning presentation. Stored user text stays exact. Pure code-to-message mappings should handle known backend codes; an English generic fallback handles unknown ones. Raw server messages must not cross into the UI.
+
+This artifact was authored by a native subagent acting in the requirements/design role. The standard external-host runtime was not executed and no kernel admission or success is claimed. The parent must arrange independent review of the implemented source and visual evidence.

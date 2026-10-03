@@ -1,0 +1,113 @@
+{
+  "status": "approved",
+  "profile": "native independent requirements and integration review",
+  "findings": [],
+  "resolved_findings": [
+    {
+      "id": "R-PREWRITE-CATALOG-ERROR",
+      "severity": "major",
+      "file": "lib/ui/application.ts",
+      "reason": "Catalog move preview rejection occurs before write error capture, with activeTarget null; header falsely reports all changes saved.",
+      "evidence": "/tmp/action-details/reviewer-preview-failure.json",
+      "scenario": "Child Work under Personal \u2192root where Work alreadyexists; real actionCall validates sameparent name collision. Footer error exists but operationError null and pureglobal indicator saved.",
+      "requested": "Capture scoped catalogMove prewrite failure in application catch; preserve through unrelated autosave/Refresh and clear only matched correction/cancel/success. Add regression using actual domainpreview rejection."
+    },
+    {
+      "id": "R-FLAG-CSS-SPECIFICITY",
+      "severity": "major",
+      "reason": "Earlier activeFlag inheritedpurplelifecycle selector; freeze4specificFlag selector restoresorange verifiedactualcomputedcolors."
+    }
+  ],
+  "candidate_sha256": {
+    "./lib/ui/application.ts": "5f17a0f68858ff9a43d9acfa4a2ed7397a9c7716e7357cba7dbfadc58faefa36",
+    "./lib/ui/controller.ts": "c060bbb4d1a6aaf801c90fb38df14446d0edb5b899ee15706b029176637b36d8",
+    "./lib/ui/icons.ts": "3cb07634a40e7d2f959c6c5958aaa46e8bd08c721aa75fa12c2c4a3af037e019",
+    "./lib/ui/ports.ts": "d74f99fbccd35308cecdc147e580d5d64edc2b189e07d1ea234f3c429d12d03f",
+    "./lib/ui/adapters/dom.js": "c5991e6484a672f1a1f94d17f8f80f95179852420e5b82e7f8cefa654c30388d",
+    "./lib/ui/adapters/host.ts": "d0c8408d775285460d9c21a7e70debcc764e947606b08225c47de2bbffe0c385",
+    "./lib/ui/adapters/verification.ts": "4705ece9a9ebb5956f8d01578dc751b92a81ffa82751cf2c2e12e7a42c990fff",
+    "./lib/ui/model/autosave.ts": "69f2f3e2d56c65f8fd1b961b4b1cb079649f4833e4577b7cd5ab5003ef3b7a01",
+    "./lib/ui/model/catalog-drafts.ts": "b1682c26dc6e20b7ec9517a13dfb2aed37c2a5b309cfc6a437f0391df9e14e1a",
+    "./lib/ui/model/catalog-tree.ts": "09f3932b1cd48c3381eaa23802d1c9a142412d152283346c1b92dfbb2b00e3c0",
+    "./lib/ui/model/controls.ts": "999baa7e43da070e070d516975f848b07a1814a6b5b7ef3f1e3e6d6d59b8528d",
+    "./lib/ui/model/date-input.ts": "d5a974b1c72e977650f6d0542c48b935d5743ad2ee1fccf782725a12fd244336",
+    "./lib/ui/model/display.ts": "137f22f95c5e0608a00532ef8aa2397c7e83921bbe5d0eac3f5b9fbd7b2e6706",
+    "./lib/ui/model/drafts.ts": "f7b8cc0b36a33c5949e775ab1fead7739ddd37bf30a464c0f03b868a96d7af03",
+    "./lib/ui/model/movement.ts": "5fe4f9496542644d35fc9ba3d0ae8ef993d59003e377763ecfd5e1bfc0a9f072",
+    "./lib/ui/model/navigation.ts": "69e15d8abdffa09e952a6398ad5a5e957dcfcf4cefe454ca5e244e72debfe4ca",
+    "./lib/ui/model/operations.ts": "f533a656964a93176b28cb226b6c5dfe6173105b484fbe523e03095216049a1f",
+    "./lib/ui/model/picker.ts": "b51cd1db423dd0e037c745ef26d0119647e082ab4f82c453cf495e102090810b",
+    "./lib/ui/model/presentation.ts": "c200cc6756e075ee9cdb5307fafb8c3be4af0615c8d86f735c50498ea1179d8f",
+    "./lib/ui/model/save-status.ts": "89b352e246d64e3ffbf602738ccd5b7ef12c5852a280703711b2a4bb606fc0b5",
+    "./lib/ui/model/tree-drop.ts": "8da06ccdc7101545c6bcf58b3acea1a9027e7899842bd2350694ea0d2c257b72",
+    "./lib/widget.ts": "b0ca33bda4b7f064560a75078172c062a7462b65cbf1a91cd046d538476077d5",
+    "./tests/ui/application.test.mjs": "076dd354b25e6651c1822d0de5994f0a76ea13fe3960161a24cd4173898f8228",
+    "./tests/ui/autosave.test.mjs": "f25d3f916770e56a6deeada8bd14ce239e641a9d3065349aa52474a287d40398",
+    "./tests/ui/catalog-tree.test.mjs": "d29cee84d60cb1423ee772e806bf16d5f464351dcf0927ce9902171a08434464",
+    "./tests/ui/controller.test.mjs": "a1a30744583853fc0cf2be163eb173fa24dab710af36535a4935dcbfd0c4c557",
+    "./tests/ui/date-input.test.mjs": "f17be682116f3455aafb6797848e74373a86fea4830154c2b7fd8eb543d2a5af",
+    "./tests/ui/display.test.mjs": "2c79650462f05f93887eac9a25b22abf4be8aa40956ea07c185ce860d4a79f57",
+    "./tests/ui/dom.test.mjs": "7b0fe0455987af40dd938b4429311fa147671f918ddd7f2bdd3b11dc362db365",
+    "./tests/ui/host.test.mjs": "5ad85cc346fd142197a2f13d75e3edb24e711b0d83504b09051eff452dbcdb98",
+    "./tests/ui/mcp-display.test.mjs": "e5250c96924843ad0d26f882fe4fd3e2557b28437b64ea27b94e52fef04da221",
+    "./tests/ui/model.test.mjs": "3341085fc2d70f4e87b9a16d04ea1131d1891829736b5feacbf441fc16fedc64",
+    "./tests/ui/movement-application.test.mjs": "da4507615aa2f274091944bc8bf4e6f1326b19f274c61e9f1d51e1df758b6e72",
+    "./tests/ui/movement.test.mjs": "23bbf9a839a44812b60ba8abb1e2163c8ad2d47a9268e4960749da9de540ee23",
+    "./tests/ui/navigation.test.mjs": "5d5572c07111b9715ba99c0af4691725e9795fc6fd595f570620d6257bdab1e0",
+    "./tests/ui/picker.test.mjs": "ee245a6c7a79f7dc4b490a045e289bcee8d32051cd4847d9dc73890e0fc3117e",
+    "./tests/ui/save-status.test.mjs": "13fbbfdb4eb11736f72fb3572388fb556ba0d97fd24759262483b2fbc1f7637e",
+    "./tests/ui/tree-drop.test.mjs": "703293a673163068b32ecd6ed220059ccaff3d6a8711e019ebd01f8032a51a01",
+    "/tmp/action-detail-refinement/widget.html": "98054e976d9511e5919a6661c155c66f9eb51dfd1fc51ee940aef0a065e66e73",
+    "/tmp/action-details/design.json": "dc58502d5686311d989622d7184b1ddbbd9f782c948b1665d13719abd6df7e91",
+    "/tmp/action-inspector-acceptance.json": "12e5d9633d7e937830a8513c290556e496268c29276a81268d6998fcfd730e87"
+  },
+  "reason": "Final freeze2 captures scoped prewrite catalog validation failures as well as ordinary failed writes and direct move/classification issues. Unrelated autosaves cannot clear failed intent; matching correction/receipt/cancel can. Pure global status includes offscreen Action/catalog drafts, raw date errors and composition. One coordinated Defer date/time value preserves09first-date/custommillis/DST safety and exact unknown recovery. Flag/right lifecycle group and always-visible sections meet minimal presentation contract.",
+  "evidence": [
+    {
+      "path": "/tmp/action-details/reviewer-ui-final.log",
+      "result": "Independent finalfreeze2 pnpm test:ui exit0;124pass,0fail/cancel/skip/TODO"
+    },
+    {
+      "path": "/tmp/action-details/reviewer-preview-failure.json",
+      "result": "Independent before actual domain Project namecollision preview returned false Saved"
+    },
+    {
+      "path": "/tmp/action-details/reviewer-preview-failure-after.json",
+      "result": "Same actual domain scenario after: scoped operationError and Changes need attention; source catch reviewed"
+    },
+    {
+      "path": "/tmp/action-detail-refinement/reviewer-date-browser.json",
+      "result": "Independent14Chromium isolated scenarios: firstTokyo09,customseconds/ms/datechange,partialempty retained,explicitclear,unknowncheck/retry newer time exactIDs,NY/LordHowegap/fold,actualinflightSaving,Action/catalogIME,rawpartialrefresh"
+    },
+    {
+      "path": "/tmp/action-detail-refinement/reviewer-presentation.json",
+      "result": "Independent6Chromium320/390/1280 lightdark: always-visible sections,removedcopy,accessibleicon-onlyFlagrightgroup exact1write,singledate/time pair"
+    },
+    {
+      "path": "/tmp/action-detail-refinement/reviewer-flag-layout.json",
+      "result": "Independentfreeze4 nativeCSSvisual6runs320/390/1280 lightdark: single200pxbordergroup,Flag immediatelyrightgap6px,computedactiveorange light184/102/22 dark238/172/89,no writes. Cropimage inspected."
+    }
+  ],
+  "coverage": [
+    "Scoped genericfailedAdd/catalogcreate/Undo and prewritecatalogmove",
+    "Pure status precedence unknown/recovery>errors/conflicts>saving>dirty>saved; readonlybusy doesnotanimateSaving",
+    "No falseSaved with localcomposition/rawerrors/offscreendirty/catalogcomposer",
+    "C3 dateonly09explicitclienttimezone; savedinstant/milliseconds not rewritten by render/timezone",
+    "PartialnativebadInput and DST ambiguity reject retaining raworiginalAction",
+    "Neweracknowledgments and unknownexactreplay unchanged",
+    "Always-visibleProjectTags/DueDefer,Flagorangearia-pressed/rightplacement",
+    "Existingfiltercheckbox/perviewmemory/Shiftoccurrences/treecenterleftrootdrop regressions"
+  ],
+  "limits": [
+    "Local isolated memoryactionCall/Chromium/mockhost evidence only; no hostedD1 or ChatGPT Work acceptance.",
+    "Parent fullcheck/build/currentlivepreview/native drag gates separate; not claimed here.",
+    "Presentation browser and14date scenarios were run before catch-only boundedfreeze2 repair; UI124 and identical actualdomain collision repro were run after repair.",
+    "No repository source edits or kernelreceipt.",
+    "Freeze3/4 are CSS-only compactbordergroup and specificorangeoverride; application/model/tests hashes unchanged from independently124pass freeze2. NativeCSSvisual verified finalfreeze4; no redundantlogic test rerun."
+  ],
+  "execution": {
+    "placement": "native subagent",
+    "repository_edits": false,
+    "kernel_receipt": false
+  }
+}

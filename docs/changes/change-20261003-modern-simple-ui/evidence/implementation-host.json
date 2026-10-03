@@ -1,0 +1,76 @@
+{
+  "disposition": "candidate",
+  "summary": "Native contract-host implementation: distinct direct host-context subscription, immutable validated context projection, independent display bridge with mode-specific notification generation, actual acknowledged response modes, Web-only full-window relay and existing MCP launch/resource metadata. 12 targeted tests passed without failures/skips; typecheck exit 0. Logs: /tmp/ariadne-ui-modern/host-tests.log and host-typecheck.log. No kernel acceptance/ledger claimed.",
+  "changes": [
+    {
+      "path": "lib/ui/ports.ts",
+      "rationale": "Implements host context, capability and display request boundary without touching action writes.",
+      "requirement_refs": [
+        "FR2",
+        "FR5"
+      ]
+    },
+    {
+      "path": "lib/ui/adapters/host.ts",
+      "rationale": "Implements host context, capability and display request boundary without touching action writes.",
+      "requirement_refs": [
+        "FR2",
+        "FR5"
+      ]
+    },
+    {
+      "path": "lib/ui/model/display.ts",
+      "rationale": "Implements host context, capability and display request boundary without touching action writes.",
+      "requirement_refs": [
+        "FR2",
+        "FR5"
+      ]
+    },
+    {
+      "path": "app/board.tsx",
+      "rationale": "Implements host context, capability and display request boundary without touching action writes.",
+      "requirement_refs": [
+        "FR2",
+        "FR5"
+      ]
+    },
+    {
+      "path": "app/mcp/route.ts",
+      "rationale": "Implements host context, capability and display request boundary without touching action writes.",
+      "requirement_refs": [
+        "FR2",
+        "FR5"
+      ]
+    },
+    {
+      "path": "tests/ui/host.test.mjs",
+      "rationale": "Implements host context, capability and display request boundary without touching action writes.",
+      "requirement_refs": [
+        "FR2",
+        "FR5"
+      ]
+    },
+    {
+      "path": "tests/ui/display.test.mjs",
+      "rationale": "Implements host context, capability and display request boundary without touching action writes.",
+      "requirement_refs": [
+        "FR2",
+        "FR5"
+      ]
+    },
+    {
+      "path": "tests/ui/mcp-display.test.mjs",
+      "rationale": "Implements host context, capability and display request boundary without touching action writes.",
+      "requirement_refs": [
+        "FR2",
+        "FR5"
+      ]
+    }
+  ],
+  "addressed_findings": [],
+  "limitations": [
+    "DOM/widget integration remains next contract: declare initialize appCapabilities.availableDisplayModes inline/fullscreen; initialize display bridge from result.hostContext; render independent acknowledged mode/pending/error UI.",
+    "Serialize createDisplayBridge and mergeHostContext explicitly with toString into widget; all references in factories are injected or local. Pass model.mergeHostContext. SubscribeContext is now a HostPort method.",
+    "No hosted ChatGPT retrieval/display acceptance or full check/build performed."
+  ]
+}

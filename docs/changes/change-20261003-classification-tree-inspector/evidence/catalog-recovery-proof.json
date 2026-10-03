@@ -1,0 +1,38 @@
+[
+  {
+    "kind": "project",
+    "recovery": "check",
+    "externalCorrectionPreserved": true,
+    "localProposalRetained": true,
+    "conflict": [
+      "name"
+    ]
+  },
+  {
+    "kind": "project",
+    "recovery": "retry",
+    "externalCorrectionPreserved": true,
+    "localProposalRetained": true,
+    "conflict": [
+      "name"
+    ]
+  },
+  {
+    "kind": "tag",
+    "recovery": "check",
+    "externalCorrectionPreserved": true,
+    "localProposalRetained": true,
+    "conflict": [
+      "name"
+    ]
+  },
+  {
+    "kind": "tag",
+    "recovery": "retry",
+    "externalCorrectionPreserved": true,
+    "localProposalRetained": true,
+    "conflict": [
+      "name"
+    ]
+  }
+]

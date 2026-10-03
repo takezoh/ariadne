@@ -1,0 +1,13 @@
+{
+  "files": [
+    "docs/changes/change-20261003-classification-tree-inspector/change.md",
+    "docs/changes/change-20261003-classification-tree-inspector/implementation.md",
+    "docs/changes/change-20261003-classification-tree-inspector/requirements.md",
+    "docs/changes/change-20261003-classification-tree-inspector/verification.md",
+    "ARCHITECTURE.md",
+    "docs/technical/data-model.md",
+    "docs/technical/mcp-api.md"
+  ],
+  "missing": [],
+  "passed": true
+}

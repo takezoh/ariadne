@@ -1,0 +1,8 @@
+{
+  "sha256": {
+    "app/mcp/route.ts": "bdb344227b8dfcca33f38fffb6b100d5448de3a3d403edd9e9bb0a2674a07a45",
+    "lib/domain/operations.ts": "497335c4ba80e2fa6f4caa649ad3d044e07a238c6cadbba53e3ca1090dc25631",
+    "dist/server/index.js": "4918b7e189d84a07091171578f456662a62132a7f6b258b0eb34e0618f522f31",
+    "dist/server/wrangler.json": "6af8dc1b64e5288bfb9bca25b03bd0bbdaa9ef7b491dc409aef380bf81db13fb"
+  }
+}

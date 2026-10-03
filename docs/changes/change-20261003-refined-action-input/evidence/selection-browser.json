@@ -1,0 +1,38 @@
+[
+  {
+    "width": 390,
+    "theme": "light",
+    "shiftRange3Shrink2": true,
+    "ctrlSingle": true,
+    "noSelectionCheckbox": true,
+    "titleRangeDragAtomic": true,
+    "unselectedRowBodyDrag": true,
+    "undo": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "shiftRange3Shrink2": true,
+    "ctrlSingle": true,
+    "noSelectionCheckbox": true,
+    "titleRangeDragAtomic": true,
+    "unselectedRowBodyDrag": true,
+    "undo": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "shiftRange3Shrink2": true,
+    "ctrlSingle": true,
+    "noSelectionCheckbox": true,
+    "titleRangeDragAtomic": true,
+    "unselectedRowBodyDrag": true,
+    "undo": true,
+    "overflow": false,
+    "errors": []
+  }
+]

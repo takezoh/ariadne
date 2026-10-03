@@ -1,0 +1,33 @@
+{
+  "check": {
+    "exitCode": 0,
+    "tests": 369,
+    "passed": 369,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "log": "/tmp/tag-order/check-final.log"
+  },
+  "build": {
+    "exitCode": 0,
+    "log": "/tmp/tag-order/build.log"
+  },
+  "builtUi": {
+    "exitCode": 0,
+    "resourcesPassed": 2,
+    "log": "/tmp/tag-order/built.log"
+  },
+  "migration": {
+    "exitCode": 0,
+    "proof": "/tmp/tag-order/local-migration-proof.json"
+  },
+  "liveUi": {
+    "exitCode": 0,
+    "url": "http://127.0.0.1:5173",
+    "proof": "/tmp/tag-order/live.json"
+  },
+  "initialCheckFailure": "4 stale test fixtures; explicit current schema/Tag ranks added, focused14 and final369 passed",
+  "initialWorkerStartupFailure": "initial module collection omitted manifest/SSR; artifact later contained all41 modules and standalone startup passed; race is an inference, not proven cause",
+  "hostedAcceptance": false
+}

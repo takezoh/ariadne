@@ -1,0 +1,23 @@
+[
+  {
+    "kind": "action",
+    "threeUntouchedLocalAncestorsRetained": true,
+    "sameViewEditing": true,
+    "zeroWritesBeforeEligibleDependencies": true,
+    "exactThreeLevelSavedParents": true
+  },
+  {
+    "kind": "project",
+    "threeUntouchedLocalAncestorsRetained": true,
+    "sameViewEditing": true,
+    "zeroWritesBeforeEligibleDependencies": true,
+    "exactThreeLevelSavedParents": true
+  },
+  {
+    "kind": "tag",
+    "threeUntouchedLocalAncestorsRetained": true,
+    "sameViewEditing": true,
+    "zeroWritesBeforeEligibleDependencies": true,
+    "exactThreeLevelSavedParents": true
+  }
+]

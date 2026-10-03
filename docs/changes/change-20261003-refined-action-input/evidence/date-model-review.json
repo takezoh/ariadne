@@ -1,0 +1,28 @@
+{
+  "profile": "native independent pure helper review",
+  "verdict": "approved",
+  "findings": [],
+  "scope": "lib/ui/model/date-input.ts local calendar resolution; no source edits",
+  "source_sha256": "43166fd42fda60c87ee9d166532c18a488f053604ffb1f950e841b5e3f5f6ada",
+  "verified": [
+    "Saved seconds and .123 milliseconds survive Tokyo display/resolve roundtrip",
+    "Fractional 1/2/3 digits preserve exact equivalent UTC precision",
+    "New York 1-hour DST gap and overlap rejected",
+    "Lord Howe half-hour DST gap and overlap rejected",
+    "Kathmandu45-minute offset with seconds converted exactly",
+    "Invalid February30 rejected",
+    "Injected invalid-zone formatter in resolve returns English timezone error without throwing",
+    "Explicitly injected formatting and given timestamps only; no clock/DOM/ID access",
+    "Due/Defer instant widget inputs both specify step0.001"
+  ],
+  "evidence": [
+    "/tmp/catalog-date-ui/date-model-proof.mjs",
+    "/tmp/catalog-date-ui/date-model-proof.json",
+    "/tmp/catalog-date-ui/api-proof.json"
+  ],
+  "port_contract": "localValue expects a formatter valid for the adapter-selected browser timezone; formatting exceptions at this read boundary remain adapter responsibility. resolve catches conversion formatting failures. Saved values are validated explicit UTC instants.",
+  "limits": [
+    "DOM invalid raw value retention reviewed separately",
+    "No real-host acceptance or runtime-kernel status claimed"
+  ]
+}

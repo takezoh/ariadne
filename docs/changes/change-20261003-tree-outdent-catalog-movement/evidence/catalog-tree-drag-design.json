@@ -1,0 +1,59 @@
+{
+  "profile": "native design",
+  "kernel_executed": false,
+  "status": "candidate",
+  "goals": [
+    "Remove the separate Top level drop space.",
+    "Use existing tree row edges and horizontal indentation to outdent, including the final visible child bottom edge.",
+    "Project drag changes sibling order and parent; Tag drag changes parent only."
+  ],
+  "pure_boundary": {
+    "input": "source kind/UUIDs, visible occurrence rows with measured bounds, indentation unit and semantic ancestor paths, full snapshot, pointer coordinates",
+    "output": "typed action movement / action classification / project movement / tag parent intent or explicit invalid reason",
+    "effects": "DOM measures rectangles, maintains stable gesture geometry, displays insertion guide, captures pointer/native events and sends frozen intent through the owner write lane.",
+    "geometry_contract": "Measured row/title bounds plus explicit legal-depth stops {depth,x,parent_id,ancestor_id}; stops come from rendered ancestor rows, not inferred catalog membership. Responsive capped indentation may share x stops; choose shallowest matching legal stop and show the exact guide label."
+  },
+  "hit_contract": [
+    "Row center: Action onto Action means Inside; Action onto Project/Tag keeps direct classification semantics.",
+    "Catalog center targets accept only same-kind catalog nodes. Edge targets may be mixed Action rows and resolve through their same-kind catalog ancestor path. Project center means child; Project edges mean before/after. Tag center means child; Tag edge uses horizontal depth to choose parent, without promising sibling rank.",
+    "For an edge drop, horizontal position selects a legal semantic ancestor depth, independent of capped visual indentation. The insertion guide displays the resulting parent/depth.",
+    "Final visible child bottom edge with pointer at root indentation means root append. No new empty region is added.",
+    "Action outdent preserves direct Project membership; root before/after across Projects remains invalid. Catalog containment never implies Action membership."
+  ],
+  "gesture": [
+    "Freeze measured list geometry and typed source identity at activation; native drag and pointer/touch use the same pure hit resolver.",
+    "6px pointer threshold, autoscroll, Escape/cancel, keyboard Move equivalent remain. Shift ranges apply only to Actions and use occurrence keys with UUID dedup.",
+    "One completed gesture creates at most one owner operation; relevant structural drift pauses with inline retry.",
+    "No drop into self/descendant; hidden rows and collapsed descendants are checked from full snapshot."
+  ],
+  "recovery": [
+    "Flush relevant earlier proposals; unknown outcomes gate all writes and retain exact operation ID/arguments.",
+    "Newer Action/catalog edits and IME drafts survive gestures and snapshot acknowledgments.",
+    "Confirmed own baseline differs from newest external state; external conflicts remain inline, never silently rebased."
+  ],
+  "verification": [
+    "Final child -> root end through bottom-left edge, with no Top level element.",
+    "Nested Action outdent one level and root, hidden sibling ranks retained; Undo restores original tree.",
+    "Project sibling before/after, nested parent, root detach, cycle rejection; durable order verified after fresh read.",
+    "Tag parent/root detach with no persisted sibling reordering.",
+    "Action center classification still atomic for all selected UUIDs including parent and child.",
+    "Trusted native mouse and touch exact destinations, keyboard equivalent, no row layout shift, unknown replay and newer drafts.",
+    "Project or Tag dragged to the final Action row bottom edge resolves the corresponding catalog ancestor/outdent/root target; Action center remains invalid for catalog sources.",
+    "Collapsed ancestor and capped deep indentation never invent a parent from pixels: legal stop and guide identify actual semantic destination.",
+    "Project/Tag drag is a single UUID even when an Action range is selected; catalog controls do not toggle Action selection."
+  ],
+  "backend_pending": [],
+  "backend_contract": {
+    "project_move": "Existing {id,parent_id} OR strict relative {id,placement:before|after|inside|root,anchor_id?}; direct changed parent appends, unchanged parent is row no-op. Relative destination ranks authoritative in domain.",
+    "tag_move": "Existing {id,parent_id}; no Tag order added.",
+    "project_order": "Durable nonnegative safe integer via additive migration 0013 default 0; old ties name then UUID; new catalog appends; runtime invalid order is rejected, not defaulted.",
+    "undo": "Changed destination Project peers share revision/identity markers so later hidden sibling corrections prevent destructive Undo."
+  },
+  "outdent_resolution": [
+    "Action edge at same containment depth -> before/after anchor. Lower depth -> after the semantic ancestor at chosen depth; root-end lower depth -> placement root. Direct classification unchanged.",
+    "Project edge at same depth -> before/after; lower depth -> after same-kind ancestor at selected depth; final bottom root depth -> root append.",
+    "Tag edge -> parent_id from chosen semantic depth; same-level edge cannot promise reordering.",
+    "Catalog presentation depth and Action containment depth are separate. Indentation below a Project/Tag membership header never implicitly reclassifies an Action.",
+    "Mixed Action-row edges expose same-kind catalog ancestor paths to catalog sources; the final Action bottom-left can detach Project/Tag to root without an empty target."
+  ]
+}

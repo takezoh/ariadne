@@ -1,0 +1,29 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "allFieldsRetained": true,
+    "missingSelectionFailsClosed": true,
+    "unknownNavigationAndBack": true,
+    "exactRetry": true,
+    "overflow": false
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "allFieldsRetained": true,
+    "missingSelectionFailsClosed": true,
+    "unknownNavigationAndBack": true,
+    "exactRetry": true,
+    "overflow": false
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "allFieldsRetained": true,
+    "missingSelectionFailsClosed": true,
+    "unknownNavigationAndBack": true,
+    "exactRetry": true,
+    "overflow": false
+  }
+]

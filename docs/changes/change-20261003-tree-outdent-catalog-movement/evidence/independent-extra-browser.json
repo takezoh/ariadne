@@ -1,0 +1,30 @@
+[
+  {
+    "kind": "project",
+    "source": "personal",
+    "destination": "website",
+    "centerParenting": true,
+    "cycleRejected": false
+  },
+  {
+    "kind": "project",
+    "source": "work",
+    "destination": "website",
+    "centerParenting": false,
+    "cycleRejected": true
+  },
+  {
+    "kind": "tag",
+    "source": "waiting",
+    "destination": "email",
+    "centerParenting": true,
+    "cycleRejected": false
+  },
+  {
+    "kind": "tag",
+    "source": "focus",
+    "destination": "waiting",
+    "centerParenting": false,
+    "cycleRejected": true
+  }
+]

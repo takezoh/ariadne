@@ -1,0 +1,104 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "placeholderEmptyAndPartialPreserved": true,
+    "adjacentDateErrors": true,
+    "singleRefreshStatus": true,
+    "actualSaveAnimation": true,
+    "reducedMotion": false,
+    "refreshReadSafe": true,
+    "flag": {
+      "gap": 12,
+      "color": "rgb(115, 115, 126)",
+      "width": 210
+    },
+    "activeFlagColor": "rgb(184, 102, 22)",
+    "errors": []
+  },
+  {
+    "width": 320,
+    "theme": "dark",
+    "placeholderEmptyAndPartialPreserved": true,
+    "adjacentDateErrors": true,
+    "singleRefreshStatus": true,
+    "actualSaveAnimation": true,
+    "reducedMotion": false,
+    "refreshReadSafe": true,
+    "flag": {
+      "gap": 12,
+      "color": "rgb(160, 160, 172)",
+      "width": 210
+    },
+    "activeFlagColor": "rgb(238, 172, 89)",
+    "errors": []
+  },
+  {
+    "width": 390,
+    "theme": "light",
+    "placeholderEmptyAndPartialPreserved": true,
+    "adjacentDateErrors": true,
+    "singleRefreshStatus": true,
+    "actualSaveAnimation": true,
+    "reducedMotion": true,
+    "refreshReadSafe": true,
+    "flag": {
+      "gap": 12,
+      "color": "rgb(115, 115, 126)",
+      "width": 210
+    },
+    "activeFlagColor": "rgb(184, 102, 22)",
+    "errors": []
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "placeholderEmptyAndPartialPreserved": true,
+    "adjacentDateErrors": true,
+    "singleRefreshStatus": true,
+    "actualSaveAnimation": true,
+    "reducedMotion": true,
+    "refreshReadSafe": true,
+    "flag": {
+      "gap": 12,
+      "color": "rgb(160, 160, 172)",
+      "width": 210
+    },
+    "activeFlagColor": "rgb(238, 172, 89)",
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "placeholderEmptyAndPartialPreserved": true,
+    "adjacentDateErrors": true,
+    "singleRefreshStatus": true,
+    "actualSaveAnimation": true,
+    "reducedMotion": false,
+    "refreshReadSafe": true,
+    "flag": {
+      "gap": 12,
+      "color": "rgb(115, 115, 126)",
+      "width": 210
+    },
+    "activeFlagColor": "rgb(184, 102, 22)",
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "placeholderEmptyAndPartialPreserved": true,
+    "adjacentDateErrors": true,
+    "singleRefreshStatus": true,
+    "actualSaveAnimation": true,
+    "reducedMotion": false,
+    "refreshReadSafe": true,
+    "flag": {
+      "gap": 12,
+      "color": "rgb(160, 160, 172)",
+      "width": 210
+    },
+    "activeFlagColor": "rgb(238, 172, 89)",
+    "errors": []
+  }
+]

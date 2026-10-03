@@ -1,0 +1,38 @@
+✔ memory contextual creation is atomic, replayable, owner-scoped and undoable (7.993931ms)
+✔ SQLite D1 contextual creation is atomic, replayable, owner-scoped and undoable (41.445406ms)
+✔ SQLite association failure rolls back action, initial tags, identity and receipt together (25.700595ms)
+✔ memory legacy blank Action stays editable and exact old replay/rename Undo retain identity (5.50557ms)
+✔ SQLite D1 legacy blank Action stays editable and exact old replay/rename Undo retain identity (34.88097ms)
+✔ memory named project distinct IDs, validation, CAS, lost response/replay and safe Undo (10.658823ms)
+✔ memory named tag distinct IDs, validation, CAS, lost response/replay and safe Undo (2.882406ms)
+✔ SQLite named project distinct IDs, validation, CAS, lost response/replay and safe Undo (41.854089ms)
+✔ SQLite named tag distinct IDs, validation, CAS, lost response/replay and safe Undo (32.591158ms)
+✔ SQLite project injected identity-row failure rolls back create and receipt (27.873024ms)
+✔ SQLite tag injected identity-row failure rolls back create and receipt (39.179995ms)
+✔ empty catalog index migration preserves populated rows/history and named uniqueness (48.204757ms)
+✔ action IDs are generated separately from operation IDs and preview does not commit (3.841893ms)
+✔ new entity IDs cannot be supplied by callers and validation precedes generation (0.409141ms)
+✔ project get-or-create returns server IDs and matches trimmed case-sensitive natural keys (1.042041ms)
+✔ generated UUID collision retries without reusing an active entity ID (0.580491ms)
+✔ structure_create resolves unique local refs and preview IDs remain provisional (1.572768ms)
+✔ query_actions reads the shared snapshot without writing and permits all actions (2.010897ms)
+✔ invalid owner and unknown arguments do not access storage (0.280271ms)
+✔ client timezone resolves date preview to UTC without storing settings (12.818842ms)
+✔ capture_intent saves exact raw text as a normal Inbox action and replay preserves later changes (0.714988ms)
+✔ waiting updates obey revision CAS, preserve Defer and Undo restores active (1.729311ms)
+✔ generic queries combine status and independent defer filters and structure resolves later parent refs (0.54512ms)
+✔ blank titles reject add, rename and structure without ID allocation or state changes (0.49797ms)
+✔ caller creates populated content and initial classification in one ordinary add request (0.721419ms)
+✔ new action titles are nonempty while historical blank actions retain non-title edits (2.327712ms)
+✔ initial tags are pure validated associations with revision identity and creation Undo (0.960499ms)
+✔ project rejects new blank names while retaining legacy blank records and non-name edits (4.857982ms)
+✔ tag rejects new blank names while retaining legacy blank records and non-name edits (0.444569ms)
+✔ catalog names and ordinary text require nonempty trimmed strings (0.139704ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1051.831944

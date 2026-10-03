@@ -1,0 +1,94 @@
+{
+  "profile": "native independent readonly browser",
+  "verdict": "approved",
+  "scope": "New classification picker create/recover/newer selection; memory fixture real actionCall, not production DB",
+  "proof": {
+    "unknown_IME": [
+      {
+        "kind": "project",
+        "recovery": "check",
+        "exactCatalogRequestReplay": true,
+        "oneAssignment": true,
+        "rawIMEProposalRetained": true,
+        "errors": []
+      },
+      {
+        "kind": "project",
+        "recovery": "retry",
+        "exactCatalogRequestReplay": true,
+        "oneAssignment": true,
+        "rawIMEProposalRetained": true,
+        "errors": []
+      },
+      {
+        "kind": "tag",
+        "recovery": "check",
+        "exactCatalogRequestReplay": true,
+        "oneAssignment": true,
+        "rawIMEProposalRetained": true,
+        "errors": []
+      },
+      {
+        "kind": "tag",
+        "recovery": "retry",
+        "exactCatalogRequestReplay": true,
+        "oneAssignment": true,
+        "rawIMEProposalRetained": true,
+        "errors": []
+      }
+    ],
+    "newer_selection_with_popup_open": [
+      {
+        "kind": "project",
+        "recovery": "check",
+        "newerSelectionPreserved": true,
+        "supersededCreatedClassificationNotAssigned": true,
+        "errors": []
+      },
+      {
+        "kind": "project",
+        "recovery": "retry",
+        "newerSelectionPreserved": true,
+        "supersededCreatedClassificationNotAssigned": true,
+        "errors": []
+      },
+      {
+        "kind": "tag",
+        "recovery": "check",
+        "newerSelectionPreserved": true,
+        "supersededCreatedClassificationNotAssigned": true,
+        "errors": []
+      },
+      {
+        "kind": "tag",
+        "recovery": "retry",
+        "newerSelectionPreserved": true,
+        "supersededCreatedClassificationNotAssigned": true,
+        "errors": []
+      }
+    ]
+  },
+  "source_sha256": {
+    "lib/ui/adapters/dom.js": "51017a2e0d296bddc91665e87bf71e95f2f2be6971a1ef77f51f10fbfd99da24",
+    "lib/widget.ts": "5aa02ad6c54bd2e630663a82d37e800617ff9fcb1f597bab49edce75459fb1da",
+    "lib/ui/application.ts": "96c82b8092ace85d4d6a6199bb3b4619eb5f73a222ad80b0f2940a05b561c55c",
+    "lib/ui/model/picker.ts": "b51cd1db423dd0e037c745ef26d0119647e082ab4f82c453cf495e102090810b",
+    "/tmp/action-drag/widget.html": "2f5bf0c5f0e6792af7099899022a6b6f969798e54a7ef6cb3a8881265e786871"
+  },
+  "limitations": [
+    "Synthetic composition events test draft preservation, not OS IME delivery.",
+    "Hosted D1 and ChatGPT Work host are not covered."
+  ],
+  "resolved_findings": [
+    {
+      "id": "picker-outside-click",
+      "severity": "medium",
+      "trigger": "Create Tag response unknown, add an existing Tag with Tag picker still open, click Check result.",
+      "observed": "No operation_status call is sent; unknown panel remains. Escape closes picker, then Check succeeds.",
+      "suspected_cause": "Document pointerdown closes in-flow picker, moving Check before pointerup.",
+      "reproduction": "/tmp/action-tree/picker-newer-browser.py",
+      "resolution": "Picker uses an absolute overlay; original failing script now passes single Check/Retry clicks with picker open."
+    }
+  ],
+  "findings": []
+}

@@ -1,0 +1,262 @@
+{
+  "kind": "native_action_drag_requirements",
+  "mode": "specify",
+  "goal": "Minimal direct Action status/classification editing and intuitive accessible single/batch containment and sequence manipulation.",
+  "authority": "User-requested status icons above Title, Project/Tags controls, removed parent/order inputs, list drag reorder/reparent and multi-select drag; subsequent orange Flag instruction relayed by root.",
+  "execution": {
+    "placement": "native requirements subagent",
+    "kernel_receipt": false,
+    "repository_edits": false
+  },
+  "provenance": [
+    "User request relayed by root",
+    "AGENTS.md current action contracts",
+    "lib/domain/core.ts Action, orderedActions, action_project/action_tag and edit semantics",
+    "docs/design/design-action-state-and-perspectives.md current hierarchy/order/classification invariants"
+  ],
+  "legacy_context": "Autosave UI already replaces routine Save/Review, preserves exact raw text and unknown request recovery. Parent/order inputs are replaced by direct manipulation; persisted meaning remains containment and sibling sequence.",
+  "vs_legacy": "Adds explicit classification editing, icon lifecycle control and accessible batch movement; no execution dependencies or inferred membership.",
+  "defaults": [
+    {
+      "decision": "Drop semantics",
+      "value": "Distinct upper/lower Before/After zones; center Into append; explicit top-level append zone.",
+      "basis": "Minimal spatial defaults chosen within delegated UX scope; destination feedback must make them observable."
+    },
+    {
+      "decision": "Batch order",
+      "value": "Canonical full-tree relative order of deduplicated selected roots; never selection click order."
+    },
+    {
+      "decision": "Cross-project root sibling order",
+      "value": "Unavailable across independent Project root groups; use explicit Project control for classification. Into preserves own membership."
+    },
+    {
+      "decision": "Selection on view change",
+      "value": "Clear the batch selection when changing scope/filter, preserving drafts and any frozen dispatched operation; do not move hidden selections accidentally."
+    },
+    {
+      "decision": "Catalog scope",
+      "value": "Assign existing Projects/Tags only; catalog CRUD remains outside this request."
+    },
+    {
+      "decision": "Pointer threshold",
+      "value": "Drag begins from dedicated grip after 6 px movement; edge auto-scroll re-evaluates destination. Ordinary row scrolling remains available."
+    },
+    {
+      "decision": "API bundle order",
+      "value": "API ids order is explicit caller intent; UI derives IDs from canonical full snapshot order. Only nonempty unique owner-existing IDs and existing 262144-byte envelope bound; no arbitrary 200-action cap."
+    },
+    {
+      "decision": "Rank changes",
+      "value": "Only destination sibling groups rerank; source-only remaining siblings keep gaps and mutual order. Effective no-op does not rerank unrelated values."
+    },
+    {
+      "decision": "Keyboard equivalent",
+      "value": "Grip Space/Enter opens compact Move chooser. Tab/native select arrows choose placement and destination; focused Move button Enter commits; Escape cancels. Same pure intent/effect as pointer/touch."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "DRAG-01",
+      "given": "An Action detail is open.",
+      "when": "Inspect and change its lifecycle.",
+      "then": [
+        "Named icon buttons above Title expose Active, On hold, Completed and Dropped; the current state is discernible visually and through accessible pressed state. Icon-only buttons have English accessible names/tooltips.",
+        "A valid state choice saves directly without Save/Review; completion preserves descendant cascade meaning with concise feedback and Undo.",
+        "Parent and numeric Order inputs are absent; Title, raw Notes, Due/Defer and direct Flag remain editable."
+      ],
+      "counterexample": "An unlabeled decorative icon replaces status, routine review returns, or removing parent/order also removes hierarchy navigation.",
+      "entry_observation": "An Action detail is open.",
+      "exit_observation": "Parent and numeric Order inputs are absent; Title, raw Notes, Due/Defer and direct Flag remain editable."
+    },
+    {
+      "id": "DRAG-02",
+      "given": "Existing Projects and Tags, including identical names in different paths, are available.",
+      "when": "Assign or clear Project; toggle Tags in detail.",
+      "then": [
+        "One Project or no Project can be chosen, and multiple existing Tags independently selected; full paths disambiguate identical names.",
+        "Changes save directly and preserve unedited raw text, lifecycle, dates, Flag and action containment. No implicit descendant membership propagation or catalog creation.",
+        "If membership removes the Action from the current filtered list, detail/return route stays reachable and explains actual saved membership minimally."
+      ],
+      "counterexample": "Moving an Action under another Action inherits its Project/Tags, clearing Project removes its parent, or tag controls permit only one Tag.",
+      "entry_observation": "Existing Projects and Tags, including identical names in different paths, are available.",
+      "exit_observation": "If membership removes the Action from the current filtered list, detail/return route stays reachable and explains actual saved membership minimally."
+    },
+    {
+      "id": "DRAG-03",
+      "given": "A list has several visible Actions.",
+      "when": "Click a row; Ctrl/Cmd-toggle additional rows; Shift-select a range; use touch selection affordances.",
+      "then": [
+        "Normal row activation opens detail; a small distinct selection affordance toggles membership without triggering completion or dragging.",
+        "Ctrl/Cmd toggles individual membership; Shift extends from the last selection anchor across the current visible canonical list, including both endpoints. Hidden/nonmatching Actions are never silently selected.",
+        "Selected rows, count and Clear selection are perceptible and keyboard accessible. Touch can form the same set without modifiers or long-press-only discovery.",
+        "Changing scope or filters clears live batch selection and drag hover; local drafts and a dispatched frozen move survive. Starting a drag on an unselected row moves only that row; a selected row moves the selected bundle."
+      ],
+      "counterexample": "Opening detail unexpectedly starts a batch, Shift includes hidden filtered rows, or touch users cannot select multiple Actions.",
+      "entry_observation": "A list has several visible Actions.",
+      "exit_observation": "Selected rows, count and Clear selection are perceptible and keyboard accessible. Touch can form the same set without modifiers or long-press-only discovery."
+    },
+    {
+      "id": "DRAG-04",
+      "given": "One Action or a selected set can move within a valid sibling group.",
+      "when": "Begin dragging from a distinct grip and hover upper/lower row edges.",
+      "then": [
+        "Before/After insertion lines identify the exact target position; feedback names or distinguishes the destination, number of moving roots and pending operation.",
+        "Dropping above/below means sibling placement under the target parent; selected roots preserve their canonical relative order as a contiguous block, and each subtree retains its internal order.",
+        "Drop commits one atomic move directly; pointer cancellation/Escape/outside drop commits nothing and leaves meaningful selection/focus.",
+        "Source-only sibling groups retain rank gaps and mutual order; only actual destination groups may have ranks normalized. An unchanged effective structure does not produce gratuitous reorder feedback."
+      ],
+      "counterexample": "A vague whole-row highlight arbitrarily nests, selected order follows click order, or one drag creates several independently committed writes.",
+      "entry_observation": "One Action or a selected set can move within a valid sibling group.",
+      "exit_observation": "Drop commits one atomic move directly; pointer cancellation/Escape/outside drop commits nothing and leaves meaningful selection/focus."
+    },
+    {
+      "id": "DRAG-05",
+      "given": "A valid destination Action can contain the moving roots.",
+      "when": "Hover its center nesting zone and drop; alternatively choose the explicit top-level drop zone.",
+      "then": [
+        "Center nesting is visually distinct from Before/After, announces Into plus target, and appends roots after all existing destination children while preserving their relative order.",
+        "A named top-level zone removes parent containment and appends roots within their existing root Project groups; classification does not change.",
+        "Self/descendant/cycle destinations are visibly unavailable; a multi-selection containing the destination cannot create a partial or cyclic move.",
+        "Mixed-Project selections may detach atomically: each root appends within its own unchanged Project group, preserving bundle order within that group, without promising a global cross-group block."
+      ],
+      "counterexample": "An ambiguous center drop reorders instead of nesting, moving to top-level silently assigns Inbox, or only part of an invalid batch commits.",
+      "entry_observation": "A valid destination Action can contain the moving roots.",
+      "exit_observation": "Self/descendant/cycle destinations are visibly unavailable; a multi-selection containing the destination cannot create a partial or cyclic move."
+    },
+    {
+      "id": "DRAG-06",
+      "given": "Selection contains an ancestor and its descendant plus another independent root.",
+      "when": "Move the selection.",
+      "then": [
+        "Only selected roots with no selected ancestor move directly; descendants travel exactly once with their ancestor, retaining internal parent links and order.",
+        "The moving count distinguishes roots from included descendants; the entire operation remains atomic and Undoable.",
+        "All untouched lifecycle, own Due/Defer, direct Flag, Project and Tags are preserved; effective visibility may change through parent Defer and is conveyed when the Action leaves the view."
+      ],
+      "counterexample": "A selected child detaches separately from its selected parent, a subtree duplicates, or the move invents dates or copies flags.",
+      "entry_observation": "Selection contains an ancestor and its descendant plus another independent root.",
+      "exit_observation": "All untouched lifecycle, own Due/Defer, direct Flag, Project and Tags are preserved; effective visibility may change through parent Defer and is conveyed when the Action leaves the view."
+    },
+    {
+      "id": "DRAG-07",
+      "given": "The list is filtered and hidden siblings/ancestors exist in the full saved structure.",
+      "when": "Insert before/after a visible sibling or append Into a target.",
+      "then": [
+        "The full authoritative structure determines destination siblings; hidden siblings are retained and their mutual relative order stays unchanged. Before/After is relative to the named target, not an invented adjacent visible-only rank.",
+        "Filtered matches remain exact; no nonmatching parent is silently inserted as a matching row. Minimal context exposes destination containment when its parent is hidden.",
+        "If a full fresh structure or unambiguous destination cannot be obtained, movement is unavailable with a concise reason rather than guessing."
+      ],
+      "counterexample": "Visible-only renumbering loses hidden siblings, filtered rows are treated as one sibling group, or a missing parent becomes null.",
+      "entry_observation": "The list is filtered and hidden siblings/ancestors exist in the full saved structure.",
+      "exit_observation": "If a full fresh structure or unambiguous destination cannot be obtained, movement is unavailable with a concise reason rather than guessing."
+    },
+    {
+      "id": "DRAG-08",
+      "given": "Root Actions belong to different Projects, whose root order is grouped independently.",
+      "when": "Attempt Before/After across incompatible root Project groups.",
+      "then": [
+        "Cross-group sibling Before/After is unavailable with a concise reason because Project membership is independently edited in detail. Into a valid Action remains an explicit containment operation preserving membership.",
+        "Root reordering stays inside each existing Project/unassigned group; a mixed selection is not silently made to share a Project.",
+        "No gesture implies a Project/Tag assignment not explicitly selected in detail.",
+        "Mixed-Project root detach is permitted and appends separately in each preserved Project; root Before/After rejects any effective root whose Project differs from the anchor Project."
+      ],
+      "counterexample": "A drop changes project_id to make an otherwise impossible global order appear to work, or promises a cross-group sequence the canonical list cannot show.",
+      "entry_observation": "Root Actions belong to different Projects, whose root order is grouped independently.",
+      "exit_observation": "No gesture implies a Project/Tag assignment not explicitly selected in detail."
+    },
+    {
+      "id": "DRAG-09",
+      "given": "An Action has unsaved text or membership edits and a move is pending.",
+      "when": "Continue typing; navigate; receive refresh/host updates.",
+      "then": [
+        "Local drafts remain bound to their original Action; IME text/caret survives focus changes and updates. Moves and autosaves serialize without silently overwriting one another.",
+        "A moved/filtered-out selected Action and any dirty proposal remain reachable through a named minimal return path; selection refers to stable IDs rather than row positions.",
+        "Structural changes during hover invalidate stale feedback; a definite overlapping change requires renewed destination choice rather than silently rebasing the old move.",
+        "Movement waits for valid prior autosaves/classification proposals and IME completion; invalid/conflicted drafts visibly block rather than disappearing. Classification acknowledgments clear only submitted Project/Tag versions, leaving newer proposals intact."
+      ],
+      "counterexample": "A timer edits the new row, a reordered selection jumps to different IDs, or concurrent moves overwrite an externally changed parent/order.",
+      "entry_observation": "An Action has unsaved text or membership edits and a move is pending.",
+      "exit_observation": "Structural changes during hover invalidate stale feedback; a definite overlapping change requires renewed destination choice rather than silently rebasing the old move."
+    },
+    {
+      "id": "DRAG-10",
+      "given": "A batch move has an unknown result or a definite rejection.",
+      "when": "Check result, retry, refresh or Undo after a confirmed move.",
+      "then": [
+        "Unknown retains the exact original operation ID and arguments; Check result/Retry remain reachable, and identical replay never duplicates the move. No fresh-ID replay or automatic retry storm.",
+        "Definite failure preserves saved structure and local drafts/selection with concise feedback; the batch never appears partially saved.",
+        "One Undo restores all affected structural changes atomically when safe; later conflicting edits are not overwritten without explicit resolution."
+      ],
+      "counterexample": "Each selected root has separate recovery/Undo, unknown is treated as failure, or later corrections are reverted by old replay.",
+      "entry_observation": "A batch move has an unknown result or a definite rejection.",
+      "exit_observation": "One Undo restores all affected structural changes atomically when safe; later conflicting edits are not overwritten without explicit resolution."
+    },
+    {
+      "id": "DRAG-11",
+      "given": "The UI is narrow/full and operated by mouse, touch, keyboard or assistive technology.",
+      "when": "Select, move, nest, cancel and recover.",
+      "then": [
+        "Pointer dragging works on touch with a distinct grip, movement threshold and edge auto-scroll; ordinary scrolling and text editing do not initiate dragging. HTML desktop drag events alone are insufficient.",
+        "A compact selection action exposes an equivalent keyboard/touch Move operation with named Before/After/Into/top-level choices; destination selection performs the same direct atomic move without a generic Save/Review screen.",
+        "Targets/status feedback are readable without color alone; focus follows stable selected/target identity, scrolling reveals active destination, and no horizontal overflow hides controls.",
+        "The dedicated pointer grip uses a 6 px start threshold. Keyboard grip Space/Enter opens the compact Move chooser; Tab and native Arrow navigation choose placement/destination; Enter on the Move button commits, Escape cancels. Pointer/touch and chooser use identical validated movement intent and atomic effect."
+      ],
+      "counterexample": "Touch cannot drag, keyboard users must edit removed parent/order inputs, or an invisible offscreen drop zone is required.",
+      "entry_observation": "The UI is narrow/full and operated by mouse, touch, keyboard or assistive technology.",
+      "exit_observation": "Targets/status feedback are readable without color alone; focus follows stable selected/target identity, scrolling reveals active destination, and no horizontal overflow hides controls."
+    },
+    {
+      "id": "DRAG-12",
+      "given": "Flag controls and status icons are visible in light/dark modes.",
+      "when": "Toggle Flag and inspect both states.",
+      "then": [
+        "Flagged icons/toggles use an orange-family active color; unflagged controls are neutral. Direct boolean state remains independently accessible via name and pressed/checked state.",
+        "Orange Flag treatment is distinct from lifecycle selection accent and has legible contrast in both themes; it is never the sole indication of state.",
+        "Flag changes preserve status, dates, containment and classification."
+      ],
+      "counterexample": "Flag remains blue, orange is used for every selected status, or a color-only flag loses its accessible meaning.",
+      "entry_observation": "Flag controls and status icons are visible in light/dark modes.",
+      "exit_observation": "Flag changes preserve status, dates, containment and classification."
+    }
+  ],
+  "required_browser_scenarios": [
+    "Mouse single and batch Before/After/Into/root with ancestor+descendant selection; cancel and cycle invalid feedback.",
+    "320/390px touch grip drag with scrolling, edge auto-scroll and equivalent selection+Move; keyboard full flow with meaningful focus and accessible names.",
+    "Filtered hidden sibling/parent and cross-Project root-group fixture; verify no inferred membership and no loss/duplication.",
+    "Delayed move response while typing, host refresh, late IME; missing response exact Check/Retry and atomic Undo/conflict.",
+    "Project/Tags reassignment removing current match; return route; status icons above Title; orange Flag in light/dark; no parent/order/Save/Review."
+  ],
+  "validation_gates": [
+    "Pure deterministic selection/drop planning/normalization with no input mutation.",
+    "Real store shared contract: atomic multi-root parent/order updates, CAS, receipt/replay, Undo and owner isolation; a passing mock cannot establish D1 atomicity.",
+    "Complete authoritative snapshot planning preserves hidden siblings and canonical root groups.",
+    "pnpm check/build and built-resource tests; no failed/skipped/unexecuted acceptance represented as pass.",
+    "Actual ChatGPT Work host/cache/auth evidence remains distinct from local browser/mock proof."
+  ],
+  "technical_handoff": [
+    "The observed current edit operation updates one Action. A safe batch write/receipt/Undo contract requires boundary design; do not implement batch as multiple ordinary edit commits.",
+    "Numeric rank strategy and affected sibling rewrite footprint are design choices, provided visible sequence and atomicity satisfy these contracts."
+  ],
+  "scope_limits": [
+    "No catalog CRUD, dependency edges, planned dates, new management method, recommendations, deployment or remote data reset.",
+    "No routine confirmation or explanatory paragraphs; concise exceptional destination/error/cascade/recovery meaning remains accessible."
+  ],
+  "status": "Candidate acceptance contract; no implementation acceptance or kernel claim.",
+  "design_basis": "/tmp/action-drag-design.json",
+  "design_candidate_sha256": "c24845beeaa041f2358203ccffe7aac3637b94ce7e1690b13d6732104326d097",
+  "reconciliation": {
+    "status": "reconciled",
+    "adopted": [
+      "Mixed-Project root detach allowed atomically, appended per unchanged Project group.",
+      "Root anchor Before/After rejects Project mismatch.",
+      "API supplied IDs preserve caller order; UI supplies canonical tree order.",
+      "Existing 262144-byte bound, nonempty unique owner IDs; no arbitrary count cap.",
+      "Source-only rank gaps preserved; destination-only rerank; selection clear on scope/filter with drafts/frozen operation retained.",
+      "6 px dedicated-grip pointer threshold, edge auto-scroll and equivalent keyboard/compact Move.",
+      "Root explicitly adopts compact Move chooser as keyboard equivalent; no independent Arrow drag mode required.",
+      "Four direct named lifecycle icon buttons above Title are the adopted one-click status control, replacing an earlier single-button popup alternative."
+    ],
+    "design_wording_correction": "Design ui.selection describes optional shift range. DRAG-03 requires desktop Ctrl/Cmd toggle and Shift range as delegated; do not omit Shift in implementation.",
+    "approval_limits": "Native artifact reconciliation only; independent design acceptance and implementation validation remain separate."
+  }
+}

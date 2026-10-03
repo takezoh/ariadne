@@ -1,0 +1,36 @@
+{
+  "profile": "native implementation",
+  "kernel_executed": false,
+  "scope": "UI header/navigation/presentation only; no backend change",
+  "contract": [
+    "Header left is the current function name (Inbox, Projects, Tags, Flagged, History or exact saved Perspective name). A floating navigation menu replaces sidebar and mobile view select.",
+    "Navigation menu contains the five functions and saved Perspectives, with selected state, icons, keyboard Arrow/Home/End navigation, Enter activation, Escape/outside close and initiating-button focus restoration. No duplicated sidebar/select remains.",
+    "Display options is one compact header dropdown. Relevant Defer choices and History status choices retain exact existing filters and per-view memory. Fullscreen host toggle remains unchanged.",
+    "Refresh is icon-only with accessible label and tooltip.",
+    "Add Action retains current contextual target and disabled reason. Add Project/Tag switches to the corresponding tree view, then shows its inline creation input. Invocation target kind/root-or-child parent is captured before navigation; existing submission guards prevent unknown recovery from replacing newer navigation or raw input.",
+    "Navigation flushes ordinary proposals and preserves IME/unknown recovery. No Review or Save controls are introduced.",
+    "Header remains sticky and responsive, with overlays inside viewport in light/dark and narrow/full modes. New two-column shell uses the full freed sidebar width; selected inspector remains contextual.",
+    "All previous geometric gutter/center-left native drag, occurrence selection, calendar and autosave contracts remain unchanged."
+  ],
+  "selectors": [
+    "navigationToggle",
+    "navigationMenu",
+    "scopeTitle (current header name)",
+    "displayMenuToggle",
+    "displayMenu",
+    "data-view",
+    "data-defer",
+    "data-history-status",
+    "addMenuProject",
+    "addMenuTag",
+    "catalogComposer",
+    "catalogName"
+  ],
+  "verification": [
+    "No sidebar/mobile scope select; current-name heading and single navigation entry point.",
+    "Keyboard/Escape/outside menus and focused inspector header reachability at320/390/1280 light/dark.",
+    "Exact existing filter/proposal/IME/unknown preservation across new navigation controls.",
+    "Add Project/Tag from Inbox and other pages shows matching tree and inline input before any write; later submission/navigation retains exact identity/version guards.",
+    "Trusted native last-child left-gutter root outdent after changed shell geometry."
+  ]
+}

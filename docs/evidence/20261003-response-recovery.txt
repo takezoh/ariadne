@@ -1,0 +1,75 @@
+Ariadne
+Refresh
+Test: discard the next save response once (the save operation still runs)
+Add
+Save original input and set time zone
+Saved.
+Normal
+Deferred
+Completed
+Cancelled
+Undo the previous change
+
+Saved concern/reference (unorganized): Verification only: Please let me know when materials arrive from a fictional contact. The contact, materials, and place to check arrival are unspecified.
+
+Saved concern/reference (unorganized): Verification only: I am concerned about clearing out my parents' home, but have not decided how much to do. I want to think about it next week. Reference https://example.com/notes is not a commitment.
+
+Saved concern/reference (unorganized): Verification only: I am concerned about clearing out the garden, but have not decided how much to do. I have not decided to act yet.
+
+Save
+ID 03012026-1003-4000-8000-000000000011 · task version 7
+
+Due: 2026/10/3 18:00:00 Asia/Tokyo
+
+Details/Edit
+Save
+ID 03012026-1003-4000-8000-000000000012 · task version 3 · parent 03012026-1003-4000-8000-000000000011
+
+Details/Edit
+Save
+ID 20b3e4f8-e6ac-4118-a43e-a9c83d198453 · task version 2
+
+Details/Edit
+Save
+ID 3b8f8619-2bd5-45bb-870c-de7aa643a529 · task version 7
+
+Details/Edit
+Save
+ID 3d7bf6a6-ecfa-471f-bb36-e72bbb12af10 · task version 6
+
+Due: 2026/10/3 18:00:00 Asia/Tokyo
+
+Details/Edit
+Save
+ID 3ddd2e2a-0d4f-42b5-86a7-67a383e2ad70 · task version 5
+
+Details/Edit
+Save
+ID 51ef5540-b7ac-4877-a654-6c7dd9fbdfb4 · task version 1
+
+Details/Edit
+Save
+ID 749b3660-bc98-4378-a5df-0458e63083b4 · task version 5 · parent 3d7bf6a6-ecfa-471f-bb36-e72bbb12af10
+
+Details/Edit
+Save
+ID 81ad1904-7696-49ac-9daf-94cfbe309c05 · task version 1
+
+Details/Edit
+Save
+ID ae9cd678-7383-4a06-90f2-e1b9f69b36e0 · task version 3
+
+Details/Edit
+Save
+ID d50f43fd-a10f-4f64-bcf5-ece02c66e7a5 · task version 1
+
+Details/Edit
+Save
+ID df3f69bb-b9b3-49f9-847e-1a723ed4805b · task version 1
+
+Details/Edit
+Save
+ID fe745eaa-52b5-4f06-82ec-01a57a57cc30 · task version 1
+
+Details/Edit
+Retrieved 2026/10/3 0:35:55 Asia/Tokyo · list version 70 · time zone Asia/Tokyo

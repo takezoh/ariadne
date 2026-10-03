@@ -1,0 +1,12 @@
+{
+  "passed": 7,
+  "cases": [
+    "default09 pure immutable",
+    "custom milliseconds preserved",
+    "intentional time empty never defaults09",
+    "badInput differs clear",
+    "offscreen Action/catalog dirty",
+    "all errors aggregated",
+    "unknown-error-saving-pending precedence"
+  ]
+}

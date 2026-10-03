@@ -1,0 +1,40 @@
+[
+  {
+    "scenario": "project-check",
+    "addSwitchesMatchingPageBeforeWrite": true,
+    "exactUnknownRequestRetained": true,
+    "newerNavigationAndRawComposerRetained": true,
+    "errors": []
+  },
+  {
+    "scenario": "project-retry",
+    "addSwitchesMatchingPageBeforeWrite": true,
+    "exactUnknownRequestRetained": true,
+    "newerNavigationAndRawComposerRetained": true,
+    "errors": []
+  },
+  {
+    "scenario": "tag-check",
+    "addSwitchesMatchingPageBeforeWrite": true,
+    "exactUnknownRequestRetained": true,
+    "newerNavigationAndRawComposerRetained": true,
+    "errors": []
+  },
+  {
+    "scenario": "tag-retry",
+    "addSwitchesMatchingPageBeforeWrite": true,
+    "exactUnknownRequestRetained": true,
+    "newerNavigationAndRawComposerRetained": true,
+    "errors": []
+  },
+  {
+    "scenario": "action-IME-add-project",
+    "originalProposalRetained": true,
+    "deferredAddShowsProjects": true
+  },
+  {
+    "scenario": "catalog-IME-navigation",
+    "typedProjectProposalSavedToProject": true,
+    "newNavigationRetained": true
+  }
+]

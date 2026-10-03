@@ -1,0 +1,285 @@
+{
+  "notice": "Archived material was normalized at the explicit request of the user. Product names, filenames and references were updated; repository paths were made relative and historical hosted URLs were redacted. These files are transformed historical records, not verbatim host responses or new acceptance evidence.",
+  "files": [
+    {
+      "path": "./drizzle/0006_good_tag.sql",
+      "original_sha256": "ec90aa8c7a645dc47148a3af9d08093324a682a1fbfc6a6e722e29abd2ba0172"
+    },
+    {
+      "path": "./.sites-runtime/widget.mjs",
+      "original_sha256": "fbf70a78032c2e771f086f6541c44f918d8de05e88684838306a951a98383540"
+    },
+    {
+      "path": "./drizzle/0005_burly_catseye.sql",
+      "original_sha256": "9a377fdc3527128510d65970d9982708134e859ebaaef869c2939bdab7ececab"
+    },
+    {
+      "path": "./.sites-runtime/tasks.mjs",
+      "original_sha256": "b4f3114af84b63e401ece174088d180b882f586b22dba2739b538676dd74aa78"
+    },
+    {
+      "path": "./docs/note/note-20261002-sidebar-entrypoint.md",
+      "original_sha256": "b903ee248c9825a6d064bd41f2e09e0d28575b7b0ecfc96187c3c0f95e3ee1e6"
+    },
+    {
+      "path": "./docs/note/note-20261001-work-m0-sites-proof.md",
+      "original_sha256": "a8921f8a48cf1bb13791df44bcf19f9bb22780cef444f6a9c4fe5855e44cb9e1"
+    },
+    {
+      "path": "./docs/note/evidence/work-regression-20261003.json",
+      "original_sha256": "ac3ed7cf6ab9a363ed6de81ac275090599805064f16331d634076ea6be7da229"
+    },
+    {
+      "path": "./docs/note/evidence/work-m0-live-20261001.json",
+      "original_sha256": "f4a137e21440491d21fc700c4270f1d42cc524e39c99db4e5c05728a3f745af6"
+    },
+    {
+      "path": "./docs/note/evidence/work-m0-adversarial-check.mjs",
+      "original_sha256": "4e62742d885680b49df6abab90d2feb7a372c31eb358920fd01d3e3dfc497d40"
+    },
+    {
+      "path": "./docs/evidence/20261003-work-transcript.txt",
+      "original_sha256": "523ab5ee2d2655467d008024fa6dc115f176bd50e22c7c84b4c9f95b030d1867"
+    },
+    {
+      "path": "./docs/evidence/20261003-response-recovery.txt",
+      "original_sha256": "9e14bf2c3332f3bddbadae21b33ce52e9a97b4788a597167f1c4e451d66b7d05"
+    },
+    {
+      "path": "./docs/evidence/20261003-policy-response.txt",
+      "original_sha256": "0af87c3e52daf1ba74f2f0e4b8e6c80ef1995815ea1bbcce0d79ed743871bec3"
+    },
+    {
+      "path": "./docs/evidence/20261003-plugin-update.json",
+      "original_sha256": "ba128344168ac298db39444d6ac39d255e96013d68645406f42db6819df063e6"
+    },
+    {
+      "path": "./docs/evidence/20261003-final-ui.txt",
+      "original_sha256": "c12cb801ae60e7931e37bfc65fa6e04c1f21df81487a55c0e5d7a9a9bb3bfdbf"
+    },
+    {
+      "path": "./docs/evidence/20261002-work-transcript.txt",
+      "original_sha256": "574873e1c32f392050292c6cea3b3e783b566063e78b47d2b9578fabefcde815"
+    },
+    {
+      "path": "./docs/evidence/20261002-work-sidebar-transcript.txt",
+      "original_sha256": "890e9681d0f2b04788df4b5b8f6d1f0fdd0823ef721da493bafd0e87aa86b214"
+    },
+    {
+      "path": "./docs/evidence/20261002-work-benefit-live.json",
+      "original_sha256": "08b64eac42c5771b1b71860667ad2187a32d64b08c8db8b75ccb28830fa7ad88"
+    },
+    {
+      "path": "./docs/evidence/20261002-cancel-ui.json",
+      "original_sha256": "5d211afc7631077932852f7183b21366ea5539bd07e427f02b033ec78ce0d6da"
+    },
+    {
+      "path": "./docs/evidence/20261002-benefit-live.json",
+      "original_sha256": "7a4f85dd97bbf2336e3f72e5b35ee9b6e3810d207a6d4e37072ad7239c7e8621"
+    },
+    {
+      "path": "./docs/changes/change-20261003-tree-outdent-catalog-movement/evidence/ui-verdict.json",
+      "original_sha256": "dcd085a17640873452aef261be16e80463a8f13fb852ff508fa97f1f3de7c1e4"
+    },
+    {
+      "path": "./docs/changes/change-20261003-tree-gutter-drop-hit/evidence/ui-verdict.json",
+      "original_sha256": "9550ac65105be05cac6c446b19b1e9850da324a91d67b87b8988c2cbe4dc1268"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/requirements-verdict.json",
+      "original_sha256": "af899f81334f0c1652147aec9bf4bcb245b51d5d9b741102c659b2fa166ae34f"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/requirements-plan.json",
+      "original_sha256": "ddfd23fbe8cd69f60b20348f9cd510db6907edfedf782138fb05f4600efbb99c"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/native-integration-record.json",
+      "original_sha256": "52df305ed463a7114828875ede72a66858b0bb735a14f3b7ac4564c0697f3a2a"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/integration-review.json",
+      "original_sha256": "c66d845f14802c1ae943b937adbed9757e4530589a366ac254e3efd180dcc595"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/integration-review-candidate.json",
+      "original_sha256": "cbac805d45d7647c10fb87ae703cb95cba0c99841ac8a8bcd16acb7986cb55c9"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/integration-review-before-repair.json",
+      "original_sha256": "e5cafa086aea109c9d5d172dbeef2bf5230d8b589f1665cebab313e73e6ffdd4"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/integration-candidate.json",
+      "original_sha256": "6b67a7f9960fb9ad14cff1b5f77ae59590e716a758d9c509f9d169d282c4e98a"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/implementation-review-repair.json",
+      "original_sha256": "7f81f75c01cec4eda8c75f0baa3601122b4fcd9a7a9f6a914ac536db0df9cd8d"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/implementation-proposal.json",
+      "original_sha256": "73950dccdf7af2c502b5048b881ef532149f66193eca2dcc0fa383310c5a5f8f"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/implementation-proposal-repair.json",
+      "original_sha256": "63e091ec98492a18288635d48ae1a97de3b059a5f36180d3dc69d640f482e235"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/implementation-presentation.json",
+      "original_sha256": "e2a14b0e657088f8e778e927117a0ef2c8bde5a918638671a8c419c4652d7b86"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/implementation-host.json",
+      "original_sha256": "8f4e17f1e85a6a45f0e81fa80b0b74dfe3d95ea288d062c543b98fce5891499d"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/final-check.log",
+      "original_sha256": "39a54bc6fb0734b518882f0a09470e17100d312a3ca65d3128b628569fa031dc"
+    },
+    {
+      "path": "./docs/changes/change-20261003-modern-simple-ui/evidence/final-built-ui.log",
+      "original_sha256": "519ba223c5ff49763adb6e2b45bb126cd6124a02d465a0ae9559b18df7e422e4"
+    },
+    {
+      "path": "./docs/changes/change-20261003-minimal-autosave-ui/evidence/check-final.log",
+      "original_sha256": "17a1b78ed661368d88ed475e5890454a38ca8dc0dfbfce67ecae572b98b09435"
+    },
+    {
+      "path": "./docs/changes/change-20261003-minimal-autosave-ui/evidence/built-final.log",
+      "original_sha256": "519ba223c5ff49763adb6e2b45bb126cd6124a02d465a0ae9559b18df7e422e4"
+    },
+    {
+      "path": "./docs/changes/change-20261003-minimal-autosave-ui/evidence/ariadne-autosave-implementation-verdict.json",
+      "original_sha256": "dff14691cef4718bae54b2aa076dee6174474650c59364883c02a6a23a04bbdc"
+    },
+    {
+      "path": "./docs/changes/change-20261003-minimal-autosave-ui/evidence/ariadne-autosave-design-verdict.json",
+      "original_sha256": "82f225a5c785e64345bfc155b157936707ccd0f757b3bf0446651aa263556a87"
+    },
+    {
+      "path": "./docs/changes/change-20261003-minimal-autosave-ui/evidence/ariadne-autosave-acceptance.json",
+      "original_sha256": "f5a19b1996735f6af9218a780021e5f2d55cbf2c85aabb4824c35549efcfb8c9"
+    },
+    {
+      "path": "./docs/changes/change-20261003-minimal-autosave-ui/evidence/ariadne-autosave-acceptance-verdict.json",
+      "original_sha256": "d71d9c0caea7ea7f83714dcaba1b2524da95a3f4925c9377df172e4f42a5067f"
+    },
+    {
+      "path": "./docs/changes/change-20261003-floating-header-navigation/evidence/ui-verdict.json",
+      "original_sha256": "f96117954e07eadb50980d8ed390a752f3800a3d9f8801e5a9174a94bb8653c4"
+    },
+    {
+      "path": "./docs/changes/change-20261003-english-minimal-ui/evidence/implementation-verdict.json",
+      "original_sha256": "95b38c094aeae918a7a423ed9b66e6639b5ddfb7033916427cfaf9d8f1c9cc28"
+    },
+    {
+      "path": "./docs/changes/change-20261003-english-minimal-ui/evidence/design-verdict.json",
+      "original_sha256": "eb927c531f7241751a45fcd878a751c21f8c6fa55dc2efd11b6ab1a80e7f1a0c"
+    },
+    {
+      "path": "./docs/changes/change-20261003-english-minimal-ui/evidence/check-final.log",
+      "original_sha256": "20618d6133f71abd736ff03b526e7807eae20bc022dfb893b225420cf85c090a"
+    },
+    {
+      "path": "./docs/changes/change-20261003-english-minimal-ui/evidence/built-test.log",
+      "original_sha256": "519ba223c5ff49763adb6e2b45bb126cd6124a02d465a0ae9559b18df7e422e4"
+    },
+    {
+      "path": "./docs/changes/change-20261003-display-checkboxes/evidence/ui-verdict.json",
+      "original_sha256": "ec542a773ac05953033118862a9b0eb56ccc0580a7c4116139618ebf7173e978"
+    },
+    {
+      "path": "./docs/changes/change-20261003-contextual-empty-action/evidence/check-final.log",
+      "original_sha256": "c72b1954e6a9de62ea8c3c8b8903e7468d462c6c8750d316f318b1d54956b6bb"
+    },
+    {
+      "path": "./docs/changes/change-20261003-contextual-empty-action/evidence/built-final.log",
+      "original_sha256": "519ba223c5ff49763adb6e2b45bb126cd6124a02d465a0ae9559b18df7e422e4"
+    },
+    {
+      "path": "./docs/changes/change-20261003-contextual-empty-action/evidence/backend-implementation.json",
+      "original_sha256": "f86f2664be1b07c65b5de91e24094ac0c4793ab7d4dd3f4f48f1b60c949c475b"
+    },
+    {
+      "path": "./docs/changes/change-20261003-contextual-empty-action/evidence/ariadne-empty-action-implementation-verdict.json",
+      "original_sha256": "2a034a4560d6d794a9c12af14f586bac9ec6f710afeeb166a87e7d5c03eaffa4"
+    },
+    {
+      "path": "./docs/changes/change-20261003-contextual-empty-action/evidence/ariadne-empty-action-design-verdict.json",
+      "original_sha256": "1e733c395fbd59e53178d38411966a3791226a709b57cc11952cc1b93b714577"
+    },
+    {
+      "path": "./docs/changes/change-20261003-contextual-create-calendar/evidence/independent-pure.mjs",
+      "original_sha256": "824a5860895a192f254bef2e76fd7e1074ee310516f9e7034fdc508711cbb1ad"
+    },
+    {
+      "path": "./docs/changes/change-20261003-classification-navigation/evidence/requirements-explore.json",
+      "original_sha256": "d9f2ceccb180247f1740d3ccafc23b153521f817332dc0178158e56816d57a23"
+    },
+    {
+      "path": "./docs/changes/change-20261003-classification-navigation/evidence/requirements-assessment.json",
+      "original_sha256": "15d1429ae5cb619e7130fb2f22db7ea2882c2f4bb45861a6647d245e48f1dce9"
+    },
+    {
+      "path": "docs/changes/change-20261003-catalog-descriptions/requirements.md",
+      "original_sha256": "3cf720c9ecd0ce3d22ad7d66196f4d27d40ab01e371a05fc593b2817909db2f9"
+    },
+    {
+      "path": "docs/changes/change-20261003-action-detail-refinement/evidence/ui-verdict.json",
+      "original_sha256": "6d5c5a4f8c321cfebfe6298008615a2330d1e2e05c2571d7f85eb00331bb0a3e"
+    },
+    {
+      "path": "docs/changes/change-20261001-structured-todo-mvp/verification.md",
+      "original_sha256": "436fe11a44a1c8fc2532bbc6b756b56a9bf66b1bd9216f515e4868c8d76b1f18"
+    },
+    {
+      "path": "docs/changes/change-20261001-structured-todo-mvp/requirements.md",
+      "original_sha256": "a2c6cf3370147e005699c2fe44a8390f0aebb64d8bba3f205fad1b533e76f3fd"
+    },
+    {
+      "path": "docs/changes/change-20261001-structured-todo-mvp/implementation.md",
+      "original_sha256": "1550e5baa272eb25421a9435e0061b9bad97dd41be98f87ffa44a1db3ca1d4cc"
+    },
+    {
+      "path": "docs/changes/change-20261001-structured-todo-mvp/architecture-plan.json",
+      "original_sha256": "2ebf9078ed32dcdcd47108588fa25988a43f1477c3618d8490f1865c42f76e06"
+    },
+    {
+      "path": "docs/changes/change-20261001-structured-todo-mvp/change.md",
+      "original_sha256": "5122db385c39ef5db569d249b32a850f895cb715172662d30ba52f5f0c8b3508"
+    },
+    {
+      "path": "docs/changes/change-20261003-classification-navigation/evidence/design.json",
+      "original_sha256": "f91d65dfc224dc575c9e88f02e8e2a9c387e6048cf8a57c43c0a0a8b9e199059"
+    },
+    {
+      "path": "docs/changes/change-20261003-classification-navigation/evidence/design-verdict.json",
+      "original_sha256": "9bc6eccdc79db33bb443bb6f7aa57fcb5bb78f087c9696c80789bb5d957167a2"
+    },
+    {
+      "path": "docs/changes/change-20261003-classification-navigation/evidence/check-final.log",
+      "original_sha256": "33430425c9fa6d670b735c31a6050524d118b0ed0c5b7251517c9a538001d960"
+    },
+    {
+      "path": "docs/changes/change-20261003-classification-navigation/evidence/implementation-verdict.json",
+      "original_sha256": "34317053a789cae87b6b56fbb85ae84948985dfe56c65c11f315de8d6724f17c"
+    },
+    {
+      "path": "docs/changes/change-20261003-classification-navigation/evidence/built-test.log",
+      "original_sha256": "519ba223c5ff49763adb6e2b45bb126cd6124a02d465a0ae9559b18df7e422e4"
+    }
+  ],
+  "closure_updates": [
+    {
+      "path": "docs/changes/change-20261001-structured-todo-mvp/change.md",
+      "previous_content_hash": "sha256:59c27ff86575fa02e7d60bbfb22d28e863d4500fe4431097bcc0ac7c5c37d482",
+      "updated_content_hash": "sha256:de026a41e6bddbf7dbc3169932a650c6e9a23ae49820a8b82a5a219adbdd04b5"
+    },
+    {
+      "path": "docs/changes/change-20261003-catalog-descriptions/change.md",
+      "previous_content_hash": "sha256:14ff3f2280592bbb1981c64831a9457c994aec7f9cdc02842d34adca4ed64ed0",
+      "updated_content_hash": "sha256:17aa463057c77db3dd79e31d4a0e7234e6a35356448a5845dbaecb6cb50f9ba1"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+✔ closing an untouched Project or Tag inspector removes only its local row without writes (238.540033ms)
+✔ catalog inspector close prunes untouched drafts while retaining edited, dependent and unknown proposals (4.899045ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12072.785919

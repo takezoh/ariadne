@@ -1,0 +1,29 @@
+[
+  {
+    "width": 320,
+    "allViewsAddEnabled": true,
+    "bothDateCalendarAnd24HourText": true,
+    "alwaysVisible": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "allViewsAddEnabled": true,
+    "bothDateCalendarAnd24HourText": true,
+    "alwaysVisible": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "allViewsAddEnabled": true,
+    "bothDateCalendarAnd24HourText": true,
+    "alwaysVisible": true,
+    "noOverflow": true,
+    "readOnly": true,
+    "errors": []
+  }
+]

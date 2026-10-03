@@ -1,0 +1,14 @@
+[
+  {
+    "verdict": "/tmp/contextual-create-calendar/ui-verdict.json",
+    "count": 38,
+    "allMatch": true,
+    "mismatches": []
+  },
+  {
+    "verdict": "/tmp/catalog-empty-create/backend-verdict.json",
+    "count": 12,
+    "allMatch": true,
+    "mismatches": []
+  }
+]

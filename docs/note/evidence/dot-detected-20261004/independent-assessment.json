@@ -1,0 +1,88 @@
+{
+  "verdict": "passed",
+  "owner": "dot-detected-20261004",
+  "environment": "HTTP localhost:8788/mcp → Wrangler Worker env.DB local D1",
+  "checks": {
+    "four_events_only": true,
+    "event_provenance_preserved": true,
+    "personal_two_work_two": true,
+    "initial_notification_four": true,
+    "final_notification_three_p1_w2": true,
+    "confirmation_tag_only": true,
+    "no_invented_lifecycle_or_dates": true,
+    "no_reply_or_complete_write": true,
+    "redetection_no_duplicate": true,
+    "review_no_write": true,
+    "caller_discovery_contract_selection": true,
+    "http_worker_local_d1": true,
+    "live_revision_20": true,
+    "live_matches_recorded_actions": true,
+    "assessment_read_only": true
+  },
+  "counts": {
+    "actions": 4,
+    "personal": 2,
+    "work": 2,
+    "notification_before": 4,
+    "notification_after": 3,
+    "personal_notification": 1,
+    "work_notification": 2,
+    "live_revision": 20
+  },
+  "events": [
+    {
+      "event_id": "personal-slack-1",
+      "action_id": "3ef8e4c5-f70f-4d34-bdf2-78a7940c0a03",
+      "title": "Confirm whether Sunday lunch works",
+      "count": 1,
+      "exact_notes": true,
+      "correct_project": true,
+      "active": true,
+      "notification": true
+    },
+    {
+      "event_id": "personal-email-1",
+      "action_id": "a26fcdc8-c36f-494e-b7f0-310373ccdb7f",
+      "title": "Check the electricity bill amount",
+      "count": 1,
+      "exact_notes": true,
+      "correct_project": true,
+      "active": true,
+      "notification": false
+    },
+    {
+      "event_id": "work-slack-1",
+      "action_id": "f04e0c6a-9fe2-4628-b700-b8eb41243368",
+      "title": "Review the release proposal",
+      "count": 1,
+      "exact_notes": true,
+      "correct_project": true,
+      "active": true,
+      "notification": true
+    },
+    {
+      "event_id": "work-email-1",
+      "action_id": "db997cb9-ab77-4d7b-8867-51fced88228b",
+      "title": "Confirm which estimate to use",
+      "count": 1,
+      "exact_notes": true,
+      "correct_project": true,
+      "active": true,
+      "notification": true
+    }
+  ],
+  "discovery_evidence": "initialize/tools/list precede writes; capture_intent with source then discovered edit/action_project/action_tag operations; catalog IDs were returned by get-or-create operations, event IDs matched against saved provenance on redetection.",
+  "transport_evidence": {
+    "cli": "/tmp/dot-d1-http-cli.mjs",
+    "worker_log": "/tmp/dot-d1-worker.log",
+    "http_trace": "/tmp/dot-detected-trace.jsonl",
+    "independent_trace": "/tmp/dot-assessor-trace.jsonl",
+    "readback": "/tmp/dot-assessor-live.json"
+  },
+  "limitations": [
+    "Emulated already-detected events only; no monitoring or push acceptance claimed.",
+    "Local D1 evidence, not hosted D1 or ChatGPT Work UI.",
+    "No external Slack/email fetch or reply is proven or required by this run."
+  ],
+  "assessment": "4件の原文・URL・event IDを保持しPersonal/Work各2件。確認済みpersonal-emailのNotificationだけを解除しactiveを維持。通知分類は4→3（P1/W2）。work-slack再検出で重複なし、レビューは保存なし。"
+}

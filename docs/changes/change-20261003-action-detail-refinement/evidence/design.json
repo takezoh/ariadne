@@ -1,0 +1,47 @@
+{
+  "profile": "native implementation",
+  "kernelExecuted": false,
+  "scope": "UI only; no API/DB changes",
+  "flag": {
+    "control": "icon-only button to right of lifecycle icons",
+    "state": "aria-pressed; orange when selected; same autosave field"
+  },
+  "saveIndicator": {
+    "owner": "pure global projection of all Action/catalog drafts and busy/unknown/recovery/conflicts/errors",
+    "priority": [
+      "unknown/recovery",
+      "errors/conflicts",
+      "saving",
+      "dirty",
+      "saved"
+    ],
+    "presentation": "one header icon with accessible label/title; spinner for saving; reduced-motion fallback; actual inline recovery/error controls remain",
+    "removed": [
+      "Action saveState",
+      "catalogSaveState",
+      "ordinary Saved feedback"
+    ]
+  },
+  "sections": "always visible semantic sections, no collapsible details in Action inspector",
+  "removedCopy": [
+    "actionClassification paragraph",
+    "dateTimezone paragraph"
+  ],
+  "defer": {
+    "controls": "one coordinated date + time pair, one persisted deferUntil proposal",
+    "initialDateOnly": "first date selection sets explicit client timezone 09:00",
+    "explicitTime": "retained custom time including seconds/milliseconds",
+    "dateChange": "preserves chosen/saved custom time",
+    "clear": "clearing date releases defer; empty/partial time does not default09 after user intent",
+    "raw": "perAction raw date/time state preserved through refresh/navigation/newer acknowledgment/unknown",
+    "conversion": "pure existing strict timezone resolver; DST ambiguous/nonexistent rejected; render/zonechange never saves or changes instant"
+  },
+  "acceptance": [
+    "Flag exact1write with icon-only accessible control",
+    "global icon covers offscreen Action/catalog dirty/error/unknown",
+    "date-only Tokyo09 ->00Z, custom/millis/DST/partial/newerraw/clear",
+    "all sections noncollapsible",
+    "no Saved copy outside header icon actual errors",
+    "existing header checkboxes/tree-gutter/native/recovery retain"
+  ]
+}

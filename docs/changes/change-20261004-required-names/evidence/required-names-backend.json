@@ -1,0 +1,49 @@
+{
+  "status": "source_fixed",
+  "profile": "native bounded backend implementation",
+  "kernelExecuted": false,
+  "contract": "New Action Title and Project/Tag Name writes require nonempty trimmed text; Notes optional. Local temporary proposals are UI state. Historical blank records and exact receipts/Undo remain supported without graph-wide title/name validation.",
+  "sourceHashes": {
+    "lib/domain/core.ts": "f24160b01429d3a65a741847ca821fa62ed08741403926c08c1928fc519b2856",
+    "lib/application/action-service.ts": "06197d7b7d5b1811f78cf9df99d840ec39d4ad935ee2e8fbe161403828c336a6",
+    "app/mcp/route.ts": "2d5d6713cdf20c33216a0e604f1b9ef14b2c354bd74b4d36a14837dc8f11542e",
+    "tests/domain/empty-action.test.mjs": "bc0603b773fb87e7f59d106ea1f46ae433fb3678b6c9df07d2f01e39a8ba5a9e",
+    "tests/adapters/empty-action-store.test.mjs": "8022b7a8c029a1aaaaa93321c3996f40935449588f102df3b769291088b3d220",
+    "tests/application/action-service.test.mjs": "45a6f9662e0257018594f31e21aa64eb2a4bdc8005a26138b03241821a789cc2",
+    "docs/technical/data-model.md": "7534ab972e4c9c3de5801fc38f53a872fb0b7f0af3354b0c11cdb43856b49afd",
+    "docs/technical/mcp-api.md": "4ea48638d988246bb61fdd4e2ba322f93ba4ebf302e13e5d6cefe9ed963a5fb4"
+  },
+  "protectedAppliedSourcesUnchanged": {
+    "db/schema.ts": true,
+    "drizzle/0014_empty_catalog_names.sql": true,
+    "drizzle/meta/_journal.json": true,
+    "drizzle/meta/0014_snapshot.json": true
+  },
+  "verification": {
+    "targetTests": {
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "log": "/tmp/required-names/backend-target.log"
+    },
+    "typecheck": {
+      "status": "passed",
+      "log": "/tmp/required-names/backend-typecheck.log"
+    },
+    "targetLint": {
+      "status": "passed",
+      "log": "/tmp/required-names/backend-lint.log"
+    }
+  },
+  "coverage": [
+    "Blank add/add_action/edit/rename_action/structure_create rejects before ID allocation without snapshot/revision/receipt change",
+    "Notes omitted defaults empty and raw supplied Notes retained",
+    "Initial tag creation remains one CAS/receipt/Undo with named title, lost response/replay/owner/CAS and injected association rollback",
+    "Legacy blank Action read/notes-only/status/move succeeds; rename Undo restores blank; old exact creation replay returns same UUID/current correction without allocating or overwriting",
+    "Project/Tag strict name and retained legacy blank receipts/Undo tests remain passing"
+  ],
+  "unchangedApplicationImplementation": "Existing prepareChange uses shared actionTitle before generating IDs; prior receipt lookup precedes validation. No application port or receipt/schema changes.",
+  "wholeCheckBuild": "Owned by root; not run by this agent",
+  "schemaMigration": "No SQL/schema/index/journal/meta mutation or data reset"
+}

@@ -1,0 +1,60 @@
+{
+  "profile": "native implementation",
+  "status": "candidate complete",
+  "scope": [
+    "Pure action_move containment/order transition",
+    "MCP enum/description",
+    "Domain and shared memory/SQLite contracts"
+  ],
+  "design": "/tmp/action-drag-design.json",
+  "design_verdict": "/tmp/action-drag-design-verdict.json",
+  "source_hashes": {
+    "lib/domain/core.ts": "70805f11f0f8e089c389dc28cd4dbc8a708b2424c168c6b04e609e2cc9396f1d",
+    "app/mcp/route.ts": "d99b946ab3c9e32d89d11c69f808bf22433f1e8863093baad92598192e4e0e46",
+    "tests/domain/action-move.test.mjs": "a96036d22accd6525af6440119c3978001f844e7b6d520503eb8a5be06518708",
+    "tests/adapters/action-move-store.test.mjs": "4b0dcce10549267c6f4e45b2a5a480f87bc1d999e713c52509387a93d06f96fd"
+  },
+  "result": [
+    "actionMoveEdits resolves exact owner action ids/relative placement against complete saved siblings without effects or mutation",
+    "Selected descendants are absorbed into selected ancestor roots; effective roots retain explicit API input order",
+    "before/after root insertion rejects other Project groups; inside retains each direct Project; root partitions by unchanged own Project and appends per group",
+    "Only changed destination groups normalize dense safe ranks; source-only gaps and subtree internal order stay unchanged",
+    "Semantically identical placement preserves existing ranks/revisions and produces empty delta through ordinary receipt/revision",
+    "Actual parent/order changes enter existing common per-action revision and one atomic CAS/receipt/delta/Undo; no application/store/schema/migration changes needed",
+    "No arbitrary selected-ID count cap added; existing request byte limit and owner reference validation preserved"
+  ],
+  "evidence": {
+    "backend_suites": {
+      "passed": 162,
+      "failed": 0,
+      "skipped": 0,
+      "log": "/tmp/action-drag-backend-all.log"
+    },
+    "domain_targets": {
+      "passed": 7,
+      "log": "/tmp/action-drag-backend-domain.log"
+    },
+    "shared_store_targets": {
+      "passed": 3,
+      "log": "/tmp/action-drag-backend-store.log"
+    },
+    "typecheck": "passed; /tmp/action-drag-backend-typecheck.log",
+    "targeted_lint": "passed; /tmp/action-drag-backend-lint.log"
+  },
+  "verification_cases": [
+    "Hidden completed/dropped/deferred siblings retain relative sequence",
+    "API explicit order with ancestor/descendant selected set",
+    "Mixed Project root detach preserves classification",
+    "No-op, tied ranks, maximum safe rank exhaustion and 201 selected IDs",
+    "Invalid/cyclic/foreign/missing/duplicate/self/subtree intent has no effects",
+    "Preview state remains unsaved; one Undo roundtrip; later touched-row correction rejects Undo",
+    "Memory/SQLite CAS one winner, lost response receipt and exact replay, later correction preserved, owner isolation",
+    "Real SQLite injected second moved-row UPDATE failure rolls back every changed row and operation receipt"
+  ],
+  "limits": [
+    "Independent integration/code review and root whole-source check/build/browser remain",
+    "No hosted D1/ChatGPT host acceptance claimed",
+    "No source deployment/commit/push performed",
+    "User native override; no runtime-kernel status claimed"
+  ]
+}

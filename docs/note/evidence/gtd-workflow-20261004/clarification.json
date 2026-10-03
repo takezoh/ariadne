@@ -1,0 +1,130 @@
+{
+  "turns": [
+    {
+      "prompt": "Capture this concern: Deal with the bank issue.",
+      "decision": "Capture ordinary input-derived title and exact concern text only, without classification or inferred work."
+    },
+    {
+      "prompt": "Clarify this into a concrete next action, but do not guess what the issue is or what I have decided.",
+      "decision": "Meaning and chosen response are absent; ask only the missing details required to form a supported next action. Do not save suggestions."
+    },
+    {
+      "prompt": "I was charged twice for the same purchase. I want to ask the bank to check it. I have not decided whether to dispute the charge, and I have not set a deadline.",
+      "instruction": "Save the decided next action; preserve original concern, do not infer dispute, refund or deadline.",
+      "decision": "Use existing concern identity as concrete Ask bank to check duplicate charge; preserve original notes, append exact clarification. Mark Actionable and Next action by the existing caller tags because user selected this next step. No project, child, deadline, dispute or refund added."
+    }
+  ],
+  "initialRevision": 49,
+  "id": "f18fe50a-2e5d-446c-8807-c38494ae6ff5",
+  "captured": {
+    "revision": 50,
+    "action": {
+      "id": "f18fe50a-2e5d-446c-8807-c38494ae6ff5",
+      "title": "Deal with the bank issue",
+      "revision": 1,
+      "parent_id": null,
+      "project_id": null,
+      "status": "active",
+      "due_at": null,
+      "defer_until": null,
+      "notes": "Deal with the bank issue.",
+      "order": 8,
+      "flagged": false,
+      "created_at": "2026-10-03T15:24:36.544Z",
+      "updated_at": "2026-10-03T15:24:36.544Z",
+      "is_deferred": false,
+      "view": "normal",
+      "defer_reasons": [],
+      "project_path": null,
+      "tags": []
+    }
+  },
+  "question": "銀行の何の問題で、いま決まっている対応や望む結果はありますか？",
+  "beforeAnswer": {
+    "revision": 50,
+    "action": {
+      "id": "f18fe50a-2e5d-446c-8807-c38494ae6ff5",
+      "title": "Deal with the bank issue",
+      "revision": 1,
+      "parent_id": null,
+      "project_id": null,
+      "status": "active",
+      "due_at": null,
+      "defer_until": null,
+      "notes": "Deal with the bank issue.",
+      "order": 8,
+      "flagged": false,
+      "created_at": "2026-10-03T15:24:36.544Z",
+      "updated_at": "2026-10-03T15:24:36.544Z",
+      "is_deferred": false,
+      "view": "normal",
+      "defer_reasons": [],
+      "project_path": null,
+      "tags": []
+    }
+  },
+  "beforeAnswerAssertions": {
+    "revisionUnchangedSinceCapture": true,
+    "exactNotes": true,
+    "ordinaryActive": true,
+    "noDeadline": true,
+    "noDefer": true,
+    "noProject": true,
+    "noTags": true,
+    "noConcreteChild": true
+  },
+  "originalNotes": "Deal with the bank issue.",
+  "final": {
+    "revision": 53,
+    "action": {
+      "id": "f18fe50a-2e5d-446c-8807-c38494ae6ff5",
+      "title": "Ask the bank to check the duplicate charge",
+      "revision": 4,
+      "parent_id": null,
+      "project_id": null,
+      "status": "active",
+      "due_at": null,
+      "defer_until": null,
+      "notes": "Deal with the bank issue.\n\nClarification (exact user text):\nI was charged twice for the same purchase. I want to ask the bank to check it. I have not decided whether to dispute the charge, and I have not set a deadline.",
+      "order": 8,
+      "flagged": false,
+      "created_at": "2026-10-03T15:24:36.544Z",
+      "updated_at": "2026-10-03T15:25:28.396Z",
+      "is_deferred": false,
+      "view": "normal",
+      "defer_reasons": [],
+      "project_path": null,
+      "tags": [
+        {
+          "id": "c8a96d6d-f237-47b5-b358-9d5878f4d369",
+          "name": "Next action",
+          "path": "Next action"
+        },
+        {
+          "id": "f8619690-2c07-4d5f-888c-a39dcc59b5df",
+          "name": "Actionable",
+          "path": "Actionable"
+        }
+      ]
+    }
+  },
+  "assertions": {
+    "originalConcernRetained": true,
+    "exactClarificationRetained": true,
+    "identityStable": true,
+    "noDeadline": true,
+    "noDefer": true,
+    "noInventedChild": true,
+    "noInventedProject": true,
+    "titleMatchesDecidedAction": true
+  },
+  "counts": {
+    "initialRevision": 49,
+    "afterCaptureRevision": 50,
+    "waitingRevision": 50,
+    "finalRevision": 53,
+    "persistentOperations": 4,
+    "apiFailures": 0
+  },
+  "answer": "Saved Ask the bank to check the duplicate charge under the existing concern ID, retaining the original concern and exact clarification in notes. It is Actionable and selected Next action. No dispute, refund, deadline or Defer was created."
+}

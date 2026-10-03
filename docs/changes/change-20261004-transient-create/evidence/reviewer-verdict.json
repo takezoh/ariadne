@@ -1,0 +1,75 @@
+{
+  "verdict": "approved",
+  "profile": "native independent requirements/design/implementation review",
+  "kernel_receipt": null,
+  "contract": "/tmp/transient-create-contract.json",
+  "findings": [],
+  "resolved_findings": [
+    "Invalid/failed/composing dependency now waits without infinite requeue or fresh-ID retry storm.",
+    "Remapping limits replacement to typed identity/reference fields and preserves literal temporary-ID text in raw notes/title/description.",
+    "Saved Action classification drafts wait for local catalog dependencies; their references protect transient dependency closure.",
+    "Transitive edited dependents prevent explicit discard of unresolved ancestors. Pending/unknown drafts cannot be discarded; persisted records are outside temporary discard.",
+    "Defer mode, composition keys, timers, raw date/time maps and catalog IME identity are remapped to generated UUID.",
+    "Inbox local scopes clone snapshot scope arrays and include unfinished project-unassigned transient ancestors without mutating authoritative state.data.",
+    "Same-kind header catalog creation retains local parent before creating its child instead of pruning it through redundant navigation.",
+    "Typed distinct catalog receipt requires created:true; missing created record after valid receipt is confirmed unavailable, not a fresh creation. Higher authoritative snapshot revision is respected."
+  ],
+  "independent_browser": {
+    "adversarial": "/tmp/transient-create/reviewer-adversarial.json",
+    "final_delta": "/tmp/transient-create/reviewer-final-delta.json",
+    "coverage": [
+      "Three-level Action dependency, transitive parent discard rejection and exact ordered UUID parents",
+      "Exact raw temporary-ID literal plus custom Defer seconds/milliseconds survive identity remap",
+      "Saved Action classification waits across navigation and sends only resolved identity references",
+      "Final Inbox three untouched local ancestors directly selectable/editable in same Inbox with zero writes before eligibility",
+      "Final Project and Tag same-view header Add each retain three untouched local ancestors then commit exact parent chain in dependency order"
+    ]
+  },
+  "owner_evidence": [
+    "/tmp/transient-create/target-tests.log (8 focused pass)",
+    "/tmp/transient-create/creation-tests.log (10 creation pass)",
+    "/tmp/transient-create/local-tree-dom-tests.log (2 permanent DOM pass)",
+    "/tmp/transient-create/browser.json (6 focused browser cases pass)",
+    "/tmp/catalog-empty-create/nonempty-target.log (12 backend targeted pass)"
+  ],
+  "backend_assessment": "New catalog create and explicit name edits require nonempty text while existing blank rows remain valid for reads, descriptions, moves and historical Undo/replay. Receipt replay precedes new validation. Applied 0014/schema/journal/meta hashes match previous approved candidate; no data or migration rewrite. Ordinary empty Action title and populated caller one-request creation retained.",
+  "limitations": [
+    "No duplicate full UI suite, pnpm check/build or drag matrix executed. Root owns whole integration gates.",
+    "Retained local proposals cover in-app Refresh/navigation/filter/host updates; no browser-reload draft persistence added.",
+    "Independent browser uses local memory actionCall fixture, not hosted D1 or actual ChatGPT host."
+  ],
+  "hashes": {
+    "lib/ui/model/transient-create.ts": "5fc1f1bd2e2fbdf3b4eaab41b9e8b1e88e7aeeb098e976c7d3865d2c0882d8bf",
+    "lib/ui/application.ts": "a46ed08795d90c4be013d8507d83ff148fa797c56bafaebbc259493be68d2c5b",
+    "lib/ui/adapters/dom.js": "872d96616f046aec4847d652cd5178164b181dc8bc41559afb91a73d23545132",
+    "lib/ui/model/catalog-drafts.ts": "99c9a4225caaad6398a60330b8115894ccdc2b8c72e203abbfb3d8fce1a6f181",
+    "lib/ui/model/save-status.ts": "89b352e246d64e3ffbf602738ccd5b7ef12c5852a280703711b2a4bb606fc0b5",
+    "lib/widget.ts": "79c7d34591f9455eac352bb166dfaac805721cf4a7791438c8672482658d930e",
+    "tests/ui/transient-create.test.mjs": "567879c920a6b29246ccc3b1fb5ca1c486eeb21e3c6c04487f1669c9522be379",
+    "tests/ui/dom.test.mjs": "b0bccd358b10317f22ea9e895dcfa5c82933a1761d883c0ee5b053de793007ee",
+    "scripts/testing/smoke-built-widget.mjs": "42ccde626b21adb910acf6ce8785fca5bf31e7f6897e47b49d936a084752907f",
+    "lib/domain/core.ts": "4ae43150fdc19a186abdd69fc4464fa6e6bd9882f546036ce79827ae3323f7da",
+    "lib/application/action-service.ts": "06197d7b7d5b1811f78cf9df99d840ec39d4ad935ee2e8fbe161403828c336a6",
+    "app/mcp/route.ts": "7c0769202f8d2fd59022bd7e75f4b70823208dc2cebbde517bf664037e588b13",
+    "db/schema.ts": "98bd9e5950b7ca1609e196d64aee0d535e30490521c2eb880f2c54ca5483b556",
+    "drizzle/0014_empty_catalog_names.sql": "80eed934eba4bd6ec374405b9a4cd9c398d8b1dbdd28cabb43b8fcd82288da17",
+    "drizzle/meta/_journal.json": "0d4af545899e66e57c8ad29ea5361363fdf76b4896727e6b43192d624ed46048",
+    "drizzle/meta/0014_snapshot.json": "760e01e693bd961e294d8c457339f468fea45c50c3bd11d9e22d173f5b772f0b",
+    "tests/domain/empty-catalog.test.mjs": "e3b3e05505b1efeeb876b2936eb1ccbb1d9d884e07683ac0334df8e6307fdc79",
+    "tests/adapters/empty-catalog.test.mjs": "8df736c017af5aaeaaa9e05b4290b2357e60e1d06dd64da96e24002070079508",
+    "/tmp/transient-create/widget.html": "fbb4464523da35742b7630b1c29b438a8e31321bca967190941f89cab8b0853f",
+    "tests/ui/autosave.test.mjs": "d884af341cf5b70aba723c31950c90f41a043c176adff4069711d599371a27a8",
+    "tests/ui/movement-application.test.mjs": "8e1f6904a4789c66ff4f2fe1882ff5d65a6b8fc59eb373034813e6503d8bfa7f"
+  },
+  "test_migration_review": {
+    "verdict": "approved",
+    "scope": [
+      "tests/ui/autosave.test.mjs",
+      "tests/ui/movement-application.test.mjs"
+    ],
+    "evidence": "/tmp/transient-create/migrated-final-four.log",
+    "owner_pass": 4,
+    "reviewer_reexecution": false,
+    "assessment": "Migration activates transient/catalog models and replaces immediate empty-create assumptions with zero-write local Add followed by meaningful content flush. Missing/malformed response still retains exact request; applied receipt plus failed refresh still gates writes and retains temporary identity/pending state; replay confirms one created record; serial prior edit-before-create and later saved selection preservation assertions remain. Runtime and generated-widget hashes unchanged."
+  }
+}

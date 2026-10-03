@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-module.local/docs/plan.schema.json",
+  "$comment": "decision_ref: adr-20260714-design-decision-evidence-closure; decision_ref: adr-20260714-design-outcome-evolution-witness-closure; decision_ref: adr-20260714-design-decision-input-closure",
+  "title": "Implementation plan (Spec-Kit compatible)",
+  "allOf": [{"$ref": "_common.schema.json"}],
+  "type": "object",
+  "unevaluatedProperties": false,
+  "required": ["goal"],
+  "properties": {
+    "kind":   {"const": "plan"},
+    "status": {"enum": ["draft", "active", "done", "abandoned"]},
+    "goal":   {"type": "string", "minLength": 1},
+    "scope_in":  {"type": "array", "items": {"type": "string"}},
+    "scope_out": {"type": "array", "items": {"type": "string"}},
+    "spec_ids": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^spec-[0-9]{8}-[a-z0-9][a-z0-9-]*$"},
+      "uniqueItems": true,
+      "description": "Spec ids this plan implements. Mirrors spec.plan for many-to-many."
+    },
+    "milestones": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id":     {"type": "string", "pattern": "^m[0-9]+$"},
+          "title":  {"type": "string", "minLength": 1},
+          "status": {"enum": ["todo", "in_progress", "done", "cancelled"]}
+        }
+      }
+    },
+    "adrs": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^adr-[0-9]{8}-[a-z0-9][a-z0-9-]*$"}
+    },
+    "decision_dispositions": {
+      "type": "array",
+      "description": "Final disposition of an upstream decision input materialized from the canonical design plan.",
+      "items": {
+        "type": "object",
+        "required": ["decision_input_ref", "disposition", "rationale", "adr_refs", "contract_refs"],
+        "additionalProperties": false,
+        "properties": {
+          "decision_input_ref": {"type": "string", "pattern": "^decision-input-[a-z0-9-]+$"},
+          "disposition": {"enum": ["adopted", "rejected", "subsumed", "not_applicable", "implementation_detail"]},
+          "rationale": {"type": "string", "minLength": 1},
+          "adr_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^adr-[0-9]{8}-[a-z0-9][a-z0-9-]*$"}},
+          "contract_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^contract-[a-z0-9-]+$"}},
+          "implementation_decision_ref": {"type": "string", "minLength": 1},
+          "subsumed_by": {"type": "string", "pattern": "^decision-input-[a-z0-9-]+$"}
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^task-[0-9]{8}-[a-z0-9][a-z0-9-]*$"}
+    },
+    "contracts": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "contract_projections": {
+      "type": "array",
+      "description": "Projection of a stable ID internal to the contract, materialized from the canonical design plan.",
+      "items": {
+        "type": "object",
+        "required": ["id", "decision_rules", "observable_effects", "operational_inputs", "semantic_profiles", "failures", "verifications", "witnesses"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "pattern": "^contract-[a-z0-9-]+$"},
+          "decision_rules": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^decision-[a-z0-9-]+$"}},
+          "observable_effects": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^observable-[a-z0-9-]+$"}},
+          "operational_inputs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^input-[a-z0-9-]+$"}},
+          "semantic_profiles": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^profile-[a-z0-9-]+$"}},
+          "failures": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^failure-[a-z0-9-]+$"}},
+          "verifications": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^verify-[a-z0-9-]+$"}},
+          "witnesses": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^witness-[a-z0-9-]+$"}}
+        }
+      }
+    },
+    "reference_algorithms": {
+      "type": "array",
+      "description": "[x-tentative] spec-detail (2026-07-09): Optional Reference Algorithms section. Consolidate pseudocode in a standalone section in plan.md and reuse it from milestones by ID only (adr-20260709-reference-algorithms-in-plan). A separate algorithms.md kind is future work. Source of truth: artifacts/architecture-contract/semantics.md §11. Deprecation criterion: remove if fewer than two plans outside spec-detail use this by 2027-01-09.",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "additionalProperties": false,
+        "properties": {
+          "id":      {"type": "string", "pattern": "^alg-[a-z0-9][a-z0-9-]*$", "description": "ID referenced from milestone text."},
+          "purpose": {"type": "string", "description": "Purpose in one line."}
+        }
+      }
+    },
+    "verification_profiles": {
+      "type": "array",
+      "description": "[x-tentative] spec-detail (2026-07-09): Optional Verification Profile extension with four columns: tier, verbatim command, pass criterion and milestone definition of done. Source of truth: artifacts/architecture-contract/semantics.md §11 (FR-002). Deprecation criterion: remove if fewer than two plans outside spec-detail use this by 2027-01-09.",
+      "items": {
+        "type": "object",
+        "required": ["profile", "tier", "command", "criterion"],
+        "additionalProperties": false,
+        "properties": {
+          "profile":         {"type": "string", "minLength": 1},
+          "milestone":       {"type": "string", "pattern": "^m[0-9]+$"},
+          "tier":            {"enum": ["T0", "T1", "T2", "T3"]},
+          "command":         {"type": "string", "minLength": 1, "description": "Command to run verbatim."},
+          "criterion":       {"type": "string", "minLength": 1},
+          "milestone_dod":   {"type": "string", "description": "Milestone definition of done; if empty, use the same value as criterion."}
+        }
+      }
+    },
+    "implementation_checklist": {
+      "type": "object",
+      "description": "[x-tentative] spec-detail (2026-07-09): Optional Implementation Checklist. Three Symphony §18 layers: REQUIRED / RECOMMENDED / Operational (FR-002). Independent of milestone.status=done (milestone is a phase; checklist is a completion requirement). Deprecation criterion: remove if fewer than two plans outside spec-detail use this by 2027-01-09.",
+      "additionalProperties": false,
+      "properties": {
+        "required":    {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "recommended": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "operational": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

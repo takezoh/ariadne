@@ -1,0 +1,107 @@
+{
+  "profile": "native independent UI integration review",
+  "status": "approved",
+  "approval_scope": "Latest direct-edit/classification/movement UI behavior and code candidate; whole check/build/built-host release gates remain owned by root.",
+  "candidate_hashes": {
+    "app/mcp/route.ts": "d99b946ab3c9e32d89d11c69f808bf22433f1e8863093baad92598192e4e0e46",
+    "lib/domain/core.ts": "70805f11f0f8e089c389dc28cd4dbc8a708b2424c168c6b04e609e2cc9396f1d",
+    "lib/ui/adapters/dom.js": "fd5168afd8499a0db14a8b0e0f86ca3c411a6e144dbadd6e786a8b1ac41461e9",
+    "lib/ui/adapters/host.ts": "d0c8408d775285460d9c21a7e70debcc764e947606b08225c47de2bbffe0c385",
+    "lib/ui/adapters/verification.ts": "4705ece9a9ebb5956f8d01578dc751b92a81ffa82751cf2c2e12e7a42c990fff",
+    "lib/ui/application.ts": "9a66374e4acb71472d4c5427398e7bc21a4ac0f371c46a4bba29f3eed319caa5",
+    "lib/ui/controller.ts": "c060bbb4d1a6aaf801c90fb38df14446d0edb5b899ee15706b029176637b36d8",
+    "lib/ui/icons.ts": "36883710c823337b3136e102c783710e6e78ea2c64ee5fb823e507da1484698c",
+    "lib/ui/model/autosave.ts": "69f2f3e2d56c65f8fd1b961b4b1cb079649f4833e4577b7cd5ab5003ef3b7a01",
+    "lib/ui/model/controls.ts": "999baa7e43da070e070d516975f848b07a1814a6b5b7ef3f1e3e6d6d59b8528d",
+    "lib/ui/model/display.ts": "137f22f95c5e0608a00532ef8aa2397c7e83921bbe5d0eac3f5b9fbd7b2e6706",
+    "lib/ui/model/drafts.ts": "f7b8cc0b36a33c5949e775ab1fead7739ddd37bf30a464c0f03b868a96d7af03",
+    "lib/ui/model/movement.ts": "65704a396e57fe46398ac4efbaaf2761060293cd087cadffd9df8302b3f7595a",
+    "lib/ui/model/navigation.ts": "271cbcc40dde9a2ec7c81c1b625ee7dd2ccdbdf332c246d58d8b1a434dc2f905",
+    "lib/ui/model/operations.ts": "f533a656964a93176b28cb226b6c5dfe6173105b484fbe523e03095216049a1f",
+    "lib/ui/model/presentation.ts": "c200cc6756e075ee9cdb5307fafb8c3be4af0615c8d86f735c50498ea1179d8f",
+    "lib/ui/ports.ts": "d74f99fbccd35308cecdc147e580d5d64edc2b189e07d1ea234f3c429d12d03f",
+    "lib/widget.ts": "3c2fcc9119cea69ac540e6dea77f84691ea8939124183fb39ad45dc8ca2692c9",
+    "tests/ui/application.test.mjs": "078bb8a45a22441acd9f103fe03ed83dd96047ca463dde1334c426282faa6764",
+    "tests/ui/autosave.test.mjs": "f25d3f916770e56a6deeada8bd14ce239e641a9d3065349aa52474a287d40398",
+    "tests/ui/controller.test.mjs": "a1a30744583853fc0cf2be163eb173fa24dab710af36535a4935dcbfd0c4c557",
+    "tests/ui/display.test.mjs": "2c79650462f05f93887eac9a25b22abf4be8aa40956ea07c185ce860d4a79f57",
+    "tests/ui/dom.test.mjs": "a6b992fe894e281e617e628939662bbae1460e4148766bd984b0c6f44a39242b",
+    "tests/ui/host.test.mjs": "5ad85cc346fd142197a2f13d75e3edb24e711b0d83504b09051eff452dbcdb98",
+    "tests/ui/mcp-display.test.mjs": "e5250c96924843ad0d26f882fe4fd3e2557b28437b64ea27b94e52fef04da221",
+    "tests/ui/model.test.mjs": "3341085fc2d70f4e87b9a16d04ea1131d1891829736b5feacbf441fc16fedc64",
+    "tests/ui/movement-application.test.mjs": "d36a741580ab38b2e60c3f827a45d80e467951d3c42c23b15193df2201427586",
+    "tests/ui/movement.test.mjs": "631841ba695e92c75f57fdeaa98196f69e9264a100a3c8539c334392df680fb6",
+    "tests/ui/navigation.test.mjs": "75f6bc400e64ec0702e86cae081f4f7280ec2f091cfba7ff98cf1f1abe3136bd"
+  },
+  "artifact_hashes": {
+    "/tmp/action-drag/widget.html": "20d1e32a67f7e911a995fe9978c7314c324936a6894a26d0d62f48a5ca1873ff",
+    "/tmp/action-drag-requirements.json": "eba7118ed6fd2adef3684d83e74fc6ddf3c4d53e7e3415278d534c5e82899c5a",
+    "/tmp/action-drag-design.json": "594485ca4ebe5d0915239e32962e1766a486c0aa344436c588805486bd78ab3e"
+  },
+  "findings": [],
+  "evidence": {
+    "independent_ui_harness": {
+      "command": "pnpm test:ui",
+      "passed": 83,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "independent_browser_reruns": [
+      {
+        "script": "/tmp/action-drag/drag-browser.py",
+        "exit_code": 0,
+        "runs": 3,
+        "result": "Pointer batch one write; hidden child and attributes preserved; one Undo; compact keyboard chooser; no overflow/pageerrors."
+      },
+      {
+        "script": "/tmp/action-drag/touch-browser.py",
+        "exit_code": 0,
+        "result": "Real mobile Chromium touch bundle move and edge auto-scroll714; one atomic write; hidden child retained; no overflow/pageerrors."
+      }
+    ],
+    "provided_details_browser": "/tmp/action-drag/details-browser.json four widths/themes validates status icons above Title, Project/Tags saved, parent/order removed, orange Flag, exact notes.",
+    "code_and_contract_review": [
+      "Pure movement canonical source order and ancestor-root normalization match backend; full snapshot hidden siblings and independent Project classification remain preserved.",
+      "Source/target relevant structural fingerprints guard render, hover, pointerup and queued dispatch; unrelated structural groups do not cancel intent. Scope/filter cancels gesture/live selection and preserves frozen operation/drafts.",
+      "Project/tag drafts capture field baselines and immutable submitted versions; partial multi-tag changes advance own baselines, newer intent retained; external correction after receipt pauses explicit reconciliation.",
+      "Owner serial lane flushes valid relevant drafts before move, IME blocks; retained moveIssue makes changed structural intent reachable.",
+      "Unknown exact Check/Retry preserves frozen move args, prevents new move and retains newer text. Confirmed moved IDs keep filtered-out records reachable, Undo through shared backend.",
+      "Pointer dedicated grip6px threshold/touch-action, edge auto-scroll, distinct before/after/inside/root feedback and compact keyboard chooser use same pure intent.",
+      "Existing host display/theme/recovery, raw text/XSS-safe label construction and proposal/IME protections retain harness coverage."
+    ],
+    "final_focus_delta": {
+      "independent_test": "Move chooser Escape and Cancel restore the initiating grip after rows rerender",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "reason": "Origin stored as stable data-focus-key, resolved after rows are recreated. Escape and Cancel share closeMove; absent origin falls back to compact Move control."
+    },
+    "author_final_ui_harness": {
+      "passed": 84,
+      "log": "/tmp/action-drag-ui-tests-final.log",
+      "provenance": "Author-provided final harness; independent prior83 + focused final regression1 passed."
+    },
+    "live_read_only_browser": "/tmp/action-drag/live-browser.json"
+  },
+  "design_reassessment": "/tmp/action-drag-design-verdict.json refreshed to final artifact hash and explicit compact chooser decision.",
+  "limits": [
+    "Independent full pnpm check/build/built-resource not performed in this verdict; root gates required.",
+    "Browser uses real shared actionCall with local memory HTTP; SQLite atomicity proven separately in backend review, not hosted D1.",
+    "Actual ChatGPT Work retrieval/cache/auth/host acceptance and deployment remain unverified."
+  ],
+  "execution": {
+    "placement": "native subagent",
+    "repository_edits": false,
+    "kernel_receipt": false
+  },
+  "resolved_notes": [
+    {
+      "id": "UI-N1",
+      "source": "lib/ui/adapters/dom.js Escape handler",
+      "description": "Escape hides Move chooser without explicitly returning focus. Preserve/restore named opening grip or Move control on Escape as a small accessibility improvement; cancel button currently returns to openMove."
+    }
+  ],
+  "nonblocking_notes": []
+}

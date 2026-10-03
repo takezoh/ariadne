@@ -1,0 +1,37 @@
+{
+  "verdict": "approved",
+  "profile": "native independent bounded UI reviewer",
+  "kernel_receipt": null,
+  "findings": [],
+  "candidate": "final source freeze",
+  "independent_evidence": [
+    "/tmp/flag-independent/reviewer-browser.json",
+    "/tmp/flag-independent/reviewer-sequential.json",
+    "/tmp/flag-independent/reviewer-one-320-light.png",
+    "/tmp/flag-independent/reviewer-one-390-dark.png"
+  ],
+  "checks": [
+    "Real Chromium isolated memory fixture: 320/390/1280 \u00d7 light/dark; actual Flag outside lifecycle group border as independently bordered sibling, not divider inside shared border.",
+    "Both clocks: one keystroke leaves visible 1-:--:--; Refresh retains partial raw input and no write occurs.",
+    "Both clocks at three widths: sequential six numeric digits insert separators and retain remaining guide; end deletion restores missing-segment guide; Refresh retains partial and never saves invented digits."
+  ],
+  "owner_evidence": [
+    "/tmp/flag-independent/browser.json",
+    "/tmp/flag-independent/target-test.log",
+    "/tmp/flag-independent/clock-test.log"
+  ],
+  "limitations": [
+    "Text/caret clock with visible remaining-segment guide, not a native spinbox. Malformed middle deletion retains exact raw text and adjacent error; it does not invent digits or promise a mask for every malformed lexical structure.",
+    "No duplicate full UI suite, pnpm check/build, or drag matrix executed. Final integration gates belong to root.",
+    "Local Chromium/memory fixture does not prove actual ChatGPT host acceptance."
+  ],
+  "hashes": {
+    "lib/widget.ts": "6462fae8466407f5832e31913a1f80301585fbeb3b707698bcddd8e1cdf0692a",
+    "lib/ui/adapters/dom.js": "4b592edbb3329fc3a17688f85d9cbcd5168098f9ff58ae2216fe3bec0eb0dd5a",
+    "lib/ui/model/date-input.ts": "e59236f340e3254717531897314f2549f5da6f7d5f434d934b92f15149cf2036",
+    "tests/ui/dom.test.mjs": "1bf6710cbf6ce7db1616dcd9476690baf0c8fd4ee9addb78f2d1a149a29290dd",
+    "tests/ui/date-input.test.mjs": "48c884728b2f68b592556ed87488a4c7dfec14a174274ec0f7503572348077d1",
+    "scripts/testing/smoke-built-widget.mjs": "5ccdf935b50fd4cdee58562082c2f68d8c7c7972de93e999eb9fa681f81d8b03",
+    "/tmp/flag-independent/widget.html": "49030f2a6692c5d4203a6c6bfcb6d428a5d5b5e40ef8a7b0cb231e2da982664b"
+  }
+}

@@ -1,0 +1,10 @@
+✔ Add starts locally and notes-only content waits for Title then creates with exact original notes (180.653418ms)
+✔ serial creation flushes prior proposals and delayed reply respects newer selection (13.487123ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16779.239575

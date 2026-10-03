@@ -1,0 +1,16 @@
+{
+  "profile": "native implementation",
+  "kernelExecuted": false,
+  "scope": [
+    "Lifecycle controls and orangeFlag remain adjacent but separate by12px effective gap/visualseparator.",
+    "Due/Defer keep native dates and24h text clocks; placeholderHH:mm, partial/raw/precision/DST/recovery preserved.",
+    "Validation appears at responsible fields; conflict/unknown/transport remain in existing recovery panels.",
+    "One global save feedback in far-right Refresh: stable accessible action name, described live status, actualwrite-only animation and reducedmotion."
+  ],
+  "placeholderObservation": "Actual read-only320/390/1280 displayedHH:mm for emptyDefer and actual saved precision forDue. Literal placeholder corruption was not reproduced; presentation stabilized and empty/partial/refresh regression verified.",
+  "nonGoals": [
+    "Backend/database change",
+    "Broad drag acceptance",
+    "Hosted deployment"
+  ]
+}

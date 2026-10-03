@@ -1,0 +1,160 @@
+---
+id: design-product
+kind: design
+title: Ariadne Positioning, Audience and Benefits
+status: active
+created: '2026-10-02'
+updated: '2026-10-03'
+summary: 'A task list built for an AI to manage: positioning, audience, brand pillars,
+  messaging and claim boundaries grounded in current data contracts.'
+tags:
+- product
+- benefits
+- gtd
+owners: []
+relations:
+- {type: references, target: design-assistance}
+- {type: references, target: design-action-state-and-perspectives}
+- {type: references, target: note-20261002-gtd-benefits-and-llm-research}
+- {type: references, target: note-20261002-state-and-view-design-research}
+- {type: references, target: note-20261003-llm-delegated-task-management-and-plugin}
+- {type: references, target: note-20261003-product-positioning-audience-and-claim-b}
+source_paths: []
+scope_type: system
+responsibilities:
+- id: RESP-001
+  statement: Design dot's assistance and Ariadne's persistent state and operations as
+    one experience, starting from user benefits.
+invariants:
+- id: INV-001
+  statement: dot inside ChatGPT owns assistance decisions; do not assume Ariadne contains
+    an independent LLM decision engine.
+  enforcement: review
+- id: INV-002
+  statement: Distinguish product direction, accepted MVP contracts, extension hypotheses
+    and measured results.
+  enforcement: review
+boundaries:
+  provides:
+  - Product purpose and design criteria
+  consumes:
+  - User discussions
+  - settled MVP requirements
+  - research with verified sources
+  forbidden:
+  - Using GTD procedures or task completion counts as substitutes for benefits
+  - recording concepts as implemented or proven
+variability:
+  fixed:
+  - Benefit priority
+  - division of responsibility with dot using Ariadne
+  - respect for user corrections and choices
+  free:
+  - Specific prompt wording
+  - workflows or parameters for selecting and validating benefits
+capabilities: []
+failure_responsibilities:
+- Separate plugin defects from caller workflow defects and evaluate total burden without
+  false reassurance.
+trust_boundaries:
+- Distinguish LLM inferences from user intent; determine save success from operation
+  results.
+compatibility_policies:
+- This design does not change existing MVP C1-C4 or Work acceptance scope.
+---
+
+# Ariadne Positioning, Audience and Benefits
+
+## Positioning
+
+The governance metadata references dot as an example caller in the current ChatGPT delivery. It does not require that caller or assign its assistance workflow to Ariadne.
+
+**Hand your to-do list to your AI—without watching over it.**
+
+Ariadne is a task list built for an AI to manage. For individuals who want to delegate task management to their AI, it keeps AI changes safe to accept and easy to correct, while judgment stays with the user's AI and the user's own method. The intended outcome is less effort remembering, collecting, organizing, reviewing and updating everyday work and personal tasks, with more attention available for action, decisions and rest.
+
+Letting an AI read and write tasks is not distinctive by itself. Ariadne differs through two properties grounded in its contracts: AI writes are safe to delegate without supervising each change, and the management method lives in prompts rather than in the product. Task apps that add an AI connection keep their own work model and rely on users to review changes; AI planners make organizing or scheduling decisions inside their own app; host reminder features cover timing and complement Ariadne. See the [decision record](../note/note-20261003-product-positioning-audience-and-claim-b.md) for the observations behind this comparison.
+
+Ariadne provides structured task-data API/MCP tools and a shared UI. The user's prompts, AI, dot or caller-side scheduler determine how and when to use them. ChatGPT is the current delivery environment, not a requirement that the concept use a particular assistant or management method. The product name is Ariadne. Source code and published identifiers are generic and contain no product name, so the name lives only in documentation and host listings.
+
+## Audience
+
+| Segment | Role | Reason |
+| --- | --- | --- |
+| Individuals who use an AI assistant daily and want it to handle task upkeep, especially people for whom maintaining a to-do app became work in itself | Primary | They gain the most from not learning an app routine; because they will not supervise each change, safe writes are a precondition for delegating |
+| GTD practitioners and people who run their own systems | Secondary | The method stays in their prompts while the saved data remains stable |
+| People who build their own agents or scheduled workflows | Secondary | Composable tools accept changes from any authorized caller workflow |
+| Team project management, automatic calendar planning and reminder use | Not targeted | These are outside Ariadne's responsibilities |
+
+People already settled in an established task app can use that app's AI connection, so they are not the primary audience. These segments are hypotheses, not validated market findings.
+
+## Brand pillars and supporting contracts
+
+| Pillar | Promise | Supporting contract |
+| --- | --- | --- |
+| Keep less in your head (entry) | Hand things over without deciding everything first | Exact original notes; no required deadline, classification or commitment; Defer preserves content and Due; Inbox keeps project-unassigned unfinished actions |
+| Delegate without watching every change (primary differentiator) | AI changes do not silently break the saved list | Latest-revision validation rejects stale writes; the UI retains unsaved proposals; identical replay uses the receipt; unknown outcomes keep exact IDs and arguments for lookup or resend; Undo rejects later target corrections; owner isolation |
+| Manage your way (differentiator) | Change the method without rebuilding the list | No backend management method; containment, projects, tags, order, flags, dates and perspectives are composable data capabilities |
+| See and fix anything (supports the primary differentiator) | The user can inspect and correct directly | Conversation and UI share one action path and saved state |
+
+Lead with relief from remembering. Use safe delegation and method independence as reasons to believe. A pillar must not promise more than its supporting contract.
+
+## Messaging and tone
+
+- Headline: "Hand your to-do list to your AI—without watching over it." Supporting line: "Your AI organizes it your way. See and fix anything, anytime."
+- User-facing text says "AI" and "tasks". "LLM", "caller" and "action" belong to technical and API documentation.
+- Tone is calm, plain and honest. Avoid productivity hype; more tasks or completions are not success, and rest is a legitimate outcome.
+
+## Claim boundaries
+
+| Do not claim | Reason |
+| --- | --- |
+| Reminders, notifications, calendar planning or background execution | Caller and host responsibilities |
+| Ariadne decides priorities or what matters | Ariadne has no backend LLM; the caller's AI and the user decide |
+| No confirmation or approval is needed | Host confirmation steps are outside Ariadne |
+| Every change can be undone | Undo rejects later target corrections and uses only the latest 100 retained operations |
+| The AI never invents deadlines or commitments | Caller guidance, not backend enforcement; Ariadne stores requested changes |
+| Works with any AI assistant | Only the ChatGPT delivery has been verified |
+| Proven reduction of management effort | Intended outcome, not measured |
+
+## Benefits and evaluation criteria
+
+| Intended benefit | Burden reduced | Evidence to seek |
+| --- | --- | --- |
+| Keep less in your head | Rehearsing commitments and checking where they were saved | Less repeated checking without important information loss |
+| Delegate upkeep | Collecting, classifying, updating and reviewing lists | Less total management time, including explanation and correction |
+| Focus on the current purpose | Scanning every item and rebuilding context | Relevant actions and decisions are easier to retrieve |
+| Manage your way | Adapting personal habits to a prescribed app workflow | Different user-defined methods operate over the same data |
+| Change methods without starting over | Rebuilding lists when prompts or routines change | Existing actions remain reusable across workflow changes |
+| Delegate without watching every change | Supervising AI edits and repairing uncertain saves | Less per-change checking, with direct correction, preserved proposals and safe recovery |
+| Rest with confidence | Continuing to think about matters already entrusted to the system | Reassurance accompanied by low omission/error rates |
+
+These are intended outcomes, not measured long-term effects. More tasks, completions or notifications alone are not success. Deferring, withdrawing a commitment and resting are legitimate outcomes. Evaluate total remembering, explanation, approval, correction and supervision burden, together with missed commitments and invented intent. Research in the [GTD note](../note/note-20261002-gtd-benefits-and-llm-research.md) informs evaluation but does not prove Ariadne's effects.
+
+## Product boundary
+
+| Ariadne provides | The user and caller determine |
+| --- | --- |
+| Durable structured actions, projects, tags and perspectives | Meaning, classification conventions and management method |
+| Composable reads, previews and changes through API/MCP | Capture, organization, review and recommendation workflows |
+| Validation, deterministic transitions and ownership | What matters, what to delegate and when to ask |
+| Revision, atomicity, receipts, replay and Undo | Execution opportunities, external-source access and notifications |
+| A UI for the same saved state | Prompts, assistant choice and caller-side scheduling |
+
+An agent configured by the user can inspect Slack or email using its own tools and write the resulting actions through Ariadne. This is a use of the published tools, not a separate Ariadne integration or backend monitoring feature. Availability and authorization of external access and scheduled execution belong to the caller's environment. Ariadne does not promise that the caller is configured or will run.
+
+Thinness means flexible semantic decisions with reliable persistence, not arbitrary SQL or relaxed ownership. Backend restrictions must follow authorization, integrity, deterministic semantics or resource limits; assistance suggestions are not additional validation rules. See [architecture](../../ARCHITECTURE.md) and [caller responsibilities](assistance.md).
+
+## Management methods and data structure
+
+GTD is one possible caller-side management method. A user may follow it, adapt it, or use another approach. Ariadne does not mandate or reject GTD routines, fixed review schedules or the two-minute rule. It provides the data capabilities needed to represent supported state and leaves their use to the user and LLM.
+
+Ariadne provides containment, projects, tags, order, direct flags, dates and perspectives as structured data capabilities. Actions have containment only; there are no prerequisite edges or sequential/parallel execution constraints. Data and deterministic projection semantics remain stable across management methods. See the [current state design](design-action-state-and-perspectives.md).
+
+## Current contract, history and development
+
+[Data model](../technical/data-model.md), [API](../technical/mcp-api.md) and code define supported operations. Completed change packages and [historical research synthesis](../research/product-brief.md) describe their recorded versions, not current inventories. The [Work acceptance record](../note/note-20261002-work-benefit-acceptance.md) does not establish acceptance of subsequent changes or user-defined workflows.
+
+Develop from benefit and caller scenario to required data capability and evidence. If a scenario can already be composed from tools, document the use rather than adding a specialized integration. Evaluate plugin correctness separately from caller behavior and user outcomes. A gap may require a prompt change, more caller context, a host capability or a data operation; do not assume a new backend decision engine.
+
+The concept boundary records the user's direction on 2026-10-03 in the [boundary decision record](../note/note-20261003-llm-delegated-task-management-and-plugin.md). Positioning, audience, messaging and claim boundaries record the user's adoption on the same day in the [positioning decision record](../note/note-20261003-product-positioning-audience-and-claim-b.md). The [2026-10-03 rename change](../changes/change-20261003-product-rename-generic-identifiers/change.md) records an earlier product-name change; the current product name is Ariadne. None of these records authorizes deployment or autonomous external actions.

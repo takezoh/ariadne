@@ -1,0 +1,42 @@
+{
+  "profile": "native independent UI review",
+  "status": "changes_requested",
+  "candidate_state": "In-progress latest candidate; source freeze not yet confirmed.",
+  "findings": [
+    {
+      "id": "DND-EXACT-01",
+      "severity": "major",
+      "source": "lib/ui/adapters/dom.js hitDestination/native drag",
+      "requirement": "ADDSEARCH06 normal title center must mean Into exact intended Action",
+      "evidence": "/tmp/action-menu/independent-exact-drag.py two independent executions using currentgeneratedwidget on memory5199: unselected Alpha title drag_to Gamma title default center commits placement before,anchor Gamma rather than inside. Latest widget contains titleCenter guard; therefore one write is not acceptance.",
+      "requested_change": "Resolve coordinate/layout/target hit issue; regression must assert exact placement,anchor and final parent/order rather than count alone."
+    },
+    {
+      "id": "TEST-01",
+      "severity": "validation_failure",
+      "source": "tests/ui/picker.test.mjs:3",
+      "evidence": "Independent pnpm test:ui102:101pass1fail0skip/cancel/todo. Same-name test expects input order[2,1], newstableUUIDresult[1,2].",
+      "requested_change": "Update obsolete order expectation while preserving separate identity assertion; complete all harness tests."
+    }
+  ],
+  "resolved_findings": [
+    "PICKER01 currentnormalize includes diacritic/kana andstablepathUUIDties; newpurecase passes."
+  ],
+  "candidate_hashes": {
+    "lib/ui/adapters/dom.js": "75d09d155ac1a612f780ed9006ac864520062a7408d4e3340b6b92f23a5b7d08",
+    "lib/ui/model/picker.ts": "b51cd1db423dd0e037c745ef26d0119647e082ab4f82c453cf495e102090810b",
+    "lib/widget.ts": "839246ca09cecd93e123adafb2f7f40364a14a253440aa5bec2a2cee8c2104a2",
+    "tests/ui/picker.test.mjs": "dc8300f592b706a6367c8bda4b485b9250ec66da35c3906607a1bfa9096efb53",
+    "/tmp/action-drag/widget.html": "81e053e3e4201527c5a500916f165437d99ca17b7f211564f21f2f34bc45e297"
+  },
+  "backend_verdict": "/tmp/classification-batch-backend-verdict.json approved",
+  "remaining": [
+    "Full sourcefreeze/reassessment needed; header/accessibilityrootproof positive but not enough to override exactdragfailure.",
+    "Actual hostedD1/ChatGPTWork not established."
+  ],
+  "execution": {
+    "placement": "native subagent",
+    "repository_edits": false,
+    "kernel_receipt": false
+  }
+}

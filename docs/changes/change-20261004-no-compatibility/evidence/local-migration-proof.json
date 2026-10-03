@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "applied_only": "0015_required_catalog_names.sql",
+  "unchanged_tables": {
+    "actions": true,
+    "projects": true,
+    "tags": true,
+    "action_tags": true,
+    "perspectives": true,
+    "operations": true,
+    "catalog_identity_ledger": true
+  },
+  "indexes": [
+    "CREATE UNIQUE INDEX `projects_owner_root_name_uq` ON `projects` (owner,name) WHERE parent_id IS NULL",
+    "CREATE UNIQUE INDEX `projects_owner_parent_name_uq` ON `projects` (owner,parent_id,name) WHERE parent_id IS NOT NULL",
+    "CREATE UNIQUE INDEX `tags_owner_root_name_uq` ON `tags` (owner,name) WHERE parent_id IS NULL",
+    "CREATE UNIQUE INDEX `tags_owner_parent_name_uq` ON `tags` (owner,parent_id,name) WHERE parent_id IS NOT NULL"
+  ],
+  "blank_actions_retained": 8,
+  "data_reset": false
+}

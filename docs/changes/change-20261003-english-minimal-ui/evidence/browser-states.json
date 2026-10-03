@@ -1,0 +1,23 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "overflow": false,
+    "unknownVisible": true,
+    "draft": "A long action title that should remain readable without pushing the controls off the screen or losing any of the text"
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "overflow": false,
+    "unknownVisible": true,
+    "draft": "A long action title that should remain readable without pushing the controls off the screen or losing any of the text"
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "overflow": false,
+    "unknownVisible": true,
+    "draft": "A long action title that should remain readable without pushing the controls off the screen or losing any of the text"
+  }
+]

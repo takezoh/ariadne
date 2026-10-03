@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "kind": "action",
+      "repeatAddOneTemporary": true,
+      "identityReplaced": true,
+      "closePurged": true
+    },
+    {
+      "kind": "project",
+      "repeatAddOneTemporary": true,
+      "identityReplaced": true,
+      "closePurged": true
+    },
+    {
+      "kind": "tag",
+      "repeatAddOneTemporary": true,
+      "identityReplaced": true,
+      "closePurged": true
+    }
+  ],
+  "writes": 0,
+  "revision": 0,
+  "url": "http://127.0.0.1:5173"
+}

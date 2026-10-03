@@ -1,0 +1,39 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {register} from 'node:module';
+// Metadata reads require no storage; provide an empty Worker environment at its effect boundary.
+register('data:text/javascript,'+encodeURIComponent("export function resolve(specifier,context,next){if(specifier==='cloudflare:workers')return {url:'data:text/javascript,export const env={};',shortCircuit:true};return next(specifier,context);}"),import.meta.url);
+const {POST}=await import('../../app/mcp/route.ts');
+function request(method,params={}){return new Request('https://local.invalid/mcp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})});}
+test('MCP open/list use existing resource identity with global/thread launch entrypoints',async()=>{
+ const response=await POST(request('tools/list'));assert.equal(response.headers.get('cache-control'),'private, no-store');const tools=(await response.json()).result.tools;const open=tools.find(t=>t.name==='open_actions'),list=tools.find(t=>t.name==='list_actions');
+ assert.deepEqual(open._meta['openai/ui'].entrypoints,[{type:'global'},{type:'thread'}]);assert.deepEqual(list._meta['openai/ui'],open._meta['openai/ui']);assert.equal(list._meta.ui.resourceUri,open._meta.ui.resourceUri);
+ const resources=(await (await POST(request('resources/list'))).json()).result.resources;assert.equal(resources.length,2);assert(resources.some(r=>r.uri===open._meta.ui.resourceUri));
+});
+test('MCP resource declares supported host modes while retaining CSP and HTML identity',async()=>{
+ const tools=(await (await POST(request('tools/list'))).json()).result.tools;const uri=tools.find(t=>t.name==='open_actions')._meta.ui.resourceUri;const response=await POST(request('resources/read',{uri}));const content=(await response.json()).result.contents[0];
+ assert.equal(content.uri,uri);assert.equal(content.mimeType,'text/html;profile=mcp-app');assert.deepEqual(content._meta['openai/ui'].availableDisplayModes,['inline','fullscreen']);assert.deepEqual(content._meta.ui.csp,{connectDomains:[],resourceDomains:[]});assert.equal(content._meta.ui.prefersBorder,true);assert.match(content.text,/<!doctype html>/i);
+});
+test('MCP action titles and catalog names retain required semantics',async()=>{
+ const tools=(await (await POST(request('tools/list'))).json()).result.tools;for(const name of ['add_action','rename_action']){const title=tools.find(t=>t.name===name).inputSchema.properties.title;assert.equal(title.maxLength,200);assert.equal(title.minLength,1);}assert.equal(tools.find(t=>t.name==='capture_intent').inputSchema.properties.title.minLength,1);assert.match(tools.find(t=>t.name==='apply_change').description,/tag_ids/);assert.match(tools.find(t=>t.name==='apply_change').description,/one request/);
+});
+
+test('MCP publishes exactly the current tool names without aliases',async()=>{
+ const tools=(await (await POST(request('tools/list'))).json()).result.tools;
+ assert.deepEqual(tools.map(t=>t.name).sort(),['add_action','apply_change','capture_intent','get_relevant_context','list_actions','list_perspectives','open_actions','open_verification','operation_status','preview_change','query_actions','query_perspective','rename_action','undo_change']);
+});
+
+test('MCP exposes bounded structural action_move without changing the tool-name surface',async()=>{const tools=(await (await POST(request('tools/list'))).json()).result.tools;const apply=tools.find(t=>t.name==='apply_change');assert(apply.inputSchema.properties.kind.enum.includes('action_move'));assert.match(apply.description,/action_move/);assert.match(apply.description,/placement/);});
+
+test('MCP discovery distinguishes a Defer calendar date from an offset-bearing instant',async()=>{
+ const tools=(await (await POST(request('tools/list'))).json()).result.tools;
+ for(const name of ['preview_change','apply_change']){
+  const tool=tools.find(t=>t.name===name),condition=tool.inputSchema.allOf.find(x=>x.if?.properties?.kind?.const==='defer'),payload=condition.then.properties.payload;
+  assert.deepEqual(payload.required,['id']);assert.equal(payload.additionalProperties,false);
+  assert.deepEqual(payload.oneOf,[{required:['date','timezone'],not:{required:['until']}},{required:['until'],not:{required:['date']}}]);
+  assert(new RegExp(payload.properties.date.pattern).test('2026-10-10'));
+  const instant=new RegExp(payload.properties.until.anyOf.find(x=>x.type==='string').pattern);
+  assert(!instant.test('2026-10-10'));assert(!instant.test('2026-10-10T09:00:00'));assert(instant.test('2026-10-10T09:00:00+09:00'));assert(instant.test('2026-10-10T00:00:00.000Z'));
+  assert.match(tool.description,/date/);assert.match(tool.description,/timezone/);assert.match(tool.description,/Never|never/);
+ }
+ const init=(await (await POST(request('initialize'))).json()).result;
+ assert(init.instructions.includes('date:"2026-10-10",timezone:"Asia/Tokyo"'));assert(init.instructions.includes('Never put YYYY-MM-DD in until'));
+});

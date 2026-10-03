@@ -1,0 +1,11 @@
+✔ replacement blocks dependent or unknown local sources without dropping identities or replay state (4.403211ms)
+✔ replacement preserves explicitly cleared parent and rejects broken local ancestry (0.357351ms)
+✔ catalog IME pending Add replaces the captured local name without an intermediate creation (0.492543ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 691.898798

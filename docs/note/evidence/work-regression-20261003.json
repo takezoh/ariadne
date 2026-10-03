@@ -1,0 +1,3137 @@
+{
+  "host": "ChatGPT Work web / GPT-6.1 Sol Light",
+  "source_commit": "0b370b47eafb41668e08481ce6459cbabcacc536",
+  "deployment_id": "appgdep_6abfcd9f8ebc8191986913178229bc60",
+  "snapshots": {
+    "regInitial": {
+      "revision": 47,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:09:42.804Z",
+      "task_count": 13,
+      "capture_count": 5,
+      "tasks": [
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": []
+    },
+    "regGraph": {
+      "revision": 49,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:11:39.767Z",
+      "task_count": 17,
+      "capture_count": 6,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 1,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 2,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regBlocked": {
+      "revision": 50,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:17:28.914Z",
+      "task_count": 17,
+      "capture_count": 6,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 1,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 2,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regDue": {
+      "revision": 51,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:18:00.870Z",
+      "task_count": 17,
+      "capture_count": 6,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 2,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 1,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 2,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regDate": {
+      "revision": 52,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:18:26.724Z",
+      "task_count": 17,
+      "capture_count": 6,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 3,
+          "parent_id": null,
+          "status": "open",
+          "view": "deferred",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-04T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 1,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 2,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regZone": {
+      "revision": 53,
+      "timezone": "America/New_York",
+      "retrieved_at": "2026-10-02T15:18:50.109Z",
+      "task_count": 17,
+      "capture_count": 6,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 3,
+          "parent_id": null,
+          "status": "open",
+          "view": "deferred",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-04T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 1,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 2,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regChildDate": {
+      "revision": 55,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:19:47.794Z",
+      "task_count": 17,
+      "capture_count": 6,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 3,
+          "parent_id": null,
+          "status": "open",
+          "view": "deferred",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-04T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 1,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regRelease": {
+      "revision": 56,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:20:18.851Z",
+      "task_count": 17,
+      "capture_count": 6,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 4,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 1,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regCompletePrereq": {
+      "revision": 58,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:21:22.038Z",
+      "task_count": 18,
+      "capture_count": 6,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 4,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 2,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "done",
+          "view": "completed",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regParentDone": {
+      "revision": 62,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:29:55.459Z",
+      "task_count": 18,
+      "capture_count": 6,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 5,
+          "parent_id": null,
+          "status": "done",
+          "view": "completed",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 2,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "done",
+          "view": "completed",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 4,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "done",
+          "view": "completed",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regReopen": {
+      "revision": 63,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:30:21.844Z",
+      "task_count": 18,
+      "capture_count": 6,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 6,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 2,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "done",
+          "view": "completed",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 5,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regPrereqReopen": {
+      "revision": 64,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:31:02.203Z",
+      "task_count": 18,
+      "capture_count": 6,
+      "normal_count": 11,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 6,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 5,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regDetached": {
+      "revision": 65,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:32:18.133Z",
+      "task_count": 18,
+      "capture_count": 6,
+      "normal_count": 11,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 6,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 6,
+          "parent_id": null,
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regRestoreParent": {
+      "revision": 66,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:32:44.908Z",
+      "task_count": 18,
+      "capture_count": 6,
+      "normal_count": 11,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 6,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 7,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regSupportBefore": {
+      "revision": 64,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:31:36.256Z",
+      "task_count": 18,
+      "capture_count": 6,
+      "normal_count": 11,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 6,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 5,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regSupportClarified": {
+      "revision": 64,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:31:57.076Z",
+      "task_count": 18,
+      "capture_count": 6,
+      "normal_count": 11,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 6,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 5,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regExpiryBefore": {
+      "revision": 67,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:33:10.973Z",
+      "task_count": 18,
+      "capture_count": 6,
+      "normal_count": 9,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 7,
+          "parent_id": null,
+          "status": "open",
+          "view": "deferred",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-02T15:34:14.908Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 7,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regExpiryAfter": {
+      "revision": 68,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:34:22.838Z",
+      "task_count": 19,
+      "capture_count": 6,
+      "normal_count": 12,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 7,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-02T15:34:14.908Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 7,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "20b3e4f8-e6ac-4118-a43e-a9c83d198453",
+          "title": "Verification 0303: result lookup after lost response",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regReplay": {
+      "revision": 70,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:36:06.488Z",
+      "task_count": 20,
+      "capture_count": 6,
+      "normal_count": 13,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 7,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-02T15:34:14.908Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 7,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "20b3e4f8-e6ac-4118-a43e-a9c83d198453",
+          "title": "Verification 0303: latest correction from another screen",
+          "revision": 2,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "fe745eaa-52b5-4f06-82ec-01a57a57cc30",
+          "title": "Verification 0304: identical retry after lost response",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regDraftSaved": {
+      "revision": 71,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:36:34.470Z",
+      "task_count": 20,
+      "capture_count": 6,
+      "normal_count": 13,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 7,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-02T15:34:14.908Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 7,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "20b3e4f8-e6ac-4118-a43e-a9c83d198453",
+          "title": "Verification 0303: preserved unsaved draft",
+          "revision": 3,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "fe745eaa-52b5-4f06-82ec-01a57a57cc30",
+          "title": "Verification 0304: identical retry after lost response",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regUndoLatest": {
+      "revision": 72,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:36:43.173Z",
+      "task_count": 20,
+      "capture_count": 6,
+      "normal_count": 13,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 7,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-02T15:34:14.908Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 7,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": "2026-10-05T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "20b3e4f8-e6ac-4118-a43e-a9c83d198453",
+          "title": "Verification 0303: latest correction preserved after Undo",
+          "revision": 4,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "fe745eaa-52b5-4f06-82ec-01a57a57cc30",
+          "title": "Verification 0304: identical retry after lost response",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regNormalWait": {
+      "revision": 73,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:37:22.082Z",
+      "task_count": 20,
+      "capture_count": 6,
+      "normal_count": 14,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 7,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-02T15:34:14.908Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 8,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "20b3e4f8-e6ac-4118-a43e-a9c83d198453",
+          "title": "Verification 0303: latest correction preserved after Undo",
+          "revision": 4,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "fe745eaa-52b5-4f06-82ec-01a57a57cc30",
+          "title": "Verification 0304: identical retry after lost response",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regRecommendation": {
+      "revision": 73,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:38:24.146Z",
+      "task_count": 20,
+      "capture_count": 6,
+      "normal_count": 14,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 7,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-02T15:34:14.908Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 8,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "20b3e4f8-e6ac-4118-a43e-a9c83d198453",
+          "title": "Verification 0303: latest correction preserved after Undo",
+          "revision": 4,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "fe745eaa-52b5-4f06-82ec-01a57a57cc30",
+          "title": "Verification 0304: identical retry after lost response",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regManualWait": {
+      "revision": 74,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:38:56.002Z",
+      "task_count": 20,
+      "capture_count": 6,
+      "normal_count": 14,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 7,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-02T15:34:14.908Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 8,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "20b3e4f8-e6ac-4118-a43e-a9c83d198453",
+          "title": "Verification 0303: latest correction preserved after Undo",
+          "revision": 5,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": "Wait for materials from the fictional contact",
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "fe745eaa-52b5-4f06-82ec-01a57a57cc30",
+          "title": "Verification 0304: identical retry after lost response",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regArrival": {
+      "revision": 75,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:40:00.141Z",
+      "task_count": 20,
+      "capture_count": 6,
+      "normal_count": 14,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 7,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-02T15:34:14.908Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 8,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "20b3e4f8-e6ac-4118-a43e-a9c83d198453",
+          "title": "Verification 0303: latest correction preserved after Undo",
+          "revision": 6,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "fe745eaa-52b5-4f06-82ec-01a57a57cc30",
+          "title": "Verification 0304: identical retry after lost response",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regUndoDeferBefore": {
+      "revision": 76,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:40:55.546Z",
+      "task_count": 20,
+      "capture_count": 6,
+      "normal_count": 11,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 8,
+          "parent_id": null,
+          "status": "open",
+          "view": "deferred",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-04T00:00:00.000Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 8,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "deferred",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "20b3e4f8-e6ac-4118-a43e-a9c83d198453",
+          "title": "Verification 0303: latest correction preserved after Undo",
+          "revision": 6,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "fe745eaa-52b5-4f06-82ec-01a57a57cc30",
+          "title": "Verification 0304: identical retry after lost response",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regUndoDeferAfter": {
+      "revision": 77,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:41:09.434Z",
+      "task_count": 20,
+      "capture_count": 6,
+      "normal_count": 14,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 9,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-02T15:34:14.908Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 8,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "20b3e4f8-e6ac-4118-a43e-a9c83d198453",
+          "title": "Verification 0303: latest correction preserved after Undo",
+          "revision": 6,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "fe745eaa-52b5-4f06-82ec-01a57a57cc30",
+          "title": "Verification 0304: identical retry after lost response",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        }
+      ]
+    },
+    "regPendingRecovery": {
+      "revision": 80,
+      "timezone": "Asia/Tokyo",
+      "retrieved_at": "2026-10-02T15:42:25.511Z",
+      "task_count": 20,
+      "capture_count": 7,
+      "normal_count": 13,
+      "tasks": [
+        {
+          "id": "03012026-1003-4000-8000-000000000011",
+          "title": "Verification 0301: Prepare the exhibit",
+          "revision": 9,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": "2026-10-03T09:00:00.000Z",
+          "defer_until": "2026-10-02T15:34:14.908Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "Reference https://example.com/exhibit",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000012",
+          "title": "Verification 0301: Decide on the layout",
+          "revision": 3,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000013",
+          "title": "Verification 0301: Set up the exhibit",
+          "revision": 8,
+          "parent_id": "03012026-1003-4000-8000-000000000011",
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ],
+          "prerequisites": [
+            {
+              "id": "03012026-1003-4000-8000-000000000012",
+              "title": "Verification 0301: Decide on the layout"
+            }
+          ]
+        },
+        {
+          "id": "03012026-1003-4000-8000-000000000014",
+          "title": "Verification 0301: Check supplies",
+          "revision": 2,
+          "parent_id": null,
+          "status": "cancelled",
+          "view": "cancelled",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "20b3e4f8-e6ac-4118-a43e-a9c83d198453",
+          "title": "Verification 0303: latest correction preserved after Undo",
+          "revision": 6,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "81ad1904-7696-49ac-9daf-94cfbe309c05",
+          "title": "Verification only: fictional clarification to recover from a semantic-judgment failure",
+          "revision": 1,
+          "parent_id": null,
+          "status": "open",
+          "view": "normal",
+          "due_at": null,
+          "defer_until": null,
+          "defer_zone": null,
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        },
+        {
+          "id": "fe745eaa-52b5-4f06-82ec-01a57a57cc30",
+          "title": "Verification 0304: identical retry after lost response",
+          "revision": 3,
+          "parent_id": null,
+          "status": "done",
+          "view": "completed",
+          "due_at": null,
+          "defer_until": "2026-10-02T15:42:39.434Z",
+          "defer_zone": "Asia/Tokyo",
+          "manual_wait": null,
+          "notes": "",
+          "waiting": [],
+          "prerequisites": []
+        }
+      ],
+      "captures": [
+        {
+          "id": "03012026-1003-4000-8000-000000000001",
+          "text": "Add fictional verification data to Ariadne. Parent: “Verification 0301: Prepare the exhibit”; children: “Verification 0301: Decide on the layout” and “Verification 0301: Set up the exhibit.” Set up the exhibit waits for Decide on the layout to complete. Set no due date or Defer. Keep reference https://example.com/exhibit only in the parent’s notes. Separately add “Verification 0301: Check supplies.”",
+          "source": "conversation",
+          "status": "applied",
+          "revision": 2
+        },
+        {
+          "id": "05a051e8-b6ef-4b53-b978-c33b70fcc877",
+          "text": "Verification 0305: Create a report note. First, Verification 0305: Check the numbers. Reference https://example.com/report is context only. Save only the original input for now; organize it later.",
+          "source": "ui",
+          "status": "pending",
+          "revision": 1
+        }
+      ]
+    }
+  }
+}

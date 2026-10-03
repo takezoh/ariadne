@@ -1,0 +1,19 @@
+{
+  "noReviewDialog": true,
+  "noSaveButton": true,
+  "noAddExplanation": true,
+  "emptyActionAdd": true,
+  "noCaptureForm": true,
+  "httpStatus": 200,
+  "lang": "en",
+  "title": "Inbox",
+  "count": "1",
+  "nav": [
+    "Inbox",
+    "Projects",
+    "Tags",
+    "Flagged",
+    "History"
+  ],
+  "errors": []
+}

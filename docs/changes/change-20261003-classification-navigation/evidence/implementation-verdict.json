@@ -1,0 +1,57 @@
+{
+  "verdict": "approved",
+  "execution": {
+    "host": "native_subagent",
+    "role": "independent_review",
+    "kernel_status": "not_executed"
+  },
+  "findings": [],
+  "evidence": {
+    "design": "/tmp/ariadne-navigation-design.json",
+    "sources": [
+      "lib/ui/model/navigation.ts",
+      "lib/ui/adapters/dom.js",
+      "lib/widget.ts",
+      "lib/ui/application.ts",
+      "tests/ui/navigation.test.mjs"
+    ],
+    "browser_results": [
+      "/tmp/ariadne-navigation/browser.json",
+      "/tmp/ariadne-navigation/recovery-browser.json"
+    ],
+    "screenshots_inspected": [
+      "projects-1280-light.png",
+      "tags-320-light.png",
+      "tag-selected-390-dark.png",
+      "perspective-1280-dark.png",
+      "history-390-light.png",
+      "unknown-320-light.png"
+    ],
+    "independent_validation": {
+      "command": "node scripts/testing/run-tests.mjs ui",
+      "exit_code": 0,
+      "tests": 72,
+      "pass": 72,
+      "fail": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  },
+  "assessment": {
+    "filter_semantics": "Exact membership, catalog-only descendant expansion, saved AND predicates including false/null/[] and no implicit unfinished/Defer intersection agree with domain code and parity tests. Snapshots retain authoritative tree order without deduplication defects.",
+    "retention": "Full snapshots remain source of existence; navigation is independent from draft state. Back/Close excluded from mutation disabling, preserving navigation during unknown outcomes. Browser evidence establishes nine-field/capture retention and identical retry.",
+    "visual": "Quiet navigation and contextual classification controls are coherent at inspected narrow/wide light/dark widths. On-hold pause label is readable without disabling ordinary controls. Saved user Japanese text is intentionally retained.",
+    "unavailable": "Current and remembered missing selections fail closed without broadening to All."
+  },
+  "limitations": [
+    "Final full check/build, regenerated browser evidence and actual host acceptance remain parent-owned verification. Independent UI harness passed 72 tests.",
+    "Unknown 320 screenshot shows top of retained capture; actual recovery reachability is supported by browser JSON, not entirely by the screenshot crop.",
+    "No deployment or runtime kernel success claimed."
+  ],
+  "resolved_findings": [
+    {
+      "id": "NAV-R1",
+      "resolution": "Immutable per-view remembered selections now preserve separate Project/Tag/Perspective IDs and Defer/descendant/history controls. Missing IDs remain unavailable after navigating away and back. Independent UI harness passed model and real generated DOM regression cases."
+    }
+  ]
+}

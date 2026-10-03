@@ -1,0 +1,16 @@
+{
+  "dataTables": [
+    "actions",
+    "projects",
+    "tags",
+    "action_tags",
+    "catalog_identity_ledger",
+    "perspectives",
+    "operations"
+  ],
+  "allRowsAndContentsPreserved": true,
+  "appliedMigration": "0014_empty_catalog_names.sql",
+  "onlyNewMigrationApplied": true,
+  "oldMigrationsStillRecorded": true,
+  "localOnly": true
+}

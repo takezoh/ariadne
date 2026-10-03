@@ -1,0 +1,38 @@
+[
+  {
+    "width": 390,
+    "theme": "light",
+    "pointerBundleSavedAtomically": true,
+    "hiddenChildRetained": true,
+    "attributesPreserved": true,
+    "oneMoveWrite": true,
+    "undoGroup": true,
+    "keyboardMove": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "pointerBundleSavedAtomically": true,
+    "hiddenChildRetained": true,
+    "attributesPreserved": true,
+    "oneMoveWrite": true,
+    "undoGroup": true,
+    "keyboardMove": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "pointerBundleSavedAtomically": true,
+    "hiddenChildRetained": true,
+    "attributesPreserved": true,
+    "oneMoveWrite": true,
+    "undoGroup": true,
+    "keyboardMove": true,
+    "overflow": false,
+    "errors": []
+  }
+]

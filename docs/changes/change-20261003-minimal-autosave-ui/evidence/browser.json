@@ -1,0 +1,122 @@
+[
+  {
+    "width": 320,
+    "theme": "light",
+    "contexts": [
+      {
+        "view": "inbox",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "eb3d130d-b2a3-4e8e-a5a5-f4a0a37d445e"
+      },
+      {
+        "view": "projects",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "9bcf3d5c-90b4-4b91-8ea2-e6f9dfe9207b"
+      },
+      {
+        "view": "tags",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "2941b5e3-3929-4c54-bdae-efd985267de8"
+      }
+    ],
+    "newerTypingRetained": true,
+    "imeFinalOnly": true,
+    "navigationFlush": true,
+    "noModal": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "contexts": [
+      {
+        "view": "inbox",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "4ee3d961-e51a-4b40-bda1-8645b9cb63be"
+      },
+      {
+        "view": "projects",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "e8b1a50d-4fcf-4e71-b95b-2c1709efef41"
+      },
+      {
+        "view": "tags",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "3f50127e-9a71-438a-ba02-8406c19eb46b"
+      }
+    ],
+    "newerTypingRetained": true,
+    "imeFinalOnly": true,
+    "navigationFlush": true,
+    "noModal": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "contexts": [
+      {
+        "view": "inbox",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "2402818e-5fb3-46d5-9a17-42899caa92cf"
+      },
+      {
+        "view": "projects",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "ef4e19c3-cdae-4548-a8cc-5c9833d2d5c5"
+      },
+      {
+        "view": "tags",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "3d056527-084b-4607-a4ce-8d09c9202209"
+      }
+    ],
+    "newerTypingRetained": true,
+    "imeFinalOnly": true,
+    "navigationFlush": true,
+    "noModal": true,
+    "overflow": false,
+    "errors": []
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "contexts": [
+      {
+        "view": "inbox",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "f11818f1-e955-4340-b30e-1fb639a28d0c"
+      },
+      {
+        "view": "projects",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "64750fcf-9eef-4838-ac13-15677e0c88f4"
+      },
+      {
+        "view": "tags",
+        "automaticSave": true,
+        "exactNotes": true,
+        "createdId": "e604bfd0-fe55-4c3f-96fc-35f1fefb78e8"
+      }
+    ],
+    "newerTypingRetained": true,
+    "imeFinalOnly": true,
+    "navigationFlush": true,
+    "noModal": true,
+    "overflow": false,
+    "errors": []
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "visibleOccurrenceRange3Unique2": true,
+  "exactDuplicateGripFocus": true,
+  "dedupAncestorBundleAtomic": true,
+  "catalogDropDoesNotAssignOrMove": true,
+  "childCatalogParentFrozen": true,
+  "emptyActionExactSelectedProject": true,
+  "errors": []
+}

@@ -1,0 +1,27 @@
+{
+  "profile": "native implementation",
+  "kernelExecuted": false,
+  "statusChecks": [
+    "active",
+    "on-hold",
+    "completed",
+    "dropped"
+  ],
+  "historyChecks": [
+    "completed",
+    "dropped"
+  ],
+  "includeDeferred": "inclusive within statuses",
+  "emptyStatuses": "exact none",
+  "inbox": "fixed unfinished unassigned includes deferred",
+  "perspective": "exact saved filter",
+  "addWhenActiveUnchecked": "disabled without hint",
+  "menu": "keep open; checkbox Space Enter; no writes",
+  "selection": "cloned per-view state",
+  "sourcePaths": [
+    "lib/ui/model/navigation.ts",
+    "lib/ui/model/catalog-tree.ts",
+    "lib/ui/adapters/dom.js",
+    "lib/widget.ts"
+  ]
+}

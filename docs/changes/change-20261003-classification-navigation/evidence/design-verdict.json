@@ -1,0 +1,33 @@
+{
+  "verdict": "approved",
+  "subject_kind": "navigation_requirements_and_design",
+  "execution": {
+    "host": "native_subagent",
+    "role": "independent_review",
+    "kernel_status": "not_executed"
+  },
+  "source_refs": [
+    "/tmp/ariadne-navigation-design.json",
+    "/tmp/ariadne-navigation-explore-v2.json",
+    "./lib/domain/core.ts",
+    "./lib/ui/adapters/dom.js",
+    "./lib/ui/application.ts",
+    "./docs/technical/data-model.md"
+  ],
+  "findings": [],
+  "assessment": "The candidate follows the user-approved navigation revision without importing availability or inherited classification semantics. Separate classification projection and exact saved perspective evaluation are compatible with the current full-snapshot API; API-projected tags carry direct tag IDs and classification catalogs provide descendant expansion. Keeping the authoritative full snapshot avoids destructive draft merging from partial query results. Explicit Defer controls distinguish date visibility from on-hold lifecycle. Back/Close remain nonmutation navigation while unknown writes retain exact replay arguments.",
+  "implementation_conditions": [
+    "Match direct project_id and direct projected tag IDs; include_descendants expands selected catalog nodes only, never action ancestors/descendants. Preserve full-snapshot action order and one row per action.",
+    "Test saved statuses omission versus empty array, project_id:null, false flagged/is_deferred values, AND intersections and missing references. Do not add default unfinished or Defer filters to saved perspectives.",
+    "Missing selected IDs remain selected as unavailable and yield zero results; no fallback to All. Host refresh updates labels/description/filter without silently broadening matches.",
+    "Use full snapshot to determine editor target existence; filtering out an action is not deleting it. Retained drafts and capture fields remain reachable across all navigation and filter changes.",
+    "Back/Close and classification/view selection remain enabled during unknown outcomes; writes stay blocked and exact original operation name/ID/arguments remain for recovery.",
+    "Show Include descendants and current Defer scope visibly in Projects/Tags, preserve Inbox include-deferred semantics, and label all quick creation as Add to Inbox.",
+    "Verify readable pause icon/On hold label with same title contrast and ordinary action controls; no lifecycle availability interpretation.",
+    "Run code checks/build and independent actual narrow/wide light/dark visual review. Design approval does not establish appearance or actual-host acceptance."
+  ],
+  "limitations": [
+    "No implementation or browser acceptance is claimed by this design review.",
+    "No runtime kernel success receipt is claimed."
+  ]
+}

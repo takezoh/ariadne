@@ -1,0 +1,38 @@
+{
+  "profile": "native independent design review",
+  "subject_kind": "requirements/boundary design",
+  "verdict": "approved",
+  "findings": [],
+  "source_refs": [
+    "/tmp/action-drag-design.json",
+    "/tmp/action-drag-requirements.json",
+    "/tmp/action-drag-backend-boundary.json"
+  ],
+  "design_sha256": "594485ca4ebe5d0915239e32962e1766a486c0aa344436c588805486bd78ab3e",
+  "resolved_findings": [
+    "Latest owner decision permits mixed-Project root detach, appending independently per unchanged Project group; only cross-Project root Before/After is rejected",
+    "Scope/filter changes clear interactive selection but preserve frozen pending/unknown identity and drafts",
+    "Existing 262144-byte operation limit remains the resource bound; no arbitrary new count limit",
+    "6px handle threshold, edge auto-scroll/re-hit testing and named compact Move destination controls added alongside keyboard handle flow",
+    "Root adopts compact Move chooser as keyboard equivalent: grip Space/Enter, native placement/destination select navigation, focused Move Enter commits and Escape cancels. Four direct status icons above Title remain adopted."
+  ],
+  "reason": "A bounded structural action_move intent resolves anchor/containment/sibling sequence against the full owner snapshot through pure logic and one existing atomic CAS/receipt/delta/Undo. Supplied IDs express API order; UI emits canonical tree order. Destination-only rank normalization preserves hidden siblings/source gaps and changes only actual parent/order differences. No migration or generic arbitrary batch API is needed.",
+  "implementation_verification": [
+    "Exact keys and IDs/placement/anchor owner-reference validation; no root anchor",
+    "Selected descendant normalization without duplicate subtree movement; API relative input order retained",
+    "Full hidden destination siblings and dense destination ranks, source-only gaps preserved",
+    "Mixed-Project root detach partitioned by unchanged Project and order; cross-Project root Before/After reject; Inside retains each own Project",
+    "Cycle/self/subtree anchor rejection before commit; semantically unchanged moves produce empty delta/ordinary receipt",
+    "Untouched lifecycle/dates/flag/project/tags/subtree child order preserved",
+    "Real SQLite rollback/CAS/identical replay/missing response/owner isolation/one Undo/overlapping conflict",
+    "UI pending drafts/classification/IME serialized ahead of frozen move; structural external changes require explicit renewed destination",
+    "Pointer/touch/keyboard, auto-scroll, clear selection on navigation and exact unknown recovery require meaningful browser evidence"
+  ],
+  "limits": [
+    "Boundary design approval only; implementation acceptance and root final validation remain separate.",
+    "No hosted or kernel status claimed"
+  ],
+  "status": "Approved for implementation within defined contracts.",
+  "requirements_sha256": "eba7118ed6fd2adef3684d83e74fc6ddf3c4d53e7e3415278d534c5e82899c5a",
+  "reassessment": "Native independent verifier checked final artifact against explicit root keyboard decision; no technical boundary change, new scope or weakened persistence guarantee."
+}

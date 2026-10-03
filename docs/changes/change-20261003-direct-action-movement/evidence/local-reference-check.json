@@ -1,0 +1,13 @@
+{
+  "files": [
+    "docs/changes/change-20261003-direct-action-movement/change.md",
+    "docs/changes/change-20261003-direct-action-movement/implementation.md",
+    "docs/changes/change-20261003-direct-action-movement/requirements.md",
+    "docs/changes/change-20261003-direct-action-movement/verification.md",
+    "ARCHITECTURE.md",
+    "docs/technical/data-model.md",
+    "docs/technical/mcp-api.md"
+  ],
+  "missing": [],
+  "passed": true
+}

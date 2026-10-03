@@ -1,0 +1,10 @@
+{
+  "files": [
+    "docs/changes/change-20261003-refined-action-input/change.md",
+    "docs/changes/change-20261003-refined-action-input/implementation.md",
+    "docs/changes/change-20261003-refined-action-input/requirements.md",
+    "docs/changes/change-20261003-refined-action-input/verification.md"
+  ],
+  "missing": [],
+  "passed": true
+}

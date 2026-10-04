@@ -68,6 +68,4 @@ After checking an item, you can say:
 
 The tag records what still needs your attention; clearing it is separate from completing the action. dot's source access and monitoring run in its environment. Notification is your saved tag; delivery of an alert is a separate caller action.
 
-The detected-event portion of this workflow was [verified with emulated inputs](../note/note-20261004-dot-detected-action-routing.md): personal/work routing, original messages and links, tagged queries, duplicate-event handling and clearing one confirmation tag. Live Slack/email monitoring was outside that test.
-
 For tool discovery, reusable skills and custom automation, see the [workflow guide](agent-workflows.md). For the meaning of actions, dates and perspectives, see [Product and usage](../../PRODUCT.md).

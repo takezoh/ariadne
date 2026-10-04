@@ -62,7 +62,6 @@ Each task is saved as an **action**, the name used in the dedicated UI and tools
 
 See [Product and usage](PRODUCT.md) for the meaning of these building blocks.
 
-Ariadne is being evaluated for private individual use and currently works through ChatGPT; other assistants have not been verified. General availability and pricing are undecided. Less management effort and greater peace of mind are intended benefits, not measured results.
 
 ## License
 

@@ -1,30 +1,30 @@
 # Ariadne
 
-## Hand your to-do list to your AI—without watching over it.
+## Keep less in your head. Your AI keeps track of the rest.
 
-**Your AI organizes it your way. See and fix anything, anytime.**
+**Design your own workflow with your AI—GTD, a simple daily list or something entirely new. It captures, organizes and reviews your tasks your way, while you stay in control.**
 
-Ariadne is a task list built for your AI to manage. Ask your AI to capture, organize, review and update your tasks through your own prompts. You and your AI decide what matters and how to manage it; Ariadne keeps the saved list safe to change and easy to correct.
+Tell your AI whatever is on your mind—a commitment, a worry, a half-formed plan. It saves each one as a task, fits it into the workflow you designed together and brings back what matters when you ask. You spend less energy remembering and organizing, and more on doing, deciding and resting.
 
-## Keep less in your head
+## Get it out of your head
 
-Hand over commitments, concerns and unfinished thoughts as they are. Ariadne keeps your original wording without asking you to decide a deadline, classification or commitment first. Put aside what you do not need now with Defer; the action and its deadline stay saved.
+Hand over commitments, concerns and unfinished thoughts as they are. Your original words are kept, and you do not have to pick a deadline, a category or even a commitment first. Put aside what you do not need right now with Defer; the task and its deadline stay saved and return to your list at the time you choose.
 
-## Delegate without watching every change
+## Design a workflow that fits you
 
-Ariadne is designed for an AI to write to it. A change based on an outdated list is rejected instead of overwriting newer edits, and the dedicated UI keeps your unsaved proposal. Retrying the same request does not create a duplicate. When a response is lost, the original request can be checked or resent exactly. Undo never silently erases corrections made afterward.
+Ariadne comes with no built-in method, so the workflow is yours to design. Follow GTD, keep a simple daily list, or invent a system of your own together with your AI. Your method lives in your prompts, not in the app. Projects, tags, order, flags, dates, smaller steps inside a task and saved views are building blocks you combine as you like. Change your approach whenever you want—your tasks stay where they are.
 
-## Manage your way
+## Let your AI do the upkeep
 
-Your method lives in your prompts. Use GTD, adapt it, or develop your own approach with your AI. Projects, tags, order, flags, dates, parent-child structure and saved perspectives are building blocks rather than a prescribed routine. Change the method at any time and keep the same saved list.
+Capturing, clarifying, sorting into projects, weekly reviews, choosing what to focus on next: ask your AI, and it does the work inside your system. Agents you set up can also bring in commitments from Slack or email and file them as tasks. Your attention goes to the tasks themselves, not to maintaining the list.
 
-## See and fix anything
+## Stay in control—without watching every change
 
-Conversation and the dedicated UI share the same saved list. Inspect it and correct it directly in either place. Ask your AI for the actions relevant to your current purpose, and return to the complete list whenever you want.
+Your conversation and the dedicated UI show the same tasks. Check anything and fix it directly, in either place. You do not have to watch every change your AI makes: an edit based on an outdated list never overwrites newer ones, the dedicated UI keeps your unsaved edits, retrying a request never creates a duplicate, a lost response can be checked or resent exactly, and Undo never quietly erases a correction made afterward.
 
 ## Who it is for
 
-Ariadne is for individuals who want their AI to handle the upkeep of their tasks—especially if keeping a to-do app going has felt like work in itself. It also suits people who practice GTD or their own system, and people who build their own agents or scheduled workflows.
+Ariadne is for people who want their AI to handle the upkeep of their tasks—especially if keeping a to-do app going has felt like work in itself. It also suits people who practice GTD or run their own system, and people who build their own agents or scheduled workflows.
 
 Ariadne is a personal task list. It is not a team project management tool, and it does not plan your calendar or send reminders.
 
@@ -36,7 +36,7 @@ Ask ChatGPT Work to read [INSTALL.md](INSTALL.md) and perform the installation:
 Read https://github.com/takezoh/ariadne/blob/main/INSTALL.md and install Ariadne for me.
 ```
 
-After connecting, ask Ariadne to read your saved actions and open the list.
+After connecting, ask ChatGPT to show your tasks and open the list.
 
 ## Use cases: ask your AI
 
@@ -44,6 +44,7 @@ Use your own words. For example:
 
 - “Keep this for me: I may clear out the family house, but haven't decided how much.”
 - “Build a GTD routine with me: capture, clarify, organize and review. Keep my original notes.”
+- “Set up a simple routine with me: each morning, show me three things to focus on.”
 - “Run my weekly review. Show each project's next action and suggest what to focus on.”
 - “Make my routine simpler. Keep the same saved list.”
 - “Open my list so I can check and edit it.”
@@ -51,9 +52,13 @@ Use your own words. For example:
 
 See [use cases and example prompts](docs/usage/use-cases.md) for capturing concerns, organizing projects, building a GTD routine, reviewing progress and collecting inputs from other tools. You can adapt the prompts to your own method.
 
+## How it works
+
+Ariadne is where your tasks live; your AI does the thinking. Ariadne has no AI of its own: your prompts, ChatGPT or an agent you set up decide what to capture, how to organize it and when to act. Ariadne keeps every task safe to change and easy to correct through its tools and dedicated UI. It does not send reminders, plan your calendar or run in the background; a deferred task simply returns to your list after its Defer time.
+
 ## What your list contains
 
-An **action** holds a title, notes and its current state. Actions can contain smaller actions, belong to a project and have multiple tags. Dates, order and flags help express your intent. Saved **perspectives** let you revisit a selection of the same actions without copying them. Unclassified concerns can stay in Inbox.
+Each task is saved as an **action**, the name used in the dedicated UI and tools. An action holds a title, notes and its current state. Actions can contain smaller actions, belong to a project and have multiple tags. Dates, order and flags help express your intent. Saved **perspectives** let you revisit a selection of the same actions without copying them. Unclassified concerns can stay in Inbox.
 
 See [Product and usage](PRODUCT.md) for the meaning of these building blocks.
 

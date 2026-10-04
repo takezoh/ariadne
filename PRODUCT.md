@@ -1,6 +1,6 @@
 # Ariadne — Product
 
-**Hand your to-do list to your AI—without watching over it.** Your AI organizes it your way; you can see and fix anything, anytime. Ariadne is a task list built for an AI to manage, so you can spend less effort remembering, collecting, organizing and reviewing tasks and more attention on action, decisions and rest. It currently provides its data tools and shared UI as a ChatGPT plugin; the concept is AI-delegated task management, independent of a particular assistant or management method.
+**Keep less in your head. Your AI keeps track of the rest.** Design your own workflow with your AI—GTD, a simple daily list or something entirely new; it captures, organizes and reviews your tasks your way while you stay in control. Ariadne is the task list your AI manages, so you spend less effort remembering, collecting, organizing and reviewing tasks and more attention on action, decisions and rest. It currently provides its data tools and shared UI as a ChatGPT plugin; the concept is AI-delegated task management, independent of a particular assistant or management method.
 
 ## Who it is for
 
@@ -16,11 +16,12 @@ Ariadne is a personal task list. Team project management, automatic calendar pla
 
 | Desired benefit | Supporting behavior |
 | --- | --- |
-| Keep less in your head | Save the original input, including unresolved concerns and references, without requiring a deadline, classification or commitment |
+| Get it out of your head | Save the original input, including unresolved concerns and references, without requiring a deadline, classification or commitment |
 | Set aside what is unnecessary now | Defer hides actions until a chosen time while preserving content and Due |
-| Delegate without watching every change | Writes based on an outdated revision are rejected instead of overwriting newer edits; the UI retains unsaved proposals; identical retries are recognized and not applied twice; lost responses can be checked or resent exactly; Undo refuses to erase later corrections |
-| Manage your way | Prompts and AI workflows choose GTD or another method over the same data tools |
+| Design a workflow that fits you | Prompts and AI workflows choose GTD or another method over the same data tools |
 | Change methods without rebuilding lists | Keep saved actions while changing prompts and caller-side routines |
+| Let your AI do the upkeep | Capture, clarification, organization and review run through the AI's prompts and tools over the same saved actions |
+| Stay in control without watching every change | Writes based on an outdated revision are rejected instead of overwriting newer edits; the UI retains unsaved proposals; identical retries are recognized and not applied twice; lost responses can be checked or resent exactly; Undo refuses to erase later corrections |
 | See and fix anything | Conversation and UI read and update the same saved actions |
 | See relevant work | ChatGPT presents candidates with reasons, distinct from the complete list |
 

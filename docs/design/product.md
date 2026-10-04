@@ -4,7 +4,7 @@ kind: design
 title: Ariadne Positioning, Audience and Benefits
 status: active
 created: '2026-10-02'
-updated: '2026-10-03'
+updated: '2026-10-04'
 summary: 'A task list built for an AI to manage: positioning, audience, brand pillars,
   messaging and claim boundaries grounded in current data contracts.'
 tags:
@@ -19,12 +19,13 @@ relations:
 - {type: references, target: note-20261002-state-and-view-design-research}
 - {type: references, target: note-20261003-llm-delegated-task-management-and-plugin}
 - {type: references, target: note-20261003-product-positioning-audience-and-claim-b}
+- {type: references, target: note-20261004-outcome-first-messaging}
 source_paths: []
 scope_type: system
 responsibilities:
 - id: RESP-001
-  statement: Design dot's assistance and Ariadne's persistent state and operations as
-    one experience, starting from user benefits.
+  statement: Design dot's assistance and Ariadne's persistent state and operations
+    as one experience, starting from user benefits.
 invariants:
 - id: INV-001
   statement: dot inside ChatGPT owns assistance decisions; do not assume Ariadne contains
@@ -69,9 +70,9 @@ compatibility_policies:
 
 The governance metadata references dot as an example caller in the current ChatGPT delivery. It does not require that caller or assign its assistance workflow to Ariadne.
 
-**Hand your to-do list to your AI—without watching over it.**
+**Keep less in your head. Your AI keeps track of the rest.**
 
-Ariadne is a task list built for an AI to manage. For individuals who want to delegate task management to their AI, it keeps AI changes safe to accept and easy to correct, while judgment stays with the user's AI and the user's own method. The intended outcome is less effort remembering, collecting, organizing, reviewing and updating everyday work and personal tasks, with more attention available for action, decisions and rest.
+Ariadne is a task list built for an AI to manage. Its value appears only together with the user's AI: the data tools alone are not the product experience. For individuals who want to delegate task management to their AI, it keeps AI changes safe to accept and easy to correct, while judgment stays with the user's AI and the user's own method. The intended outcome is less effort remembering, collecting, organizing, reviewing and updating everyday work and personal tasks, with more attention available for action, decisions and rest.
 
 Letting an AI read and write tasks is not distinctive by itself. Ariadne differs through two properties grounded in its contracts: AI writes are safe to delegate without supervising each change, and the management method lives in prompts rather than in the product. Task apps that add an AI connection keep their own work model and rely on users to review changes; AI planners make organizing or scheduling decisions inside their own app; host reminder features cover timing and complement Ariadne. See the [decision record](../note/note-20261003-product-positioning-audience-and-claim-b.md) for the observations behind this comparison.
 
@@ -92,17 +93,20 @@ People already settled in an established task app can use that app's AI connecti
 
 | Pillar | Promise | Supporting contract |
 | --- | --- | --- |
-| Keep less in your head (entry) | Hand things over without deciding everything first | Exact original notes; no required deadline, classification or commitment; Defer preserves content and Due; Inbox keeps project-unassigned unfinished actions |
-| Delegate without watching every change (primary differentiator) | AI changes do not silently break the saved list | Latest-revision validation rejects stale writes; the UI retains unsaved proposals; identical replay uses the receipt; unknown outcomes keep exact IDs and arguments for lookup or resend; Undo rejects later target corrections; owner isolation |
-| Manage your way (differentiator) | Change the method without rebuilding the list | No backend management method; containment, projects, tags, order, flags, dates and perspectives are composable data capabilities |
-| See and fix anything (supports the primary differentiator) | The user can inspect and correct directly | Conversation and UI share one action path and saved state |
+| Get it out of your head (entry) | Hand things over without deciding everything first | Exact original notes; no required deadline, classification or commitment; Defer preserves content and Due; Inbox keeps project-unassigned unfinished actions |
+| Design a workflow that fits you (differentiator) | Design any workflow with the AI, such as GTD, a simple daily list or an own system, and change it without rebuilding the list | No backend management method; containment, projects, tags, order, flags, dates and perspectives are composable data capabilities |
+| Let your AI do the upkeep (core experience) | The AI captures, clarifies, organizes and reviews inside the user's system | Composable reads, previews and changes through API/MCP; authorized caller workflows can write collected inputs |
+| Stay in control—without watching every change (primary differentiator) | AI changes do not silently break the saved list, and the user can inspect and correct directly | Latest-revision validation rejects stale writes; the UI retains unsaved proposals; identical replay uses the receipt; unknown outcomes keep exact IDs and arguments for lookup or resend; Undo rejects later target corrections; owner isolation; conversation and UI share one action path and saved state |
 
-Lead with relief from remembering. Use safe delegation and method independence as reasons to believe. A pillar must not promise more than its supporting contract.
+Lead with relief from remembering, then the appeal of designing a workflow with the AI. Use safe delegation and direct correction as reasons to believe. A pillar must not promise more than its supporting contract.
 
 ## Messaging and tone
 
-- Headline: "Hand your to-do list to your AI—without watching over it." Supporting line: "Your AI organizes it your way. See and fix anything, anytime."
-- User-facing text says "AI" and "tasks". "LLM", "caller" and "action" belong to technical and API documentation.
+- Headline: "Keep less in your head. Your AI keeps track of the rest." Supporting line: "Design your own workflow with your AI—GTD, a simple daily list or something entirely new. It captures, organizes and reviews your tasks your way, while you stay in control."
+- Repository description: "Keep less in your head. Design your own workflow with your AI—GTD, a simple daily list or something entirely new. It captures, organizes and reviews your tasks your way, while you stay in control."
+- Present GTD as one example among several workflows, never as a built-in or default method.
+- Write benefit-, outcome- and appeal-first. The user and their AI are the subjects of user-facing text; describe the combined experience rather than the data layer. Data-layer responsibilities and limits follow in a "How it works" section and technical documentation.
+- User-facing text says "AI" and "tasks". "LLM" and "caller" belong to technical and API documentation. Because the dedicated UI labels items "Action", user-facing text may introduce an action as the saved form of a task and keeps the GTD term "next action".
 - Tone is calm, plain and honest. Avoid productivity hype; more tasks or completions are not success, and rest is a legitimate outcome.
 
 ## Claim boundaries
@@ -121,12 +125,12 @@ Lead with relief from remembering. Use safe delegation and method independence a
 
 | Intended benefit | Burden reduced | Evidence to seek |
 | --- | --- | --- |
-| Keep less in your head | Rehearsing commitments and checking where they were saved | Less repeated checking without important information loss |
+| Get it out of your head | Rehearsing commitments and checking where they were saved | Less repeated checking without important information loss |
 | Delegate upkeep | Collecting, classifying, updating and reviewing lists | Less total management time, including explanation and correction |
 | Focus on the current purpose | Scanning every item and rebuilding context | Relevant actions and decisions are easier to retrieve |
-| Manage your way | Adapting personal habits to a prescribed app workflow | Different user-defined methods operate over the same data |
+| Design a workflow that fits you | Adapting personal habits to a prescribed app workflow | Different user-defined methods operate over the same data |
 | Change methods without starting over | Rebuilding lists when prompts or routines change | Existing actions remain reusable across workflow changes |
-| Delegate without watching every change | Supervising AI edits and repairing uncertain saves | Less per-change checking, with direct correction, preserved proposals and safe recovery |
+| Stay in control without watching every change | Supervising AI edits and repairing uncertain saves | Less per-change checking, with direct correction, preserved proposals and safe recovery |
 | Rest with confidence | Continuing to think about matters already entrusted to the system | Reassurance accompanied by low omission/error rates |
 
 These are intended outcomes, not measured long-term effects. More tasks, completions or notifications alone are not success. Deferring, withdrawing a commitment and resting are legitimate outcomes. Evaluate total remembering, explanation, approval, correction and supervision burden, together with missed commitments and invented intent. Research in the [GTD note](../note/note-20261002-gtd-benefits-and-llm-research.md) informs evaluation but does not prove Ariadne's effects.
@@ -157,4 +161,4 @@ Ariadne provides containment, projects, tags, order, direct flags, dates and per
 
 Develop from benefit and caller scenario to required data capability and evidence. If a scenario can already be composed from tools, document the use rather than adding a specialized integration. Evaluate plugin correctness separately from caller behavior and user outcomes. A gap may require a prompt change, more caller context, a host capability or a data operation; do not assume a new backend decision engine.
 
-The concept boundary records the user's direction on 2026-10-03 in the [boundary decision record](../note/note-20261003-llm-delegated-task-management-and-plugin.md). Positioning, audience, messaging and claim boundaries record the user's adoption on the same day in the [positioning decision record](../note/note-20261003-product-positioning-audience-and-claim-b.md). The [2026-10-03 rename change](../changes/change-20261003-product-rename-generic-identifiers/change.md) records an earlier product-name change; the current product name is Ariadne. None of these records authorizes deployment or autonomous external actions.
+The concept boundary records the user's direction on 2026-10-03 in the [boundary decision record](../note/note-20261003-llm-delegated-task-management-and-plugin.md). Positioning, audience, messaging and claim boundaries record the user's adoption on the same day in the [positioning decision record](../note/note-20261003-product-positioning-audience-and-claim-b.md). The outcome-first headline, pillars and repository description record the user's adoption on 2026-10-04 in the [messaging decision record](../note/note-20261004-outcome-first-messaging.md). The [2026-10-03 rename change](../changes/change-20261003-product-rename-generic-identifiers/change.md) records an earlier product-name change; the current product name is Ariadne. None of these records authorizes deployment or autonomous external actions.

@@ -3,9 +3,9 @@ import test from 'node:test';import assert from 'node:assert/strict';import {reg
 register('data:text/javascript,'+encodeURIComponent("export function resolve(specifier,context,next){if(specifier==='cloudflare:workers')return {url:'data:text/javascript,export const env={};',shortCircuit:true};return next(specifier,context);}"),import.meta.url);
 const {POST}=await import('../../app/mcp/route.ts');
 function request(method,params={}){return new Request('https://local.invalid/mcp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})});}
-test('MCP open/list use existing resource identity with global/thread launch entrypoints',async()=>{
+test('MCP exposes one Ariadne launcher while list retains the shared resource',async()=>{
  const response=await POST(request('tools/list'));assert.equal(response.headers.get('cache-control'),'private, no-store');const tools=(await response.json()).result.tools;const open=tools.find(t=>t.name==='open_actions'),list=tools.find(t=>t.name==='list_actions');
- assert.deepEqual(open._meta['openai/ui'].entrypoints,[{type:'global'},{type:'thread'}]);assert.deepEqual(list._meta['openai/ui'],open._meta['openai/ui']);assert.equal(list._meta.ui.resourceUri,open._meta.ui.resourceUri);
+ assert.deepEqual(open._meta['openai/ui'].entrypoints,[{type:'global'},{type:'thread'}]);assert.equal(open.title,'Ariadne');assert.equal(list._meta['openai/ui'],undefined);assert.equal(list._meta.ui.resourceUri,open._meta.ui.resourceUri);
  const resources=(await (await POST(request('resources/list'))).json()).result.resources;assert.equal(resources.length,2);assert(resources.some(r=>r.uri===open._meta.ui.resourceUri));
 });
 test('MCP resource declares supported host modes while retaining CSP and HTML identity',async()=>{

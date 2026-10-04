@@ -30,11 +30,13 @@ Ariadne is a personal task list. It is not a team project management tool, and i
 
 ## Add Ariadne to ChatGPT
 
-Open **ChatGPT Work** and ask:
+Ask ChatGPT Work to read [INSTALL.md](INSTALL.md) and perform the installation:
 
-> Install this repository as a plugin: https://github.com/takezoh/ariadne
+```text
+Read https://github.com/takezoh/ariadne/blob/main/INSTALL.md and install Ariadne for me.
+```
 
-Follow any setup prompts. Once installed, ask ChatGPT to use Ariadne; you can also select it with **@**. See [Plugins in ChatGPT](https://help.openai.com/en/articles/20001256-plugins-in-chatgpt) for general plugin guidance.
+After connecting, ask Ariadne to read your saved actions and open the list.
 
 Ariadne is currently provided as a ChatGPT plugin. It exposes your saved actions through API/MCP tools and a dedicated UI. Your prompts, ChatGPT's dot or a caller-side scheduler decide when and how to use the tools.
 

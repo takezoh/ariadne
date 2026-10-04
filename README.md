@@ -38,12 +38,6 @@ Read https://github.com/takezoh/ariadne/blob/main/INSTALL.md and install Ariadne
 
 After connecting, ask Ariadne to read your saved actions and open the list.
 
-Ariadne is currently provided as a ChatGPT plugin. It exposes your saved actions through API/MCP tools and a dedicated UI. Your prompts, ChatGPT's dot or a caller-side scheduler decide when and how to use the tools.
-
-For example, an agent you configure with Slack or email access can collect commitments and save them through Ariadne's tools. Collection, interpretation, scheduling and notification belong to that agent's workflow; they do not require a dedicated Ariadne integration. Available execution and access depend on the agent's environment and your authorization.
-
-Ariadne has no AI of its own. It handles persistence, input validation, deterministic state changes, ownership, revisions, replay and Undo. A deferred action returns to your lists after its Defer time; Ariadne does not start an agent or send a notification.
-
 ## Use cases: ask your AI
 
 Use your own words. For example:

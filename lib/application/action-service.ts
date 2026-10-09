@@ -1,6 +1,6 @@
 import {fail,object,exact,text,catalogName,actionTitle,initialTagIds,description,id,integer,canonical,change,validateGraph,actionOrder,booleanFlag,perspectiveFilter,validatePerspectiveReferences,type Snapshot,type Change} from '../domain/core';
 import {response,undo,validateDelta,preview,queryResponse,listPerspectives,queryPerspective} from '../domain/operations';
-import type {OperationResolution,ActionPorts} from './ports';
+import type {OperationResolution,OwnerActionPorts} from './ports';
 
 type PreparedChange={change:Change|null;resolved?:OperationResolution;actionRefs?:Map<string,string>;createdActionIds?:string[]};
 
@@ -88,17 +88,17 @@ function previewResolution(resolved:OperationResolution|undefined,createdActionI
  };
 }
 
-export async function actionCall(ports:ActionPorts,owner:string,name:string,args:unknown) {
- async function readCurrent(){const snapshot=await ports.store.readSnapshot(owner);validateGraph(snapshot);return snapshot;}
+export async function actionCall(ports:OwnerActionPorts,name:string,args:unknown) {
+ async function readCurrent(){const snapshot=await ports.store.readSnapshot();validateGraph(snapshot);return snapshot;}
  function receiptResult(receipt:{delta:string;result:string}){try{validateDelta(JSON.parse(receipt.delta));const result=object(JSON.parse(receipt.result));id(result.operationId);integer(result.revision);if(!Array.isArray(result.changedIds))fail('invalid_state','Receipt changed IDs are required.');for(const value of result.changedIds)id(value);if(result.resolved!==undefined){const resolved=object(result.resolved);if(resolved.actions!==undefined){if(!Array.isArray(resolved.actions))fail('invalid_state','Receipt resolved actions must be an array.');for(const row of resolved.actions)id(object(row).id);}for(const key of ['project','tag','perspective'])if(resolved[key]!==undefined){const row=object(resolved[key]);id(row.id);if(key!=='perspective'&&typeof row.created!=='boolean')fail('invalid_state','Receipt creation state is required.');}}return result;}catch{fail('invalid_state','The receipt does not match the current schema.');}}
 
  const {store,clock,newId}=ports;
- if(!owner)fail('unauthenticated','利用者を確認できません。',401);const a=object(args),now=clock();
+ const a=object(args),now=clock();
  if(name==='open_actions'||name==='open_verification'||name==='list_actions'||name==='get_relevant_context'){exact(a,[]);return response(await readCurrent(),now);}
  if(name==='list_perspectives'){exact(a,[]);return listPerspectives(await readCurrent(),now);}
  if(name==='query_perspective'){exact(a,['id']);return queryPerspective(await readCurrent(),now,a.id);}
  if(name==='query_actions'){exact(a,['project_id','tag_id','include_descendants','status','is_deferred','flagged']);return queryResponse(await readCurrent(),now,a);}
- if(name==='operation_status'){exact(a,['operationId']);const r=await store.readReceipt(owner,id(a.operationId));return {schemaVersion:2,status:r?'applied':'not_observed',result:r?receiptResult(r):null};}
+ if(name==='operation_status'){exact(a,['operationId']);const r=await store.readReceipt(id(a.operationId));return {schemaVersion:2,status:r?'applied':'not_observed',result:r?receiptResult(r):null};}
  if(name==='preview_change'){
   exact(a,['expectedRevision','kind','payload']);const s=await readCurrent();if(integer(a.expectedRevision)!==s.revision)fail('conflict','最新状態を取得してください。',409);
   const requested={kind:text(a.kind,40),payload:object(a.payload)},prepared=prepareChange(s,requested,newId,'00000000-0000-4000-8000-000000000000');
@@ -120,13 +120,13 @@ export async function actionCall(ports:ActionPorts,owner:string,name:string,args
   exact(a,name==='undo_change'?['operationId','expectedRevision','schemaVersion','undoOf']:['operationId','expectedRevision','schemaVersion','kind','payload']);if(a.schemaVersion!==2)fail('schema_mismatch','版を確認してください。');operationId=id(a.operationId);expected=integer(a.expectedRevision);c={kind:text(a.kind??'undo',40),payload:object(a.payload??{})};if(name==='undo_change')undoOf=id(a.undoOf);
  } else fail('unknown_tool','未対応の操作です。',404);
 
- const original=canonical({name,args:a}),prior=await store.readReceipt(owner,operationId);
+ const original=canonical({name,args:a}),prior=await store.readReceipt(operationId);
  if(prior){if(prior.canonical_payload!==original)fail('idempotency_conflict','同じ要求IDに異なる入力が指定されています。',409);return response(await readCurrent(),now,receiptResult(prior));}
  const before=await readCurrent();if(before.revision!==expected)fail('conflict','最新の一覧と未保存案を確認してください。',409);
  let after:Snapshot,resolved:OperationResolution|undefined;
- if(undoOf){const target=await store.readReceipt(owner,undoOf);if(!target)fail('not_found','取り消す操作が見つからないか、履歴の保持範囲外です。',404);if(target.undo_of)fail('invalid_state','取り消し操作自体の取り消しは未対応です。');const used=await store.hasUndo(owner,undoOf);if(used)fail('undo_conflict','既に取り消されています。',409);after=undo(before,JSON.parse(target.delta),now,target.revision_after);}
+ if(undoOf){const target=await store.readReceipt(undoOf);if(!target)fail('not_found','取り消す操作が見つからないか、履歴の保持範囲外です。',404);if(target.undo_of)fail('invalid_state','取り消し操作自体の取り消しは未対応です。');const used=await store.hasUndo(undoOf);if(used)fail('undo_conflict','既に取り消されています。',409);after=undo(before,JSON.parse(target.delta),now,target.revision_after);}
  else {const prepared=prepareChange(before,c,newId,operationId);resolved=prepared.resolved;after=prepared.change?change(before,prepared.change,now):structuredClone(before);}
 
  if(new TextEncoder().encode(original).length>262144)fail('operation_too_large','入力が大きすぎます。');
- const result=await store.commit({owner,operationId,payload:original,before,after,now,undoOf,resolved});return response(await readCurrent(),now,result);
+ const result=await store.commit({operationId,payload:original,before,after,now,undoOf,resolved});return response(await readCurrent(),now,result);
 }

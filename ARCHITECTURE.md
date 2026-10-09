@@ -34,7 +34,9 @@ flowchart LR
 | lib/application/ | Operation orchestration through store, clock and ID ports |
 | lib/adapters/ | D1 SQL, atomic revision CAS, receipts, bindings |
 | lib/server/ | Authentication and production composition |
-| app/mcp/route.ts | JSON-RPC, tools, UI resources and host instructions |
+| app/mcp/route.ts, lib/server/mcp.ts | Declarative private entry and request authentication/HTTP boundary |
+| lib/mcp/private-dispatcher.ts, lib/mcp/private-registry.ts | Capability-validated private JSON-RPC, tools, UI resources and host instructions |
+| lib/mcp/local-server.mjs, lib/mcp/public-registry.ts | Separate static stdio MCP, without private data or credentials |
 | app/api/actions/route.ts | Web JSON entry and authentication/Origin/content-type checks |
 | lib/ui/model/ | Pure draft, retained-request and control decisions |
 | lib/ui/application.ts | UI state and progress through call, ID and view ports |
@@ -68,7 +70,7 @@ The revision validates the state used for a mutation. Internal deltas and retain
 
 Writes require schemaVersion 2, an operation ID and current expectedRevision. Identical replay uses the receipt and returns current state; different input under the same ID is rejected. Unknown outcomes retain exact arguments and IDs. Preview does not reserve state or generated IDs. Undo compares exact affected action state/revision and catalog identity markers, preserving later unrelated changes and rejecting target conflicts.
 
-Trusted Sites authentication headers determine owner. Request arguments cannot override it. Queries, mutations and receipts stay owner-scoped. Task text, personal data and credentials must not be logged indiscriminately.
+The declarative private entry exports only the authenticated server facade. That facade revalidates Sites authentication headers on every request; the private dispatcher validates the issued identity capability before every method, including discovery and notifications. Privileged imports are restricted to exact module edges, and HTTP entries cannot obtain raw D1. Its request-scoped identity capability constructs the owner-bound store; application arguments carry no owner. Hosted header provenance remains a separate acceptance gate. Request arguments cannot override the bound owner. Queries, mutations and receipts stay owner-scoped. Native SQL lives only in the reviewed adapter with closed identifiers and bound values. Generated receipt and bulk-JSON budgets reject oversized writes before the atomic batch. The independent local stdio artifact exposes static setup and diagnostics only and launches with an empty environment. Task text, personal data and credentials must not be logged indiscriminately.
 
 ## Verification
 

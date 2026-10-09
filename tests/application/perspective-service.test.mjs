@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {actionCall} from '../../lib/application/action-service.ts';
+import {actionCallForOwner as actionCall} from '../helpers/owner-composition.mjs';
 import {memoryActionStore} from '../helpers/memory-action-store.mjs';
 const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
 const now='2026-10-03T00:00:00.000Z';

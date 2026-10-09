@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {actionCall} from '../../lib/application/action-service.ts';
+import {actionCallForOwner as actionCall} from '../helpers/owner-composition.mjs';
 import {memoryActionStore} from '../helpers/memory-action-store.mjs';
 const uuid=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
 const clock=()=> '2026-10-03T01:02:03.000Z';
@@ -69,9 +69,10 @@ test('query_actions reads the shared snapshot without writing and permits all ac
  assert.equal(result.schemaVersion,2);assert.deepEqual(result.actions,[]);assert.equal((await store.readSnapshot('A')).revision,1);
 });
 
-test('invalid owner and unknown arguments do not access storage',async()=>{
+test('missing identity and unknown arguments do not access storage',async()=>{
+ const {requireOwner}=await import('../../lib/server/auth.ts');
+ assert.throws(()=>requireOwner(new Headers()),e=>e.code==='unauthenticated');
  let reads=0;const p={store:{readSnapshot(){reads++;throw new Error('unexpected');}},clock,newId:()=>uuid(1)};
- await assert.rejects(actionCall(p,'','list_actions',{}),e=>e.code==='unauthenticated');
  await assert.rejects(actionCall(p,'A','list_actions',{owner:'B'}),e=>e.code==='invalid_input');assert.equal(reads,0);
 });
 

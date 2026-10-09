@@ -1,0 +1,14 @@
+import {spawnSync} from 'node:child_process';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+import {sourceIdentity} from './verification-source.mjs';
+const input=[{jsonrpc:'2.0',id:1,method:'initialize'},{jsonrpc:'2.0',id:2,method:'tools/list'},{jsonrpc:'2.0',id:3,method:'tools/call',params:{name:'get_public_diagnostics',arguments:{}}},{jsonrpc:'2.0',id:4,method:'tools/call',params:{name:'list_actions',arguments:{}}}].map(x=>JSON.stringify(x)).join('\n')+'\n';
+const result=spawnSync(process.execPath,['scripts/start-local-mcp.mjs'],{input,encoding:'utf8',env:{...process.env,ACTION_DATA_TOKEN:'must-never-be-exposed',OAI_AUTHENTICATED_USER_ID:'must-never-be-exposed'},timeout:10000});
+assert.equal(result.status,0,result.stderr);assert(!result.stdout.includes('must-never-be-exposed'));
+const replies=result.stdout.trim().split('\n').map(line=>JSON.parse(line));assert.equal(replies.length,4);
+assert.deepEqual(replies[1].result.tools.map(x=>x.name),['get_setup_guidance','get_public_diagnostics']);
+assert.equal(replies[2].result.structuredContent.database,false);assert(replies[3].error);
+const artifact=readFileSync('dist/local/server.mjs','utf8');assert(!/cloudflare:workers|D1Database|privateDefinitions|oai-authenticated-user|process\.env|drizzle-orm/.test(artifact));
+writeFileSync('docs/evidence/20261009-local-mcp-security.json',JSON.stringify({source:sourceIdentity(),artifactSha256:createHash('sha256').update(artifact).digest('hex'),result:'passed',serverEnvironment:'empty by launcher',transport:'stdio',privateTools:'absent',databaseBinding:'absent',hostedAcceptance:'not_run'},null,2)+'\n');
+console.log('passed: separate stdio artifact, empty launch environment, no private registry or binding');

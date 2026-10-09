@@ -32,6 +32,36 @@ The recursive runner discovers .test.mjs/.test.ts/.test.mts. Empty selection, mi
 
 Boundary lint rejects effect references in pure logic, concrete adapter dependencies in application/UI controllers, and mutation of pure-function arguments. build/ source is linted; generated output and local settings are excluded. Explicit timestamp conversion is allowed; current time and randomness belong to ports. The CI workflow runs frozen install/check/build on Node 22 and 24; a local pass is not a CI execution or branch-protection change.
 
+## Security boundary checks
+
+`pnpm check` enforces dependency direction, effect leakage, exact native-SQL and private-capability locations. Local composition can import only its static registry and stdio transport; aliases and re-exports cannot introduce a privileged shim. `tests/harness/architecture-fixtures.test.mjs` uses the actual repository ESLint configuration to reject raw D1 imports in both HTTP entries, pre-auth private response branches, alternate MCP handlers, catch-path dispatch and missing dispatcher capability validation. Adapter mutations also remove owner predicates, binds and conflict keys and require rejection. These structural checks complement runtime tests; they do not establish hosted header provenance.
+
+The application receives only an owner-bound store (`readSnapshot`, `readReceipt`, `hasUndo`, `commit`). The declarative MCP route exports only the authenticated server facade; its request boundary obtains identity before its sole private dispatch. The private dispatcher validates the issued capability before every method, including discovery and notifications. Privileged dependencies use exact importer-to-module edges; HTTP entries have no whole-file D1 exemption. The request authentication boundary issues a frozen identity capability; the adapter rejects unissued structural objects and binds the validated owner to every SQL path. No owner-taking application facade remains; owner-taking test helpers live only under `tests/helpers/`. Closed descriptors select tables and columns, with values bound as data. Generated receipt payload/result/delta, bulk row JSON and identity markers are budgeted before the atomic batch; oversized plans return `operation_too_large` without a write. Requests use actual streaming UTF-8 byte limits and cancel oversized bodies.
+
+`pnpm build` creates the private Worker under `dist/server` and an independent static stdio server under `dist/local`. `pnpm start:local-mcp` launches the latter with an empty environment. `node scripts/testing/verify-local-mcp.mjs` checks the built artifact, launch and tool surface without accessing D1.
+
+Verify the actual MCP-to-D1 path with `pnpm build`, `pnpm db:migrate:local` and `pnpm start`, then `node scripts/testing/verify-worker-d1.mjs`. The harness creates unique local fixture owners and a temporary owner-specific failure trigger through Wrangler `d1 execute --local`; it never targets hosted data. An optional numeric port targets the same Wrangler-managed user Worker listener when the dev proxy itself fails. Preserve the failed proxy evidence and confirm the listener's process, built configuration and `env.DB` binding before choosing it. This does not substitute a mock store. Local Wrangler D1 still does not establish hosted D1 or trusted identity provenance.
+
+See [local Worker evidence](../evidence/20261009-local-worker-security-direct.json), [dev-proxy failure](../evidence/20261009-local-worker-security.json) and [local artifact evidence](../evidence/20261009-local-mcp-security.json). These record base commit, worktree file hashes, artifact digest and actual execution conditions. The dev-proxy boundary and all hosted identity, bypass and connection/UI gates remain unmet.
+
+### Local acceptance matrix (2026-10-09)
+
+Authorization is GitHub comment `6082041393`, author `github-773366`, selecting option 2: local implementation, actual Worker/Wrangler D1 verification and independent review, with hosted acceptance explicitly unmet. No deployment, push, PR or pipeline change is included.
+
+| Boundary | Evidence and result |
+| --- | --- |
+| Full local gates | [check log](../evidence/20261009-security-revision2-check.log): lint, typecheck and 393 tests pass; [build log](../evidence/20261009-security-revision2-build.log): Worker and separate local artifact build |
+| Private dispatch and transport guards | Direct Wrangler-managed Worker listener: every private method and session bypass rejected without auth; valid discovery/resources/notifications work; Origin/media type/actual UTF-8 guards pass |
+| Owner/SQL/storage | Actual local D1 binding: exact SQL-like data, same IDs across owners, replay, competition, response discard/recovery, conflict-aware Undo and pruning pass |
+| Atomicity | Owner-specific failure trigger in real local D1: receipt, revision, rows and identity markers roll back together |
+| Parent and six notes | Six 7,000-character notes save and complete atomically. Six `"あ".repeat(65536)` notes produce an envelope over 1 MiB and return HTTP 413 before dispatch; an individual 196,608-byte note exceeds the generated JSON bind budget and returns `operation_too_large` before a batch. Snapshots and receipt checks confirm no writes |
+| Structural mutations | Actual-config raw DB imports in HTTP entries, pre-auth response/alternate-handler additions, facade identity removal/catch dispatch, dispatcher capability-validation removal and wrong identity forwarding fail the gate; owner WHERE/bind/conflict-key, alias/re-export and native SQL mutations also fail |
+| Local artifact | Separate stdio launch uses an empty environment, lists only setup/diagnostics, rejects private calls, and contains no private registry or D1 binding |
+| Wrangler dev proxy | Failed: intermittent 503 with the recorded restart message; direct Worker listener is a distinct transport result. The process reports a broken Cap'n Proto RPC connection; the exact root cause is unproven |
+| Hosted identity, bypass, connection/UI | Not run; no hosted acceptance or deployment claim |
+
+The source is the dirty worktree identified by the evidence's file hashes and `worktreeSha256`, based on commit `26ef02df1b58b365bc2b68853163656dc3993e53`; that base commit alone does not identify the tested candidate. Independent Loop assessment remains separate from these producer observations.
+
 ## Environment and harness selection
 
 Choose the environment from the requested outcome before writing a new harness or delegating execution. Inspect the existing configuration and scripts, then use the established path.

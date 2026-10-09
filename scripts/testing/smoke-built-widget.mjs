@@ -1,10 +1,13 @@
 import {JSDOM,VirtualConsole} from 'jsdom';
 import assert from 'node:assert/strict';
 // Start the built Worker with pnpm start before running this artifact check.
+// The built UI resources live on the authenticated Remote MCP surface; supply the trusted
+// identity headers that the Sites proxy injects in production so the private route dispatches.
 const endpoint=new URL('/mcp',process.argv[2]||'http://127.0.0.1:8787');
+const identityHeaders={'oai-authenticated-user-id':'smoke-owner','oai-authenticated-user-email':'smoke@example.invalid'};
 const settle=async()=>{for(let i=0;i<80;i++)await Promise.resolve();};
 for(const uri of ['ui://action-tools/actions-v4.html','ui://action-tools/actions-verification-v4.html']){
- const response=await fetch(endpoint,{signal:AbortSignal.timeout(10000),method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'resources/read',params:{uri}})});
+ const response=await fetch(endpoint,{signal:AbortSignal.timeout(10000),method:'POST',headers:{'Content-Type':'application/json',...identityHeaders},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'resources/read',params:{uri}})});
  assert.equal(response.status,200);const envelope=await response.json();assert(!envelope.error);const html=envelope.result.contents[0].text;
  const errors=[],requests=[],timers=new Map(),receipts=new Map();let revision=0;const actions=[],projects=[{id:'63620a50-eaa0-4e5c-8022-a8e84940a6b2',name:'Work',order:0,description:'',parent_id:null}],tags=[{id:'c6fc8fe5-a9f9-44a2-bd22-8a1965825986',name:'Focus',order:0,description:'',parent_id:null}];
  const snapshot=result=>({schemaVersion:2,revision,actions:structuredClone(actions),projects:structuredClone(projects),tags:structuredClone(tags),perspectives:[],list_scopes:{inbox:actions.map(a=>a.id)},retrieved_at:'2026-10-03T00:00:00Z',...(result?{result}:{} )});

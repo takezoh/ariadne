@@ -1,0 +1,7 @@
+passed: authenticate every private JSON-RPC method without session bypass
+passed: shared Origin/media type/actual UTF-8 size guards and strict caller fields
+passed: bound owner, SQL-like exact data, identical replay and conflicting input
+passed: CAS competition, discarded response recovery and conflict-aware Undo
+passed: parent plus six notes succeeds atomically; UTF-8 and generated delta over-budget reject before write
+passed: real D1 mid-batch failure rolls back graph, revision, receipt and identity markers
+passed: same entity/operation IDs and pruning remain isolated across two owners

@@ -2,8 +2,8 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {sqliteFixture} from '../helpers/sqlite-d1.mjs';
-import {createD1ActionStore} from '../../lib/adapters/d1-action-store.ts';
-import {actionCall} from '../../lib/application/action-service.ts';
+import {createD1ActionStore} from '../helpers/owner-composition.mjs';
+import {actionCallForOwner as actionCall} from '../helpers/owner-composition.mjs';
 const now='2026-10-03T00:00:00.000Z';
 test('perspective migration preserves populated action/catalog/receipt/identity data and owner-scoped keys',async t=>{
  const fixture=sqliteFixture({beforePerspectiveMigration:true});t.after(()=>fixture.sql.close());const {sql}=fixture;

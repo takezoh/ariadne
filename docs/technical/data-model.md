@@ -1,10 +1,10 @@
 # Data model and consistency
 
-Updated: 2026-10-03. The current contract is defined by [schema](../../db/schema.ts), [action model](../../lib/domain/core.ts), [application service](../../lib/application/action-service.ts), [migration 0009](../../drizzle/0009_action_model.sql), and [perspective migration 0010](../../drizzle/0010_ambiguous_umar.sql). Completed change packages describe their original versions, not the current API.
+Updated: 2026-10-09. The current contract is defined by [schema](../../db/schema.ts), [action model](../../lib/domain/core.ts), [application service](../../lib/application/action-service.ts), [migration 0009](../../drizzle/0009_action_model.sql), and [perspective migration 0010](../../drizzle/0010_ambiguous_umar.sql). Completed change packages describe their original versions, not the current API.
 
 ## Data and management policy
 
-The model supplies composable structured state for LLM-delegated task management. The API calls the saved entity action. User prompts and caller-side LLMs choose GTD or other management conventions; classification names and descriptive text do not impose a method or become executable policy. Caller-side collection and scheduling write through the same owner-scoped operations as conversation and UI. Ariadne validates data integrity, not an external management routine.
+The model represents shared state used by the human and authorized AI consumers: everyday actions, original notes, containment, classifications, dates and saved perspectives. The API calls the saved entity action. User prompts and caller-side LLMs interpret that state and choose GTD or other management conventions; classification names and descriptive text do not impose a method or become executable policy. Caller-side collection and scheduling write through the same owner-scoped operations as conversation and UI. Ariadne validates data integrity, not an external management routine.
 
 ## Durable records
 
@@ -54,6 +54,8 @@ Catalog names are local, trimmed and case-sensitive; derived display paths join 
 ## Atomic writes, replay and Undo
 
 Owner-wide revision is MAX(operations.revision_after), zero for an empty owner. A read batch retrieves revision, actions, catalog rows, associations and identity markers consistently. Saving derives a delta and writes only changed identities. The receipt INSERT trigger checks the latest owner revision; receipt, action/catalog/association writes, identity markers and history pruning share one atomic D1 batch. A failed statement rolls all of them back. There is no owner_state or full-snapshot replacement.
+
+These deltas and receipts serve atomic persistence, write replay and Undo. Current reads expose snapshots and revision, not a consumer's change-feed position or an acknowledgment of reading or understanding. The [Change Cursor proposal](../design/product.md#change-cursor-proposal) leaves its relationship to revision, change-record representation and retention open; the existing 100-operation receipt window is not a promised change-feed retention contract.
 
 New writes require schemaVersion 2, a UUID operation ID and current expectedRevision. Preview neither saves nor reserves revision or generated IDs. Canonical requests include the tool name and complete original arguments. Replaying the same ID and identical request returns its receipt with the current snapshot; it never rolls back later corrections. Different arguments under the same ID are rejected. Generated IDs are stored under result.resolved.actions/project/tag.
 

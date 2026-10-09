@@ -4,9 +4,11 @@ Current sources are [domain](lib/domain/core.ts), [application](lib/application/
 
 ## Responsibilities and runtime
 
-Ariadne provides structured task-data API/MCP tools and a shared UI so users can delegate task management to their LLM, using GTD or any method supported by the available data operations. ChatGPT is the current delivery environment. Meaning, organization, recommendations and workflow policy belong to the user's caller-side LLM. Ariadne validates input, persists state, projects lists and protects revision, replay, Undo and owner boundaries.
+Ariadne is a shared state store through which caller-side LLMs share state with the user and other authorized callers. Its current model stores everyday work and personal actions, projects, tags and perspectives, exposed through API/MCP tools and a shared UI. ChatGPT is the current delivery environment. Meaning, organization, recommendations and workflow policy belong to the user's caller-side LLM. Ariadne validates input, persists state, projects lists and protects revision, replay, Undo and owner boundaries.
 
 User prompts, dot and caller-side schedulers decide when and how to invoke the tools. An agent can collect Slack/email commitments through its own authorized tools and write actions through Ariadne without a dedicated Ariadne integration. Source collection, external observation, scheduling and notification remain caller responsibilities. Ariadne publishes composable data capabilities rather than owning an assistant workflow; callers can change methods while keeping the same saved data.
+
+Conversation, the dedicated UI and authorized callers use the same owner-scoped state. A human correction or another caller's saved result becomes available on the next read. Each caller maintains its own conversational context and must reconcile it with the retrieved state before deciding what to do; storing a change does not update an LLM's context automatically. Current full-state reads return a complete snapshot and owner-wide revision.
 
 The architectural policy is to expose the data layer through a thin API/MCP interface that guarantees flexibility, robustness and safety. Humans and caller LLMs decide how to interpret and use the data. Operations expose composable state capabilities without requiring a particular planning method, classification meaning or assistance workflow. Backend restrictions must be justified by authorization, data integrity, deterministic operation semantics or resource limits; assistance recommendations are not additional validation rules.
 
@@ -61,6 +63,8 @@ Lifecycle is active/on-hold/completed/dropped. Read-time projection evaluates De
 ## Persistence and recovery
 
 Reads obtain a consistent owner snapshot in one D1 batch. Owner revision is the latest operation revision, zero when empty. The receipt INSERT trigger conditionally checks revision. Changed rows, identity markers, receipts and pruning to the latest 100 operations commit atomically; unrelated rows are not rewritten. No owner_state or full-snapshot replacement exists.
+
+The revision validates the state used for a mutation. Internal deltas and retained receipts support persistence, replay and Undo. They do not provide a consumer change-feed cursor or record which state a caller has read, understood or acted on.
 
 Writes require schemaVersion 2, an operation ID and current expectedRevision. Identical replay uses the receipt and returns current state; different input under the same ID is rejected. Unknown outcomes retain exact arguments and IDs. Preview does not reserve state or generated IDs. Undo compares exact affected action state/revision and catalog identity markers, preserving later unrelated changes and rejecting target conflicts.
 

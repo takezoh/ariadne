@@ -1,6 +1,8 @@
 # Ariadne — Product
 
-**Keep less in your head. Your AI keeps track of the rest.** Design your own workflow with your AI—GTD, a simple daily list or something entirely new; it captures, organizes and reviews your tasks your way while you stay in control. Ariadne is the task list your AI manages, so you spend less effort remembering, collecting, organizing and reviewing tasks and more attention on action, decisions and rest. It currently provides its data tools and shared UI as a ChatGPT plugin; the concept is AI-delegated task management, independent of a particular assistant or management method.
+**Keep less in your head. Your AI keeps track of the rest.** Design your own workflow with your AI—GTD, a simple daily list or something entirely new; it captures, organizes and reviews your tasks your way while you stay in control.
+
+Ariadne is a state store where AI shares structured state with people and other authorized AI callers. Its current data model covers everyday work and personal actions, including unfinished thoughts and reference notes. Conversations, the dedicated UI and authorized caller workflows read and update the same saved state, so you can delegate upkeep while retaining a place to inspect and correct it. The intended benefit is less effort remembering, collecting, organizing and reviewing, with more attention for action, decisions and rest. Ariadne currently provides its data tools and shared UI as a ChatGPT plugin; the concept does not depend on a particular assistant or management method.
 
 ## Who it is for
 
@@ -10,7 +12,7 @@
 | GTD practitioners and people who run their own systems | The method stays in prompts while actions, containment, projects, tags, dates and perspectives remain stable |
 | People who build their own agents or scheduled workflows | Composable API/MCP tools accept changes from any authorized caller workflow |
 
-Ariadne is a personal task list. Team project management, automatic calendar planning and reminders are outside its scope.
+Ariadne supports personal workflows. Shared state stays within the authenticated owner's boundary: multiple conversations or authorized callers work with that owner's records, without exposing them to other owners. Calendar planning, reminders and background execution belong to the caller's environment.
 
 ## Value and approach
 
@@ -21,11 +23,12 @@ Ariadne is a personal task list. Team project management, automatic calendar pla
 | Design a workflow that fits you | Prompts and AI workflows choose GTD or another method over the same data tools |
 | Change methods without rebuilding lists | Keep saved actions while changing prompts and caller-side routines |
 | Let your AI do the upkeep | Capture, clarification, organization and review run through the AI's prompts and tools over the same saved actions |
+| Continue with current context | An authorized conversation or workflow can read the current saved state, including corrections made through the UI or another conversation, before deciding what to do next |
 | Stay in control without watching every change | Writes based on an outdated revision are rejected instead of overwriting newer edits; the UI retains unsaved proposals; identical retries are recognized and not applied twice; lost responses can be checked or resent exactly; Undo refuses to erase later corrections |
 | See and fix anything | Conversation and UI read and update the same saved actions |
 | See relevant work | ChatGPT presents candidates with reasons, distinct from the complete list |
 
-Your AI handles meaning, organization, recommendations and management policy. Ariadne provides structured task data through API/MCP operations and a dedicated UI, with durable state, validation, revisions, atomicity, replay, Undo and ownership. The API entity is named action. Containment, projects, tags, order, direct flags, dates and perspectives support GTD or another caller-chosen management method without requiring a fixed workflow.
+Your AI handles interpretation, judgment, organization, recommendations and management policy. Ariadne stores, retrieves and updates structured state through API/MCP operations and a dedicated UI, with validation, revisions, atomicity, replay, Undo and ownership. Reading state gives the AI information to consider; the AI remains responsible for understanding it and revising its judgment. The API entity is named action. Containment, projects, tags, order, direct flags, dates and perspectives support GTD or another caller-chosen management method without requiring a fixed workflow.
 
 User prompts, dot and caller-side schedulers can use the same tools. An authorized agent can collect Slack/email commitments with its own external tools and save or update actions in Ariadne. No dedicated Ariadne agent integration is needed: source access, interpretation, execution timing and notifications are responsibilities of the caller. Changing the caller's workflow does not require changing Ariadne's data operations.
 
@@ -49,7 +52,7 @@ Defer an action when it is unnecessary now. A date-only choice resolves to that 
 
 Arrange sibling actions by order and use direct Flags to mark attention. A Flag does not inherit and does not change lifecycle, Due or Defer. The Flag view includes marked normal-view actions; deferred or ended flags remain saved and queryable.
 
-Save a reusable perspective through conversation when you want to repeat a particular selection. Perspectives store extraction conditions only and retain the existing action order; dedicated perspective UI controls are not provided. Ask for candidates matching a purpose or context. Recommendation alone does not hide, complete, defer or drop unselected actions. Return to the full normal, deferred or historical list when needed.
+Save a reusable perspective through conversation when you want to repeat a particular selection. Perspectives store extraction conditions only and retain the existing action order. Select a saved perspective in the dedicated UI; create and edit its definition through the tools or API. Ask for candidates matching a purpose or context. Recommendation alone does not hide, complete, defer or drop unselected actions. Return to the full normal, deferred or historical list when needed.
 
 ## State and relationships
 
@@ -71,7 +74,11 @@ Completing all children never automatically completes the parent. A descendant c
 
 ## Conversation, UI and reliability
 
-Conversation accepts uncertainty, helps organize relationships and explains candidate choices. The dedicated ChatGPT UI provides the saved list, notes, dates, order and Flag controls for direct correction. Both use one durable state.
+Conversation accepts uncertainty, helps organize relationships and explains candidate choices. The dedicated ChatGPT UI provides the saved list, notes, dates, order and Flag controls for direct correction. Conversations and UI use one durable state for the authenticated owner.
+
+For example, correct a trip action's title in the UI, then ask ChatGPT in another conversation to read the current action before planning the next step. That read retrieves the saved correction even if the conversation still contains the old title. An authorized AI workflow can use the same state to continue its own work. Ariadne preserves the shared records; each caller decides what the correction means for its recommendations or actions.
+
+Current reads provide a full snapshot with an owner-wide revision, or a requested selection of actions. The revision protects writes from stale state. A read does not record human read status, complete an action or prove that an AI has incorporated the information into its decisions.
 
 After a conflict compare the latest saved state with the retained proposal. After a missing response preserve the original request and check its result or resend identically. Do not claim success or failure merely from response loss. Undo does not silently erase later target edits. These guarantees reduce the supervision burden of delegating organization.
 

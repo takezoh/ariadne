@@ -4,7 +4,7 @@
 
 ## Product and caller boundary
 
-Ariadne exposes structured task-data API/MCP operations and a shared UI. User prompts, the caller-side LLM, dot and caller-side schedulers choose the management method and execution timing. GTD is one possible use. External collection, Slack/email access, observation and notifications belong to the caller; composing its tools with Ariadne does not require a dedicated plugin integration. Preserve flexible operations and stable data guarantees when changing the plugin.
+Ariadne is a shared state store for the user and authorized AI consumers, exposed through API/MCP operations and a shared UI. Actions, projects, tags and perspectives are its current structured model for everyday work and personal state. User prompts, the caller-side LLM, dot and caller-side schedulers choose the management method and execution timing. GTD is one possible use. External collection, Slack/email access, observation and notifications belong to the caller; composing its tools with Ariadne does not require a dedicated plugin integration. Preserve flexible operations and stable data guarantees when changing the plugin.
 
 The intended benefit is less total remembering and management work, with more attention for action and rest. Plugin correctness, caller workflow quality and user outcomes require separate evidence. Product text must stay within the claim boundaries in product design. See [product design](design/product.md) and [caller responsibilities](design/assistance.md).
 
@@ -22,8 +22,11 @@ Actions have containment, sibling order and direct boolean flags. Independent pr
 | [Product design](design/product.md) | Product positioning, audience, claim boundaries and hypotheses |
 | [Assistance design](design/assistance.md) | Host/application responsibility split |
 | [State design](design/design-action-state-and-perspectives.md) | Current state contract |
+| [Change Cursor proposal](design/product.md#change-cursor-proposal) | Proposed incremental reads, consumer checkpoints, value and open design decisions |
 
 Current facts must be checked in code and the technical references above. Documents outside docs/*/** describe only the current state. Historical records and change rationale belong under docs/*/**.
+
+Current full-state reads return a complete owner snapshot and revision. Change Cursor is a proposed API for retrieving changes after a supplied position and returning the next position; it is not a current tool. Keep its interpretation and follow-up decisions in the consuming LLM, and keep proposed change-feed behavior separate from existing mutation deltas, replay receipts and revision guards.
 
 ## Local development
 

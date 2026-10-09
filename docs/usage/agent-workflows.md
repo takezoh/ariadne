@@ -1,6 +1,6 @@
 # Build a workflow with Ariadne
 
-Ariadne supplies structured actions and a shared UI. Your LLM chooses how to capture, organize, review and change them. Start with a prompt and the existing tools; use a reusable skill when the same guidance is useful across requests.
+Ariadne is a shared state store for the user and authorized AI consumers. Its actions, projects, tags and perspectives are available through data tools and a shared UI. Your LLM interprets the saved state and chooses how to capture, organize, review and change it. Start with a prompt and the existing tools; use a reusable skill when the same guidance is useful across requests.
 
 ## Find tools and schemas
 
@@ -34,6 +34,14 @@ For a review, query saved actions or a perspective, then present relevant candid
 For writes, read the current owner-wide revision and keep the exact tool name, operation ID and full arguments. A timeout means the result is unknown: look up the receipt or resend the identical request. An explicit revision conflict requires rereading and reconciling the proposal. Undo may refuse later target corrections, and receipt history is limited to the latest 100 operations per owner. See [recovery](../technical/mcp-api.md#responses-and-recovery) before automating retries.
 
 These examples are workflow designs, not installed schedules or evidence that a particular host has external access.
+
+## Continue from shared state
+
+If the user corrects an action in the UI or another authorized conversation saves a result, read the current state before continuing. `list_actions` and `get_relevant_context` return the complete owner snapshot and revision. Compare that state with the current request and any retained context, use original notes or authorized source tools where needed, and revise the proposal before saving. A shared store makes the saved correction available without requiring the user to repeat it in every conversation; it does not update an AI's conversational context automatically.
+
+Each conversation or workflow may have read a different version. Use the current revision for writes and the existing conflict/recovery contract. Recover any context that was not saved through the caller's own environment. Completing a read does not complete an Action or mark information as read by the human.
+
+The [Change Cursor proposal](../design/product.md#change-cursor-proposal) would support changes since each consumer's previous position. Until that API is implemented, use the current snapshot and query tools; do not send cursor arguments or treat retained write receipts as a change feed.
 
 ## Use the optional skills
 

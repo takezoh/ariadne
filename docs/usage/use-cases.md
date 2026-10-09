@@ -1,6 +1,6 @@
 # Use cases: ask your AI
 
-Tell your AI what you want to hand over and how you want it handled. These examples are starting points for your own prompts. Your AI reads and changes the shared list in Ariadne; you can inspect and correct it in conversation or the dedicated UI.
+Tell your AI what you want to hand over and how you want it handled. These examples are starting points for your own prompts. Ariadne stores shared state for everyday work and personal actions. Your AI reads and updates it, and you can inspect and correct the same saved actions in conversation or the dedicated UI. Interpretation and decisions belong to your AI; Ariadne keeps the requested state and its updates consistent.
 
 ## Put down an unfinished thought
 
@@ -47,6 +47,22 @@ You can change the prompts and selection rules while keeping the same saved acti
 > Undo the change you just made.
 
 Conversation and the dedicated UI use the same saved list. Undo checks whether later corrections would be affected; your AI should explain any conflict before proceeding.
+
+## Continue after a correction elsewhere
+
+> I corrected the trip plan in the dedicated UI. Read the current saved actions, then help me decide the next step. Keep the saved state unchanged while you make suggestions.
+
+> Another conversation renamed the hotel action. Retrieve its current name and ID from Ariadne before continuing.
+
+The current saved state supplies the correction even when this conversation still contains older wording. Your AI can reconsider its advice from the retrieved state. It remains responsible for interpreting the change; reading an action does not complete it or record that you have read it.
+
+The current API provides full snapshots and queries. These examples ask for current records; they do not require a change feed or a stored reading position for each conversation.
+
+## Let authorized AI workflows use the same state
+
+> Read the actions saved by my collection workflow, including their source notes. Help me organize them for today's work without adding duplicates.
+
+For example, one caller workflow can collect commitments and another can help review them. Both operate on the same owner's saved actions rather than maintaining separate lists. Each caller needs authorized access in its environment and reads the current state before proposing updates. Ariadne preserves ownership and rejects writes based on stale state; deciding which information matters and how to respond belongs to each AI. ChatGPT is the current delivery environment.
 
 ## Collect inputs from other tools
 

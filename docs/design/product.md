@@ -4,9 +4,9 @@ kind: design
 title: Ariadne Positioning, Audience and Benefits
 status: active
 created: '2026-10-02'
-updated: '2026-10-04'
-summary: 'A task list built for an AI to manage: positioning, audience, brand pillars,
-  messaging and claim boundaries grounded in current data contracts.'
+updated: '2026-10-09'
+summary: 'Shared state for humans and AI consumers: positioning, everyday action use,
+  caller responsibilities, the Change Cursor proposal and current claim boundaries.'
 tags:
 - product
 - benefits
@@ -24,11 +24,11 @@ source_paths: []
 scope_type: system
 responsibilities:
 - id: RESP-001
-  statement: Design dot's assistance and Ariadne's persistent state and operations
-    as one experience, starting from user benefits.
+  statement: Design human and caller-side AI collaboration over Ariadne's persistent
+    state and operations, starting from user benefits.
 invariants:
 - id: INV-001
-  statement: dot inside ChatGPT owns assistance decisions; do not assume Ariadne contains
+  statement: Caller-side LLMs own assistance decisions; do not assume Ariadne contains
     an independent LLM decision engine.
   enforcement: review
 - id: INV-002
@@ -48,7 +48,7 @@ boundaries:
 variability:
   fixed:
   - Benefit priority
-  - division of responsibility with dot using Ariadne
+  - division of responsibility with caller-side LLMs using Ariadne
   - respect for user corrections and choices
   free:
   - Specific prompt wording
@@ -68,15 +68,13 @@ compatibility_policies:
 
 ## Positioning
 
-The governance metadata references dot as an example caller in the current ChatGPT delivery. It does not require that caller or assign its assistance workflow to Ariadne.
-
 **Keep less in your head. Your AI keeps track of the rest.**
 
-Ariadne is a task list built for an AI to manage. Its value appears only together with the user's AI: the data tools alone are not the product experience. For individuals who want to delegate task management to their AI, it keeps AI changes safe to accept and easy to correct, while judgment stays with the user's AI and the user's own method. The intended outcome is less effort remembering, collecting, organizing, reviewing and updating everyday work and personal tasks, with more attention available for action, decisions and rest.
+Ariadne is a shared state store through which AI/LLM consumers share state with humans and other authorized AI consumers. Everyday work and personal actions are its current concrete use: actions, original notes, containment, projects, tags, dates and perspectives remain available when the user changes a plan, switches conversations or uses another authorized workflow. Interpretation, recommendations and decisions belong to the consuming LLM; Ariadne persists, retrieves and validates the shared state within the authenticated owner's boundary.
 
-Letting an AI read and write tasks is not distinctive by itself. Ariadne differs through two properties grounded in its contracts: AI writes are safe to delegate without supervising each change, and the management method lives in prompts rather than in the product. Task apps that add an AI connection keep their own work model and rely on users to review changes; AI planners make organizing or scheduling decisions inside their own app; host reminder features cover timing and complement Ariadne. See the [decision record](../note/note-20261003-product-positioning-audience-and-claim-b.md) for the observations behind this comparison.
+The intended outcome is less effort remembering, collecting, organizing, reviewing and updating everyday work and personal tasks, with more attention available for action, decisions and rest. Direct human corrections and another AI's saved results can inform the next interaction through the same state. Reliable writes and retained original input support delegation, while the management method remains in prompts. The user and their AI create the useful experience through these data capabilities.
 
-Ariadne provides structured task-data API/MCP tools and a shared UI. The user's prompts, AI, dot or caller-side scheduler determine how and when to use them. ChatGPT is the current delivery environment, not a requirement that the concept use a particular assistant or management method. The product name is Ariadne. Source code and published identifiers are generic and contain no product name, so the name lives only in documentation and host listings.
+Ariadne provides API/MCP tools and a dedicated UI over that shared state. The user's prompts, AI, dot or caller-side scheduler determine how and when to use them. ChatGPT is the current delivery environment; dot is an example consumer. Connecting another assistant requires a supported authenticated route. The product name is Ariadne. Source code and published identifiers are generic and contain no product name, so the name lives only in documentation and host listings.
 
 ## Audience
 
@@ -85,6 +83,7 @@ Ariadne provides structured task-data API/MCP tools and a shared UI. The user's 
 | Individuals who use an AI assistant daily and want it to handle task upkeep, especially people for whom maintaining a to-do app became work in itself | Primary | They gain the most from not learning an app routine; because they will not supervise each change, safe writes are a precondition for delegating |
 | GTD practitioners and people who run their own systems | Secondary | The method stays in their prompts while the saved data remains stable |
 | People who build their own agents or scheduled workflows | Secondary | Composable tools accept changes from any authorized caller workflow |
+| People who continue work across conversations and authorized AI workflows | Secondary | Current shared state and original notes preserve human corrections and saved results for the next read |
 | Team project management, automatic calendar planning and reminder use | Not targeted | These are outside Ariadne's responsibilities |
 
 People already settled in an established task app can use that app's AI connection, so they are not the primary audience. These segments are hypotheses, not validated market findings.
@@ -96,6 +95,7 @@ People already settled in an established task app can use that app's AI connecti
 | Get it out of your head (entry) | Hand things over without deciding everything first | Exact original notes; no required deadline, classification or commitment; Defer preserves content and Due; Inbox keeps project-unassigned unfinished actions |
 | Design a workflow that fits you (differentiator) | Design any workflow with the AI, such as GTD, a simple daily list or an own system, and change it without rebuilding the list | No backend management method; containment, projects, tags, order, flags, dates and perspectives are composable data capabilities |
 | Let your AI do the upkeep (core experience) | The AI captures, clarifies, organizes and reviews inside the user's system | Composable reads, previews and changes through API/MCP; authorized caller workflows can write collected inputs |
+| Continue from shared state | Human corrections and saved AI results are available to the next authorized consumer | Conversation and UI read the same owner-scoped state; callers retrieve current snapshots and reconcile their own context |
 | Stay in control—without watching every change (primary differentiator) | AI changes do not silently break the saved list, and the user can inspect and correct directly | Latest-revision validation rejects stale writes; the UI retains unsaved proposals; identical replay uses the receipt; unknown outcomes keep exact IDs and arguments for lookup or resend; Undo rejects later target corrections; owner isolation; conversation and UI share one action path and saved state |
 
 Lead with relief from remembering, then the appeal of designing a workflow with the AI. Use safe delegation and direct correction as reasons to believe. A pillar must not promise more than its supporting contract.
@@ -106,6 +106,7 @@ Lead with relief from remembering, then the appeal of designing a workflow with 
 - Repository description: "Keep less in your head. Design your own workflow with your AI—GTD, a simple daily list or something entirely new. It captures, organizes and reviews your tasks your way, while you stay in control."
 - Present GTD as one example among several workflows, never as a built-in or default method.
 - Write benefit-, outcome- and appeal-first. The user and their AI are the subjects of user-facing text; describe the combined experience rather than the data layer. Data-layer responsibilities and limits follow in a "How it works" section and technical documentation.
+- Explain Ariadne as the shared state store for the user and their AI, with everyday actions as its current use. Show the value through a human correction, another conversation's saved result and continuing from current state. Sharing stored state does not imply automatically synchronized AI context or access across owners.
 - User-facing text says "AI" and "tasks". "LLM" and "caller" belong to technical and API documentation. Because the dedicated UI labels items "Action", user-facing text may introduce an action as the saved form of a task and keeps the GTD term "next action".
 - Tone is calm, plain and honest. Avoid productivity hype; more tasks or completions are not success, and rest is a legitimate outcome.
 
@@ -119,6 +120,7 @@ Lead with relief from remembering, then the appeal of designing a workflow with 
 | Every change can be undone | Undo rejects later target corrections and uses only the latest 100 retained operations |
 | The AI never invents deadlines or commitments | Caller guidance, not backend enforcement; Ariadne stores requested changes |
 | Works with any AI assistant | Only the ChatGPT delivery has been verified |
+| Change Cursor is a current tool, or shared storage automatically updates every AI's understanding | Current tools read complete snapshots or filtered current state; cursor-based change retrieval remains a proposal and interpretation belongs to the consumer |
 | Proven reduction of management effort | Intended outcome, not measured |
 
 ## Benefits and evaluation criteria
@@ -130,6 +132,7 @@ Lead with relief from remembering, then the appeal of designing a workflow with 
 | Focus on the current purpose | Scanning every item and rebuilding context | Relevant actions and decisions are easier to retrieve |
 | Design a workflow that fits you | Adapting personal habits to a prescribed app workflow | Different user-defined methods operate over the same data |
 | Change methods without starting over | Rebuilding lists when prompts or routines change | Existing actions remain reusable across workflow changes |
+| Continue across human and AI interactions | Repeating corrections and reconstructing saved decisions | The next authorized consumer reads current state and preserves human corrections and saved results |
 | Stay in control without watching every change | Supervising AI edits and repairing uncertain saves | Less per-change checking, with direct correction, preserved proposals and safe recovery |
 | Rest with confidence | Continuing to think about matters already entrusted to the system | Reassurance accompanied by low omission/error rates |
 
@@ -139,7 +142,7 @@ These are intended outcomes, not measured long-term effects. More tasks, complet
 
 | Ariadne provides | The user and caller determine |
 | --- | --- |
-| Durable structured actions, projects, tags and perspectives | Meaning, classification conventions and management method |
+| Shared, durable structured actions, projects, tags and perspectives within one authenticated owner | Meaning, classification conventions, each consumer's context and management method |
 | Composable reads, previews and changes through API/MCP | Capture, organization, review and recommendation workflows |
 | Validation, deterministic transitions and ownership | What matters, what to delegate and when to ask |
 | Revision, atomicity, receipts, replay and Undo | Execution opportunities, external-source access and notifications |
@@ -148,6 +151,42 @@ These are intended outcomes, not measured long-term effects. More tasks, complet
 An agent configured by the user can inspect Slack or email using its own tools and write the resulting actions through Ariadne. This is a use of the published tools, not a separate Ariadne integration or backend monitoring feature. Availability and authorization of external access and scheduled execution belong to the caller's environment. Ariadne does not promise that the caller is configured or will run.
 
 Thinness means flexible semantic decisions with reliable persistence, not arbitrary SQL or relaxed ownership. Backend restrictions must follow authorization, integrity, deterministic semantics or resource limits; assistance suggestions are not additional validation rules. See [architecture](../../ARCHITECTURE.md) and [caller responsibilities](assistance.md).
+
+## Change Cursor proposal
+
+### Purpose and value
+
+The 2026-10-09 proposal adds a simple API to retrieve changes after a supplied cursor and return the next cursor. Its purpose is to let each consumer ask what changed since its own previous reference point. Shared state can change while different AIs retain different versions in their working context. Current tools return full snapshots or filtered current state; the proposed API would provide incremental reads.
+
+The value is in human and AI collaboration: a human's correction becomes an input to each AI's next review; another AI's saved result can inform subsequent work; a consumer can use changes to identify assumptions worth reconsidering; and a resumed session can update retained or restored context from its reference position. Reduced repeated full reads and comparison work support these outcomes. A small data change can still have a large effect on a decision.
+
+### Proposed API and consumer contract
+
+| Responsibility | Proposed contract |
+| --- | --- |
+| Current position | Ariadne can return a cursor representing the current change position |
+| Incremental retrieval | A supplied cursor returns subsequent changes and the next cursor |
+| Pagination and empty results | Continuation is explicit, no unread range is skipped, and no-change results are distinguishable |
+| Opaque cursor | Consumers store and reuse the value without interpreting its internal format |
+| Independent consumers | Separate consumers, conversations and workflows retain their own positions; model name alone does not identify a consumer |
+| Processing and recovery | The consumer saves its position after required processing succeeds and handles re-fetches and duplicates safely |
+| Interpretation and decisions | The consuming LLM or application interprets changes, obtains additional context and decides whether to revise a judgment, act or notify |
+
+The returned cursor identifies a retrieval position. It does not prove correct understanding, mark a human's reading progress or complete an Action. Reading changes does not itself mutate those business states. A cursor alone cannot reconstruct past conversational context: the caller must retain or recover that context and know the position it was based on.
+
+Begin with consumers storing their own cursors; Ariadne-side per-consumer checkpoint storage is not a prerequisite. Shared storage and change retrieval retain the current owner and authorization boundaries. They do not add assistant messaging, execution ownership, orchestration, push delivery or an Ariadne decision engine.
+
+### Decisions still required
+
+- Define the relationship to existing revision without assuming a new independent counter.
+- Inventory affected data, including Actions, Projects, Tags, Perspectives and relationships, and define the supported scope rather than assuming Action-only changes.
+- Choose record granularity, coalescing and whether consumers receive changed attributes, before/after values or current objects. Complete event sourcing, every intermediate state and indefinite history are not requirements.
+- Define initial acquisition, a consistent starting position, pagination, re-fetching, cursor scope, retention/expiry and authorization changes.
+- Decide where the consumer's processed position is persisted and how a failed processing attempt resumes safely.
+
+An unchanged store does not mean a decision can remain unchanged. Defer expiry and approaching deadlines depend on time and still require separate caller evaluation.
+
+The source is the registered [Draft item 266668064](https://api.github.com/users/takezoh/projectsV2/5/items/266668064) in the [Ariadne GitHub Project](https://github.com/users/takezoh/projects/5). This section records the proposal and its open decisions; it does not change the published API inventory or establish implementation or acceptance. See the [current read contract](../technical/mcp-api.md#current-reads-and-proposed-change-retrieval).
 
 ## Management methods and data structure
 

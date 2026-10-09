@@ -4,6 +4,8 @@
 
 **Design your own workflow with your AI—GTD, a simple daily list or something entirely new. It captures, organizes and reviews your tasks your way, while you stay in control.**
 
+Ariadne is a shared state store for everyday work and personal actions. You, your AI and other authorized AI workflows can read and update the same saved actions, across conversations and the dedicated UI.
+
 Tell your AI whatever is on your mind—a commitment, a worry, a half-formed plan. It saves each one as a task, fits it into the workflow you designed together and brings back what matters when you ask. You spend less energy remembering and organizing, and more on doing, deciding and resting.
 
 ## Get it out of your head
@@ -20,13 +22,15 @@ Capturing, clarifying, sorting into projects, weekly reviews, choosing what to f
 
 ## Stay in control—without watching every change
 
-Your conversation and the dedicated UI show the same tasks. Check anything and fix it directly, in either place. You do not have to watch every change your AI makes: an edit based on an outdated list never overwrites newer ones, the dedicated UI keeps your unsaved edits, retrying a request never creates a duplicate, a lost response can be checked or resent exactly, and Undo never quietly erases a correction made afterward.
+Your conversations and the dedicated UI use the same saved tasks. Check anything and fix it directly, in either place. If you correct a name in the UI or change a plan in another conversation, ask your AI to read the current saved state before continuing; it can take that correction into account without relying on an earlier conversation alone.
+
+You do not have to watch every change your AI makes: an edit based on an outdated list never overwrites newer ones, the dedicated UI keeps your unsaved edits, retrying a request never creates a duplicate, a lost response can be checked or resent exactly, and Undo never quietly erases a correction made afterward.
 
 ## Who it is for
 
 Ariadne is for people who want their AI to handle the upkeep of their tasks—especially if keeping a to-do app going has felt like work in itself. It also suits people who practice GTD or run their own system, and people who build their own agents or scheduled workflows.
 
-Ariadne is a personal task list. It is not a team project management tool, and it does not plan your calendar or send reminders.
+Ariadne supports personal workflows over your own saved state. Calendar planning, reminders and background workflows are arranged in your AI's environment.
 
 ## Add Ariadne to ChatGPT
 
@@ -48,13 +52,16 @@ Use your own words. For example:
 - “Run my weekly review. Show each project's next action and suggest what to focus on.”
 - “Make my routine simpler. Keep the same saved list.”
 - “Open my list so I can check and edit it.”
+- “I corrected the trip plan in another conversation. Read the saved actions and help me decide what to do next.”
 - “Undo the last change.”
 
 See [use cases and example prompts](docs/usage/use-cases.md) for capturing concerns, organizing projects, building a GTD routine, reviewing progress and collecting inputs from other tools. You can adapt the prompts to your own method.
 
 ## How it works
 
-Ariadne is where your tasks live; your AI does the thinking. Ariadne has no AI of its own: your prompts, ChatGPT or an agent you set up decide what to capture, how to organize it and when to act. Ariadne keeps every task safe to change and easy to correct through its tools and dedicated UI. It does not send reminders, plan your calendar or run in the background; a deferred task simply returns to your list after its Defer time.
+Ariadne stores shared state; your AI interprets it and decides how to help. Your prompts, ChatGPT or an authorized agent you set up determine what to capture, how to organize it and when to act. Ariadne provides the tools to read and update actions, preserves their relationships and keeps changes consistent and easy to correct. Each reader can retrieve the current saved state before making its next decision.
+
+ChatGPT is the current delivery environment. Ariadne has no AI or background scheduler of its own; a deferred task returns to the list when it is next read after its Defer time.
 
 ## What your list contains
 

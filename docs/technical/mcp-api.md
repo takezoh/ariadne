@@ -1,10 +1,10 @@
 # MCP and HTTP API contract
 
-Updated: 2026-10-03. Sources: [MCP route](../../app/mcp/route.ts), [HTTP route](../../app/api/actions/route.ts), [action service](../../lib/application/action-service.ts).
+Updated: 2026-10-09. Sources: [MCP route](../../app/mcp/route.ts), [HTTP route](../../app/api/actions/route.ts), [action service](../../lib/application/action-service.ts).
 
 ## Caller composition and guidance
 
-Ariadne exposes task-data operations. User prompts, caller-side LLMs, dot and schedulers decide their use; an authorized caller may combine external-source tools such as Slack/email reads with Ariadne writes. No source-specific connector or agent integration is required in Ariadne. The current plugin is delivered in ChatGPT; this does not make one assistant or GTD routine part of the data contract.
+Ariadne exposes operations over the state shared by the user and authorized AI consumers: actions, projects, tags and perspectives. User prompts, caller-side LLMs, dot and schedulers interpret that state and decide how to use it; an authorized caller may combine external-source tools such as Slack/email reads with Ariadne writes. No source-specific connector or agent integration is required in Ariadne. The current plugin is delivered in ChatGPT; this does not make one assistant or GTD routine part of the data contract.
 
 Initialize instructions and snapshot assistance_policy provide caller-facing guidance from [assistance source](../../lib/domain/assistance.ts); they do not execute an agent or add semantic backend validation. The repository [Skill](../../skills/action-tools/SKILL.md) is tool-use documentation, not proof of host installation. This documentation update does not modify delivered runtime text. All callers must preserve authenticated ownership and the revision/replay/Undo contract below.
 
@@ -50,6 +50,12 @@ See the [caller workflow guide](../usage/agent-workflows.md) for connection boun
 | rename_action | schemaVersion, request_id, expected_revision, id, title |
 
 The write envelope is `{schemaVersion:2, operationId:UUID, expectedRevision:nonnegative integer}`. The two convenience tools use snake_case request_id/expected_revision. Old task-named tools are absent, not aliases. Unknown argument keys are rejected.
+
+## Current reads and proposed change retrieval
+
+`list_actions` and `get_relevant_context` accept no cursor and return the complete owner snapshot and revision. The caller reads current state to observe human corrections and other authorized callers' updates. Query filters select current state; they do not identify changes since a previous read. The owner-wide revision guards writes, and the operation receipt API handles individual write outcomes. Neither is a published consumer change-feed contract.
+
+The [Change Cursor proposal](../design/product.md#change-cursor-proposal) would add retrieval of changes after a supplied cursor together with the next cursor. Tool names, payloads, change granularity and retention are design decisions. The proposal does not add tools or fields to the current inventory above, and returned changes would still require interpretation by the consuming LLM or application.
 
 ## Change payloads
 

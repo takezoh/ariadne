@@ -4,9 +4,9 @@ kind: design
 title: Caller Workflows and Ariadne Responsibilities
 status: active
 created: '2026-10-02'
-updated: '2026-10-03'
-summary: Ariadne supplies task-data tools and a shared UI; caller-side LLMs, prompts
-  and schedulers own management and execution.
+updated: '2026-10-09'
+summary: Ariadne supplies shared state and a UI for humans and authorized AI consumers;
+  caller-side LLMs interpret state and changes while prompts and schedulers own execution.
 tags:
 - product
 - prompts
@@ -74,7 +74,7 @@ compatibility_policies:
 
 References to dot and assistance policy in the governance metadata describe caller-side responsibilities and guidance, not an Ariadne-owned management service.
 
-Ariadne publishes task-data API/MCP tools and a shared UI. The user's LLM owns semantic management. User prompts, ChatGPT's dot and caller-side schedulers determine when and how the tools are used. dot is an example caller, not a required component or an Ariadne-owned agent.
+Ariadne is a shared state store accessed through API/MCP tools and a shared UI. The user and authorized AI consumers read and update the same owner-scoped actions, projects, tags and perspectives. Each consumer owns its interpretation, working context and management method. User prompts, ChatGPT's dot and caller-side schedulers determine when and how the tools are used. dot is an example caller, not a required component or an Ariadne-owned agent.
 
 ```text
 User prompts / LLM / dot / caller-side scheduler
@@ -87,12 +87,21 @@ User prompts / LLM / dot / caller-side scheduler
 | Concern | Owner |
 | --- | --- |
 | Interpretation, organization, GTD or another method, review and recommendations | User and caller-side LLM workflow |
+| Reconciling retrieved state with a consumer's context, obtaining more context and deciding whether to revise a judgment | Consuming LLM or application |
 | Slack/email access, source collection and external-condition observation | Caller and its authorized external tools |
 | Scheduling, execution opportunities and notifications | Caller-side scheduler/host environment |
 | Structured data, deterministic queries and transitions, ownership, revisions, replay and Undo | Ariadne |
 | Direct inspection/correction and retained unsaved proposals | Ariadne shared UI |
 
 Ariadne needs no dedicated connector to each agent or source for these workflows. A caller composes its available tools with Ariadne operations. Ariadne does not guarantee the caller has access, is configured, runs at a chosen time or makes correct semantic decisions.
+
+## Shared state and consumer context
+
+A human may correct a date in the UI while one AI organizes actions and another conversation later reviews them. Shared storage makes the saved correction available; each consumer must read the current state and reconcile its own assumptions. Consumers can know different versions of the same shared state. Saving a change does not automatically refresh their context or prove that they understood it.
+
+The current read contract provides complete snapshots and owner-wide revision through `list_actions` or `get_relevant_context`. A resumed conversation uses those reads and the available original notes to continue. Conversational context that was never saved must be supplied or recovered by the caller.
+
+The [Change Cursor proposal](product.md#change-cursor-proposal) would let each consumer retrieve changes since its own previous position. Ariadne would return the changes and next cursor; the consumer would interpret them, fetch any additional context and decide whether to revise a recommendation, act or notify. After successful processing the consumer would persist its position. Cursor progress, human read status, Action completion and correct understanding remain distinct. This is a proposed read capability, not an installed caller workflow or a currently published tool.
 
 ## Flexible methods, stable data operations
 

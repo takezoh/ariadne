@@ -1,5 +1,5 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
-import {createD1ActionStore} from '../../lib/adapters/d1-action-store.ts';import {actionCall} from '../../lib/application/action-service.ts';import {memoryActionStore} from '../helpers/memory-action-store.mjs';import {sqliteFixture} from '../helpers/sqlite-d1.mjs';
+import {createD1ActionStore} from '../helpers/owner-composition.mjs';import {actionCallForOwner as actionCall} from '../helpers/owner-composition.mjs';import {memoryActionStore} from '../helpers/memory-action-store.mjs';import {sqliteFixture} from '../helpers/sqlite-d1.mjs';
 const now='2026-10-03T00:00:00.000Z';
 for(const kind of ['memory','SQLite D1'])test(kind+' action_move preserves atomic CAS/replay/Undo/owner contracts',async t=>{
  const fixture=kind==='memory'?null:sqliteFixture();if(fixture)t.after(()=>fixture.sql.close());const store=fixture?createD1ActionStore(fixture.db):memoryActionStore();let allocated=0;

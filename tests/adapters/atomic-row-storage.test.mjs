@@ -2,8 +2,8 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
 import {readFileSync} from 'node:fs';
-import {createD1ActionStore} from '../../lib/adapters/d1-action-store.ts';
-import {actionCall} from '../../lib/application/action-service.ts';
+import {createD1ActionStore} from '../helpers/owner-composition.mjs';
+import {actionCallForOwner as actionCall} from '../helpers/owner-composition.mjs';
 import {change} from '../../lib/domain/core.ts';
 import {sqliteFixture} from '../helpers/sqlite-d1.mjs';
 

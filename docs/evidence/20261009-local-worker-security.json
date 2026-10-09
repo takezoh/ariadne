@@ -1,0 +1,14 @@
+{
+  "sourceCommit": "26ef02df1b58b365bc2b68853163656dc3993e53",
+  "environment": "local Wrangler Worker / D1 binding DB",
+  "hostedAcceptance": "not_run",
+  "artifactSha256": "440e742d83077911d93c2a62c4f34da5a898c7e42c10aea7702888b06ef7d036",
+  "startedAt": "2026-10-09T16:28:30.441Z",
+  "scenarios": [],
+  "result": "failed",
+  "failure": {
+    "message": "Unexpected token 'Y', \"Your worke\"... is not valid JSON",
+    "stack": "SyntaxError: Unexpected token 'Y', \"Your worke\"... is not valid JSON\n    at JSON.parse (<anonymous>)\n    at parseJSONFromBytes (node:internal/deps/undici/undici:4337:19)\n    at successSteps (node:internal/deps/undici/undici:6985:27)\n    at readAllBytes (node:internal/deps/undici/undici:5908:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+  },
+  "completedAt": "2026-10-09T16:28:30.518Z"
+}

@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import {DatabaseSync} from 'node:sqlite';
 import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
-import {actionCall} from '../../lib/actions.ts';
+import {actionCall} from '../helpers/d1-actions.mjs';
 import {dateDefer} from '../../lib/domain/core.ts';
 import {sqliteFixture} from '../helpers/sqlite-d1.mjs';
 function scenario(t){

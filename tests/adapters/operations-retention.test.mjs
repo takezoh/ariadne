@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {createD1ActionStore} from '../../lib/adapters/d1-action-store.ts';
-import {actionCall} from '../../lib/application/action-service.ts';
+import {createD1ActionStore} from '../helpers/owner-composition.mjs';
+import {actionCallForOwner as actionCall} from '../helpers/owner-composition.mjs';
 import {memoryActionStore} from '../helpers/memory-action-store.mjs';
 import {sqliteFixture} from '../helpers/sqlite-d1.mjs';
 

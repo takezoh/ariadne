@@ -2,7 +2,17 @@ import test from 'node:test';import assert from 'node:assert/strict';import {reg
 // Metadata reads require no storage; provide an empty Worker environment at its effect boundary.
 register('data:text/javascript,'+encodeURIComponent("export function resolve(specifier,context,next){if(specifier==='cloudflare:workers')return {url:'data:text/javascript,export const env={};',shortCircuit:true};return next(specifier,context);}"),import.meta.url);
 const {POST}=await import('../../app/mcp/route.ts');
-function request(method,params={}){return new Request('https://local.invalid/mcp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})});}
+function request(method,params={},headers={}){return new Request('https://local.invalid/mcp',{method:'POST',headers:{'Content-Type':'application/json','oai-authenticated-user-id':'test-owner','oai-authenticated-user-email':'test@example.invalid',...headers},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})});}
+test('private MCP authenticates before every JSON-RPC method and rejects unapproved transport',async()=>{
+ for(const method of ['initialize','ping','tools/list','resources/list','resources/read']){
+  const unauthenticated=await POST(new Request('https://local.invalid/mcp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params:{}})}));
+  assert.equal(unauthenticated.status,401,method);
+ }
+ const nullOrigin=await POST(request('tools/list',{}, {Origin:'null'}));
+ assert.equal(nullOrigin.status,403);
+ const badType=await POST(new Request('https://local.invalid/mcp',{method:'POST',headers:{'Content-Type':'text/plain','oai-authenticated-user-id':'test-owner','oai-authenticated-user-email':'test@example.invalid'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'tools/list',params:{}})}));
+ assert.equal(badType.status,415);
+});
 test('MCP exposes one Ariadne launcher while list retains the shared resource',async()=>{
  const response=await POST(request('tools/list'));assert.equal(response.headers.get('cache-control'),'private, no-store');const tools=(await response.json()).result.tools;const open=tools.find(t=>t.name==='open_actions'),list=tools.find(t=>t.name==='list_actions');
  assert.deepEqual(open._meta['openai/ui'].entrypoints,[{type:'global'},{type:'thread'}]);assert.equal(open.title,'Ariadne');assert.equal(list._meta['openai/ui'],undefined);assert.equal(list._meta.ui.resourceUri,open._meta.ui.resourceUri);
@@ -36,4 +46,16 @@ test('MCP discovery distinguishes a Defer calendar date from an offset-bearing i
  }
  const init=(await (await POST(request('initialize'))).json()).result;
  assert(init.instructions.includes('date:"2026-10-10",timezone:"Asia/Tokyo"'));assert(init.instructions.includes('Never put YYYY-MM-DD in until'));
+});
+
+
+test('private entry cannot expose discovery through a pre-auth debug branch',async()=>{
+ const response=await POST(new Request('https://local.invalid/mcp',{method:'POST',headers:{'Content-Type':'application/json','x-debug':'true'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'tools/list'})}));
+ assert.equal(response.status,401);const body=await response.json();assert.equal(body.result,undefined);
+});
+test('every private dispatcher method rejects unissued identity capabilities before parsing or private effects',async()=>{
+ const {dispatchPrivateMcp}=await import('../../lib/mcp/private-dispatcher.ts');
+ for(const owner of [null,'A',{owner:'A'}])for(const method of ['initialize','ping','tools/list','resources/list','resources/read','tools/call','notifications/initialized']){
+  await assert.rejects(dispatchPrivateMcp(owner,{jsonrpc:'2.0',id:1,method}),e=>e.code==='unauthenticated');
+ }
 });

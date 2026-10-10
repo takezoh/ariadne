@@ -3,6 +3,12 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export function runChecks({ cwd = fileURLToPath(new URL('../', import.meta.url)), spawn = spawnSync, log = console.log } = {}) {
+  const generated = spawn(process.execPath, ['scripts/generate-widget-client.mjs'], { cwd, stdio: 'inherit' });
+  if (generated.error || generated.signal || generated.status !== 0) {
+    if (generated.error) log(generated.error.message);
+    log('[check] widget client generation failed');
+    return 1;
+  }
   const checks = [
     ['lint', ['node_modules/eslint/bin/eslint.js', '.', '--max-warnings=0']],
     ['typecheck', ['node_modules/typescript/bin/tsc', '--noEmit']],

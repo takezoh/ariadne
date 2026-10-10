@@ -241,6 +241,26 @@ const ownerSql = {
   }};
  }
 };
-const boundaries = { rules: { 'pure-effects': pureEffects, 'dependency-direction': dependencyDirection, 'private-composition': privateComposition, 'raw-sql-location': rawSqlLocation, 'capability-direction':capabilityDirection, 'private-auth':privateAuth, 'owner-sql':ownerSql } };
+const readonlyUiState = {
+ meta:{type:'problem',schema:[],messages:{mutation:'The DOM adapter may read public UI state but must route state changes through typed controller events.'}},
+ create(context){
+  if(relative(context.cwd,context.filename).replaceAll('\\','/')!=='lib/ui/adapters/dom.js')return {};
+  const mutators=new Set(['push','pop','shift','unshift','splice','sort','reverse','copyWithin','fill','set','add','delete','clear']);
+  const root=node=>node?.type==='MemberExpression'||node?.type==='OptionalMemberExpression'?root(node.object):node?.type==='Identifier'?node.name:null;
+  const readonlyTarget=node=>root(node)==='state';
+  return {
+   VariableDeclarator(node){if(node.id.type==='Identifier'&&node.id.name==='state'&&!(node.init?.type==='MemberExpression'&&node.init.property.name==='state'))context.report({node,messageId:'mutation'});},
+   AssignmentExpression(node){if(readonlyTarget(node.left))context.report({node,messageId:'mutation'});},
+   UpdateExpression(node){if(readonlyTarget(node.argument))context.report({node,messageId:'mutation'});},
+   UnaryExpression(node){if(node.operator==='delete'&&readonlyTarget(node.argument))context.report({node,messageId:'mutation'});},
+   CallExpression(node){
+    const callee=node.callee;
+    if(callee.type==='MemberExpression'&&mutators.has(callee.property.name||callee.property.value)&&readonlyTarget(callee.object))context.report({node,messageId:'mutation'});
+    if(callee.type==='MemberExpression'&&((callee.object.name==='Object'&&callee.property.name==='assign')||(callee.object.name==='Reflect'&&callee.property.name==='set'))&&readonlyTarget(node.arguments[0]))context.report({node,messageId:'mutation'});
+   },
+  };
+ }
+};
+const boundaries = { rules: { 'pure-effects': pureEffects, 'dependency-direction': dependencyDirection, 'private-composition': privateComposition, 'raw-sql-location': rawSqlLocation, 'capability-direction':capabilityDirection, 'private-auth':privateAuth, 'owner-sql':ownerSql,'readonly-ui-state':readonlyUiState } };
 
 export default boundaries;

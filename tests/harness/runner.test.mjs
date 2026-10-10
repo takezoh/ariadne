@@ -40,11 +40,12 @@ test('test failures and terminated child processes are failures', t => {
 });
 
 test('check executes all gates and propagates every failed gate', () => {
-  for (let failingGate = 0; failingGate < 3; failingGate++) {
+  for (let failingGate = 1; failingGate < 4; failingGate++) {
     const calls = [];
     assert.equal(runChecks({ spawn(_command, args) { calls.push(args); return { status: calls.length - 1 === failingGate ? 1 : 0 }; }, log() {} }), 1);
-    assert.equal(calls.length, 3);
-    assert(calls[0].includes('--max-warnings=0'));
+    assert.equal(calls.length, 4);
+    assert(calls[0].includes('scripts/generate-widget-client.mjs'));
+    assert(calls[1].includes('--max-warnings=0'));
   }
   assert.equal(runChecks({ spawn: () => ({ status: 0 }), log() {} }), 0);
 });
@@ -52,6 +53,10 @@ test('check executes all gates and propagates every failed gate', () => {
 test('check handles launch failure and signal termination without hiding them', () => {
   assert.equal(runChecks({ spawn: () => ({ error: new Error('missing runtime') }), log() {} }), 1);
   assert.equal(runChecks({ spawn: () => ({ status: null, signal: 'SIGTERM' }), log() {} }), 1);
+  const calls=[];
+  assert.equal(runChecks({spawn(_command,args){calls.push(args);return {status:1};},log(){}}),1);
+  assert.equal(calls.length,1);
+  assert(calls[0].includes('scripts/generate-widget-client.mjs'));
 });
 
 test('structured policy rejects empty files, missing reports, skips, TODOs and cancelled tests', () => {

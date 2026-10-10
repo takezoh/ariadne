@@ -64,3 +64,14 @@ test('runtime sql.raw remains forbidden inside reviewed adapter',()=>{
  // The reviewed adapter may build closed native statements, never a raw ORM escape hatch.
  assert(reports(lint(source,'lib/adapters/d1-action-store.ts'),'owner-sql')||reports(lint(source,'lib/adapters/d1-action-store.ts'),'raw-sql-location'));
 });
+test('DOM adapter public state is read-only and changes use controller events',async()=>{
+ const path='lib/ui/adapters/dom.js',source=readFileSync(path,'utf8');
+ assert(!reports(await actualLint(source,path),'readonly-ui-state'));
+ for(const mutant of [
+  source.replace('function render(){','function render(){state.selectedId="changed";'),
+  source.replace('function render(){','function render(){state.drafts.id.title="changed";'),
+  source.replace('function render(){','function render(){state.batch++;'),
+  source.replace('function render(){','function render(){state.batchIds.push("id");'),
+  source.replace('function render(){','function render(){Object.assign(state.drafts.id,{title:"changed"});'),
+ ])assert(reports(await actualLint(mutant,path),'readonly-ui-state'));
+});

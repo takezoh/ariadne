@@ -1,6 +1,6 @@
 /** Scopes are supplied by the authoritative snapshot, never inferred from labels. */
 export function visibleActions<T extends {id:string;view?:string}>(actions:readonly T[],scopes:Record<string,string[]>,view:string):T[] {
- return actions.filter(action=>['inbox','waiting','flagged'].includes(view)?(scopes[view]??[]).includes(action.id):action.view===view);
+ const ids=new Set(scopes[view]??[]);return actions.filter(action=>['inbox','waiting','flagged'].includes(view)?ids.has(action.id):action.view===view);
 }
 export function scopeTitle(view:string):string {return ({inbox:'Inbox',normal:'Actions',flagged:'Flagged',waiting:'On hold',deferred:'Later',completed:'Completed',cancelled:'Dropped'} as Record<string,string>)[view]??'Action';}
 

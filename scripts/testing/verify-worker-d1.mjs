@@ -1,22 +1,31 @@
 import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
-import {readFileSync,writeFileSync,existsSync} from 'node:fs';
+import {readFileSync,writeFileSync,existsSync,mkdirSync} from 'node:fs';
+import {dirname,resolve} from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';
 import {sourceIdentity} from './verification-source.mjs';
 
 // This harness only targets the established local Wrangler Worker and D1 binding.
-const directPort=process.argv[2];
+const directPort=process.argv.slice(2).find(argument=>!argument.startsWith('--'));
 if(directPort&&!/^\d{4,5}$/.test(directPort))throw Error('Expected a local Wrangler Worker port');
+const diagnosticOnly=process.argv.includes('--diagnose-initialize');
 const base='http://127.0.0.1:'+(directPort??'8787'),prefix='boundary-'+randomUUID(),ownerA=prefix+'-A',ownerB=prefix+'-B';
-const evidence={source:sourceIdentity(),sourceCommit:spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).stdout.trim(),environment:'local Wrangler Worker / D1 binding DB',endpoint:base,transport:directPort?'direct Wrangler-managed user Worker listener':'Wrangler dev proxy',bindingConfig:JSON.parse(readFileSync('dist/server/wrangler.json','utf8')).d1_databases,processEvidence:spawnSync('ps',['-eo','pid,ppid,args'],{encoding:'utf8'}).stdout.split('\n').filter(x=>/workerd serve|wrangler.*dev --config/.test(x)),hostedAcceptance:'not_run',artifactSha256:createHash('sha256').update(readFileSync('dist/server/index.js')).digest('hex'),startedAt:new Date().toISOString(),scenarios:[]};
+const evidence={source:sourceIdentity(),sourceCommit:spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).stdout.trim(),environment:'local Wrangler Worker / D1 binding DB',endpoint:base,transport:directPort?'direct Wrangler-managed user Worker listener':'Wrangler dev proxy',bindingConfig:JSON.parse(readFileSync('dist/server/wrangler.json','utf8')).d1_databases,processEvidence:spawnSync('ps',['-eo','pid,ppid,args'],{encoding:'utf8'}).stdout.split('\n').filter(x=>/workerd serve|wrangler.*dev --config/.test(x)),serverLogPath:process.env.ACTION_TOOLS_SERVER_LOG_PATH||null,hostedAcceptance:'not_run',artifactSha256:createHash('sha256').update(readFileSync('dist/server/index.js')).digest('hex'),runMode:diagnosticOnly?'initialize-diagnostic':'full-contract',startedAt:new Date().toISOString(),httpObservations:[],scenarios:[]};
 function sql(command){
  const result=spawnSync(process.execPath,['--import','./scripts/sites-env.mjs','./node_modules/wrangler/bin/wrangler.js','d1','execute','DB','--local','--persist-to','.wrangler/state','--config','dist/server/wrangler.json','--command',command],{encoding:'utf8',timeout:60000});
  assert.equal(result.status,0,result.stderr);return result.stdout;
 }
 async function http(path,body,{owner=ownerA,headers={},raw=false}={}){
- return fetch(base+path,{method:'POST',headers:{'Content-Type':'application/json',...(owner?{'oai-authenticated-user-id':owner,'oai-authenticated-user-email':'fixture@local.invalid'}:{}),...headers},body:raw?body:JSON.stringify(body)});
+ const requestHeaders={'Content-Type':'application/json',...(owner?{'oai-authenticated-user-id':owner,'oai-authenticated-user-email':'fixture@local.invalid'}:{}),...headers},startedAt=new Date().toISOString(),started=performance.now();
+ const response=await fetch(base+path,{method:'POST',headers:requestHeaders,body:raw?body:JSON.stringify(body)});
+ if(diagnosticOnly||response.status>=500){
+  const responseText=await response.clone().text(),contentType=response.headers.get('content-type')||'',lower=responseText.toLowerCase();
+  const bodyClass=lower.startsWith('your worker restarted mid-request')?'worker-restarted-mid-request':contentType.includes('json')?'json':contentType.includes('html')?'html':responseText.length===0?'empty':'other';
+  evidence.httpObservations.push({startedAt,elapsedMs:Number((performance.now()-started).toFixed(2)),method:'POST',path,status:response.status,contentType,requestHeaderNames:Object.keys(requestHeaders).sort(),bodyClass,bodyLength:Buffer.byteLength(responseText),bodySha256:createHash('sha256').update(responseText).digest('hex')});
+ }
+ return response;
 }
-async function rpc(method,params={},options={}){const response=await http('/mcp',{jsonrpc:'2.0',id:1,method,params},options);return {status:response.status,body:response.status===202?null:await response.json()};}
+async function rpc(method,params={},options={}){const response=await http('/mcp',{jsonrpc:'2.0',id:1,method,params},options);if(response.status===202)return {status:response.status,body:null};const text=await response.text();try{return {status:response.status,contentType:response.headers.get('content-type')||'',body:JSON.parse(text)};}catch{return {status:response.status,contentType:response.headers.get('content-type')||'',body:null,bodyClass:text.toLowerCase().startsWith('your worker restarted mid-request')?'worker-restarted-mid-request':'non-json',bodyLength:Buffer.byteLength(text),bodySha256:createHash('sha256').update(text).digest('hex')};}}
 async function tool(owner,name,args={}){const r=await rpc('tools/call',{name,arguments:args},{owner});assert.equal(r.status,200);return r.body.result.structuredContent;}
 async function snapshot(owner=ownerA){const r=await tool(owner,'list_actions');assert(!r.error,JSON.stringify(r));return r;}
 function durable(snapshot){const {retrieved_at,...state}=snapshot;void retrieved_at;return state;}
@@ -24,6 +33,11 @@ async function args(owner,kind,payload){return {schemaVersion:2,operationId:rand
 async function write(owner,kind,payload){const request=await args(owner,kind,payload),result=await tool(owner,'apply_change',request);assert(!result.error,JSON.stringify(result.error));return {request,result};}
 async function scenario(name,fn){await fn();evidence.scenarios.push({name,result:'passed'});console.log('passed: '+name);}
 try{
+ if(diagnosticOnly){
+  const response=await rpc('initialize',{protocolVersion:'2025-11-25'});
+  evidence.diagnosticProbe={request:{method:'POST',path:'/mcp',jsonrpcMethod:'initialize',contentType:'application/json',headerNames:['content-type','oai-authenticated-user-email','oai-authenticated-user-id'],credentialValuesPersisted:false},response:{status:response.status,contentType:response.contentType,bodyClass:response.body?'json':response.bodyClass,jsonrpc:response.body?.jsonrpc,id:response.body?.id,hasResult:Boolean(response.body?.result),protocolVersion:response.body?.result?.protocolVersion,serverInfo:response.body?.result?.serverInfo,errorCode:response.body?.error?.code}};
+  evidence.result=response.status===200&&response.body?'diagnostic_passed':'diagnostic_inconclusive';
+ }else{
  await scenario('authenticate every private JSON-RPC method without session bypass',async()=>{
   for(const method of ['initialize','ping','tools/list','resources/list','resources/templates/list','resources/read','tools/call','notifications/initialized']){
    assert.equal((await rpc(method,{}, {owner:null})).status,401,method);
@@ -113,6 +127,25 @@ try{
   assert.equal((await tool(ownerB,'operation_status',{operationId:created.request.operationId})).status,'applied');
   const undo={schemaVersion:2,operationId:randomUUID(),expectedRevision:(await snapshot(ownerB)).revision,undoOf:keep.request.operationId};assert(!(await tool(ownerB,'undo_change',undo)).error);
  });
+ await scenario('action_move direct apply matches preview state, returns a receipt, replays exactly and undoes through Worker D1',async()=>{
+  // Isolate ordinary movement from the earlier oversized-note and pruning fixtures.
+  const moveOwner=prefix+'-move';
+  const first=await write(moveOwner,'add',{title:'Move fixture first'}),second=await write(moveOwner,'add',{title:'Move fixture second'}),third=await write(moveOwner,'add',{title:'Move fixture hidden sibling'});
+  const firstId=first.result.result.resolved.actions[0].id,secondId=second.result.result.resolved.actions[0].id,thirdId=third.result.result.resolved.actions[0].id;
+  const before=await snapshot(moveOwner),payload={ids:[firstId],placement:'after',anchor_id:secondId},preview=await tool(moveOwner,'preview_change',{expectedRevision:before.revision,kind:'action_move',payload});
+  assert(!preview.error,JSON.stringify(preview));
+  const beforeSiblings=before.actions.filter(row=>row.parent_id===null&&row.project_id===null).map(row=>row.id),expectedSiblings=beforeSiblings.filter(id=>id!==firstId),anchorIndex=expectedSiblings.indexOf(secondId);expectedSiblings.splice(anchorIndex+1,0,firstId);
+  const request={schemaVersion:2,operationId:randomUUID(),expectedRevision:before.revision,kind:'action_move',payload},applied=await tool(moveOwner,'apply_change',request);
+  assert(!applied.error,JSON.stringify(applied.error));assert.equal(applied.result.operationId,request.operationId);
+  const movedRows=durable(applied).actions.filter(row=>[firstId,secondId,thirdId].includes(row.id)),afterSiblings=durable(applied).actions.filter(row=>row.parent_id===null&&row.project_id===null).map(row=>row.id),previewRows=preview.affected;
+  assert.deepEqual(afterSiblings,expectedSiblings);assert.equal(movedRows.find(row=>row.id===firstId).parent_id,null);assert.deepEqual(previewRows.map(row=>row.id).sort(),[firstId,secondId].sort());assert.deepEqual(previewRows.map(row=>[row.id,row.parent_id,row.order]).sort(),movedRows.filter(row=>row.id!==thirdId).map(row=>[row.id,row.parent_id,row.order]).sort());assert.deepEqual(movedRows.find(row=>row.id===thirdId),before.actions.find(row=>row.id===thirdId));
+  const receipt=await tool(moveOwner,'operation_status',{operationId:request.operationId});assert.equal(receipt.status,'applied');assert.equal(receipt.result.operationId,request.operationId);
+  const replay=await tool(moveOwner,'apply_change',request);assert.deepEqual(durable(replay),durable(applied));
+  const undo={schemaVersion:2,operationId:randomUUID(),expectedRevision:(await snapshot(moveOwner)).revision,undoOf:request.operationId};const undone=await tool(moveOwner,'undo_change',undo);assert(!undone.error,JSON.stringify(undone.error));
+  const restored=durable(undone).actions.filter(row=>row.parent_id===null&&row.project_id===null).map(row=>row.id);assert.deepEqual(restored,beforeSiblings);
+  assert.equal(preview.kind,'action_move');evidence.actionMove={operationId:request.operationId,previewExpectedRevision:preview.expectedRevision,appliedRevision:applied.revision,receipt:receipt.status,undoRevision:undone.revision,fullSnapshot:true,workerBinding:'env.DB via Wrangler local D1'};
+ });
  evidence.result='passed';
+ }
 }catch(error){evidence.result='failed';evidence.failure={message:error.message,stack:error.stack};throw error;}
-finally{evidence.completedAt=new Date().toISOString();const file=directPort?'docs/evidence/20261009-local-worker-security-direct.json':'docs/evidence/20261009-local-worker-security.json';if(existsSync(file)){const prior=JSON.parse(readFileSync(file,'utf8'));evidence.priorAttempts=[...(prior.priorAttempts??[]),{...prior,priorAttempts:undefined}];}writeFileSync(file,JSON.stringify(evidence,null,2)+'\n');}
+finally{evidence.completedAt=new Date().toISOString();const defaultFile=directPort?'docs/evidence/20261009-local-worker-security-direct.json':'docs/evidence/20261009-local-worker-security.json',file=resolve(process.env.ACTION_TOOLS_EVIDENCE_PATH||defaultFile);if(existsSync(file)){const prior=JSON.parse(readFileSync(file,'utf8'));evidence.priorAttempts=[...(prior.priorAttempts??[]),{...prior,priorAttempts:undefined}];}mkdirSync(dirname(file),{recursive:true});writeFileSync(file,JSON.stringify(evidence,null,2)+'\n');}

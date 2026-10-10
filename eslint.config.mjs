@@ -20,6 +20,11 @@ export default defineConfig([
     rules: { 'architecture/dependency-direction': 'error', 'architecture/raw-sql-location': 'error', 'architecture/capability-direction':'error', 'architecture/private-auth':'error','architecture/owner-sql':'error' },
   },
   {
+    files: ['lib/ui/adapters/dom.js'],
+    plugins: { architecture: boundaries },
+    rules: { 'architecture/readonly-ui-state': 'error' },
+  },
+  {
     // Public/local MCP surfaces must not reach the private composition, adapters or D1.
     files: ['app/mcp/**/*.{ts,mts,js,mjs}', 'lib/mcp/**/*.{ts,mts,js,mjs}', 'build/local-mcp-vite.config.mjs'],
     plugins: { architecture: boundaries },

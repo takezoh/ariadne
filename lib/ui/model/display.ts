@@ -13,6 +13,21 @@ export interface HostContext {
 export interface HostInitializeResult {hostContext?:HostContext;hostInfo?:{name:string;version:string};hostCapabilities?:Record<string,unknown>}
 export interface DisplayState {context:HostContext;contextVersion:number;pending:DisplayMode|null;error:string|null}
 
+const timestampPattern=/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
+/** Format a saved UTC instant in an explicit display timezone and host locale. */
+export function formatTimestamp(value:unknown,locale:string,timeZone:string):string {
+ if(typeof value!=='string')return '—';
+ const match=value.match(timestampPattern),at=Date.parse(value);
+ if(!match||!Number.isFinite(at))return '—';
+ const [,year,month,day,hour,minute,second]=match.map(Number) as unknown as [number,number,number,number,number,number,number];
+ const leap=year%4===0&&(year%100!==0||year%400===0),days=[31,leap?29:28,31,30,31,30,31,31,30,31,30,31];
+ if(month<1||month>12||day<1||day>days[month-1]||hour>23||minute>59||second>59)return '—';
+ const options:Intl.DateTimeFormatOptions={dateStyle:'medium',timeStyle:'short',timeZone};
+ try {new Intl.DateTimeFormat('en',{timeZone}).format(0);}catch{return '—';}
+ try {return new Intl.DateTimeFormat(locale,options).format(new Date(at));}
+ catch {return new Intl.DateTimeFormat('en',options).format(new Date(at));}
+}
+
 /** Validate a partial context without deriving host mode from layout dimensions. */
 export function mergeHostContext(current:HostContext,patch:unknown):HostContext {
  if(!patch||typeof patch!=='object'||Array.isArray(patch))return current;

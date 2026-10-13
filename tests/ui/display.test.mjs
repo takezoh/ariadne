@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {mergeHostContext,displayAvailability} from '../../lib/ui/model/display.ts';
+import {mergeHostContext,displayAvailability,formatTimestamp} from '../../lib/ui/model/display.ts';
 import {createDisplayBridge} from '../../lib/ui/adapters/host.ts';
 test('display context merges direct partial updates without changing omitted mode or mutating input',()=>{
  const initial={displayMode:'inline',availableDisplayModes:['inline','fullscreen'],theme:'light'};const next=mergeHostContext(initial,{theme:'dark',displayMode:'sidebar',availableDisplayModes:['fullscreen','invented']});
@@ -21,4 +21,10 @@ test('unsupported capability never requests and malformed or rejected reply pres
 
 test('theme-only update during pending display request does not suppress authoritative mode response',async()=>{
  const f=fixture();f.bridge.initialize({hostContext:{displayMode:'inline',availableDisplayModes:['inline','fullscreen'],theme:'light'}});const pending=f.bridge.request('fullscreen');f.receive({theme:'dark'});f.resolve({mode:'fullscreen'});await pending;assert.equal(f.bridge.state.context.displayMode,'fullscreen');assert.equal(f.bridge.state.context.theme,'dark');
+});
+
+test('saved UTC instants format by explicit locale and timezone across a DST jump',()=>{
+ const before=formatTimestamp('2026-03-08T09:00:00.000Z','en-US','America/Los_Angeles'),after=formatTimestamp('2026-03-08T10:00:00.000Z','en-US','America/Los_Angeles');
+ assert.match(before,/Mar 8, 2026, 1:00 AM/);assert.match(after,/Mar 8, 2026, 3:00 AM/);assert.match(formatTimestamp('2026-03-08T09:00:00.000Z','fr-FR','Europe/Paris'),/8 mars 2026.*10:00/);
+ assert.equal(formatTimestamp(undefined,'en-US','UTC'),'—');assert.equal(formatTimestamp('2026-03-08','en-US','UTC'),'—');assert.equal(formatTimestamp('2026-02-30T09:00:00Z','en-US','UTC'),'—');assert.equal(formatTimestamp('2026-03-08T09:00:00','en-US','UTC'),'—');
 });

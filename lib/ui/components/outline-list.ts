@@ -1,5 +1,6 @@
 import type {UiActionRecord,ProjectedActionRow,projectCatalogRow} from '../model/ui-projections';
 import type {DeepReadonly} from '../model/types';
+import {PerspectiveActionCard,PerspectiveGroupHeader,type PerspectiveActionCardProps} from './perspective-content';
 
 export type ActionRecord=DeepReadonly<Pick<UiActionRecord,'id'|'title'|'status'|'parent_id'|'flagged'>>;
 
@@ -10,6 +11,9 @@ export interface ActionOutlineEntry {
   readonly action: ActionRecord;
   readonly level: number;
   readonly catalogId?: string | null;
+  readonly perspective?: PerspectiveActionCardProps;
+  readonly perspectiveSignature?: string;
+  readonly tasklistPerspective?: {completionLabel:'complete'|'read'|'acknowledge';notesPreview?:string};
 }
 
 export interface CatalogOutlineEntry {
@@ -21,7 +25,14 @@ export interface CatalogOutlineEntry {
   readonly expandable: boolean;
 }
 
-export type OutlineEntry = ActionOutlineEntry | CatalogOutlineEntry;
+export interface PerspectiveGroupEntry {
+  readonly kind: 'perspective-group';
+  readonly key: string;
+  readonly label: string;
+  readonly count: number;
+}
+
+export type OutlineEntry = ActionOutlineEntry | CatalogOutlineEntry | PerspectiveGroupEntry;
 
 export type RowBadge=DeepReadonly<ProjectedActionRow['badges'][number]>;
 
@@ -55,6 +66,9 @@ export interface ActionRowProps extends DeepReadonly<Omit<ProjectedActionRow,'si
   readonly onRowPointerDown: (event: PointerEvent) => void;
   readonly onRowClick: (event: MouseEvent) => void;
   readonly onDragStart: (event: DragEvent) => void;
+  readonly reorderEnabled?: boolean;
+  readonly completionLabel?: 'complete' | 'read' | 'acknowledge';
+  readonly notesPreview?: string;
 }
 
 export interface CatalogRowProps extends DeepReadonly<Omit<ReturnType<typeof projectCatalogRow>,'signature'>> {
@@ -92,8 +106,8 @@ export function ActionRow(props: ActionRowProps): HTMLDivElement {
   row.className = 'action-row';
   row.dataset.actionId = action.id;
   row.dataset.occurrenceKey = entry.key;
-  row.draggable = true;
-  row.ondragstart = props.onDragStart;
+  row.draggable = props.reorderEnabled !== false;
+  row.ondragstart = event => {if(props.reorderEnabled===false)event.preventDefault();else props.onDragStart(event);};
   row.setAttribute('role', 'treeitem');
   row.setAttribute('aria-level', String(entry.level + 1));
   row.setAttribute('aria-selected', String(props.batchSelected));
@@ -104,17 +118,19 @@ export function ActionRow(props: ActionRowProps): HTMLDivElement {
   const complete = createButton(
     document,
     iconSvg,
-    action.status === 'completed' ? 'Completed' : 'Mark complete',
+    action.status === 'completed' ? 'Completed' : props.completionLabel==='read'?'Mark read':props.completionLabel==='acknowledge'?'Acknowledge':'Complete',
     action.status === 'completed' ? 'checked' : 'circle',
     props.onComplete,
   );
-  complete.className = 'complete icon-button';
+  complete.className = props.completionLabel ? 'complete perspective-completion' : 'complete icon-button';
   complete.setAttribute('role', 'checkbox');
   complete.setAttribute('aria-checked', String(action.status === 'completed'));
   complete.setAttribute(
     'aria-label',
-    (action.status === 'completed' ? 'Completed: ' : 'Mark complete: ') + accessibleTitle,
+    action.status === 'completed' ? 'Completed: '+accessibleTitle : (props.completionLabel==='read'?'Mark read: ':props.completionLabel==='acknowledge'?'Acknowledge: ':'Complete: ')+accessibleTitle+'. Changes shared status to Completed.',
   );
+  complete.title='Changes shared status to Completed';
+  if(props.completionLabel)complete.querySelector('svg')?.remove();
   complete.dataset.mutation = 'true';
   complete.disabled = action.status === 'completed' || props.mutationBlocked;
   complete.dataset.focusKey = 'complete:' + entry.key;
@@ -139,6 +155,7 @@ export function ActionRow(props: ActionRowProps): HTMLDivElement {
   content.className = 'row-content';
   content.appendChild(select);
   content.appendChild(labelList);
+  if(props.notesPreview){const notes=document.createElement('p');notes.className='perspective-notes';notes.textContent=props.notesPreview;content.appendChild(notes);}
 
   const flag = createButton(
     document,
@@ -158,10 +175,10 @@ export function ActionRow(props: ActionRowProps): HTMLDivElement {
   grip.setAttribute('aria-label', 'Move: ' + accessibleTitle);
   grip.dataset.actionId = action.id;
   grip.dataset.focusKey = 'grip:' + entry.key;
-  setPointerDown(grip, props.onGripPointerDown);
-  grip.onkeydown = props.onGripKeyDown;
+  grip.hidden=props.reorderEnabled===false;
+  if(props.reorderEnabled!==false){setPointerDown(grip, props.onGripPointerDown);grip.onkeydown = props.onGripKeyDown;}
 
-  setPointerDown(row, props.onRowPointerDown);
+  setPointerDown(row, props.reorderEnabled===false?undefined:props.onRowPointerDown);
   row.onclick = props.onRowClick;
   row.appendChild(grip);
   row.appendChild(complete);
@@ -320,8 +337,10 @@ export function OutlineList(props: OutlineListProps): OutlineListResult {
     }
     const next =
       entry.kind === 'action'
-        ? ActionRow(props.actionPropsFor(entry))
-        : CatalogRow(props.catalogPropsFor(entry));
+        ? entry.perspective ? PerspectiveActionCard(entry.perspective) : ActionRow(props.actionPropsFor(entry))
+        : entry.kind === 'perspective-group'
+          ? PerspectiveGroupHeader({document:container.ownerDocument,label:entry.label,count:entry.count})
+          : CatalogRow(props.catalogPropsFor(entry));
     const row = existing ? patchNode(existing, next) as HTMLElement : next;
     desiredRows.push(row);
     nextRows.set(entry.key, row);

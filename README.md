@@ -65,7 +65,7 @@ ChatGPT is the current delivery environment. Ariadne has no AI or background sch
 
 ## What your list contains
 
-Each task is saved as an **action**, the name used in the dedicated UI and tools. An action holds a title, notes and its current state. Actions can contain smaller actions, belong to a project and have multiple tags. Dates, order and flags help express your intent. Saved **perspectives** let you revisit a selection of the same actions without copying them. Unclassified concerns can stay in Inbox.
+Each task is saved as an **action**, the name used in the dedicated UI and tools. An action holds a title, notes and its current state. Actions can contain smaller actions, belong to a project and have multiple tags. Dates, order and flags help express your intent. Saved **perspectives** let you revisit the same matching actions without copying them; the dedicated UI restores each saved Tasklist, Thread or Timeline presentation. Unclassified concerns can stay in Inbox.
 
 See [Product and usage](PRODUCT.md) for the meaning of these building blocks.
 

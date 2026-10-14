@@ -14,6 +14,8 @@ import {retainRequest,operationSucceeded,createdActionId} from './model/operatio
 import {visibleActions,scopeTitle,reviewChangeSummary,errorMessage,warningMessage,actionDepth,displayTitle} from './model/presentation';
 import {mergeHostContext,formatTimestamp} from './model/display';
 import {createNavigationModel} from './model/navigation';
+import {projectPerspectiveView} from './model/perspective-view';
+import {createCompletionReviewModel} from './model/completion-review';
 import {iconSvg} from './model/icons';
 import {createToolClient} from './effects/tool-client';
 import {mountDom} from './effects/dom.js';
@@ -43,7 +45,7 @@ const transport=createHostTransport(effects);
 const model={
  transient:createTransientModel(),saveStatus:createSaveStatusModel(),treeDrop:createTreeDropModel(),picker:createPickerModel(),
  catalogTree:createCatalogTreeModel(),catalogDrafts:createCatalogDraftModel(),dateInput:createDateInputModel(),
- movement:createMovementModel(),autosave:createAutosaveModel(),createdActionId,displayTitle,formatTimestamp,navigation:createNavigationModel(),
+ movement:createMovementModel(),autosave:createAutosaveModel(),createdActionId,displayTitle,formatTimestamp,navigation:createNavigationModel(),projectPerspectiveView,completionReview:createCompletionReviewModel(),
  errorMessage,warningMessage,actionDepth,reviewChangeSummary,iconSvg,visibleActions,scopeTitle,mergeHostContext,
  editorSelection,acknowledgeDraft,draftPayload,mutationBlocked,hasUnsavedChanges,operationSucceeded,retainRequest,
  editDraft,discardDraft,mergeDrafts,

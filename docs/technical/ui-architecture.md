@@ -26,7 +26,8 @@ lib/ui/
 │   └── controller.ts                 state transitions, normalization, orchestration
 ├── components/
 │   ├── inspector-panel.ts            inspector rendering from typed view data
-│   └── outline-list.ts               outline rendering from typed row data
+│   ├── outline-list.ts               outline rendering from typed row data
+│   └── perspective-content.ts        saved-view group and action-card rendering
 ├── effects/
 │   ├── diagnostics.ts                optional diagnostics port
 │   ├── dom.d.ts                      DOM adapter type boundary
@@ -49,6 +50,9 @@ lib/ui/
     ├── navigation.ts                 pure view and picker navigation
     ├── operations.ts                 pure operation and recovery state
     ├── picker.ts                     pure picker filtering and ranking
+    ├── perspective-view.ts           strict saved-view projection, sorting and grouping
+    ├── perspective-transient.ts      immutable per-perspective expansion and scroll state
+    ├── completion-review.ts          completion intent and full descendant disclosure scope
     ├── presentation.ts               pure text and presentation helpers
     ├── save-status.ts                pure save-status projection
     ├── transient-create.ts           pure temporary creation state
@@ -71,6 +75,8 @@ lib/ui/
 | `client.ts` | all UI layers to construct the runtime | — |
 
 `model/types.ts` carries serializable UI state and result DTOs only. Private callback-bearing unknown requests are retained inside the controller and projected to callback-free public state. Ports describe capabilities outside the pure model; the model never imports a port or adapter.
+
+`model/perspective-view.ts` validates complete persisted view definitions and projects only the already-matched snapshot actions into presentation order, groups, timestamps and bounded note previews. It receives the client timezone and readonly per-action expansion overrides; the saved `initial_body` value supplies the default without render-time initialization. `model/perspective-transient.ts` owns immutable transient expansion and scroll transitions, and filter changes never prune those values. The controller coordinates scroll capture before navigation and the DOM adapter restores the selected perspective's recorded position after rendering. `model/completion-review.ts` recognizes every existing completion entry kind and projects the full descendant scope from the immutable snapshot; the controller owns preview requests and confirmation, and the DOM adapter owns the alert dialog. Neither model changes action membership or persisted action state.
 
 ## Enforcement and limits
 

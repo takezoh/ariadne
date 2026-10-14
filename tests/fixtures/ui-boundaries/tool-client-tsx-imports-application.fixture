@@ -1,0 +1,2 @@
+import {createUiController} from '../application/controller';
+void createUiController;

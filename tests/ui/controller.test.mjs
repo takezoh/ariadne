@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {createToolClient} from '../../lib/ui/controller.ts';
+import {createToolClient} from '../../lib/ui/effects/tool-client.ts';
 test('tool client waits for initialize and exposes structured snapshot',async()=>{
  let initialize;const ready=new Promise(resolve=>initialize=resolve);const calls=[];
  const call=createToolClient({request:async(...args)=>{calls.push(args);return {structuredContent:{revision:3}}}},ready);

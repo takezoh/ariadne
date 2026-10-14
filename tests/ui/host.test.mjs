@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {createHostTransport} from '../../lib/ui/adapters/host.ts';
+import {createHostTransport} from '../../lib/ui/effects/host.ts';
 function fixture(){let receive;const sent=[],timers=new Map();let id=0;const host=createHostTransport({send:m=>sent.push(m),listen:fn=>{receive=fn;return ()=>{receive=()=>{};}},schedule:fn=>{timers.set(++id,fn);return id},cancel:id=>timers.delete(id)});return {host,sent,timers,receive:e=>receive(e)}}
 test('host adapter ignores untrusted response and late timed out reply',async()=>{
  const f=fixture(),p=f.host.request('tools/call',{name:'add'});f.receive({trusted:false,message:{jsonrpc:'2.0',id:1,result:'spoof'}});assert.equal(f.timers.size,1);
@@ -11,7 +11,7 @@ test('host adapter routes responses, notifications and releases timers',async()=
  const received=[];const unsubscribe=f.host.subscribe(x=>received.push(x));f.receive({trusted:true,message:{jsonrpc:'2.0',method:'ui/notifications/tool-result',params:{structuredContent:{revision:2}}}});assert.deepEqual(received,[{revision:2}]);unsubscribe();f.host.dispose();assert.rejects(f.host.request('x',{}),{code:'outcome_unknown'});
 });
 test('host adapter disposal rejects outstanding requests',async()=>{const f=fixture();const p=f.host.request('tools/call',{});const rejected=assert.rejects(p,{code:'outcome_unknown'});f.host.dispose();await rejected;assert.equal(f.timers.size,0)});
-import {createDiscardingEffects} from '../../lib/ui/adapters/verification.ts';
+import {createDiscardingEffects} from '../../lib/ui/effects/verification.ts';
 test('verification fixture discards exactly one trusted write response, while still executing request',()=>{
  let receive,armed=true;const sent=[],messages=[];let discarded=0;
  const effects=createDiscardingEffects({send:m=>sent.push(m),listen:fn=>{receive=fn;return ()=>{}},schedule:()=>0,cancel:()=>{}},{consume:()=>{const value=armed;armed=false;return value},discarded:()=>discarded++});

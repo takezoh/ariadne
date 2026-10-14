@@ -1,4 +1,4 @@
-import type {HostPort} from './ports';
+import type {HostPort} from '../ports';
 export interface ToolResult {isError?:boolean;structuredContent?: unknown;content?:Array<{type:string;text?:string}>}
 /** Application orchestration; host shape and transport failure remain behind the port. */
 export function createToolClient(host:HostPort,ready:Promise<unknown>,presentError?:(code:unknown)=>string){

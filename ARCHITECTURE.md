@@ -38,9 +38,11 @@ flowchart LR
 | lib/mcp/private-dispatcher.ts, lib/mcp/private-registry.ts | Capability-validated private JSON-RPC, tools, UI resources and host instructions |
 | lib/mcp/local-server.mjs, lib/mcp/public-registry.ts | Separate static stdio MCP, without private data or credentials |
 | app/api/actions/route.ts | Web JSON entry and authentication/Origin/content-type checks |
-| lib/ui/model/ | Pure draft, retained-request and control decisions |
-| lib/ui/application.ts | UI state and progress through call, ID and view ports |
-| lib/ui/adapters/ | DOM, host messaging and acceptance fixture effects |
+| lib/ui/model/ | Data-only types and pure draft, retained-request, presentation and control decisions |
+| lib/ui/application/ | UI state normalization and progress through call, ID and view ports |
+| lib/ui/components/ | Outline and inspector DOM rendering from typed view data and callbacks |
+| lib/ui/effects/ | DOM events, host messaging, tool transport and acceptance fixture effects |
+| lib/ui/ports.ts, lib/ui/client.ts | Effect contracts and runtime composition |
 | lib/widget.ts | Self-contained UI composition |
 | lib/domain/assistance.ts | Host-delivered assistance policy |
 | app/board.tsx | Web iframe and HTTP relay using the shared UI |
@@ -92,7 +94,7 @@ The shared UI saves valid editor changes through a debounced, owner-wide serial 
 
 `lib/ui/client.ts` composes the shared client with ordinary TypeScript imports. `scripts/generate-widget-client.mjs` bundles it as one self-contained IIFE and writes a generated module under the dependency cache before check, test and build. `lib/widget.ts` embeds that module in both normal and verification resources. The DOM adapter consumes read-only published application state and sends controller events; application ports own state changes and host calls. Action rows use occurrence keys to retain nodes across saving-only changes. Gesture coordinates share one queued animation frame and cached row geometry; effective edge scrolling invalidates geometry, and final drops resolve the latest coordinates before finishing.
 
-The optional `UiDiagnosticsPort` counts list renders and movement fingerprints/intents only when the test resource explicitly opts in with `data-ui-diagnostics="true"`; the normal widget does not publish counters or action text. `lib/ui/adapters/dom.d.ts` type-checks the TypeScript composition caller and mount-port shape. The adapter implementation remains JavaScript and is not internally type-checked by the current `tsconfig`; its read-only state rule is enforced separately by ESLint, while application interaction events remain a typed TypeScript union.
+The optional `UiDiagnosticsPort` counts list renders and movement fingerprints/intents only when the test resource explicitly opts in with `data-ui-diagnostics="true"`; the normal widget does not publish counters or action text. `lib/ui/effects/dom.d.ts` type-checks the TypeScript composition caller and mount-port shape. The adapter implementation remains JavaScript and is not internally type-checked by the current `tsconfig`; its read-only state rule is enforced separately by ESLint, while application interaction events remain a typed TypeScript union.
 
 Action list movement uses one bounded `action_move` intent over a complete owner snapshot. Selected roots move as a bundle; containment and destination sibling sequence change atomically while classification, lifecycle, own dates and subtree order remain unchanged. The pure planner includes hidden siblings, preserves source gaps and uses deterministic destination ranks. Existing CAS, delta, receipt and Undo apply unchanged. Direct status icons and Project/Tag assignment share the UI serial autosave lane; pointer/touch and keyboard chooser produce the same movement intent.
 
@@ -108,3 +110,5 @@ Projects and Tags require durable nonnegative safe-integer sibling order. Catalo
 
 
 Interaction state is owned by the typed UI application boundary. Pure interaction, gesture and view transitions retain occurrence keys separately from unique Action IDs, validate related structure, correlate catalog acknowledgments, and preserve deferred composition intents, date proposals and picker/navigation state. Gesture context reuses prepared movement/tree indexes; pointer updates publish only the small interaction subtree and retain unchanged frozen view/draft references without rendering the list. The DOM adapter owns geometry, capture, animation frames, node/signature caches and focus effects. Keyed rows recursively reconcile changed attributes, text and handlers while retaining compatible child controls. Focus restoration uses `preventScroll`, including rows reinserted after a move. Composition input updates the retained draft under the application save gate, so an external correction remains a conflict until the user chooses a resolution.
+
+The controller normalizes picker, date, movement and catalog acknowledgment state before publication. Rendering consumes pure row, inspector and chooser projections; explicit view effects apply focus and composer changes after rendering. Components receive DOM references and callbacks without access to the controller or host transport. Dependency lint enforces the physical UI layers, rejects common ambient effects in pure/application/component code, and keeps the public state data-only. The complete file tree, allowed dependencies and static-check limits are documented in [UI responsibility and dependency boundaries](docs/technical/ui-architecture.md).

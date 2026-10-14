@@ -24,6 +24,8 @@ Calendar sync, proactive notifications, background jobs and external-condition o
 
 ## Pure logic and effects
 
+Follow the enduring [responsibility and verification principles](docs/development.md#responsibility-and-verification-principles), [UI architecture principles](docs/technical/ui-architecture.md#development-principles), and [test allocation principles](docs/technical/testing.md#test-allocation-principles). Keep the physical layers and lint fixtures aligned when adding modules. Components consume model-derived readonly data and explicit callbacks; rendering must not initialize or mutate application state.
+
 Implement transitions, validation, projection and UI state decisions as pure functions: deterministic results and no input mutation. DB, DOM, host communication, HTTP, clock and IDs are effects behind ports/adapters. Inject them at entry points; pure logic must not depend on concrete runtime implementations.
 
 Separate pure unit tests, application tests with mock/fake ports, real adapter tests for atomicity/CAS/owner isolation, and UI state/DOM/communication tests. A passing fake does not prove the real adapter; use shared contracts and integration tests. State actual-host-only limitations explicitly.

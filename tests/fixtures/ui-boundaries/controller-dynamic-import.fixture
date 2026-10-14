@@ -1,0 +1,2 @@
+const adapter = '@/lib/ui/effects/dom.js';
+void import(adapter);

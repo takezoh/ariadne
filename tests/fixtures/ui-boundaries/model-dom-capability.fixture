@@ -1,0 +1,1 @@
+export function projection(node: HTMLElement): string { return node.outerHTML; }

@@ -65,7 +65,7 @@ test('runtime sql.raw remains forbidden inside reviewed adapter',()=>{
  assert(reports(lint(source,'lib/adapters/d1-action-store.ts'),'owner-sql')||reports(lint(source,'lib/adapters/d1-action-store.ts'),'raw-sql-location'));
 });
 test('DOM adapter public state is read-only and changes use controller events',async()=>{
- const path='lib/ui/adapters/dom.js',source=readFileSync(path,'utf8');
+ const path='lib/ui/effects/dom.js',source=readFileSync(path,'utf8');
  assert(!reports(await actualLint(source,path),'readonly-ui-state'));
  for(const mutant of [
   source.replace('function render(){','function render(){state.selectedId="changed";'),
@@ -74,4 +74,46 @@ test('DOM adapter public state is read-only and changes use controller events',a
   source.replace('function render(){','function render(){state.batchIds.push("id");'),
   source.replace('function render(){','function render(){Object.assign(state.drafts.id,{title:"changed"});'),
  ])assert(reports(await actualLint(mutant,path),'readonly-ui-state'));
+});
+test('actual ESLint config rejects pure-model, component and controller boundary fixtures',async()=>{
+ const fixtures=[
+  ['model-imports-component.fixture','lib/ui/model/__architecture_fixture__.ts'],
+  ['model-imports-effect-port.fixture','lib/ui/model/__architecture_fixture__.ts'],
+  ['component-reexports-controller.fixture','lib/ui/components/__architecture_fixture__.ts'],
+  ['controller-imports-dom.fixture','lib/ui/application/__architecture_fixture__.ts'],
+  ['controller-dynamic-import.fixture','lib/ui/application/__architecture_fixture__.ts'],
+ ];
+ for(const [fixture,importer] of fixtures){
+  const code=readFileSync('tests/fixtures/ui-boundaries/'+fixture,'utf8');
+  assert(reports(await actualLint(code,importer),'dependency-direction'),fixture);
+ }
+ const capabilityCases=[
+  ['model-dom-capability.fixture','lib/ui/model/__projection_fixture__.ts','ui-model-capability'],
+  ['component-global-effects.fixture','lib/ui/components/__new_component_fixture__.ts','pure-effects'],
+  ['application-sibling-import-effects.fixture','lib/ui/application/__new_controller_fixture__.ts','dependency-direction'],
+  ['ui-unclassified-import.fixture','lib/ui/__new_unclassified_fixture__.ts','dependency-direction'],
+ ];
+ for(const [fixture,importer,rule] of capabilityCases){
+  const code=readFileSync('tests/fixtures/ui-boundaries/'+fixture,'utf8');
+  assert(reports(await actualLint(code,importer),rule),fixture+' must fail under the actual config');
+ }
+ const tsxCases=[
+  ['model-tsx-dom-capability.fixture','lib/ui/model/__new_projection_fixture__.tsx','ui-model-capability'],
+  ['component-tsx-global-effect.fixture','lib/ui/components/__new_component_fixture__.tsx','pure-effects'],
+  ['application-sibling-tsx-effect.fixture','lib/ui/application/__new_controller_fixture__.tsx','dependency-direction'],
+  ['tool-client-tsx-imports-application.fixture','lib/ui/effects/tool-client.tsx','dependency-direction'],
+ ];
+ for(const [fixture,importer,rule] of tsxCases){const code=readFileSync('tests/fixtures/ui-boundaries/'+fixture,'utf8');assert(reports(await actualLint(code,importer),rule),fixture+' must fail under the actual TSX config');}
+ for(const [path,filename] of [['lib/ui/model/types.ts','lib/ui/model/types.ts'],['lib/ui/application/controller.ts','lib/ui/application/controller.ts'],['lib/ui/effects/dom.js','lib/ui/effects/dom.js'],['lib/ui/components/outline-list.ts','lib/ui/components/outline-list.ts']]){
+  assert(!reports(await actualLint(readFileSync(path,'utf8'),filename),'dependency-direction'),filename);
+  assert(!reports(await actualLint(readFileSync(path,'utf8'),filename),'pure-effects'),filename);
+ }
+});
+
+test('actual repository config rejects inline type imports and import-equals across UI layers',async()=>{
+ for(const path of ['lib/ui/model/new.ts','lib/ui/model/new.tsx','lib/ui/components/new.tsx','lib/ui/application/new.tsx']){
+  for(const source of ['export type Leaked = import("@/lib/ui/effects/host").Whatever;','import Leaked = require("@/lib/ui/effects/host"); export {Leaked};']){
+   assert(reports(await actualLint(source,path),'dependency-direction'),path+': '+source);
+  }
+ }
 });

@@ -1,10 +1,15 @@
 import { dirname, relative, resolve } from 'node:path';
+import { existsSync } from 'node:fs';
 
 const effectGlobals = new Set([
   'window', 'document', 'fetch', 'crypto', 'process', 'console', 'navigator',
   'localStorage', 'sessionStorage', 'performance', 'globalThis',
   'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval',
   'requestAnimationFrame', 'cancelAnimationFrame', 'queueMicrotask',
+  'location', 'history', 'screen', 'alert', 'confirm', 'prompt', 'open',
+  'WebSocket', 'Worker', 'SharedWorker', 'BroadcastChannel', 'MessageChannel', 'MutationObserver',
+  'ResizeObserver', 'IntersectionObserver', 'XMLHttpRequest', 'Notification', 'Audio', 'Image',
+  'indexedDB', 'caches', 'AbortController',
 ]);
 
 function globalReference(context, node) {
@@ -26,7 +31,7 @@ const pureEffects = {
         if (!effectGlobals.has(node.name)) return;
         const parent = node.parent;
         if ((parent.type === 'MemberExpression' && parent.property === node && !parent.computed)
-          || (['Property', 'MethodDefinition'].includes(parent.type) && parent.key === node && !parent.computed && !parent.shorthand)) return;
+          || (['Property', 'MethodDefinition', 'PropertySignature', 'TSPropertySignature', 'TSMethodSignature', 'PropertyDefinition'].includes(parent.type) && (parent.key === node || parent.name === node) && !parent.computed && !parent.shorthand)) return;
         if (globalReference(context, node)) report(node, node.name);
       },
       MemberExpression(node) {
@@ -52,7 +57,12 @@ function layer(path) {
   if (path.startsWith('lib/application/')) return 'application';
   if (path.startsWith('lib/ui/model/')) return 'ui-model';
   if (path === 'lib/ui/ports.ts') return 'ui-ports';
-  if (['lib/ui/controller.ts', 'lib/ui/application.ts', 'lib/ui/application.js'].includes(path)) return 'ui-controller';
+  if (path.startsWith('lib/ui/application/')) return 'ui-application';
+  if (path.startsWith('lib/ui/components/')) return 'ui-components';
+  if (/^lib\/ui\/effects\/tool-client\.(?:ts|tsx|mts|js|jsx|mjs)$/.test(path)) return 'ui-tool-client';
+  if (path.startsWith('lib/ui/effects/')) return 'ui-effects';
+  if (path === 'lib/ui/client.ts') return 'ui-composition';
+  if (path.startsWith('lib/ui/')) return 'ui-unclassified';
   return null;
 }
 
@@ -62,7 +72,12 @@ function allowed(from, target) {
   if (from === 'application') return pure || target.startsWith('lib/application/');
   if (from === 'ui-model') return pure || target.startsWith('lib/ui/model/');
   if (from === 'ui-ports') return pure || target.startsWith('lib/ui/model/') || target === 'lib/ui/ports.ts';
-  if (from === 'ui-controller') return pure || target.startsWith('lib/ui/model/') || target === 'lib/ui/ports.ts';
+  if (from === 'ui-application') return pure || target.startsWith('lib/ui/model/') || target === 'lib/ui/ports.ts' || target.startsWith('lib/ui/application/');
+  if (from === 'ui-components') return pure || target.startsWith('lib/ui/model/') || target.startsWith('lib/ui/components/');
+  if (from === 'ui-tool-client') return pure || target.startsWith('lib/ui/model/') || target === 'lib/ui/ports.ts' || /^lib\/ui\/effects\/tool-client\.(?:ts|tsx|mts|js|jsx|mjs)$/.test(target);
+  if (from === 'ui-effects') return pure || target.startsWith('lib/ui/model/') || target === 'lib/ui/ports.ts' || target.startsWith('lib/ui/application/') || target.startsWith('lib/ui/components/') || target.startsWith('lib/ui/effects/');
+  if (from === 'ui-composition') return pure || target.startsWith('lib/ui/');
+  if (from === 'ui-unclassified') return false;
   return true;
 }
 
@@ -73,23 +88,45 @@ const dependencyDirection = {
     const filename = context.filename;
     const from = layer(relative(cwd, filename).replaceAll('\\', '/'));
     if (!from) return {};
+    if(from==='ui-unclassified')return {Program(node){context.report({node,messageId:'dependency',data:{from,target:'unclassified UI source path'}});}};
     function check(node, source) {
-      if (typeof source !== 'string') return;
-      const target = source.startsWith('@/') ? source.slice(2)
-        : source.startsWith('.') ? relative(cwd, resolve(dirname(filename), source)).replaceAll('\\', '/')
-          : source;
-      const canonicalTarget = /\.(?:ts|mts|js|mjs)$/.test(target) ? target : target + '.ts';
+      if (typeof source !== 'string') { context.report({node,messageId:'dependency',data:{from,target:'non-static module specifier'}});return; }
+      const target = canonicalModuleTarget(cwd,filename,source);
+      const canonicalTarget = target;
       if (!allowed(from, canonicalTarget)) context.report({ node, messageId: 'dependency', data: { from, target: source } });
     }
     return {
       ImportDeclaration(node) { check(node, node.source.value); },
+      TSImportType(node) { check(node, node.argument?.type==='TSLiteralType'?node.argument.literal.value:node.argument?.value); },
+      TSImportEqualsDeclaration(node) { if(node.moduleReference.type==='TSExternalModuleReference')check(node,node.moduleReference.expression.value); },
       ExportNamedDeclaration(node) { if (node.source) check(node, node.source.value); },
       ExportAllDeclaration(node) { check(node, node.source.value); },
-      ImportExpression(node) { check(node, node.source.value); },
+      ImportExpression(node) { check(node, node.source.type==='Literal'?node.source.value:null); },
       CallExpression(node) {
-        if (node.callee.type === 'Identifier' && node.callee.name === 'require') check(node, node.arguments[0]?.value);
+        if (node.callee.type === 'Identifier' && node.callee.name === 'require') check(node, node.arguments[0]?.type==='Literal'?node.arguments[0].value:null);
       },
     };
+  },
+};
+
+const uiModelCapabilities = new Set([
+  'Document', 'Window', 'Node', 'Element', 'HTMLElement', 'HTMLInputElement',
+  'HTMLTextAreaElement', 'HTMLButtonElement', 'HTMLFormElement', 'HTMLSelectElement',
+  'HTMLCollection', 'HTMLCollectionOf', 'NodeList', 'NodeListOf', 'DocumentFragment',
+  'SVGElement', 'SVGSVGElement', 'CSSStyleDeclaration', 'Event', 'MessageEvent', 'CustomEvent',
+  'MouseEvent', 'KeyboardEvent', 'PointerEvent', 'DragEvent', 'FocusEvent', 'InputEvent',
+  'CompositionEvent', 'AbortController', 'AbortSignal', 'MutationObserver', 'ResizeObserver',
+  'IntersectionObserver', 'XMLHttpRequest', 'WebSocket', 'Worker', 'SharedWorker',
+  'MessagePort', 'MessageChannel', 'BroadcastChannel', 'HostPort', 'HostEffects',
+  'HostCommunicationPort', 'IdPort', 'UiViewPort', 'UiApplicationPorts', 'ToolClientPort',
+  'TransportPort', 'ClockPort', 'TimerPort', 'StoragePort', 'FetchPort', 'Request', 'Response',
+  'Headers', 'FormData', 'File', 'Blob', 'ReadableStream', 'WritableStream',
+]);
+const uiModelCapability = {
+  meta: { type: 'problem', schema: [], messages: { capability: 'Pure UI model cannot expose or consume host/DOM capability {{name}}; use data-only values and keep effects behind adapters.' } },
+  create(context) {
+    if (!relative(context.cwd, context.filename).replaceAll('\\', '/').startsWith('lib/ui/model/')) return {};
+    return { Identifier(node) { if (uiModelCapabilities.has(node.name)) context.report({ node, messageId: 'capability', data: { name: node.name } }); } };
   },
 };
 
@@ -98,6 +135,15 @@ function resolvedTarget(cwd, filename, source) {
   return source.startsWith('@/') ? source.slice(2)
     : source.startsWith('.') ? relative(cwd, resolve(dirname(filename), source)).replaceAll('\\', '/')
       : source;
+}
+
+function canonicalModuleTarget(cwd,filename,source){
+  const raw=source.startsWith('@/')?source.slice(2):source.startsWith('.')?relative(cwd,resolve(dirname(filename),source)).replaceAll('\\','/'):source;
+  if(!raw.startsWith('lib/')&&!raw.startsWith('app/')&&!raw.startsWith('build/'))return raw;
+  const absolute=resolve(cwd,raw),extension=/\.(?:ts|tsx|mts|js|jsx|mjs)$/.exec(raw)?.[0];
+  const candidates=extension?[absolute,...(extension==='.js'||extension==='.mjs'?[absolute.slice(0,-extension.length)+'.ts']:[])]:['.ts','.tsx','.mts','.js','.jsx','.mjs'].map(ext=>absolute+ext).concat(['index.ts','index.tsx','index.js'].map(name=>resolve(absolute,name)));
+  const found=candidates.find(existsSync);
+  return relative(cwd,found||(`${absolute}${extension?'':'.ts'}`)).replaceAll('\\','/');
 }
 
 /** Private resources that public/local surfaces must never reach. */
@@ -244,7 +290,7 @@ const ownerSql = {
 const readonlyUiState = {
  meta:{type:'problem',schema:[],messages:{mutation:'The DOM adapter may read public UI state but must route state changes through typed controller events.'}},
  create(context){
-  if(relative(context.cwd,context.filename).replaceAll('\\','/')!=='lib/ui/adapters/dom.js')return {};
+  if(relative(context.cwd,context.filename).replaceAll('\\','/')!=='lib/ui/effects/dom.js')return {};
   const mutators=new Set(['push','pop','shift','unshift','splice','sort','reverse','copyWithin','fill','set','add','delete','clear']);
   const root=node=>node?.type==='MemberExpression'||node?.type==='OptionalMemberExpression'?root(node.object):node?.type==='Identifier'?node.name:null;
   const readonlyTarget=node=>root(node)==='state';
@@ -261,6 +307,6 @@ const readonlyUiState = {
   };
  }
 };
-const boundaries = { rules: { 'pure-effects': pureEffects, 'dependency-direction': dependencyDirection, 'private-composition': privateComposition, 'raw-sql-location': rawSqlLocation, 'capability-direction':capabilityDirection, 'private-auth':privateAuth, 'owner-sql':ownerSql,'readonly-ui-state':readonlyUiState } };
+const boundaries = { rules: { 'pure-effects': pureEffects, 'ui-model-capability':uiModelCapability, 'dependency-direction': dependencyDirection, 'private-composition': privateComposition, 'raw-sql-location': rawSqlLocation, 'capability-direction':capabilityDirection, 'private-auth':privateAuth, 'owner-sql':ownerSql,'readonly-ui-state':readonlyUiState } };
 
 export default boundaries;

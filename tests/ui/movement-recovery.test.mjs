@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createUiController} from '../../lib/ui/application.ts';
+import {createUiController} from '../../lib/ui/application/controller.ts';
 import * as drafts from '../../lib/ui/model/drafts.ts';
 import * as operations from '../../lib/ui/model/operations.ts';
 import {createAutosaveModel} from '../../lib/ui/model/autosave.ts';

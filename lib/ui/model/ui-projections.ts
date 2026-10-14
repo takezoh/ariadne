@@ -47,11 +47,12 @@ const conflictLabels:Readonly<Record<string,string>>={
  deferDate:'Defer',deferUntil:'Defer',flagged:'Flag',order:'Order',parent_id:'Parent action',
 };
 
-export function projectSavedComparison(fields:readonly string[],action:Omit<DraftAction,'status'>&{status?:string}|null|undefined,projects:readonly (CatalogRecord&{path?:string})[],tags:readonly (CatalogRecord&{path?:string})[]):string {
+export function projectSavedComparison(fields:readonly string[],action:Omit<DraftAction,'status'>&{status?:string}|null|undefined,projects:readonly (CatalogRecord&{path?:string})[],tags:readonly (CatalogRecord&{path?:string})[],formatInstant?:(value:string)=>string):string {
  if(!action)return '';
  const displayValue=(field:string,value:unknown):string=>{
   if(field==='project_id')return projects.find(item=>item.id===value)?.path||projects.find(item=>item.id===value)?.name||'Unassigned';
   if(field==='tag_ids')return (Array.isArray(value)?[...value].sort():[]).map(id=>tags.find(item=>item.id===id)?.path||tags.find(item=>item.id===id)?.name||'Unavailable tag').join(', ');
+  if(['due_at','deferDate','deferUntil'].includes(field)&&typeof value==='string'&&value&&formatInstant)return formatInstant(value);
   return value==null||value===''?'Empty':String(value);
  };
  return fields.map(field=>{
@@ -73,7 +74,7 @@ export function projectActionRow(input:{entry:{key:string;level:number;parentKey
  if(action.due_at)badges.push({text:'Due '+input.formattedDue});
  if(action.project_path)badges.push({text:action.project_path});
  if(action.tags?.length)badges.push({text:action.tags.map(tag=>tag.path||tag.name||'').filter(Boolean).join(', ')});
- return {title:displayTitle(draft?.title??action.title),accessibleTitle:displayTitle(action.title),badges,signature:JSON.stringify([entry.key,entry.level,input.tree,action.id,action.title,action.status,action.parent_id,action.flagged,entry.parentKey??null,parentVisible,parent?.title||'',action.defer_reasons,action.due_at,action.project_path,action.tags,draft?.title,input.batchSelected,input.active]),batchSelected:input.batchSelected,active:input.active};
+ return {title:displayTitle(draft?.title??action.title),accessibleTitle:displayTitle(action.title),badges,signature:JSON.stringify([entry.key,entry.level,input.tree,action.id,action.title,action.status,action.parent_id,action.flagged,entry.parentKey??null,parentVisible,parent?.title||'',action.defer_reasons,action.due_at,input.formattedDue,action.project_path,action.tags,draft?.title,input.batchSelected,input.active]),batchSelected:input.batchSelected,active:input.active};
 }
 
 export function projectCatalogRow(input:{entry:{key:string;kind:string;id:string;level:number;label:string;expandable:boolean};collapsed:readonly string[];draft?:CatalogDraft;selected:boolean}):{signature:string;title:string;collapsed:boolean;selected:boolean} {
@@ -86,14 +87,14 @@ function catalogPath(catalog:readonly (CatalogRecord&{path?:string})[],id:string
  return parts.join(' / ');
 }
 
-export interface ActionInspectorProjection {targetAvailable:boolean;title:string;notes:string;flagged:boolean;status:string;dates:DateInputProjection;lifecycle:string;missingMessage:string;savedCompare:string;dateSummary:string;releases:{id:string;label:string}[];projectValue?:string;tags:{id:string;label:string;focusKey:string}[]}
-export function projectActionInspector(input:{id:string;draft:Draft;action?:UiActionRecord;targetAvailable:boolean;conflicts:readonly string[];projects:readonly (CatalogRecord&{path?:string})[];tags:readonly (CatalogRecord&{path?:string})[];dates:DateInputProjection;projectPickerFocused:boolean;formatInstant:(value:string)=>string}):ActionInspectorProjection {
+export interface ActionInspectorProjection {targetAvailable:boolean;title:string;notes:string;flagged:boolean;status:string;dates:DateInputProjection;lifecycle:string;timestamps?:{created:string;updated:string};missingMessage:string;savedCompare:string;dateSummary:string;releases:{id:string;label:string}[];projectValue?:string;tags:{id:string;label:string;focusKey:string}[]}
+export function projectActionInspector(input:{id:string;draft:Draft;action?:UiActionRecord;savedAction?:{created_at?:string;updated_at?:string};targetAvailable:boolean;conflicts:readonly string[];projects:readonly (CatalogRecord&{path?:string})[];tags:readonly (CatalogRecord&{path?:string})[];dates:DateInputProjection;projectPickerFocused:boolean;formatInstant:(value:string)=>string}):ActionInspectorProjection {
  const {id,draft,action}=input,project=draft.project_id?input.projects.find(item=>item.id===draft.project_id):undefined;
  const dateSummary=(action?.defer_reasons||[]).filter(reason=>reason.ancestor).map(reason=>'Parent '+displayTitle(reason.title)+' · Deferred until: '+input.formatInstant(reason.until)).join(' / ');
  const releases=(action?.defer_reasons||[]).map(reason=>({id:reason.id,label:reason.ancestor?'Parent '+displayTitle(reason.title)+' · Clear Defer':'Clear Defer'}));
  const projectValue=!input.projectPickerFocused?draft.project_id?(project?catalogPath(input.projects,project.id,'project'):'Unassigned'):'':undefined;
  const tags=draft.tag_ids.map(tagId=>{const tag=input.tags.find(item=>item.id===tagId);return {id:tagId,label:tag?catalogPath(input.tags,tag.id,'tag'):'Unavailable Tag',focusKey:'tag:'+id+':'+tagId};});
- return {targetAvailable:input.targetAvailable,title:draft.title,notes:draft.notes,flagged:draft.flagged,status:draft.status,dates:input.dates,lifecycle:action?.status==='on-hold'?'On hold':action?.status==='completed'?'Completed':action?.status==='dropped'?'Dropped':'Active',missingMessage:'This action is no longer available. Your unsaved changes are retained. Refresh before saving.',savedCompare:projectSavedComparison(input.conflicts,action,input.projects,input.tags),dateSummary,releases,projectValue,tags};
+ return {targetAvailable:input.targetAvailable,title:draft.title,notes:draft.notes,flagged:draft.flagged,status:draft.status,dates:input.dates,lifecycle:action?.status==='on-hold'?'On hold':action?.status==='completed'?'Completed':action?.status==='dropped'?'Dropped':'Active',missingMessage:'This action is no longer available. Your unsaved changes are retained. Refresh before saving.',timestamps:input.savedAction?{created:input.formatInstant(input.savedAction.created_at||''),updated:input.formatInstant(input.savedAction.updated_at||'')}:undefined,savedCompare:projectSavedComparison(input.conflicts,action,input.projects,input.tags,input.formatInstant),dateSummary,releases,projectValue,tags};
 }
 
 export interface CatalogInspectorProjection {kind:'project'|'tag';temporary:boolean;exists:boolean;draft?:{name:string;description:string};missingMessage:string;parentText:string;nameErrorText:string;descriptionErrorText:string;conflict:boolean;problemText:string;savedCompare:string;showRetry:boolean;retryDisabled:boolean}

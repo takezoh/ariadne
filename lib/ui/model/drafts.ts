@@ -1,6 +1,6 @@
 export type DraftStatus='active'|'on-hold'|'completed'|'dropped';
 export type DraftGroup='edit'|'defer'|'status';
-export interface DraftAction {id:string;title:string;notes:string;order:number;flagged:boolean;revision:number;parent_id?:string|null;due_at?:string|null;status?:DraftStatus;defer_until?:string|null;project_id?:string|null;tags?:{id:string}[]}
+export interface DraftAction {id:string;title:string;notes:string;order:number;flagged:boolean;revision:number;created_at?:string;updated_at?:string;parent_id?:string|null;due_at?:string|null;status?:DraftStatus;defer_until?:string|null;project_id?:string|null;tags?:{id:string}[]}
 export interface DraftValues {title:string;notes:string;order:number;flagged:boolean;parent_id:string|null;due_at:string|null;status:DraftStatus;deferDate:string;deferUntil:string;timezone:string;project_id:string|null;tag_ids:string[]}
 export interface Draft extends DraftValues {baseRevision:number;dirty:boolean;patch:Partial<DraftValues>;dirtyGroups:Record<DraftGroup,boolean>}
 export type Drafts=Readonly<Record<string,Draft>>;

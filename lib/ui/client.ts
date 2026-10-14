@@ -12,7 +12,7 @@ import {createDiscardingEffects} from './effects/verification';
 import {mutationBlocked,hasUnsavedChanges,editorSelection} from './model/controls';
 import {retainRequest,operationSucceeded,createdActionId} from './model/operations';
 import {visibleActions,scopeTitle,reviewChangeSummary,errorMessage,warningMessage,actionDepth,displayTitle} from './model/presentation';
-import {mergeHostContext} from './model/display';
+import {mergeHostContext,formatTimestamp} from './model/display';
 import {createNavigationModel} from './model/navigation';
 import {iconSvg} from './model/icons';
 import {createToolClient} from './effects/tool-client';
@@ -43,7 +43,7 @@ const transport=createHostTransport(effects);
 const model={
  transient:createTransientModel(),saveStatus:createSaveStatusModel(),treeDrop:createTreeDropModel(),picker:createPickerModel(),
  catalogTree:createCatalogTreeModel(),catalogDrafts:createCatalogDraftModel(),dateInput:createDateInputModel(),
- movement:createMovementModel(),autosave:createAutosaveModel(),createdActionId,displayTitle,navigation:createNavigationModel(),
+ movement:createMovementModel(),autosave:createAutosaveModel(),createdActionId,displayTitle,formatTimestamp,navigation:createNavigationModel(),
  errorMessage,warningMessage,actionDepth,reviewChangeSummary,iconSvg,visibleActions,scopeTitle,mergeHostContext,
  editorSelection,acknowledgeDraft,draftPayload,mutationBlocked,hasUnsavedChanges,operationSucceeded,retainRequest,
  editDraft,discardDraft,mergeDrafts,

@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "baseCommit": "eca2b8a0d03db51ee05a6b5c133b6950a2385100",
+    "worktreeSha256": "720d3783f624946c0e3fa480ee800df142ab5b8d9d72b70a0b637557ee134603",
+    "finalBuildArtifactSha256": "d7dc62a5bd9c476a96247311d27c97a259ebcf08fd2200a514aca5a61992a149"
+  },
+  "requestHash": "45f2df8a9192ade9549463b968e38c9ff15ab477e67caa851861899d2b32810c",
+  "scope": "VALUE-1 through VALUE-4 for Issue20; parent Issue16 retains final combined acceptance",
+  "assessment": "Independent review approved the bounded Issue20 contribution with no findings; parent retains combined acceptance",
+  "environment": {
+    "runtime": "Built Cloudflare Worker env.DB through local Wrangler D1",
+    "ui": "Actual resources/read generated HTML in JSDOM; synthetic host initialization",
+    "source": {
+      "path": "/home/davinci/evidence/issue20/final-source.json",
+      "sha256": "1af772a63113308608b561d64778c2ef1fb84026fb9b813589790472b74fb4b3"
+    },
+    "observed_initial_worker_artifact": "f109423e97417c9959b6aa6db9f1b253aa36daa068aa6b4034a31a0f57d55eb7",
+    "observed_restarted_worker_artifact": "c81c86b4c702eee23f6f0adf67f5e896297610fbc240d41fe7c7038cd94b9f53",
+    "final_build_worker_artifact": "d7dc62a5bd9c476a96247311d27c97a259ebcf08fd2200a514aca5a61992a149",
+    "source_applicability": "Product app/lib/build/db/drizzle source hashes unchanged across builds. Final test-only additions do not change executed bridge. UI HTML hash identical across paired interventions. Final build is separate recorded compilation, not a hosted deployment.",
+    "hosted_acceptance": "not_run"
+  },
+  "model": {
+    "native_fresh_launches": 9,
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "evidence_kind": "Accepted native host launch binding; model/effort applied by host operation, not self-report",
+    "infrastructure_recovery_followups": 2,
+    "private_reasoning_retained": false
+  },
+  "observations": {
+    "VALUE-1": "Both actual restored consumers withdrew the Friday commitment and respected on-hold after generated UI correction, without correction text in their resume prompts.",
+    "VALUE-2": "An independent actual model saved the exact synthetic source finding and completed only the validation child; both successors used the result and proposed a caveat draft. Parent remained on-hold.",
+    "VALUE-3": "Restored callers used prior output/cache/cursor. Context-lost delta caller received an empty feed then fetched current complete state; both callers explicitly limited recovery of unsaved conversation/preferences.",
+    "VALUE-4": "Paired objectives and semantic states matched, and the exact producer intervention was replicated through real MCP on the full-state owner. Successful outputs were semantically comparable; no superiority or long-term benefit was measured."
+  },
+  "callerToolCalls": [
+    {
+      "mode": "delta",
+      "round": "initial",
+      "tools": [
+        "list_actions",
+        "list_actions"
+      ],
+      "outputSha256": "a7c897e426993fdf99f54a815c0da427ac9f357c674e61f8a3d6ed79c2051daa",
+      "promptSha256": "6a44f63d0cb4bb55fe043f086d856e231328406eb812f1faed678a964f26c59f"
+    },
+    {
+      "mode": "delta",
+      "round": "resume-one",
+      "tools": [
+        "get_changes"
+      ],
+      "outputSha256": "3d163dd6f4f09c0e6f6c3aa80a6b2e7ae7d7fdd640263f6bb8364d690899c9bf",
+      "promptSha256": "f0a8def67151dacd54b65783905c968f1791ed4f025fb2899b721534bbdd58dc"
+    },
+    {
+      "mode": "delta",
+      "round": "resume-two",
+      "tools": [
+        "get_changes"
+      ],
+      "outputSha256": "1960768537d7a0e5bd4720c4f95620a9aa99c4ff1c9f3cd89a5b6f8cc59fc219",
+      "promptSha256": "a5241b01a21ded5c338dc3ec35bf4201718a412d668fa43429ceb0748b660f73"
+    },
+    {
+      "mode": "delta",
+      "round": "context-lost",
+      "tools": [
+        "get_changes",
+        "list_actions"
+      ],
+      "outputSha256": "167a19f153a83a900eb1f5f6119e8ad8f4a8110edb97b7e541d7b50caa8465eb",
+      "promptSha256": "b14bfc89f6a11846cf446113ae769c1cd2063b223b0ee7befe7ab6e407fd18e8"
+    },
+    {
+      "mode": "full",
+      "round": "initial",
+      "tools": [
+        "list_actions"
+      ],
+      "outputSha256": "9c8aa8c260bad5bbc9bbd66c97d4f7ece87be18ca79bf0dae2b38832bb3557d9",
+      "promptSha256": "a83d62bb4a3a9cb5243dcb1e76145c5dae372f79d8b91fe858321ec590286504"
+    },
+    {
+      "mode": "full",
+      "round": "resume-one",
+      "tools": [
+        "list_actions"
+      ],
+      "outputSha256": "bbc30e4ddbb75883288d88a93c1c6bdea8920dbdde24dd27719c3fc0a2839a1e",
+      "promptSha256": "85cb77de47dbac66f6a5aecba4d2c9ccb0e4d63b395c521cc0eaa53b5ffce213"
+    },
+    {
+      "mode": "full",
+      "round": "resume-two",
+      "tools": [
+        "list_actions"
+      ],
+      "outputSha256": "0c2a499595f75861ac9278d8b8357407ba312ba613bf9f081b5d9937f06f7822",
+      "promptSha256": "c06a38d923be20b33a34c819e52c2055a2969f4df1f6e2ac99b5c4e6ba72643e"
+    },
+    {
+      "mode": "full",
+      "round": "context-lost",
+      "tools": [
+        "list_actions"
+      ],
+      "outputSha256": "bab6633afe09898bef186656934921f6abfe8fd319a4265f949bbfd5f94ddd3e",
+      "promptSha256": "e2195894d7816e025844b89c080404771f525f0db51e6cc8a8690a5795ca1d67"
+    }
+  ],
+  "consumerCheckpoints": "Finalized only after successful public output and canonical processing; failed read attempts retained the previous checkpoint. This neither marks human reading nor completes an Action.",
+  "localGates": {
+    "pnpm check": {
+      "passed": 478,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    },
+    "focused bridge tests": {
+      "passed": 8
+    },
+    "pnpm build": "passed"
+  },
+  "failuresRetained": [
+    "Developer proxy503; owned direct listener worked.",
+    "Resource parser expected optional type discriminator; fixed and production-shaped regression added before success.",
+    "New parser referenced missing local helper; fixed and focused test passed before retry.",
+    "Build reloaded Worker and changed direct listener; two model readers failed, held old checkpoints, then same callers recovered after owned Worker restart. No missing write response or duplicate business write.",
+    "Main used glob strings where skill scope is literal paths/directories. Original Loop rejection retained; no runtime mutation. Main preserved candidate and obtained independent approval under actual authorized scope."
+  ],
+  "limitations": [
+    "Synthetic findings, not real water-quality measurements.",
+    "JSDOM is not a physical human or actual ChatGPT Work host.",
+    "Local Wrangler D1 does not prove hosted D1 or trusted Sites identity injection.",
+    "No deployment, universal model guarantee or long-term human-benefit claim.",
+    "Parent Issue16 retains final combined API/caller acceptance; no deployment is included."
+  ],
+  "externalEvidence": {
+    "root": "/home/davinci/evidence/issue20",
+    "observationsPath": "/home/davinci/evidence/issue20/scenario-observations.json",
+    "observationsSha256": "97edf4eb48009510a2c9ad6cb823963353d2338cd87b8a848df378c22b004315",
+    "sourceManifestPath": "/home/davinci/evidence/issue20/final-source.json"
+  },
+  "independentReview": {
+    "path": "/home/davinci/evidence/issue20/independent-review.json",
+    "sha256": "73e0b8bc3a190938549e31386786670c43757125b3fa41e96a5a1e073dddf225",
+    "status": "approved",
+    "findings": []
+  }
+}

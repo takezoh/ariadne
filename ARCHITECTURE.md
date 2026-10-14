@@ -75,7 +75,7 @@ Lifecycle is active/on-hold/completed/dropped. Read-time projection evaluates De
 
 Reads obtain a consistent owner snapshot in one D1 batch. Owner revision is the latest operation revision, zero when empty. The receipt INSERT trigger conditionally checks revision. Changed rows, identity markers, receipts and pruning to the latest 100 operations commit atomically; unrelated rows are not rewritten. No owner_state or full-snapshot replacement exists.
 
-The revision validates the state used for a mutation. Internal deltas and retained receipts support persistence, replay and Undo. They do not provide a consumer change-feed cursor or record which state a caller has read, understood or acted on.
+The revision validates the state used for a mutation. Internal deltas and retained receipts support persistence, replay, Undo and incremental reads. Complete snapshots expose a matching opaque cursor and raw Action/Tag associations. Each consumer keeps its own position; no read receipt or server-side consumer checkpoint is stored. The feed pages whole persisted before/after operations from the existing latest-100 owner receipt window, with head-fenced continuation and explicit expiry. Cursor progress records retrieval position, not human reading, understanding or Action completion.
 
 Writes require schemaVersion 2, an operation ID and current expectedRevision. Identical replay uses the receipt and returns current state; different input under the same ID is rejected. Unknown outcomes retain exact arguments and IDs. Preview does not reserve state or generated IDs. Undo compares exact affected action state/revision and catalog identity markers, preserving later unrelated changes and rejecting target conflicts.
 

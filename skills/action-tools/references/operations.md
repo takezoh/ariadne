@@ -8,6 +8,16 @@ These tools provide structured task data and a shared UI. The API entity is acti
 
 Use open_actions for the dedicated UI. Conversation and UI share one D1 state.
 
+## Incremental reads
+
+Complete `list_actions`-style snapshots include a `change_cursor`, the matching owner revision and raw `action_tags` rows. Use this cursor as the baseline for a local cache. `get_change_cursor` can obtain a current position when no bootstrap snapshot is needed; it does not include prior state.
+
+Call `get_changes` with the opaque cursor and optionally `page_size` (default 20, maximum 100). Apply complete operation records in order and retain `next_cursor` only after successfully applying the page. Split pages keep a fixed observed-head fence; continue until `has_more` is false. Terminal and empty cursors reset to a live head, so a later call sees later writes. The logical `ChangePage` is at most 1 MiB UTF-8 and contains whole operations. MCP returns the page in both `structuredContent` and `content[0].text`, so the complete JSON-RPC HTTP response body may be larger; the API does not promise a total wire-body limit.
+
+Every operation has persisted `before` and `after` DTOs for Actions, Projects, Tags, Perspectives and Action/Tag associations. Null means create or removal. A withdrawn Action remains present with `status=dropped`. Feed DTOs omit derived display values and private markers; use the same persisted-field selection when reconstructing the canonical cache from a full snapshot. Replaying a feed read does not mutate state or advance a server-stored consumer checkpoint.
+
+The feed shares the latest-100 operation retention. `cursor_expired` means discard the incremental range and bootstrap again from a fresh complete snapshot. Malformed, wrong-owner, future or discontinuous history returns an error and is never an empty page. Consumers own independent cursors. Cursor progress does not indicate that the human has read a change, that an Action is complete or that a time-based condition was observed. Defer expiry may require a fresh current-state read even when the feed is empty.
+
 Normal list means exactly view=normal: explicit on-hold stays included; cancelled, completed and deferred records do not. Inbox is a scope of all unfinished active/on-hold actions without a project, including deferred actions; use list_scopes.inbox and do not add an Inbox status. Count after writes and label an all-status inventory separately.
 
 Respect explicit user choices. Interpret ambiguous wording in context and clarify missing meaning only when needed; do not require a separate approval workflow for ordinary edits.

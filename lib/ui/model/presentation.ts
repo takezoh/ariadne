@@ -5,7 +5,7 @@ export function visibleActions<T extends {id:string;view?:string}>(actions:reado
 export function scopeTitle(view:string):string {return ({inbox:'Inbox',normal:'Actions',flagged:'Flagged',waiting:'On hold',deferred:'Later',completed:'Completed',cancelled:'Dropped'} as Record<string,string>)[view]??'Action';}
 
 /** The review describes exactly the persisted fields sent, never the unsent draft. */
-export function reviewChangeSummary(preview:{kind:string;payload:Record<string,unknown>},actions:readonly {id:string;title:string;[key:string]:unknown}[]):string[] {
+export function reviewChangeSummary(preview:{kind:string;payload:Record<string,unknown>},actions:readonly {id:string;title:string;[key:string]:unknown}[],formatDateTime:(value:string)=>string):string[] {
  const action=actions.find(action=>action.id===preview.payload.id);const fields={...preview.payload};delete fields.id;
  if(preview.kind==='defer'&&Object.hasOwn(fields,'until')){fields.defer_until=fields.until;delete fields.until;}
  if(preview.kind==='release')fields.defer_until=null;
@@ -17,7 +17,7 @@ export function reviewChangeSummary(preview:{kind:string;payload:Record<string,u
   if(field==='status')return ({active:'Active','on-hold':'On hold',completed:'Completed',dropped:'Dropped'} as Record<string,string>)[String(input)]??String(input);
   if(field==='parent_id')return '“'+(actions.find(a=>a.id===input)?.title??'Unavailable parent ('+String(input)+')')+'”';
   if(input==='')return proposed?'Clear (empty text)':'Empty text';
-  if(typeof input==='string')return '“'+input+'”';
+  if(typeof input==='string')return '“'+(['due_at','defer_until','until'].includes(field)?formatDateTime(input):input)+'”';
   return typeof input==='object'?JSON.stringify(input):String(input);
  }
  return Object.entries(fields).map(([field,after])=>`${names[field]??field}\nSaved: ${value(field,action?.[field],false)}\nAfter: ${value(field,after,true)}`);
@@ -50,10 +50,10 @@ export function errorMessage(code:unknown):string {
 }
 
 /** The current warning wire shape describes Due/Defer conflicts without a code. */
-export function warningMessage(warning:{id?:string;due_at?:string;code?:string},actions:readonly {id:string;title:string}[]):string {
+export function warningMessage(warning:{id?:string;due_at?:string;code?:string},actions:readonly {id:string;title:string}[],formatDateTime:(value:string)=>string):string {
  if(warning.id&&typeof warning.due_at==='string'){
   const title=actions.find(action=>action.id===warning.id)?.title;
-  return `${title?`“${title}”`:'An affected action'} is deferred beyond its due time (${warning.due_at}).`;
+  return `${title?`“${title}”`:'An affected action'} is deferred beyond its due time (${formatDateTime(warning.due_at)}).`;
  }
  return 'Review this change carefully: it includes an additional warning for an affected action.';
 }

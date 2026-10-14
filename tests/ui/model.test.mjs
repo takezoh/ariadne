@@ -51,10 +51,15 @@ test('acknowledgment only clears captured matching fields and retains newer corr
  assert.deepEqual(editorSelection('a',mergeDrafts(next,[]),[],[]),{selectedId:'a',retainedIds:['a'],retainedSelected:true,targetAvailable:false,canMutate:false});
 });
 
-import {errorMessage,warningMessage,actionDepth} from '../../lib/ui/model/presentation.ts';
+import {errorMessage,warningMessage,reviewChangeSummary,actionDepth} from '../../lib/ui/model/presentation.ts';
+import {formatTimestamp} from '../../lib/ui/model/display.ts';
 test('English error presentation distinguishes uncertainty, conflicts, validation and safe unknown fallback',()=>{
  assert.match(errorMessage('outcome_unknown'),/exact request.*retry the same request/);assert.match(errorMessage('revision_conflict'),/Refresh and review/);assert(!errorMessage('revision_conflict').includes('retry the same'));assert.match(errorMessage('invalid_input'),/nonnegative whole number/);assert.match(errorMessage('undo_conflict'),/cannot overwrite/);assert.match(errorMessage('timezone_required'),/09:00/);assert.match(errorMessage('future_error'),/review the current state/);assert.equal(/[ぁ-んァ-ン一-龯]/.test(errorMessage('future_error')),false);
- const warning={id:'a',due_at:'2026-10-04T00:00:00Z',message:'サーバー文言'};assert.equal(warningMessage(warning,[{id:'a',title:'原文'}]),'“原文” is deferred beyond its due time (2026-10-04T00:00:00Z).');assert.match(warningMessage({code:'unknown',message:'和文'},[]),/additional warning/);
+ const localTime=value=>formatTimestamp(value,'en-US','America/New_York');
+ const warning={id:'a',due_at:'2026-03-08T09:00:00.000Z',message:'サーバー文言'};assert.equal(warningMessage(warning,[{id:'a',title:'原文'}],localTime),'“原文” is deferred beyond its due time (Mar 8, 2026, 5:00 AM).');assert.match(warningMessage({code:'unknown',message:'和文'},[],localTime),/additional warning/);
+ const review=reviewChangeSummary({kind:'edit',payload:{id:'a',title:'2026-03-08T09:00:00.000Z',due_at:'2026-03-08T09:00:00.000Z',notes:'2026-03-08T09:00:00.000Z'}},[{id:'a',title:'Raw 2026-03-08',due_at:'2026-03-08T08:00:00.000Z'}],localTime).join('\n');
+ assert.match(review,/Saved: “Mar 8, 2026, 4:00 AM”/);assert.match(review,/After: “Mar 8, 2026, 5:00 AM”/);assert.match(review,/Title[\s\S]*After: “2026-03-08T09:00:00\.000Z”/);assert.match(review,/Notes[\s\S]*After: “2026-03-08T09:00:00\.000Z”/);assert(!review.includes('UTC'));
+ const dateOnly=reviewChangeSummary({kind:'defer',payload:{id:'a',date:'2026-03-08',timezone:'America/New_York'}},[{id:'a',title:'Action'}],localTime).join('\n');assert.match(dateOnly,/Defer date\nSaved: None\nAfter: “2026-03-08”/);assert.match(dateOnly,/Timezone\nSaved: None\nAfter: “America\/New_York”/);assert(!dateOnly.includes('Mar 8, 2026'));
 });
 test('containment depth is bounded and cycle safe without changing input order',()=>{
  const rows=[{id:'a',parent_id:null},{id:'b',parent_id:'a'},{id:'c',parent_id:'b'},{id:'d',parent_id:'c'},{id:'e',parent_id:'d'}];const copy=structuredClone(rows);assert.equal(actionDepth('a',rows),0);assert.equal(actionDepth('b',rows),1);assert.equal(actionDepth('e',rows),3);assert.equal(actionDepth('missing',rows),0);assert(actionDepth('a',[{id:'a',parent_id:'b'},{id:'b',parent_id:'a'}])<=3);assert.deepEqual(rows,copy);

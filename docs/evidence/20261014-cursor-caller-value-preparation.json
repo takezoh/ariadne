@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-14",
+  "purpose": "Local verification of the bounded caller-value harness preparation only",
+  "source": {
+    "baseCommit": "eca2b8a0d03db51ee05a6b5c133b6950a2385100",
+    "worktreeSha256": "2a43aa60f5e3662f86d49d25cbe71cf684f1bb0747345b88c1f47c438dd113c7",
+    "includedSourceFileCount": 260,
+    "workerArtifactSha256": "c81c86b4c702eee23f6f0adf67f5e896297610fbc240d41fe7c7038cd94b9f53"
+  },
+  "environment": {
+    "node": "v24.16.0",
+    "pnpm": "11.25.0",
+    "runtime": "local checkout; Wrangler-managed Worker build configuration"
+  },
+  "checks": [
+    { "command": "node --test tests/harness/caller-value-bridge.test.mjs", "status": "passed", "passed": 5, "failed": 0, "skipped": 0, "todo": 0 },
+    { "command": "pnpm check", "status": "passed", "lint": "passed", "typecheck": "passed", "testsPassed": 476, "testsFailed": 0, "testsCancelled": 0, "testsSkipped": 0, "testsTodo": 0 },
+    { "command": "pnpm build", "status": "passed", "workerArtifactSha256": "c81c86b4c702eee23f6f0adf67f5e896297610fbc240d41fe7c7038cd94b9f53" },
+    { "command": "dev-docs docs lint --conformance", "status": "passed", "indexed": 69, "warnings": 0 }
+  ],
+  "acceptance": {
+    "status": "not-established-by-this-record",
+    "reason": "Harness verification does not run or score model callers and does not establish a VALUE outcome, physical UI behavior, hosted D1 or hosted authentication. Actual caller, UI and restored-context results are parent-owned external evidence."
+  }
+}

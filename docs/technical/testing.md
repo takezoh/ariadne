@@ -6,6 +6,14 @@ Pure domain/UI model functions must be deterministic and preserve their input. D
 
 Verify Ariadne's published data operations and shared UI separately from user-defined LLM workflows. Correct reads/writes do not prove a caller's GTD review, Slack/email collection, scheduling or notification behavior. Those are caller responsibilities and do not require dedicated Ariadne integrations. Evaluate reduced remembering and management effort using the chosen caller configuration and user evidence, rather than inferring it from storage tests.
 
+### Bounded caller-value harness
+
+`scripts/testing/caller-value.mjs` is a local experiment adapter for paired synthetic-owner caller studies, not a product endpoint or model evaluator. Each caller invocation takes one absolute manifest and one JSON operation on stdin. Keep its manifest, `events/`, identity ledger, snapshots, output/context and checkpoints under a caller-specific directory in `/home/davinci/evidence/issue20`; multiple caller manifests can list the same registered fixture IDs while retaining separate evidence histories. The Worker endpoint must be the local built Worker. Never target hosted data with this harness.
+
+Manifests explicitly list tools, resources, fixture UUIDs and capabilities. Read-only manifests are rejected if they include any mutator (`capture_intent`, `apply_change`, `undo_change`, `add_action` or `rename_action`). A write-enabled manifest may further restrict `apply_change` with `writeKinds`, `writableActionIds` and `writeFields`; target IDs must be listed in that caller's `fixtures.actions`. The bridge preflights live `tools/list`, stores exact write identities before HTTP and records missing write responses as unknown. The recorded ID and full arguments are required for recovery; do not retry an uncertain write with a new identity.
+
+`prepare_fixture`, `ui_intervention`, `snapshot` and `checkpoint` are separate operations. UI intervention exercises the generated resource DOM and routes emitted calls to the local Worker; JSDOM's initialize/display replies are synthetic, so this is not physical user or ChatGPT Work acceptance. Checkpoint requires nonempty caller output and context files plus a cursor seen on a complete full snapshot or successful terminal `get_changes` page. `get_change_cursor`, an intermediate page or a retrieval event alone does not qualify. These controls establish only the bridge behavior. Actual caller proposals, UI correction, fresh restored consumers and user-outcome evidence must be recorded separately before making a VALUE claim.
+
 ## Layers and contracts
 
 The dedicated UI source tree and its exact dependency rules are documented in [UI architecture](ui-architecture.md).

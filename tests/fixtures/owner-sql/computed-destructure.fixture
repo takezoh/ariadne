@@ -1,0 +1,4 @@
+function unsafe(db: D1Database, key: string) {
+  const { [key]: method } = db;
+  method('SELECT id FROM actions');
+}

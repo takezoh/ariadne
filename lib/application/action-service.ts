@@ -1,8 +1,9 @@
-import {fail,object,exact,text,catalogName,actionTitle,initialTagIds,description,id,integer,canonical,change,validateGraph,actionOrder,booleanFlag,perspectiveFilter,validatePerspectiveReferences,type Snapshot,type Change} from '../domain/core';
-import {response,undo,validateDelta,preview,queryResponse,listPerspectives,queryPerspective} from '../domain/operations';
-import type {OperationResolution,OwnerActionPorts} from './ports';
-
-type PreparedChange={change:Change|null;resolved?:OperationResolution;actionRefs?:Map<string,string>;createdActionIds?:string[]};
+import {fail,object,exact,text,id,integer,canonical,change,validateGraph} from '../domain/core';
+import {response,undo,preview,queryResponse,listPerspectives,queryPerspective} from '../domain/operations';
+import type {Change, OperationResolution, Snapshot} from '../data/types';
+import {finalizeChange,normalizeChange,type PreparedChange} from '../data/model/request';
+import {parseReceiptResult} from '../data/model/storage';
+import type {OwnerActionPorts} from './ports';
 
 function generatedId(snapshot:Snapshot,newId:()=>string,operationId:string,reserved:Set<string>) {
  for(let attempt=0;attempt<8;attempt++){
@@ -14,71 +15,12 @@ function generatedId(snapshot:Snapshot,newId:()=>string,operationId:string,reser
 }
 
 function prepareChange(snapshot:Snapshot,requested:Change,newId:()=>string,operationId:string):PreparedChange {
- const kind=requested.kind,p=object(requested.payload),reserved=new Set<string>();
- if(kind==='perspective_add'){
-  exact(p,['name','description','filter']);const initialDescription='description' in p?description(p.description):'',name=text(p.name),filter=perspectiveFilter(p.filter);validatePerspectiveReferences(snapshot,filter);
-  const entityId=generatedId(snapshot,newId,operationId,reserved);
-  return {change:{kind,payload:{id:entityId,name,description:initialDescription,filter}},resolved:{perspective:{id:entityId}}};
- }
- if(kind==='add'){
-  exact(p,['title','parent_id','project_id','notes','order','flagged','tag_ids']);
-  const tagIds=initialTagIds(snapshot,p.tag_ids),projectId=p.project_id===undefined||p.project_id===null?null:id(p.project_id);
-  if(projectId&&!snapshot.projects.some(x=>x.id===projectId))fail('not_found','プロジェクトがありません。',404);
-  const title=actionTitle(p.title),parentId=p.parent_id===undefined||p.parent_id===null?null:id(p.parent_id);
-  if(parentId&&!snapshot.actions.some(x=>x.id===parentId))fail('not_found','親アクションがありません。',404);
-  const notes=p.notes===undefined?'':typeof p.notes==='string'&&p.notes.length<=65536?p.notes:fail('invalid_input','メモが不正です。');
-  if(p.order!==undefined)actionOrder(p.order);if(p.flagged!==undefined)booleanFlag(p.flagged);
-  const entityId=generatedId(snapshot,newId,operationId,reserved);
-  return {change:{kind:'add',payload:{id:entityId,title,parent_id:parentId,notes,tag_ids:tagIds,...(p.project_id!==undefined?{project_id:p.project_id}:{}),...(p.order!==undefined?{order:p.order}:{}),...(p.flagged!==undefined?{flagged:p.flagged}:{})}},resolved:{actions:[{id:entityId}]},createdActionIds:[entityId]};
- }
- if(kind==='capture'){
-  exact(p,['title','text','source']);const title=text(p.title);text(p.text,65536);if((p.text as string).length>65536)fail('invalid_input','元入力が大きすぎます。');const captureText=p.text as string;
-  const entityId=generatedId(snapshot,newId,operationId,reserved);
-  return {change:{kind:'add',payload:{id:entityId,title,notes:captureText}},resolved:{actions:[{id:entityId}]},createdActionIds:[entityId]};
- }
- if(kind==='structure_create'){
-  exact(p,['inbox_action_id','actions']);
-  const inboxId=id(p.inbox_action_id),inbox=snapshot.actions.find(x=>x.id===inboxId);
-  if(!inbox)fail('invalid_state','この入力は未保存または整理済みです。');
-  if(!Array.isArray(p.actions)||!p.actions.length)fail('invalid_input','構造化結果が不正です。');
-  const actions=p.actions.map(object),refSet=new Set<string>();
-  const normalizedActions=actions.map(actionValue=>{
-   exact(actionValue,['ref','title','parent_ref','parent_id','notes','order','flagged']);
-   const ref=text(actionValue.ref,80);if(refSet.has(ref))fail('invalid_input','refが重複しています。');refSet.add(ref);
-   if('parent_ref' in actionValue&&'parent_id' in actionValue)fail('invalid_input','parent_refとparent_idは同時に指定できません。');
-   const title=actionTitle(actionValue.title),parent_ref='parent_ref' in actionValue?text(actionValue.parent_ref,80):undefined,parent_id='parent_id' in actionValue?(actionValue.parent_id===null?null:id(actionValue.parent_id)):undefined;
-   if(actionValue.notes!==undefined&&(typeof actionValue.notes!=='string'||actionValue.notes.length>65536))fail('invalid_input','メモが不正です。');
-   if(parent_id&&!snapshot.actions.some(x=>x.id===parent_id))fail('not_found','親アクションがありません。',404);
-   if(actionValue.order!==undefined)actionOrder(actionValue.order);if(actionValue.flagged!==undefined)booleanFlag(actionValue.flagged);
-   return {ref,title,parent_ref,parent_id,notes:actionValue.notes,order:actionValue.order,flagged:actionValue.flagged};
-  });
-  for(const actionValue of normalizedActions)if(actionValue.parent_ref!==undefined&&!refSet.has(actionValue.parent_ref))fail('invalid_input','親refが未定義です。');
-  const refs=new Map<string,string>();for(const [index,ref] of [...refSet].entries())refs.set(ref,index===0?inboxId:generatedId(snapshot,newId,operationId,reserved));
-  const internalActions=normalizedActions.map(actionValue=>({id:refs.get(actionValue.ref),title:actionValue.title,...(actionValue.parent_ref!==undefined?{parent_id:refs.get(actionValue.parent_ref)}:actionValue.parent_id!==undefined?{parent_id:actionValue.parent_id}:{}),...(actionValue.notes!==undefined?{notes:actionValue.notes}:{}),...(actionValue.order!==undefined?{order:actionValue.order}:{}),...(actionValue.flagged!==undefined?{flagged:actionValue.flagged}:{})}));
-  const actionRefs=new Map([...refs].map(([ref,entityId])=>[entityId,ref]));
-  return {change:{kind:'structure',payload:{inbox_action_id:inboxId,actions:internalActions}},resolved:{actions:[...refs].map(([ref,entityId])=>({ref,id:entityId}))},actionRefs,createdActionIds:[...refs.values()].slice(1)};
- }
- if(kind==='project_get_or_create'||kind==='tag_get_or_create'){
-  exact(p,['name','description','parent_id']);const initialDescription='description' in p?description(p.description):'',name=text(p.name,200),parentId=p.parent_id===undefined||p.parent_id===null?null:id(p.parent_id);
-  const isProject=kind==='project_get_or_create',nodes=isProject?snapshot.projects:snapshot.tags;
-  if(parentId&&!nodes.some(x=>x.id===parentId))fail('not_found',isProject?'親プロジェクトがありません。':'親タグがありません。',404);
-  const existing=nodes.find(x=>x.name===name&&x.parent_id===parentId);
-  if(existing)return {change:null,resolved:isProject?{project:{id:existing.id,created:false}}:{tag:{id:existing.id,created:false}}};
-  const entityId=generatedId(snapshot,newId,operationId,reserved),internalKind=isProject?'project_add':'tag_add';
-  return {change:{kind:internalKind,payload:{id:entityId,name,description:initialDescription,parent_id:parentId}},resolved:isProject?{project:{id:entityId,created:true}}:{tag:{id:entityId,created:true}}};
- }
- if(kind==='project_add'||kind==='tag_add'){
-  exact(p,['name','description','parent_id']);const name=catalogName(p.name),initialDescription='description' in p?description(p.description):'',parentId=p.parent_id===undefined||p.parent_id===null?null:id(p.parent_id),isProject=kind==='project_add',nodes=isProject?snapshot.projects:snapshot.tags;
-  if(parentId&&!nodes.some(x=>x.id===parentId))fail('not_found','Parent catalog object is unavailable.',404);
-  if(name&&nodes.some(x=>x.name===name&&x.parent_id===parentId))fail('invalid_state','A named sibling already exists.');
-  const entityId=generatedId(snapshot,newId,operationId,reserved);
-  return {change:{kind,payload:{id:entityId,name,description:initialDescription,parent_id:parentId}},resolved:isProject?{project:{id:entityId,created:true}}:{tag:{id:entityId,created:true}}};
- }
- if(kind==='structure'||kind==='capture')fail('invalid_input','IDを含む旧形式は新しい要求では使用できません。');
- return {change:requested};
+ const normalized=normalizeChange(snapshot,requested),reserved=new Set<string>();
+ const explicitIds=Array.from({length:normalized.idSlots},()=>generatedId(snapshot,newId,operationId,reserved));
+ return finalizeChange(snapshot,operationId,normalized,explicitIds);
 }
 
-function previewResolution(resolved:OperationResolution|undefined,createdActionIds?:string[]) {
+function previewResolution(resolved:OperationResolution|undefined,createdActionIds?:readonly string[]) {
  if(!resolved)return undefined;
  return {
   ...(resolved.actions?{actions:resolved.actions.map(x=>({...x,...(!createdActionIds||createdActionIds.includes(x.id)?{preview_only:true as const}:{})}))}:{}),
@@ -90,15 +32,13 @@ function previewResolution(resolved:OperationResolution|undefined,createdActionI
 
 export async function actionCall(ports:OwnerActionPorts,name:string,args:unknown) {
  async function readCurrent(){const snapshot=await ports.store.readSnapshot();validateGraph(snapshot);return snapshot;}
- function receiptResult(receipt:{delta:string;result:string}){try{validateDelta(JSON.parse(receipt.delta));const result=object(JSON.parse(receipt.result));id(result.operationId);integer(result.revision);if(!Array.isArray(result.changedIds))fail('invalid_state','Receipt changed IDs are required.');for(const value of result.changedIds)id(value);if(result.resolved!==undefined){const resolved=object(result.resolved);if(resolved.actions!==undefined){if(!Array.isArray(resolved.actions))fail('invalid_state','Receipt resolved actions must be an array.');for(const row of resolved.actions)id(object(row).id);}for(const key of ['project','tag','perspective'])if(resolved[key]!==undefined){const row=object(resolved[key]);id(row.id);if(key!=='perspective'&&typeof row.created!=='boolean')fail('invalid_state','Receipt creation state is required.');}}return result;}catch{fail('invalid_state','The receipt does not match the current schema.');}}
-
  const {store,clock,newId}=ports;
  const a=object(args),now=clock();
  if(name==='open_actions'||name==='open_verification'||name==='list_actions'||name==='get_relevant_context'){exact(a,[]);return response(await readCurrent(),now);}
  if(name==='list_perspectives'){exact(a,[]);return listPerspectives(await readCurrent(),now);}
  if(name==='query_perspective'){exact(a,['id']);return queryPerspective(await readCurrent(),now,a.id);}
  if(name==='query_actions'){exact(a,['project_id','tag_id','include_descendants','status','is_deferred','flagged']);return queryResponse(await readCurrent(),now,a);}
- if(name==='operation_status'){exact(a,['operationId']);const r=await store.readReceipt(id(a.operationId));return {schemaVersion:2,status:r?'applied':'not_observed',result:r?receiptResult(r):null};}
+ if(name==='operation_status'){exact(a,['operationId']);const r=await store.readReceipt(id(a.operationId));return {schemaVersion:2,status:r?'applied':'not_observed',result:r?parseReceiptResult(r):null};}
  if(name==='preview_change'){
   exact(a,['expectedRevision','kind','payload']);const s=await readCurrent();if(integer(a.expectedRevision)!==s.revision)fail('conflict','最新状態を取得してください。',409);
   const requested={kind:text(a.kind,40),payload:object(a.payload)},prepared=prepareChange(s,requested,newId,'00000000-0000-4000-8000-000000000000');
@@ -121,7 +61,7 @@ export async function actionCall(ports:OwnerActionPorts,name:string,args:unknown
  } else fail('unknown_tool','未対応の操作です。',404);
 
  const original=canonical({name,args:a}),prior=await store.readReceipt(operationId);
- if(prior){if(prior.canonical_payload!==original)fail('idempotency_conflict','同じ要求IDに異なる入力が指定されています。',409);return response(await readCurrent(),now,receiptResult(prior));}
+ if(prior){if(prior.canonical_payload!==original)fail('idempotency_conflict','同じ要求IDに異なる入力が指定されています。',409);return response(await readCurrent(),now,parseReceiptResult(prior));}
  const before=await readCurrent();if(before.revision!==expected)fail('conflict','最新の一覧と未保存案を確認してください。',409);
  let after:Snapshot,resolved:OperationResolution|undefined;
  if(undoOf){const target=await store.readReceipt(undoOf);if(!target)fail('not_found','取り消す操作が見つからないか、履歴の保持範囲外です。',404);if(target.undo_of)fail('invalid_state','取り消し操作自体の取り消しは未対応です。');const used=await store.hasUndo(undoOf);if(used)fail('undo_conflict','既に取り消されています。',409);after=undo(before,JSON.parse(target.delta),now,target.revision_after);}

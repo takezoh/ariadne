@@ -1,0 +1,2 @@
+import type {InspectorProps} from '@/lib/ui/components/inspector-panel.ts';
+void (null as unknown as InspectorProps);

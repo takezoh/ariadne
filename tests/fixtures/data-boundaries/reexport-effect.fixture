@@ -1,0 +1,1 @@
+export * as Store from '../../adapters/d1-action-store';

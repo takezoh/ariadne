@@ -1,0 +1,4 @@
+function unsafe(db: D1Database) {
+  const { prepare } = db;
+  prepare('SELECT id FROM actions');
+}

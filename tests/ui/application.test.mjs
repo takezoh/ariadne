@@ -2,7 +2,7 @@ import {createTransientModel} from '../../lib/ui/model/transient-create.ts';
 import {createCatalogDraftModel} from '../../lib/ui/model/catalog-drafts.ts';
 import {createTreeDropModel} from '../../lib/ui/model/tree-drop.ts';
 import test from 'node:test';import assert from 'node:assert/strict';
-import {createUiController} from '../../lib/ui/application.ts';
+import {createUiController} from '../../lib/ui/application/controller.ts';
 import {createAutosaveModel} from '../../lib/ui/model/autosave.ts';
 import * as drafts from '../../lib/ui/model/drafts.ts';import * as operations from '../../lib/ui/model/operations.ts';
 const creationModel={transient:createTransientModel(),catalogDrafts:createCatalogDraftModel(),autosave:createAutosaveModel()};

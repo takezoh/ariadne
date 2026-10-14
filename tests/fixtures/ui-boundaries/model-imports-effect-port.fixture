@@ -1,0 +1,2 @@
+import type {HostPort} from '@/lib/ui/ports.ts';
+void (null as unknown as HostPort);

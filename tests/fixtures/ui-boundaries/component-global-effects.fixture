@@ -1,0 +1,5 @@
+const timestamp = Date.now();
+window.parent.postMessage(timestamp, '*');
+void fetch('/api/actions');
+const socket = new WebSocket('wss://example.invalid');
+void socket;

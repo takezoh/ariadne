@@ -1,0 +1,3 @@
+function unsafe(db: D1Database) {
+  db.exec('DELETE FROM actions');
+}

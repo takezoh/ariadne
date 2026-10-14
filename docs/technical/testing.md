@@ -8,9 +8,24 @@ Verify Ariadne's published data operations and shared UI separately from user-de
 
 ## Layers and contracts
 
-Domain contains lifecycle, validation, dates, containment, rank/flag projection, delta, preview and Undo. Application depends only on domain and ActionStore/clock/ID ports. Adapters implement SQL and communication effects; server composes production dependencies. UI application owns state through call/ID/view ports; DOM is rendering and event wiring, not an alternate state-transition implementation.
+The dedicated UI source tree and its exact dependency rules are documented in [UI architecture](ui-architecture.md).
+
+`lib/data/types.ts` owns shared readonly contracts and contains type declarations only. `lib/data/model/` owns pure request normalization, explicit-ID finalization, SQL-row decoding, receipt parsing, changed-row planning and byte budgets. Domain contains lifecycle, validation, dates, containment, rank/flag projection, delta, preview and Undo. Application depends on those pure modules and ActionStore/clock/ID ports; only application allocates IDs. Adapters implement SQL and communication effects; server composes production dependencies. UI application owns state through call/ID/view ports; DOM is rendering and event wiring, not an alternate state-transition implementation.
 
 ActionStore reads consistent owner snapshots and receipts, checks Undo markers and commits before/after state. The adapter derives result/delta. Receipt revision CAS, changed rows, markers and history pruning commit or roll back in the same batch. Initial reads create no rows.
+
+## Test allocation principles
+
+Choose tests by the observable contract and the boundary needed to establish it:
+
+- Pure unit tests cover deterministic transformations, projections, validation, transitions and input nonmutation without a DOM, transport or concrete store. `tests/data/model/` covers normalized requests, explicit-ID injection, SQL-row decoding, exact receipt results and storage plans/budgets.
+- Application tests use fake ports to cover effect ordering, state publication, retained proposals, conflicts and exact-request recovery. Assert externally meaningful calls and state, not private helper choreography.
+- Adapter and DOM tests cover behavior that pure functions and fakes cannot prove: atomicity/CAS/owner isolation, actual serialization and messaging, event wiring, node identity, focus, caret and IME. Use the existing real adapter or generated-resource harness for the selected boundary.
+- Boundary-lint tests run allowed and forbidden examples through the actual repository configuration. Include newly introduced paths, extensions and import forms so isolated rule tests cannot hide configuration gaps.
+
+Move data-decision cases out of DOM-heavy tests when a pure assertion establishes the same contract. Remove a duplicate only after identifying the retained test and the guarantee it preserves. Keep integration cases whose event, adapter or browser behavior is distinct; fewer tests, a passing fake or a coverage percentage is not evidence of equivalent protection. Maintain the [UI responsibility map](#ui-test-responsibility-map) as responsibilities change.
+
+The combined check must continue to reject failed, skipped, unexecuted, canceled and TODO tests. Report the environment actually exercised and any unverified host behavior; do not widen an acceptance claim beyond that evidence.
 
 ## Commands
 
@@ -23,14 +38,14 @@ Use Node.js >=22.13, the package.json pnpm version and frozen lockfile installat
 | pnpm test:domain | Pure transitions, dates, containment, order, direct flags, nonmutation and Undo |
 | pnpm test:application | Orchestration with injected store/clock/ID |
 | pnpm test:storage | Memory/SQLite shared store contract and actual SQL regressions |
-| pnpm test:ui | Pure models, controller/host ports and generated HTML in JSDOM |
+| pnpm test:ui | Pure projections, controller and host effects, and generated HTML in JSDOM |
 | pnpm test:ui:built | Built Worker resources with a mock host; run pnpm start separately first |
 | pnpm test:harness | Boundary lint and runner failure detection |
 | pnpm test:coverage | All suites with Node coverage; coverage is not proof of correctness |
 
 The recursive runner discovers .test.mjs/.test.ts/.test.mts. Empty selection, missing file execution, failure, skip, TODO, cancellation or launch failure cannot pass. Per-test timeout is 120 seconds and the child-process timeout is 300 seconds. TypeScript transformation is separate from type checking.
 
-Boundary lint rejects effect references in pure logic, concrete adapter dependencies in application/UI controllers, and mutation of pure-function arguments. build/ source is linted; generated output and local settings are excluded. Explicit timestamp conversion is allowed; current time and randomness belong to ports. The CI workflow runs frozen install/check/build on Node 22 and 24; a local pass is not a CI execution or branch-protection change.
+Boundary lint rejects effect references and concrete runtime capability types in pure logic, non-type imports of shared data contracts, reverse dependencies from data/domain models, concrete adapter dependencies in application/UI controllers, and direct parameter/property reassignment. The reassignment rule checks assignments in the linted source; it does not prove that a called function leaves its arguments untouched. Frozen-input and nonmutation tests exercise the specific normalization, codec, planning and domain functions at runtime, and snapshots/requests are cloned before mutation where transitions need working state. Data-model negative fixtures exercise JS/TS/TSX/MTS/JSX/MJS plus aliases, type imports, TSImportType, import-equals, re-exports, literal and nonliteral dynamic imports and require calls under the actual ESLint configuration. The exact D1 adapter guard permits only direct `prepare` and `batch` calls; it checks owner-bound SQL, and rejects `exec`/database dump paths, computed method access, method extraction/destructuring and reflection-based extraction in actual-config fixtures. This is a syntactic constraint around the privileged source path; the retained adapter and storage suites verify the runtime owner, CAS and atomicity behavior. `build/` source is linted; generated output and local settings are excluded. Explicit timestamp conversion is allowed; current time and randomness belong to ports. The CI workflow runs frozen install/check/build on Node 22 and 24; a local pass is not a CI execution or branch-protection change.
 
 ## Security boundary checks
 
@@ -115,6 +130,16 @@ The current P3 decision is to retain confirmed-snapshot structural updates and c
 
 `tests/ui/interaction.test.mjs` exercises occurrence identity, immutable gesture transitions, related-region invalidation, date/view proposal retention and catalog acknowledgment correlation. Application tests verify that repeated same-target hover neither renders nor copies the owner snapshot, drafts or unchanged view subtrees. DOM regressions verify exact child-control identity after selection/refresh/reorder, Escape selection controls, scroll-free focus recovery, and unfinished IME text followed by an external correction and newer final text.
 
+#### UI test responsibility map
+
+| Boundary | Tests | Responsibility |
+| --- | --- | --- |
+| Pure presentation and state decisions | `tests/ui/projections.test.mjs`, `tests/ui/date-input.test.mjs`, `tests/ui/navigation.test.mjs`, `tests/ui/picker.test.mjs`, `tests/ui/movement.test.mjs` | Deterministic row/catalog labels and signatures, inspector/conflict fields, date control projections, picker and move choices, and nonmutation. |
+| Application orchestration with fake ports | `tests/ui/application.test.mjs`, `tests/ui/interaction.test.mjs`, `tests/ui/movement-application.test.mjs`, `tests/ui/movement-recovery.test.mjs` | Snapshot normalization before publication, interaction transitions, explicit view-effect plans, exact unknown-request recovery, proposal retention, and orchestration without DOM access. |
+| Generated UI and browser-facing effects | `tests/ui/dom.test.mjs`, `tests/ui/host.test.mjs`, `tests/ui/interaction-boundary.test.mjs`, `tests/ui/transient-create.test.mjs` | Generated HTML event wiring, host-message effects, real JSDOM node/focus/caret behavior, IME composition, keyboard/pointer interactions, and unknown-outcome replay. |
+| Static architecture checks | `tests/harness/architecture-fixtures.test.mjs` | Runs negative fixtures through the repository ESLint config, including new sibling paths, type imports, re-exports, aliases, dynamic imports, global effects and unclassified UI modules. |
+
+The tests are split by the behavior each boundary can establish. Projection and normalization assertions live with the pure model; fake-port tests cover orchestration; generated-resource tests remain for browser-visible event, focus, caret, IME and host behavior. No existing DOM test was removed: none was shown to be a redundant duplicate of a model or application assertion, and those DOM tests protect distinct browser-facing outcomes.
 The browser harness records selection keys, unique Action IDs, count and actual cleanup-control visibility before and after cleanup. The second cleanup before Tags can legitimately find an empty selection at N=1,000/5,000 because the intervening interaction smoke is assigned to N=100; it asserts that empty state instead of clicking a hidden button. Canceled hover must preserve the full nonempty selection observation. Auto-scroll captures both the held-pointer observation and the final position immediately before release, then checks the post-save position and exact focused child identity. IME refresh checks the original input node as well as raw text, caret and focus.
 
 A server start and termination are preparation and cleanup, not independent exit-zero checks. Source-bound browser verification must own the Worker process in one bounded lifecycle: capture source/artifact identity, start through `pnpm start`, await readiness, run built-resource/browser checks, and stop the recorded process group in `finally`. Record every check result and server exit, and reject changed source/artifacts. A deliberate SIGINT server exit is cleanup, not application verification failure. These controlled-host observations do not establish Worker D1 writes, actual Work, physical-device IME/touch, compositor presentation or a P3 performance decision.

@@ -1,8 +1,8 @@
 import type {Draft,DraftAction,DraftValues} from './drafts';
+export function savedValue(action:DraftAction,field:string):unknown{if(field==='tag_ids')return (action.tags||[]).map(tag=>tag.id).sort();if(field==='project_id')return action.project_id??null;return field==='deferDate'||field==='deferUntil'?action.defer_until??'':field==='parent_id'||field==='due_at'?action[field]??null:action[field as keyof DraftAction];}
 /** Closed pure planner; clocks, queues, identifiers and effects belong to adapters. */
 export function createAutosaveModel(){
  const editFields=['title','notes','order','flagged','parent_id','due_at'] as const;
- function savedValue(action:DraftAction,field:string):unknown{if(field==='tag_ids')return (action.tags||[]).map(tag=>tag.id).sort();if(field==='project_id')return action.project_id??null;return field==='deferDate'||field==='deferUntil'?action.defer_until??'':field==='parent_id'||field==='due_at'?action[field]??null:action[field as keyof DraftAction];}
  function equal(a:unknown,b:unknown){return Object.is(a,b)||Array.isArray(a)&&Array.isArray(b)&&JSON.stringify(a)===JSON.stringify(b);}
  function conflicts(draft:Draft,action:DraftAction,base:Partial<Record<keyof DraftValues,unknown>>):string[]{return Object.keys(draft.patch).filter(field=>field!=='timezone'&&Object.hasOwn(base,field)&&!equal(savedValue(action,field),base[field as keyof DraftValues])&&!equal(savedValue(action,field),draft.patch[field as keyof DraftValues]));}
  function validInstant(value:unknown):boolean{return value===null||value===''||typeof value==='string'&&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)&&Number.isFinite(Date.parse(value));}

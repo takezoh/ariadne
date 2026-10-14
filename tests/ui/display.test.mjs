@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {mergeHostContext,displayAvailability,formatTimestamp} from '../../lib/ui/model/display.ts';
-import {createDisplayBridge} from '../../lib/ui/adapters/host.ts';
+import {createDisplayBridge} from '../../lib/ui/effects/host.ts';
 test('display context merges direct partial updates without changing omitted mode or mutating input',()=>{
  const initial={displayMode:'inline',availableDisplayModes:['inline','fullscreen'],theme:'light'};const next=mergeHostContext(initial,{theme:'dark',displayMode:'sidebar',availableDisplayModes:['fullscreen','invented']});
  assert.deepEqual(next,{...initial,theme:'dark'});assert.equal(initial.theme,'light');assert.deepEqual(displayAvailability({}),{mode:null,canInline:false,canFullscreen:false});

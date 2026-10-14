@@ -1,0 +1,3 @@
+function unsafe(db: D1Database, method: string) {
+  db[method]('SELECT id FROM actions');
+}

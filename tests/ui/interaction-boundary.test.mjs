@@ -23,7 +23,7 @@ function stateWrites(source){
  };visit(file);return writes;
 }
 test('DOM adapter cannot write published interaction or draft state through direct references or aliases',()=>{
- const source=readFileSync(new URL('../../lib/ui/adapters/dom.js',import.meta.url),'utf8');assert.deepEqual(stateWrites(source),[]);
+ const source=readFileSync(new URL('../../lib/ui/effects/dom.js',import.meta.url),'utf8');assert.deepEqual(stateWrites(source),[]);
  for(const mutation of ['state.interaction.selection.ids.push("x")','const pairs=due?state.interaction.view.duePairs:state.interaction.view.deferPairs;pairs[id]=next','const value=state.drafts[id];delete value.notes'])assert(stateWrites(mutation).length,mutation);
  assert.deepEqual(stateWrites('const row=document.createElement("div");row.textContent="text";function patch(current){current[name]=next[name];}'),[]);
 });

@@ -7,20 +7,20 @@ import {createCatalogDraftModel} from './model/catalog-drafts';
 import {createDateInputModel} from './model/date-input';
 import {createMovementModel} from './model/movement';
 import {createAutosaveModel} from './model/autosave';
-import {createUiController} from './application';
-import {createDiscardingEffects} from './adapters/verification';
+import {createUiController} from './application/controller';
+import {createDiscardingEffects} from './effects/verification';
 import {mutationBlocked,hasUnsavedChanges,editorSelection} from './model/controls';
 import {retainRequest,operationSucceeded,createdActionId} from './model/operations';
 import {visibleActions,scopeTitle,reviewChangeSummary,errorMessage,warningMessage,actionDepth,displayTitle} from './model/presentation';
 import {mergeHostContext,formatTimestamp} from './model/display';
 import {createNavigationModel} from './model/navigation';
-import {iconSvg} from './icons';
-import {createToolClient} from './controller';
-import {mountDom} from './adapters/dom.js';
-import {createHostTransport,createDisplayBridge} from './adapters/host';
+import {iconSvg} from './model/icons';
+import {createToolClient} from './effects/tool-client';
+import {mountDom} from './effects/dom.js';
+import {createHostTransport,createDisplayBridge} from './effects/host';
 import {editDraft,discardDraft,mergeDrafts,draftPayload,acknowledgeDraft} from './model/drafts';
 import type {HostEffects,MessageEvent as HostMessageEvent,HostMessage} from './ports';
-import type {UiDiagnosticCounter,UiDiagnosticPhase,UiDiagnosticsPort} from './adapters/diagnostics';
+import type {UiDiagnosticCounter,UiDiagnosticPhase,UiDiagnosticsPort} from './effects/diagnostics';
 
 const verification=document.documentElement.dataset.verification==='true';
 let effects:HostEffects={
@@ -48,7 +48,6 @@ const model={
  editorSelection,acknowledgeDraft,draftPayload,mutationBlocked,hasUnsavedChanges,operationSucceeded,retainRequest,
  editDraft,discardDraft,mergeDrafts,
 };
-export type WidgetModel=typeof model;
 const diagnosticCounters:UiDiagnosticCounter[]=['list.render','movement.fingerprint','movement.intent','movement.relevant','movement.target-groups'];
 const diagnostics:UiDiagnosticsPort|undefined=document.documentElement.dataset.uiDiagnostics==='true'?{
  increment(counter){const metrics=(window as Window&{__actionToolsMetrics?:Record<UiDiagnosticCounter,number>}).__actionToolsMetrics||Object.fromEntries(diagnosticCounters.map(name=>[name,0])) as Record<UiDiagnosticCounter,number>;(window as Window&{__actionToolsMetrics?:Record<UiDiagnosticCounter,number>}).__actionToolsMetrics=metrics;metrics[counter]++;},

@@ -18,6 +18,7 @@ Actions have containment, sibling order and direct boolean flags. Independent pr
 | [MCP/API](technical/mcp-api.md) | Current tools, payloads, responses and recovery |
 | [Caller workflow guide](usage/agent-workflows.md) | Tool/schema discovery, optional guide/operation skills and caller composition |
 | [Testing](technical/testing.md) | Effect boundaries, suites and validation limits |
+| [UI architecture](technical/ui-architecture.md) | UI source tree, dependency direction and static enforcement |
 | [Deployment](technical/deployment.md) | Local/hosted environments and release procedure |
 | [Product design](design/product.md) | Product positioning, audience, claim boundaries and hypotheses |
 | [Assistance design](design/assistance.md) | Host/application responsibility split |
@@ -27,6 +28,18 @@ Actions have containment, sibling order and direct boolean flags. Independent pr
 Current facts must be checked in code and the technical references above. Documents outside docs/*/** describe only the current state. Historical records and change rationale belong under docs/*/**.
 
 Current full-state reads return a complete owner snapshot and revision. Change Cursor is a proposed API for retrieving changes after a supplied position and returning the next position; it is not a current tool. Keep its interpretation and follow-up decisions in the consuming LLM, and keep proposed change-feed behavior separate from existing mutation deltas, replay receipts and revision guards.
+
+## Responsibility and verification principles
+
+For every change, choose the smallest correction that is sound in responsibility, boundary and structure. Identify the cause and the responsibility that owns it before editing; assess the affected contracts and dependency direction. Do not stop at a local symptom patch when it leaves misplaced responsibility, duplicated logic or a boundary violation in place. Minimality means the least change that fully restores the correct structure and behavior, not the fewest changed lines or files. Change internal APIs or file layout when necessary, while keeping unrelated refactoring outside the scope.
+
+Structure code by responsibility and dependency direction. `lib/data/types.ts` is the type-only source of shared readonly contracts. Pure request normalization and explicit-ID finalization, along with storage row codecs, receipt parsing, changed-row plans and budgets, live in `lib/data/model/`; they have no owner, database or ID-generation capability. Domain transitions consume readonly snapshots and return cloned state. Application code coordinates transitions and ports, and owns clock and ID allocation. Keep concrete DB, DOM, HTTP and host communication in adapters, connected at composition roots.
+
+For UI changes, follow the [UI architecture principles](technical/ui-architecture.md#development-principles). Share list/detail components through explicit readonly view data and callbacks. Normalize state before publication, never as a consequence of rendering. Reuse model-owned data types instead of declaring parallel component schemas, and preserve unsaved input and exact unknown-request recovery across refreshes.
+
+Treat the file tree and lint rules as part of the contract. New modules must belong to a declared layer; dependency changes require corresponding architecture documentation and positive/negative tests against the actual ESLint configuration. The data layer guards type-only shared contracts and every applicable import form across JS/TS extensions, including aliases, re-exports, inline type imports, import-equals and dynamic or nonliteral imports. Do not bypass a boundary with an alias, re-export, type import or suppression.
+
+Assign each assertion to the narrowest boundary that can establish it, following the [test allocation principles](technical/testing.md#test-allocation-principles). Pure tests cover data decisions, fake-port tests cover orchestration, and real adapter/DOM tests cover effects. Rationalization means removing demonstrated duplication while preserving distinct integration guarantees, not reducing the test count or substituting mocks for required real-boundary evidence.
 
 ## Local development
 

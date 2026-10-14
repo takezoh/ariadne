@@ -1,0 +1,2 @@
+const adapter = '../../adapters/d1-action-store';
+void import(adapter);

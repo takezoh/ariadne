@@ -28,6 +28,10 @@ test('actual repository config rejects direct D1 imports in both HTTP entries',a
   }
  }
 });
+test('owner-scope hashing stays behind its exact trusted composition edges',async()=>{
+ for(const path of ['lib/server/actions.ts','lib/server/change-cursor-scope.ts'])assert(!reports(await actualLint(readFileSync(path,'utf8'),path),'capability-direction'));
+ assert(reports(await actualLint("import {changeCursorScope} from './change-cursor-scope';void changeCursorScope;",'lib/server/mcp.ts'),'capability-direction'));
+});
 test('actual repository config rejects pre-auth private dispatch and alternate entry handlers',async()=>{
  const path='app/mcp/route.ts',original=readFileSync(path,'utf8');
  const legacyBypass=`import {privateDefinitions} from '@/lib/mcp/private-registry';

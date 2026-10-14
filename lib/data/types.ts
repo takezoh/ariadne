@@ -86,6 +86,20 @@ export type Receipt = Readonly<{
   revision_after: number;
   undo_of: string | null;
 }>;
+/** Owner-bound retained operation rows used to build an incremental read page. */
+export type RetainedOperation = Readonly<{
+  operation_id: string;
+  revision_before: number;
+  revision_after: number;
+  committed_at: string;
+  undo_of: string | null;
+  delta: string;
+}>;
+export type ChangeWindow = Readonly<{
+  head_revision: number;
+  oldest_revision: number | null;
+  operations: readonly RetainedOperation[];
+}>;
 export type OperationResolution = Readonly<{
   perspective?: Readonly<{ id: string }>;
   actions?: readonly Readonly<{ ref?: string; id: string }>[];

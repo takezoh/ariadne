@@ -1,0 +1,92 @@
+{
+  "unit": "cursor-api",
+  "scope": "API-1 through API-7; implementation only, no commit or deployment",
+  "source": {
+    "baseCommit": "230fb32d3c80448673e4e69d16a496f75cfb026e",
+    "worktreeSha256": "4588c6b04b55188fb16870e0c2a62eaf7c0228b176cc742daa2c4985047b8896",
+    "workerArtifact": "dist/server/index.js",
+    "workerArtifactSha256": "135c33331e6d70054a88a99e91d190d4538be1c53d04005be0d107e95008750a"
+  },
+  "checks": {
+    "pnpmCheck": {
+      "result": "passed",
+      "lint": "passed",
+      "typecheck": "passed",
+      "tests": {
+        "pass": 470,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      "evidence": "20261014-cursor-api-pnpm-check-review.log"
+    },
+    "pnpmBuild": {
+      "result": "passed",
+      "artifactSha256": "135c33331e6d70054a88a99e91d190d4538be1c53d04005be0d107e95008750a",
+      "evidence": "20261014-cursor-api-pnpm-build-review.log"
+    }
+  },
+  "workerD1": {
+    "result": "passed",
+    "environment": "Local Wrangler Worker bound to env.DB (site-creator-d1); not hosted D1",
+    "endpoint": "Dynamic direct MCP listener discovered from this run: 127.0.0.1:43619",
+    "workerPid": 16209,
+    "d1Descriptor": ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/faaf2b0445ab934c3aac48ddf0cdfade8f9bac050be98993748742cdd2cb05fb.sqlite",
+    "scenariosPassed": 11,
+    "cursorChecks": {
+      "bootstrapAndReconstruction": "snapshot and cursor aligned at revision 0; shared persisted DTO reconstructed Actions, Projects, Tags, Perspectives and action_tags through revision 26 across 13 fenced pages and 26 operations; canonical reconstruction matched authoritative snapshot",
+      "undoInverses": "real env.DB feed deltas verified before/after inverse for Action, Project, Tag, Perspective and action_tags Undo; Undo starting state matches target after-state exactly and restored values match apart from generated revision/updated_at metadata",
+      "fenceReset": "empty and terminal cursors clear the fence; H+1 operation becomes visible",
+      "retryAndRecovery": "unfenced first-page retry and fenced continuation retry stable; replay returns latest corrected snapshot; Undo included",
+      "ownerAndTokenValidation": "owner-isolated cursors; malformed, tampered, wrong-owner and future positions rejected",
+      "bytePaging": "logical whole-operation ChangePage serialized JSON measured 1008788 bytes, below 1048576-byte limit; actual MCP JSON-RPC response body measured 2018748 bytes with identity encoding because content[0].text and structuredContent both carry the page; no total wire-body limit is claimed",
+      "retentionAndHistory": "oldest retained position accepted; expired cursor, malformed historical delta and retained revision gap rejected explicitly",
+      "noReadMutation": "empty and incremental reads did not change revision or receipts",
+      "realD1Atomicity": "injected D1 batch failure rolled back entity rows, revision, receipt and identity markers"
+    },
+    "cleanup": "Owned Wrangler/workerd processes and acceptance sockets were absent after Ctrl-C cleanup; local D1 fixture files remain in the workspace."
+  },
+  "observedFailuresAndCorrections": [
+    "Full probes to :8787 and :8788 encountered HTTP 503 'Your Worker restarted mid-request'; those ports were proxies, not the dynamic env.DB worker. Each failure remains in durable raw evidence.",
+    "A first probe to a dynamic non-MCP control socket caused a Cap'n Proto size-limit failure. Per-socket GET /mcp and initialize probes identified the separate dynamic MCP listener and D1-owning workerd child before acceptance.",
+    "The first full D1 pass exposed a test-fixture request sending project_id through edit. The fixture now uses the existing action_project operation; production contract was unchanged.",
+    "The first pnpm check found the MCP display inventory omitted get_change_cursor and get_changes. The inventory was updated; final check passed.",
+    "The first rerun with added inverse assertions compared the entire restored Action DTO and found legitimate generated revision/updated_at changes; the corrected assertion requires an exact Undo starting state and equality of all restored fields except those generated metadata fields.",
+    "One intervening direct-listener invocation returned ECONNRESET before any scenario; the error is retained in the rerun evidence. A fresh Wrangler Worker run against the final built artifact then passed all 11 scenarios.",
+    "The final socket inventory recorded one direct MCP listener returning initialize 200, a debug socket returning 500/501, and a control socket resetting HTTP probes. The full acceptance used only the verified direct MCP listener."
+  ],
+  "limitations": [
+    "Hosted D1, Sites trusted-header provenance and ChatGPT Work acceptance were not run or claimed.",
+    "No commit, push or deployment was performed."
+  ],
+  "evidence": {
+    "durableRawCopy": "/home/davinci/evidence/cursor-api/raw",
+    "durableManifest": "/home/davinci/evidence/cursor-api/raw/manifest.json; includes the seven review-rerun files listed here",
+    "files": [
+      "20261014-cursor-api-final-identities.json",
+      "20261014-cursor-api-local-worker.json",
+      "20261014-cursor-api-pnpm-build-post-map.log",
+      "20261014-cursor-api-pnpm-build-review.log",
+      "20261014-cursor-api-pnpm-build.log",
+      "20261014-cursor-api-pnpm-check-final.log",
+      "20261014-cursor-api-pnpm-check-post-map.log",
+      "20261014-cursor-api-pnpm-check-review.log",
+      "20261014-cursor-api-pnpm-check.log",
+      "20261014-cursor-api-proxy.json",
+      "20261014-cursor-api-worker-diagnostic.json",
+      "20261014-cursor-api-worker-direct-diagnostic.json",
+      "20261014-cursor-api-worker-direct.json",
+      "20261014-cursor-api-worker-dynamic-full.json",
+      "20261014-cursor-api-worker-final.json",
+      "20261014-cursor-api-worker-review-final-server.log",
+      "20261014-cursor-api-worker-review-final.json",
+      "20261014-cursor-api-worker-review-rerun.json",
+      "20261014-cursor-api-worker-review-runtime.json",
+      "20261014-cursor-api-worker-review-server.log",
+      "20261014-cursor-api-worker-start.json"
+    ],
+    "currentWorkerRecord": "/home/davinci/evidence/cursor-api/raw/20261014-cursor-api-worker-review-final.json",
+    "currentRuntimeRecord": "/home/davinci/evidence/cursor-api/raw/20261014-cursor-api-worker-review-runtime.json"
+  }
+}

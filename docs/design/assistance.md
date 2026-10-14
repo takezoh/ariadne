@@ -101,7 +101,7 @@ A human may correct a date in the UI while one AI organizes actions and another 
 
 The current read contract provides complete snapshots and owner-wide revision through `list_actions` or `get_relevant_context`. A resumed conversation uses those reads and the available original notes to continue. Conversational context that was never saved must be supplied or recovered by the caller.
 
-The [Change Cursor proposal](product.md#change-cursor-proposal) would let each consumer retrieve changes since its own previous position. Ariadne would return the changes and next cursor; the consumer would interpret them, fetch any additional context and decide whether to revise a recommendation, act or notify. After successful processing the consumer would persist its position. Cursor progress, human read status, Action completion and correct understanding remain distinct. This is a proposed read capability, not an installed caller workflow or a currently published tool.
+The implemented [Change Cursor API](product.md#change-cursor-api-and-adoption-history) provides `get_change_cursor` and `get_changes` for retrieving retained changes from a consumer-held position. The consumer interprets the records, fetches any additional context and decides whether to revise a recommendation, act or notify. It saves its own position only after processing succeeds. Cursor progress, human read status, Action completion and correct understanding remain distinct. This source contract and local Worker evidence do not establish deployment or host availability.
 
 ## Flexible methods, stable data operations
 

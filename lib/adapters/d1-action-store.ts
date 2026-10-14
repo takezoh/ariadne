@@ -1,6 +1,6 @@
 import {fail} from '../domain/core';
 import {assertBoundJson,decodeSnapshotRows,planStorageCommit,type SnapshotRows,type StorageRowChange,type StorageTableKey} from '../data/model/storage';
-import type {OwnerCommitRequest, Receipt, Snapshot} from '../data/types';
+import type {ChangeWindow, OwnerCommitRequest, Receipt, Snapshot} from '../data/types';
 import type {OwnerActionStore} from '../application/ports';
 import {verifiedOwner,type VerifiedIdentity} from '../server/auth';
 import {OPERATION_HISTORY_LIMIT} from '../application/ports';
@@ -19,6 +19,21 @@ async function snapshot(db:D1Database,owner:string):Promise<Snapshot> {
   db.prepare('SELECT id,name,description,filter,definition_version,revision,created_at,updated_at FROM perspectives WHERE owner=?').bind(owner)
  ]);
  return decodeSnapshotRows(rows.map(row=>row.results) as unknown as SnapshotRows);
+}
+
+async function changeWindow(db:D1Database,owner:string,afterRevision:number,throughRevision:number|null):Promise<ChangeWindow> {
+ // The head, retention boundary and selected receipts share one D1 read batch.
+ const operationQuery=throughRevision===null
+  ?db.prepare('SELECT operation_id,revision_before,revision_after,created_at AS committed_at,undo_of,delta FROM operations WHERE owner=? AND revision_after>? ORDER BY revision_after ASC LIMIT 101').bind(owner,afterRevision)
+  :db.prepare('SELECT operation_id,revision_before,revision_after,created_at AS committed_at,undo_of,delta FROM operations WHERE owner=? AND revision_after>? AND revision_after<=? ORDER BY revision_after ASC LIMIT 101').bind(owner,afterRevision,throughRevision);
+ const rows=await db.batch([
+  db.prepare('SELECT COALESCE(MAX(revision_after),0) AS revision FROM operations WHERE owner=?').bind(owner),
+  db.prepare('SELECT MIN(revision_after) AS revision FROM operations WHERE owner=?').bind(owner),
+  operationQuery
+ ]);
+ const head=rows[0].results[0] as {revision:number}|undefined,oldest=rows[1].results[0] as {revision:number|null}|undefined;
+ if(!head||!oldest)fail('unavailable','Change history is unavailable.',503);
+ return {head_revision:head.revision,oldest_revision:oldest.revision,operations:rows[2].results as unknown as ChangeWindow['operations']};
 }
 
 /** Closed, immutable table descriptors. Callers cannot supply table, column or key identifiers. */
@@ -81,6 +96,7 @@ export function createOwnerBoundActionStore(db:D1Database,identity:VerifiedIdent
  const owner=verifiedOwner(identity);
  return Object.freeze({
  readSnapshot:()=>snapshot(db,owner),
+ readChangeWindow:(afterRevision:number,throughRevision:number|null)=>changeWindow(db,owner,afterRevision,throughRevision),
  readReceipt:(operationId:string)=>receipt(db,owner,operationId),
  async hasUndo(undoOf:string){return !!await db.prepare('SELECT operation_id FROM operations WHERE owner=? AND undo_of=?').bind(owner,undoOf).first();},
  commit:(command:OwnerCommitRequest)=>commit(db,{...command,owner})

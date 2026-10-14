@@ -165,3 +165,14 @@ test('actual repository config guards every data-model extension and TypeScript 
   assert(messages.some(item=>item.ruleId==='architecture/dependency-direction'||item.ruleId==='architecture/capability-direction'||item.ruleId==='architecture/pure-effects'),source);
  }
 });
+
+test('actual repository config keeps the perspective query kernel inside the pure domain boundary',async()=>{
+ const filename='lib/domain/perspective-query.ts';
+ const source=readFileSync(filename,'utf8');
+ assert(!reports(await actualLint(source,filename),'pure-effects'));
+ const fixtureRoot='tests/fixtures/perspective-query/';
+ const valid=readFileSync(fixtureRoot+'pure.fixture','utf8');
+ assert.deepEqual(await actualLint(valid,'lib/domain/__perspective_query_fixture__.ts'),[]);
+ const invalid=readFileSync(fixtureRoot+'effect.fixture','utf8');
+ assert(reports(await actualLint(invalid,'lib/domain/__perspective_query_fixture__.ts'),'pure-effects'));
+});

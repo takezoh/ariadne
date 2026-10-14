@@ -57,6 +57,27 @@ export type PerspectiveFilter = Readonly<{
   include_descendants?: boolean;
 }>;
 
+export type PerspectiveQueryField = 'project_id' | 'tag_id' | 'status' | 'flagged' | 'is_deferred';
+export type PerspectiveQueryOperator = 'eq' | 'ne' | 'in' | 'not_in';
+export type PerspectiveQueryCondition =
+  | Readonly<{ and: readonly PerspectiveQueryCondition[] }>
+  | Readonly<{ or: readonly PerspectiveQueryCondition[] }>
+  | Readonly<{ not: PerspectiveQueryCondition }>
+  | Readonly<{ field: 'project_id' | 'tag_id'; op: 'eq' | 'ne'; value: string | null; include_descendants?: boolean }>
+  | Readonly<{ field: 'project_id' | 'tag_id'; op: 'in' | 'not_in'; values: readonly (string | null)[]; include_descendants?: boolean }>
+  | Readonly<{ field: 'status'; op: 'eq' | 'ne'; value: ActionStatus }>
+  | Readonly<{ field: 'status'; op: 'in' | 'not_in'; values: readonly ActionStatus[] }>
+  | Readonly<{ field: 'flagged' | 'is_deferred'; op: 'eq' | 'ne'; value: boolean }>;
+export type PerspectiveQuery = Readonly<{
+  where?: PerspectiveQueryCondition;
+  order_by?: readonly SortKey[];
+}>;
+export type SortKey = Readonly<{
+  field: 'due_at' | 'defer_until' | 'created_at' | 'updated_at' | 'title' | 'status' | 'flagged' | 'order';
+  direction: 'asc' | 'desc';
+  nulls?: 'first' | 'last';
+}>;
+
 export type Perspective = Readonly<{
   id: string;
   name: string;

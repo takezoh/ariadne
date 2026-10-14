@@ -184,7 +184,7 @@ try{
   assert.notEqual(empty.next_cursor,(await tool(cursorOwnerB,'get_change_cursor')).cursor);
   assert.equal((await tool(cursorOwnerB,'get_changes',{cursor:empty.next_cursor})).error.code,'invalid_cursor');
  const actionCreated=await write(cursorOwner,'add',{title:'Cursor action',notes:' exact raw notes ',tag_ids:[]}),actionId=actionCreated.result.result.resolved.actions[0].id;
- const sortedActionCreated=await write(cursorOwner,'add',{title:'Cursor action Zulu'}),sortedActionId=sortedActionCreated.result.result.resolved.actions[0].id;
+ const sortedActionCreated=await write(cursorOwner,'add',{title:'Cursor action zulu'}),sortedActionId=sortedActionCreated.result.result.resolved.actions[0].id;
   const project=(await write(cursorOwner,'project_add',{name:'Cursor project',description:'project context'})).result.result.resolved.project.id;
   const tag=(await write(cursorOwner,'tag_add',{name:'Cursor tag',description:'tag context'})).result.result.resolved.tag.id;
  const perspective=(await write(cursorOwner,'perspective_add',{name:'Cursor view',description:'view context',filter:{project_id:project,tag_id:tag,statuses:['active']}})).result.result.resolved.perspective.id;

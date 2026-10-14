@@ -1,6 +1,6 @@
 # Data model and consistency
 
-Updated: 2026-10-14. The current contract is defined by [shared readonly types](../../lib/data/types.ts), [pure data models](../../lib/data/model/), [schema](../../db/schema.ts), [action model](../../lib/domain/core.ts), [application service](../../lib/application/action-service.ts), [D1 adapter](../../lib/adapters/d1-action-store.ts), [migration 0009](../../drizzle/0009_action_model.sql), and [perspective migration 0010](../../drizzle/0010_ambiguous_umar.sql). Completed change packages describe their original versions, not the current API.
+Updated: 2026-10-14. The current contract is defined by [shared readonly types](../../lib/data/types.ts), [pure data models](../../lib/data/model/), [schema](../../db/schema.ts), [action model](../../lib/domain/core.ts), [application service](../../lib/application/action-service.ts), [D1 adapter](../../lib/adapters/d1-action-store.ts), [migration 0009](../../drizzle/0009_action_model.sql), and [Perspective view migration 0017](../../drizzle/0017_perspective_view.sql). Completed change packages describe their original versions, not the current API.
 
 ## Data and management policy
 
@@ -15,7 +15,7 @@ The model represents shared state used by the human and authorized AI consumers:
 | tags | owner, id | local name, description, parent_id, revision, timestamps |
 | action_tags | owner, action_id, tag_id | many-to-many association and revision |
 | catalog_identity_ledger | owner, kind, identity | reserved catalog IDs and latest project/tag/action_tag mutation revision |
-| perspectives | owner, id | name, description, filter, definition_version, revision, created_at, updated_at |
+| perspectives | owner, id | name, description, filter, strict view, definition_version=2, revision, created_at, updated_at |
 | operations | owner, operation_id | canonical request, result, delta, before/after revision, undo_of, timestamp |
 
 There is no tasks, task_tags, or dependencies table in the current schema. Action relationships are parent-child containment only. Independent prerequisite edges and sequential/parallel modes are unsupported. An explicit on-hold action remains an ordinary unfinished action.
@@ -91,13 +91,15 @@ Deployment must stop old writes, apply 0009 and switch to the new Worker, then r
 
 ## Saved perspectives
 
-A perspective is an owner-scoped View storing extraction conditions only. It contains id, name, description, filter, definition_version=1, revision and timestamps; owner is mandatory in SQL and supplied by trusted server context, omitted from owner-scoped domain snapshots. IDs are server-generated and remain reserved after removal. Names need not be unique.
+A Perspective is an owner-scoped definition with an extraction `filter` and a presentation-only `view`. Current rows contain id, name, description, filter, view, `definition_version=2`, revision and timestamps; owner is mandatory in SQL and supplied by trusted server context, omitted from owner-scoped domain snapshots. IDs are server-generated and remain reserved after removal. Names need not be unique.
 
-Filters accept statuses (unique lifecycle array), is_deferred, flagged, project_id (UUID/null), tag_id and include_descendants. Conditions combine with AND; status values are alternatives within the array. Omission is unrestricted, {} matches all lifecycle states, and statuses:[] matches none. Explicit project_id:null means unassigned. include_descendants expands classification hierarchies only.
+Filters accept statuses (unique lifecycle array), is_deferred, flagged, project_id (UUID/null), tag_id and include_descendants. Conditions combine with AND; status values are alternatives within the array. Omission is unrestricted, `{}` matches all lifecycle states, and `statuses:[]` matches none. Explicit `project_id:null` means unassigned. include_descendants expands classification hierarchies only.
 
-Evaluation projects the current owner snapshot at read time, then filters while preserving action-tree relative order. It does not store action copies, match membership, sort overrides, grouping or display settings. Direct flags do not propagate; unmatched action parents are not inserted as matches. Reads never advance revision or rewrite expired Defer.
+The strict view union has three branches. Tasklist stores sort (`action_order`, `title`, `created_at`, `updated_at`, or `due_at`), direction, grouping (`none`, `project`, or `status`), completion label (`complete`, `read`, or `acknowledge`), and `show_notes`. Thread stores sort (`action_order`, `created_at`, or `updated_at`), direction, grouping, completion label, and initial body state (`collapsed` or `expanded`). Timeline stores timestamp (`created_at` or `updated_at`), direction, grouping (`none` or `day`), completion label, and initial body state. All fields are required, extra fields are rejected, and action-order sort only permits ascending direction. A missing view on creation resolves to the canonical Tasklist default; an omitted edit view retains the current view, while an explicit view replaces the complete value.
 
-Perspective CRUD participates in the same atomic operation/receipt/Undo batch and catalog identity ledger. Filter edits replace the full definition. Project/Tag deletion refuses saved filter references; Undo cannot restore a filter with a missing reference or silently weaken conditions. Migration after 0009 adds storage while preserving existing records and receipts. The shared UI can select saved perspectives and display their exact extraction conditions and descriptions. It evaluates the full read-time snapshot without a hidden lifecycle or Defer filter and preserves action order. Perspective creation/editing/removal remains available through the shared API; hosted rollout requires separate acceptance.
+Evaluation projects the current owner snapshot at read time, then filters while preserving action-tree relative order. Sort, group, note, body and label settings never change membership, query order, state or action copies. Direct flags do not propagate; unmatched action parents are not inserted as matches. Reads never advance revision or rewrite expired Defer.
+
+Perspective CRUD participates in the same atomic operation/receipt/Undo batch and catalog identity ledger. Filter edits replace the full filter; view edits replace the full view. Project/Tag deletion refuses saved filter references; Undo cannot restore a filter with a missing reference or silently weaken conditions. Migration 0017 rebuilds only the Perspective table, converting existing complete v1 rows to definition version 2 with the canonical default view while preserving IDs, content, revisions, timestamps and operation receipt bytes. Historical deltas accept only that complete, exact v1 Perspective shape or complete current v2 rows; current snapshots require complete v2 rows. The exact original request is checked against its receipt before request normalization, so retained pre-migration requests still replay without allocating IDs or applying new defaults. Unknown versions, malformed history and v2 rows missing `view` are rejected rather than repaired. The shared API exposes these view settings; they do not introduce UI-specific persistence or alter the full read-time snapshot.
 
 ## Catalog descriptions
 

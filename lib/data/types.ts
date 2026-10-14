@@ -57,16 +57,62 @@ export type PerspectiveFilter = Readonly<{
   include_descendants?: boolean;
 }>;
 
+export type PerspectiveCompletionLabel = 'complete' | 'read' | 'acknowledge';
+export type PerspectiveBodyState = 'collapsed' | 'expanded';
+export type PerspectiveGroup = 'none' | 'project' | 'status';
+export type PerspectiveTasklistView = Readonly<{
+  type: 'tasklist';
+  sort: 'action_order' | 'title' | 'created_at' | 'updated_at' | 'due_at';
+  direction: 'asc' | 'desc';
+  group: PerspectiveGroup;
+  completion_label: PerspectiveCompletionLabel;
+  show_notes: boolean;
+}>;
+export type PerspectiveThreadView = Readonly<{
+  type: 'thread';
+  sort: 'action_order' | 'created_at' | 'updated_at';
+  direction: 'asc' | 'desc';
+  group: PerspectiveGroup;
+  completion_label: PerspectiveCompletionLabel;
+  initial_body: PerspectiveBodyState;
+}>;
+export type PerspectiveTimelineView = Readonly<{
+  type: 'timeline';
+  timestamp: 'created_at' | 'updated_at';
+  direction: 'asc' | 'desc';
+  group: 'none' | 'day';
+  completion_label: PerspectiveCompletionLabel;
+  initial_body: PerspectiveBodyState;
+}>;
+export type PerspectiveView = PerspectiveTasklistView | PerspectiveThreadView | PerspectiveTimelineView;
+
 export type Perspective = Readonly<{
   id: string;
   name: string;
   description: string;
   filter: PerspectiveFilter;
-  definition_version: 1;
+  view: PerspectiveView;
+  definition_version: 2;
   revision: number;
   created_at: string;
   updated_at: string;
 }>;
+
+/** Complete Perspective rows found only in immutable pre-view operation history. */
+export type HistoricalPerspectiveV1 = Readonly<Omit<Perspective, 'view' | 'definition_version'> & { definition_version: 1 }>;
+export type HistoricalPerspective = Perspective | HistoricalPerspectiveV1;
+export type OperationDelta = Readonly<{
+  perspectives: readonly Readonly<{ before: Perspective | null; after: Perspective | null }>[];
+  actions: readonly Readonly<{ before: Action | null; after: Action | null }>[];
+  projects: readonly Readonly<{ before: Project | null; after: Project | null }>[];
+  tags: readonly Readonly<{ before: Tag | null; after: Tag | null }>[];
+  action_tags: readonly Readonly<{ before: ActionTag | null; after: ActionTag | null }>[];
+}>;
+export type HistoricalOperationDelta = Readonly<
+  Omit<OperationDelta, 'perspectives'> & {
+    perspectives: readonly Readonly<{ before: HistoricalPerspective | null; after: HistoricalPerspective | null }>[];
+  }
+>;
 
 export type Snapshot = Readonly<{
   revision: number;

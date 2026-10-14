@@ -1,4 +1,4 @@
-import {fail,object,exact,text,catalogName,actionTitle,initialTagIds,description,id,actionOrder,booleanFlag,perspectiveFilter,validatePerspectiveReferences} from '../../domain/core';
+import {fail,object,exact,text,catalogName,actionTitle,initialTagIds,description,id,actionOrder,booleanFlag,perspectiveFilter,perspectiveView,defaultPerspectiveView,validatePerspectiveReferences} from '../../domain/core';
 import type {Change,OperationResolution,Snapshot} from '../types';
 
 export type PreparedChange=Readonly<{idSlots:number;change:Change|null;resolved?:OperationResolution;actionRefs?:ReadonlyMap<string,string>;createdActionIds?:readonly string[]}>;
@@ -7,9 +7,20 @@ export function normalizeChange(snapshot:Snapshot,requested:Change):PreparedChan
  let idSlots=0;const generatedId=()=>`__generated_id_${idSlots++}__`;
  const kind=requested.kind,p=object(requested.payload);
  if(kind==='perspective_add'){
-  exact(p,['name','description','filter']);const initialDescription='description' in p?description(p.description):'',name=text(p.name),filter=perspectiveFilter(p.filter);validatePerspectiveReferences(snapshot,filter);
+  exact(p,['name','description','filter','view']);const initialDescription='description' in p?description(p.description):'',name=text(p.name),filter=perspectiveFilter(p.filter),view='view' in p?perspectiveView(p.view):defaultPerspectiveView();validatePerspectiveReferences(snapshot,filter);
   const entityId=generatedId();
-  return {idSlots,change:{kind,payload:{id:entityId,name,description:initialDescription,filter}},resolved:{perspective:{id:entityId}}};
+  return {idSlots,change:{kind,payload:{id:entityId,name,description:initialDescription,filter,view}},resolved:{perspective:{id:entityId}}};
+ }
+ if(kind==='perspective_edit'){
+  exact(p,['id','name','description','filter','view']);const perspectiveId=id(p.id);
+  if(!snapshot.perspectives.some(row=>row.id===perspectiveId))fail('not_found','パースペクティブがありません。',404);
+  if(!('name' in p)&&!('description' in p)&&!('filter' in p)&&!('view' in p))fail('invalid_input','更新項目を指定してください。');
+  const patch:Record<string,unknown>={id:perspectiveId};
+  if('name' in p)patch.name=text(p.name);
+  if('description' in p)patch.description=description(p.description);
+  if('filter' in p){patch.filter=perspectiveFilter(p.filter);validatePerspectiveReferences(snapshot,patch.filter as ReturnType<typeof perspectiveFilter>);}
+  if('view' in p)patch.view=perspectiveView(p.view);
+  return {idSlots,change:{kind,payload:patch}};
  }
  if(kind==='add'){
   exact(p,['title','parent_id','project_id','notes','order','flagged','tag_ids']);

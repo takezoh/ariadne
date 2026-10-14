@@ -1,23 +1,26 @@
 import assert from 'node:assert/strict';
-import {spawnSync} from 'node:child_process';
+import {execFile,spawnSync} from 'node:child_process';
 import {readFileSync,writeFileSync,existsSync,mkdirSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';
+import {promisify} from 'node:util';
 import {sourceIdentity} from './verification-source.mjs';
+
+const execFileAsync=promisify(execFile);
 
 // This harness only targets the established local Wrangler Worker and D1 binding.
 const directPort=process.argv.slice(2).find(argument=>!argument.startsWith('--'));
 if(directPort&&!/^\d{4,5}$/.test(directPort))throw Error('Expected a local Wrangler Worker port');
 const diagnosticOnly=process.argv.includes('--diagnose-initialize');
 const base='http://127.0.0.1:'+(directPort??'8787'),prefix='boundary-'+randomUUID(),ownerA=prefix+'-A',ownerB=prefix+'-B';
-const evidence={source:sourceIdentity(),sourceCommit:spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).stdout.trim(),environment:'local Wrangler Worker / D1 binding DB',endpoint:base,transport:directPort?'direct Wrangler-managed user Worker listener':'Wrangler dev proxy',bindingConfig:JSON.parse(readFileSync('dist/server/wrangler.json','utf8')).d1_databases,processEvidence:spawnSync('ps',['-eo','pid,ppid,args'],{encoding:'utf8'}).stdout.split('\n').filter(x=>/workerd serve|wrangler.*dev --config/.test(x)),serverLogPath:process.env.ACTION_TOOLS_SERVER_LOG_PATH||null,hostedAcceptance:'not_run',artifactSha256:createHash('sha256').update(readFileSync('dist/server/index.js')).digest('hex'),runMode:diagnosticOnly?'initialize-diagnostic':'full-contract',startedAt:new Date().toISOString(),httpObservations:[],scenarios:[]};
-function sql(command){
- const result=spawnSync(process.execPath,['--import','./scripts/sites-env.mjs','./node_modules/wrangler/bin/wrangler.js','d1','execute','DB','--local','--persist-to','.wrangler/state','--config','dist/server/wrangler.json','--command',command],{encoding:'utf8',timeout:60000});
- assert.equal(result.status,0,result.stderr);return result.stdout;
+const evidence={source:sourceIdentity(),sourceCommit:spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).stdout.trim(),environment:'local Wrangler Worker / D1 binding DB',endpoint:base,transport:directPort?'direct Wrangler-managed user Worker listener':'Wrangler dev proxy',bindingConfig:JSON.parse(readFileSync('dist/server/wrangler.json','utf8')).d1_databases,processEvidence:spawnSync('ps',['-eo','pid,ppid,args'],{encoding:'utf8'}).stdout.split('\n').filter(x=>/workerd serve|wrangler.*dev --config/.test(x)),serverLogPath:process.env.ACTION_TOOLS_SERVER_LOG_PATH||null,hostedAcceptance:'not_run',artifactSha256:createHash('sha256').update(readFileSync('dist/server/index.js')).digest('hex'),runMode:diagnosticOnly?'initialize-diagnostic':'full-contract',startedAt:new Date().toISOString(),httpObservations:[],transportFailures:[],scenarios:[]};
+async function sql(command){
+ const {stdout}=await execFileAsync(process.execPath,['--import','./scripts/sites-env.mjs','./node_modules/wrangler/bin/wrangler.js','d1','execute','DB','--local','--persist-to','.wrangler/state','--config','dist/server/wrangler.json','--command',command],{encoding:'utf8',timeout:60000,maxBuffer:4*1024*1024});
+ return stdout;
 }
 async function http(path,body,{owner=ownerA,headers={},raw=false}={}){
- const requestHeaders={'Content-Type':'application/json',...(owner?{'oai-authenticated-user-id':owner,'oai-authenticated-user-email':'fixture@local.invalid'}:{}),...headers},startedAt=new Date().toISOString(),started=performance.now();
- const response=await fetch(base+path,{method:'POST',headers:requestHeaders,body:raw?body:JSON.stringify(body)});
+ const requestHeaders={'Content-Type':'application/json',...(owner?{'oai-authenticated-user-id':owner,'oai-authenticated-user-email':'fixture@local.invalid'}:{}),...headers},startedAt=new Date().toISOString(),started=performance.now(),requestBody=raw?body:JSON.stringify(body);
+ let response;try{response=await fetch(base+path,{method:'POST',headers:requestHeaders,body:requestBody});}catch(error){evidence.transportFailures.push({startedAt,elapsedMs:Number((performance.now()-started).toFixed(2)),method:'POST',path,requestBytes:Buffer.byteLength(requestBody),requestSha256:createHash('sha256').update(requestBody).digest('hex'),requestHeaderNames:Object.keys(requestHeaders).sort(),errorName:error.name,errorCode:error.cause?.code||null,errorMessage:error.message});throw error;}
  if(diagnosticOnly||response.status>=500){
   const responseText=await response.clone().text(),contentType=response.headers.get('content-type')||'',lower=responseText.toLowerCase();
   const bodyClass=lower.startsWith('your worker restarted mid-request')?'worker-restarted-mid-request':contentType.includes('json')?'json':contentType.includes('html')?'html':responseText.length===0?'empty':'other';
@@ -38,6 +41,89 @@ try{
   evidence.diagnosticProbe={request:{method:'POST',path:'/mcp',jsonrpcMethod:'initialize',contentType:'application/json',headerNames:['content-type','oai-authenticated-user-email','oai-authenticated-user-id'],credentialValuesPersisted:false},response:{status:response.status,contentType:response.contentType,bodyClass:response.body?'json':response.bodyClass,jsonrpc:response.body?.jsonrpc,id:response.body?.id,hasResult:Boolean(response.body?.result),protocolVersion:response.body?.result?.protocolVersion,serverInfo:response.body?.result?.serverInfo,errorCode:response.body?.error?.code}};
   evidence.result=response.status===200&&response.body?'diagnostic_passed':'diagnostic_inconclusive';
  }else{
+ await scenario('publish strict version-2 view schemas and caller guidance through MCP',async()=>{
+  const initialized=await rpc('initialize',{protocolVersion:'2025-11-25'}),instructions=initialized.body.result.instructions;
+  assert.equal(initialized.status,200);for(const text of ['version-2','Tasklist','Thread','Timeline','Omitted view on creation','omitted view on edit'])assert(instructions.includes(text),text);
+  const definitions=(await rpc('tools/list')).body.result.tools,byName=Object.fromEntries(definitions.map(definition=>[definition.name,definition]));
+  for(const name of ['list_perspectives','query_perspective'])assert(byName[name].description.includes('version-2'));
+  assert(byName.query_perspective.description.includes('existing tree/sibling action order'));
+  for(const name of ['apply_change','preview_change']){
+   const inputSchema=byName[name].inputSchema,findViewSchema=kind=>inputSchema.allOf.find(branch=>branch.if?.properties?.kind?.const===kind)?.then?.properties?.payload?.properties?.view;
+   const viewSchema=findViewSchema('perspective_add');assert.equal(viewSchema.oneOf.length,3,name);
+   for(const branch of viewSchema.oneOf)assert.equal(branch.additionalProperties,false,name);
+   assert(findViewSchema('perspective_edit'),name);
+  }
+  const state=await snapshot(ownerA);for(const text of ['version-2','Tasklist','Thread','Timeline'])assert(state.assistance_policy.includes(text),text);
+ });
+ const perspectiveOwner=prefix+'-perspective';
+ await scenario('Worker D1 perspectives retain strict view definitions while queries preserve action membership and order',async()=>{
+  const project=(await write(perspectiveOwner,'project_add',{name:'Perspective project'})).result.result.resolved.project.id,tag=(await write(perspectiveOwner,'tag_add',{name:'Perspective tag'})).result.result.resolved.tag.id;
+  const first=await write(perspectiveOwner,'add',{title:'Alpha',order:0,flagged:true,project_id:project}),middle=await write(perspectiveOwner,'add',{title:'Mike',order:1,project_id:project}),last=await write(perspectiveOwner,'add',{title:'Zulu',order:2,project_id:project});
+  const actionIds=[first.result.result.resolved.actions[0].id,middle.result.result.resolved.actions[0].id,last.result.result.resolved.actions[0].id],baseline=(await snapshot(perspectiveOwner)).actions.map(row=>row.id);
+  await write(perspectiveOwner,'action_tag',{id:actionIds[0],tag_id:tag,enabled:true});
+  const definitions=[
+   {name:'Tasklist',filter:{},view:{type:'tasklist',sort:'title',direction:'desc',group:'project',completion_label:'read',show_notes:true}},
+   {name:'Thread',filter:{},view:{type:'thread',sort:'updated_at',direction:'desc',group:'status',completion_label:'acknowledge',initial_body:'expanded'}},
+   {name:'Timeline',filter:{},view:{type:'timeline',timestamp:'created_at',direction:'asc',group:'day',completion_label:'complete',initial_body:'collapsed'}},
+   {name:'Flagged only',filter:{flagged:true},view:{type:'tasklist',sort:'action_order',direction:'asc',group:'none',completion_label:'complete',show_notes:false}},
+  ];
+  const saved=[];for(const definition of definitions){const added=await write(perspectiveOwner,'perspective_add',{name:definition.name,filter:definition.filter,...(definition.view?{view:definition.view}:{})});saved.push({id:added.result.result.resolved.perspective.id,request:added.request,definition});}
+  const omitted=await write(perspectiveOwner,'perspective_add',{name:'Defaulted',filter:{}});saved.push({id:omitted.result.result.resolved.perspective.id,request:omitted.request,definition:{name:'Defaulted',filter:{}}});
+  const defaultView={type:'tasklist',sort:'action_order',direction:'asc',group:'none',completion_label:'complete',show_notes:false};
+  assert.deepEqual((await snapshot(perspectiveOwner)).perspectives.find(row=>row.id===saved[4].id).view,defaultView);
+  const titles=new Map((await snapshot(perspectiveOwner)).actions.map(row=>[row.id,row.title])),tasklistSorted=[...actionIds].sort((a,b)=>titles.get(b).localeCompare(titles.get(a)));
+  assert.notDeepEqual(baseline,tasklistSorted,'fixture must distinguish presentation sort from stored action order');
+  for(const entry of saved){
+   const read=await tool(perspectiveOwner,'query_perspective',{id:entry.id});assert(!read.error,JSON.stringify(read.error));
+   const expected=entry.definition.filter.flagged?baseline.filter(id=>id===actionIds[0]):baseline;
+   assert.deepEqual(read.actions.map(row=>row.id),expected,entry.definition.name+' keeps filter matches in shared action order');
+   assert.deepEqual(read.perspective.view,entry.definition.view??defaultView);
+  }
+  const addReplay=await tool(perspectiveOwner,'apply_change',saved[4].request);assert.equal(addReplay.result.operationId,saved[4].request.operationId);assert.deepEqual(addReplay.perspectives.find(row=>row.id===saved[4].id).view,defaultView);
+  const editOmitted={schemaVersion:2,operationId:randomUUID(),expectedRevision:(await snapshot(perspectiveOwner)).revision,kind:'perspective_edit',payload:{id:saved[0].id,name:'Tasklist renamed'}};
+  await tool(perspectiveOwner,'apply_change',editOmitted);assert.deepEqual((await tool(perspectiveOwner,'query_perspective',{id:saved[0].id})).perspective.view,definitions[0].view);
+  const invalid=[{...definitions[0].view,extra:true},{...definitions[0].view,direction:'sideways'},{...definitions[0].view,sort:'action_order'}];
+  const beforeInvalid=durable(await snapshot(perspectiveOwner));for(const view of invalid){const request=await args(perspectiveOwner,'perspective_edit',{id:saved[0].id,view});assert.equal((await tool(perspectiveOwner,'apply_change',request)).error.code,'invalid_input');}
+  const missingReference=await args(perspectiveOwner,'perspective_add',{name:'Bad reference',filter:{project_id:randomUUID()}});assert.equal((await tool(perspectiveOwner,'apply_change',missingReference)).error.code,'not_found');
+  assert.deepEqual(durable(await snapshot(perspectiveOwner)),beforeInvalid);
+  evidence.perspectiveDefinitions={owner:perspectiveOwner,definitionTypes:['tasklist','thread','timeline'],queryOrder:'unchanged tree/sibling order',viewOnlySettingsDoNotChangeMembership:true,creationOmissionDefault:defaultView,editOmissionRetainsView:true,invalidViewsRejected:true,missingFilterReferenceRejected:true};
+ });
+ await scenario('view-only Worker D1 writes preserve other rows, recover unknown replies, race by CAS and protect corrections on replay/Undo',async()=>{
+  const tasklistId=(await tool(perspectiveOwner,'list_perspectives')).perspectives.find(row=>row.name==='Tasklist renamed').id;
+  const timelineId=(await tool(perspectiveOwner,'list_perspectives')).perspectives.find(row=>row.name==='Timeline').id;
+  const thread={type:'thread',sort:'created_at',direction:'desc',group:'status',completion_label:'read',initial_body:'expanded'};
+  const before=await snapshot(perspectiveOwner),preview=await tool(perspectiveOwner,'preview_change',{expectedRevision:before.revision,kind:'perspective_edit',payload:{id:timelineId,view:thread}});
+  assert(!preview.error,JSON.stringify(preview.error));assert.equal(preview.affected.length,0);assert.deepEqual(preview.affected_perspectives[0].after.view,thread);assert.deepEqual(durable(await snapshot(perspectiveOwner)),durable(before));
+  const undoRequest={schemaVersion:2,operationId:randomUUID(),expectedRevision:before.revision,kind:'perspective_edit',payload:{id:timelineId,view:thread}};
+  const missingReply=await http('/mcp',{jsonrpc:'2.0',id:1,method:'tools/call',params:{name:'apply_change',arguments:undoRequest}},{owner:perspectiveOwner});await missingReply.arrayBuffer();
+  assert.equal((await tool(perspectiveOwner,'operation_status',{operationId:undoRequest.operationId})).status,'applied');
+  const replay=await tool(perspectiveOwner,'apply_change',undoRequest);assert.equal(replay.result.operationId,undoRequest.operationId);assert.deepEqual(replay.perspectives.find(row=>row.id===timelineId).view,thread);
+  const undo=await tool(perspectiveOwner,'undo_change',{schemaVersion:2,operationId:randomUUID(),expectedRevision:(await snapshot(perspectiveOwner)).revision,undoOf:undoRequest.operationId});assert(!undo.error,JSON.stringify(undo.error));
+  const timelineDefault={type:'timeline',timestamp:'created_at',direction:'asc',group:'day',completion_label:'complete',initial_body:'collapsed'};
+  assert.deepEqual(undo.perspectives.find(row=>row.id===timelineId).view,timelineDefault);
+  const raceBase=await snapshot(perspectiveOwner),raceView={schemaVersion:2,operationId:randomUUID(),expectedRevision:raceBase.revision,kind:'perspective_edit',payload:{id:timelineId,view:thread}},raceOther={...raceView,operationId:randomUUID(),payload:{id:timelineId,view:timelineDefault}};
+  const raced=await Promise.all([tool(perspectiveOwner,'apply_change',raceView),tool(perspectiveOwner,'apply_change',raceOther)]);assert.equal(raced.filter(value=>!value.error).length,1);assert.equal(raced.find(value=>value.error)?.error.code,'conflict');
+  const correction={type:'tasklist',sort:'title',direction:'desc',group:'status',completion_label:'acknowledge',show_notes:true};
+  const oldOperation={schemaVersion:2,operationId:randomUUID(),expectedRevision:(await snapshot(perspectiveOwner)).revision,kind:'perspective_edit',payload:{id:tasklistId,view:thread}};
+  const oldResult=await tool(perspectiveOwner,'apply_change',oldOperation);assert(!oldResult.error,JSON.stringify(oldResult.error));
+  const later=await tool(perspectiveOwner,'apply_change',{schemaVersion:2,operationId:randomUUID(),expectedRevision:(await snapshot(perspectiveOwner)).revision,kind:'perspective_edit',payload:{id:tasklistId,view:correction}});assert(!later.error,JSON.stringify(later.error));
+  const oldReplay=await tool(perspectiveOwner,'apply_change',oldOperation);assert.equal(oldReplay.result.operationId,oldOperation.operationId);assert.deepEqual(oldReplay.perspectives.find(row=>row.id===tasklistId).view,correction);
+  const unsafeUndo=await tool(perspectiveOwner,'undo_change',{schemaVersion:2,operationId:randomUUID(),expectedRevision:(await snapshot(perspectiveOwner)).revision,undoOf:oldOperation.operationId});assert.equal(unsafeUndo.error.code,'undo_conflict');
+  const unrelatedBefore=durable(await snapshot(perspectiveOwner)),triggerNames=[];
+  const triggerStatements=[];
+  for(const table of ['actions','projects','tags','action_tags'])for(const operation of ['INSERT','UPDATE','DELETE']){
+   const trigger='view_guard_'+randomUUID().replaceAll('-','');triggerNames.push(trigger);const row=operation==='DELETE'?'OLD':'NEW';
+   triggerStatements.push(`CREATE TRIGGER ${trigger} BEFORE ${operation} ON ${table} WHEN ${row}.owner='${perspectiveOwner}' BEGIN SELECT RAISE(ABORT,'view-only edit touched ${table}'); END;`);
+  }
+  try{
+   await sql(triggerStatements.join('\n'));
+   const viewOnly={schemaVersion:2,operationId:randomUUID(),expectedRevision:(await snapshot(perspectiveOwner)).revision,kind:'perspective_edit',payload:{id:tasklistId,view:{...correction,group:'project'}}};
+   const savedView=await tool(perspectiveOwner,'apply_change',viewOnly);assert(!savedView.error,JSON.stringify(savedView.error));
+   assert.deepEqual(durable(savedView).actions,durable(unrelatedBefore).actions);assert.deepEqual(durable(savedView).projects,durable(unrelatedBefore).projects);assert.deepEqual(durable(savedView).tags,durable(unrelatedBefore).tags);assert.deepEqual(durable(savedView).action_tags,durable(unrelatedBefore).action_tags);
+   assert.deepEqual((await tool(perspectiveOwner,'query_perspective',{id:tasklistId})).perspective.view,{...correction,group:'project'});
+  }finally{if(triggerNames.length)await sql(triggerNames.map(trigger=>`DROP TRIGGER IF EXISTS ${trigger};`).join('\n'));}
+  evidence.perspectiveWrites={previewDoesNotWrite:true,missingReplyRecoveredByExactReplay:true,undoRestoresPriorView:true,casCompetition:'one winner',oldReplayKeepsLaterCorrection:true,undoProtectsLaterCorrection:true,viewOnlyBlockedWrites:['actions','projects','tags','action_tags'],workerBinding:'env.DB via Wrangler local D1'};
+ });
  await scenario('authenticate every private JSON-RPC method without session bypass',async()=>{
   for(const method of ['initialize','ping','tools/list','resources/list','resources/templates/list','resources/read','tools/call','notifications/initialized']){
    assert.equal((await rpc(method,{}, {owner:null})).status,401,method);
@@ -110,16 +196,16 @@ try{
  });
  await scenario('real D1 mid-batch failure rolls back graph, revision, receipt and identity markers',async()=>{
   const trigger='boundary_failure_'+randomUUID().replaceAll('-','');
-  sql(`CREATE TRIGGER ${trigger} BEFORE INSERT ON catalog_identity_ledger WHEN NEW.owner='${ownerA}' BEGIN SELECT RAISE(ABORT,'injected local failure'); END;`);
+  await sql(`CREATE TRIGGER ${trigger} BEFORE INSERT ON catalog_identity_ledger WHEN NEW.owner='${ownerA}' BEGIN SELECT RAISE(ABORT,'injected local failure'); END;`);
   try{
    const before=await snapshot(),request=await args(ownerA,'project_add',{name:'Atomic failure'}),result=await tool(ownerA,'apply_change',request);
    assert.equal(result.error.code,'outcome_unknown');assert.deepEqual(durable(await snapshot()),durable(before));
    assert.equal((await tool(ownerA,'operation_status',{operationId:request.operationId})).status,'not_observed');
-  }finally{sql(`DROP TRIGGER ${trigger}`);}
+  }finally{await sql(`DROP TRIGGER IF EXISTS ${trigger}`);}
  });
  await scenario('same entity/operation IDs and pruning remain isolated across two owners',async()=>{
   const id=randomUUID(),now='2026-10-09T00:00:00.000Z';
-  sql(`INSERT INTO actions(owner,id,title,revision,status,notes,"order",flagged,created_at,updated_at) VALUES('${ownerA}','${id}','A seeded',0,'active','',0,0,'${now}','${now}'),('${ownerB}','${id}','B seeded',0,'active','',0,0,'${now}','${now}');`);
+  await sql(`INSERT INTO actions(owner,id,title,revision,status,notes,"order",flagged,created_at,updated_at) VALUES('${ownerA}','${id}','A seeded',0,'active','',0,0,'${now}','${now}'),('${ownerB}','${id}','B seeded',0,'active','',0,0,'${now}','${now}');`);
   await write(ownerA,'edit',{id,title:'A changed'});assert.equal((await snapshot(ownerB)).actions.find(x=>x.id===id).title,'B seeded');
   const keep=await write(ownerB,'tag_add',{name:'B retained'});
   for(let i=0;i<101;i++)await write(ownerA,'edit',{id,title:'A '+i});

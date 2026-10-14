@@ -66,6 +66,12 @@ Calendar sync, notifications, external arrival observation and background execut
 
 [0011](../../drizzle/0011_catalog_descriptions.sql) adds empty descriptions to existing projects, tags and perspectives without resetting data or receipts. Apply pending migrations before switching to a Worker that selects these columns. Do not rerun 0009 as a description upgrade. Dedicated editing UI and hosted rollout are separate work.
 
+## Perspective view migration 0017
+
+[0017](../../drizzle/0017_perspective_view.sql) rebuilds only the owner-scoped `perspectives` table to require definition version 2 and a JSON view. Each complete stored version-1 row receives the canonical Tasklist default; its ID, name, description, filter, revision and timestamps are preserved. Existing operation rows, including canonical request, result and delta bytes, are not rewritten. The migration fails rather than converting an unknown stored version. It does not modify action, catalog, association or identity-marker rows.
+
+Apply pending migrations through 0017 before switching to a Worker that reads the required `view` column. The runtime retains exact-replay behavior for old requests and recognizes only complete known v1 Perspective rows inside immutable operation history. It does not synthesize missing fields in current snapshots or unrelated receipt rows. Local Wrangler D1 verification is evidence for the local Worker binding only; it does not establish hosted D1 migration state or host acceptance.
+
 ## Revision guard migration 0012 and generic identifiers
 
 [0012](../../drizzle/0012_generic_revision_guard.sql) recreates the operations revision guard with the generic `revision_conflict` marker. It changes no records, revisions or receipts. The Worker classifies conflicts by that marker, which the earlier trigger message also contains, so the order of migration and Worker switch does not misclassify conflicts.

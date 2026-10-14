@@ -1,12 +1,12 @@
 # MCP and HTTP API contract
 
-Updated: 2026-10-09. Sources: [MCP route](../../app/mcp/route.ts), [HTTP route](../../app/api/actions/route.ts), [action service](../../lib/application/action-service.ts).
+Updated: 2026-10-14. Sources: [MCP route](../../app/mcp/route.ts), [private definitions](../../lib/mcp/private-registry.ts), [HTTP route](../../app/api/actions/route.ts), [action service](../../lib/application/action-service.ts).
 
 ## Caller composition and guidance
 
 Ariadne exposes operations over the state shared by the user and authorized AI consumers: actions, projects, tags and perspectives. User prompts, caller-side LLMs, dot and schedulers interpret that state and decide how to use it; an authorized caller may combine external-source tools such as Slack/email reads with Ariadne writes. No source-specific connector or agent integration is required in Ariadne. The current plugin is delivered in ChatGPT; this does not make one assistant or GTD routine part of the data contract.
 
-Initialize instructions and snapshot assistance_policy provide caller-facing guidance from [assistance source](../../lib/domain/assistance.ts); they do not execute an agent or add semantic backend validation. The repository [Skill](../../skills/action-tools/SKILL.md) is tool-use documentation, not proof of host installation. This documentation update does not modify delivered runtime text. All callers must preserve authenticated ownership and the revision/replay/Undo contract below.
+Initialize instructions and snapshot assistance_policy provide caller-facing guidance from [assistance source](../../lib/domain/assistance.ts); they do not execute an agent or add semantic backend validation. The repository [Skill](../../skills/action-tools/SKILL.md) is tool-use documentation, not proof of host installation. Source changes update the delivered runtime text only after the matching artifact is built and deployed. All callers must preserve authenticated ownership and the revision/replay/Undo contract below.
 
 ## Entry points and ownership
 
@@ -74,8 +74,8 @@ The [Change Cursor proposal](../design/product.md#change-cursor-proposal) would 
 | project_move | id with parent_id (null detaches), or placement:before/after/inside/root plus anchor_id except root; direct and relative forms are exclusive |
 | tag_move | id; parent_id (null detaches) XOR relative placement before/after/inside/root with anchor_id except root; durable sibling order |
 | project_remove / tag_remove | id |
-| perspective_add | name, filter, optional description; no caller-supplied ID |
-| perspective_edit | id, optional name/filter/description; at least one attribute; filter replaces the entire definition |
+| perspective_add | name, filter, optional description and view; no caller-supplied ID |
+| perspective_edit | id, optional name/filter/description/view; at least one attribute; supplied filter/view replace their entire definitions |
 | perspective_remove | id |
 | action_project | exactly one of id or ids:nonempty unique UUID array; project_id (required, null clears) |
 | action_tag | exactly one of id or ids:nonempty unique UUID array; tag_id, enabled:boolean |
@@ -110,9 +110,13 @@ Migration 0009 resets the authorized disposable test data and prior receipts. Ol
 
 ## Perspective conditions
 
-Saved perspectives are owner-scoped views. filter accepts optional statuses (unique array of active/on-hold/completed/dropped), is_deferred:boolean, flagged:boolean, project_id:UUID|null, tag_id:UUID and include_descendants:boolean. Conditions combine with AND, with set membership within statuses. {} matches all actions; statuses:[] matches none. Project null means unassigned; omission is unrestricted. Classification descendant expansion never implies action containment or Flag inheritance.
+Saved perspectives are owner-scoped definitions with an extraction `filter` and strict presentation-only `view`, stored as `definition_version:2`. `filter` accepts optional statuses (unique array of active/on-hold/completed/dropped), is_deferred:boolean, flagged:boolean, project_id:UUID|null, tag_id:UUID and include_descendants:boolean. Conditions combine with AND, with set membership within statuses. `{}` matches all actions; statuses:[] matches none. Project null means unassigned; omission is unrestricted. Classification descendant expansion never implies action containment or Flag inheritance.
 
-query_perspective preserves current action-tree order and does not change actions or owner revision. It evaluates Defer at retrieved_at. perspective_add/edit/remove use ordinary write/preview/replay/Undo envelopes; generated perspective IDs are returned in result.resolved.perspective. affected_perspectives contains before/after delta entries, including null for creation/deletion. Perspective preview candidates marked preview_only are provisional. Definitions do not support order overrides, grouping or display settings. The shared UI provides saved perspective selection and a condition summary. It filters the full authoritative read-time snapshot without an additional lifecycle or Defer restriction. Perspective creation/editing/removal remains available through these API operations.
+The view is a complete discriminated union. Tasklist requires `{type:"tasklist",sort,direction,group,completion_label,show_notes}`; sort is action_order/title/created_at/updated_at/due_at, group is none/project/status, completion_label is complete/read/acknowledge, and action_order permits only asc. Thread requires `{type:"thread",sort,direction,group,completion_label,initial_body}`; sort is action_order/created_at/updated_at, group is none/project/status, and initial_body is collapsed/expanded. Timeline requires `{type:"timeline",timestamp,direction,group,completion_label,initial_body}`; timestamp is created_at/updated_at, group is none/day, and initial_body is collapsed/expanded. All properties are required for the chosen type, and unknown properties are rejected.
+
+Omitting `view` on perspective_add creates the canonical Tasklist `{type:"tasklist",sort:"action_order",direction:"asc",group:"none",completion_label:"complete",show_notes:false}`. Omitting `view` on perspective_edit retains the saved definition. Supplying a view replaces it entirely. `list_perspectives`, `query_perspective` and full snapshots return it. `query_perspective` evaluates Defer at retrieved_at and preserves current action-tree/sibling order; sort and group settings do not change query membership or result order. Reads do not change actions or owner revision. Perspective CRUD uses ordinary write/preview/replay/Undo envelopes; generated perspective IDs are returned in result.resolved.perspective. `affected_perspectives` contains before/after delta entries, including null for creation/deletion. Preview candidates marked preview_only are provisional. The shared UI and callers continue to receive the full authoritative read-time snapshot without an additional lifecycle or Defer restriction; view settings do not copy, reorder or mutate actions.
+
+Migration 0017 converts complete existing v1 Perspective rows to v2 with the canonical default view and preserves the existing operations receipt bytes. Exact retained pre-migration requests are matched before normalization. Historical receipt/Undo decoding accepts only complete known v1 Perspective rows and complete v2 rows; malformed/unknown versions and v2 rows missing a view are rejected. Current snapshots never apply historical defaults.
 
 ## Descriptive context
 

@@ -7,6 +7,8 @@ export function assertStoragePlanIsDeeplyReadonly(plan: StoragePlan) {
   plan.changes.actions[0].after!.title = 'mutated';
   // @ts-expect-error A consumer cannot alter nested perspective filter arrays.
   plan.changes.perspectives[0].after!.filter.statuses!.push('completed');
+  // @ts-expect-error A consumer cannot change saved display settings.
+  plan.changes.perspectives[0].after!.view.direction = 'desc';
   // @ts-expect-error A consumer cannot change the write-table plan.
   plan.tables[0].changes[0].after!.id = 'mutated';
   // @ts-expect-error A consumer cannot change identity-marker rows.

@@ -23,11 +23,10 @@ Actions have containment, sibling order and direct boolean flags. Independent pr
 | [Product design](design/product.md) | Product positioning, audience, claim boundaries and hypotheses |
 | [Assistance design](design/assistance.md) | Host/application responsibility split |
 | [State design](design/design-action-state-and-perspectives.md) | Current state contract |
-| [Change Cursor proposal](design/product.md#change-cursor-proposal) | Proposed incremental reads, consumer checkpoints, value and open design decisions |
 
 Current facts must be checked in code and the technical references above. Documents outside docs/*/** describe only the current state. Historical records and change rationale belong under docs/*/**.
 
-Current full-state reads return a complete owner snapshot and revision. Change Cursor is a proposed API for retrieving changes after a supplied position and returning the next position; it is not a current tool. Keep its interpretation and follow-up decisions in the consuming LLM, and keep proposed change-feed behavior separate from existing mutation deltas, replay receipts and revision guards.
+Current full-state reads return a complete owner snapshot, matching change cursor and revision. `get_changes` pages retained operation deltas under that revision, receipt and owner boundary. Keep interpretation and follow-up decisions in the consuming LLM; the feed does not add per-consumer storage, claim a user read a change, or change write/replay semantics. The historical design discussion remains in [product design](design/product.md#change-cursor-api-and-adoption-history); current behavior is defined by the [API contract](technical/mcp-api.md#current-reads-and-incremental-changes).
 
 ## Responsibility and verification principles
 

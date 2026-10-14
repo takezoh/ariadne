@@ -6,7 +6,7 @@ status: active
 created: '2026-10-02'
 updated: '2026-10-09'
 summary: 'Shared state for humans and AI consumers: positioning, everyday action use,
-  caller responsibilities, the Change Cursor proposal and current claim boundaries.'
+  caller responsibilities, the implemented Change Cursor API and its claim boundaries.'
 tags:
 - product
 - benefits
@@ -120,7 +120,7 @@ Lead with relief from remembering, then the appeal of designing a workflow with 
 | Every change can be undone | Undo rejects later target corrections and uses only the latest 100 retained operations |
 | The AI never invents deadlines or commitments | Caller guidance, not backend enforcement; Ariadne stores requested changes |
 | Works with any AI assistant | Only the ChatGPT delivery has been verified |
-| Change Cursor is a current tool, or shared storage automatically updates every AI's understanding | Current tools read complete snapshots or filtered current state; cursor-based change retrieval remains a proposal and interpretation belongs to the consumer |
+| A cursor marks human reading or updates every AI's understanding | Incremental retrieval is available, but each consumer owns its context and cursor; interpretation, reading acknowledgment and Action completion remain separate |
 | Proven reduction of management effort | Intended outcome, not measured |
 
 ## Benefits and evaluation criteria
@@ -152,15 +152,17 @@ An agent configured by the user can inspect Slack or email using its own tools a
 
 Thinness means flexible semantic decisions with reliable persistence, not arbitrary SQL or relaxed ownership. Backend restrictions must follow authorization, integrity, deterministic semantics or resource limits; assistance suggestions are not additional validation rules. See [architecture](../../ARCHITECTURE.md) and [caller responsibilities](assistance.md).
 
-## Change Cursor proposal
+## Change Cursor API and adoption history
+
+Status (2026-10-14): the bounded cursor API was adopted and implemented. The original proposal below records its design rationale and the questions open at proposal time. The current contract is in [MCP/API](../technical/mcp-api.md#current-reads-and-incremental-changes); the implementation decisions are summarized at the end of this section.
 
 ### Purpose and value
 
-The 2026-10-09 proposal adds a simple API to retrieve changes after a supplied cursor and return the next cursor. Its purpose is to let each consumer ask what changed since its own previous reference point. Shared state can change while different AIs retain different versions in their working context. Current tools return full snapshots or filtered current state; the proposed API would provide incremental reads.
+The 2026-10-09 proposal described a simple API to retrieve changes after a supplied cursor and return the next cursor. Its purpose was to let each consumer ask what changed since its own previous reference point. Shared state can change while different AIs retain different versions in their working context. At proposal time, tools returned full snapshots or filtered current state; the proposed API would provide incremental reads.
 
 The value is in human and AI collaboration: a human's correction becomes an input to each AI's next review; another AI's saved result can inform subsequent work; a consumer can use changes to identify assumptions worth reconsidering; and a resumed session can update retained or restored context from its reference position. Reduced repeated full reads and comparison work support these outcomes. A small data change can still have a large effect on a decision.
 
-### Proposed API and consumer contract
+### Proposal-time API sketch
 
 | Responsibility | Proposed contract |
 | --- | --- |
@@ -176,7 +178,7 @@ The returned cursor identifies a retrieval position. It does not prove correct u
 
 Begin with consumers storing their own cursors; Ariadne-side per-consumer checkpoint storage is not a prerequisite. Shared storage and change retrieval retain the current owner and authorization boundaries. They do not add assistant messaging, execution ownership, orchestration, push delivery or an Ariadne decision engine.
 
-### Decisions still required
+### Questions at proposal time
 
 - Define the relationship to existing revision without assuming a new independent counter.
 - Inventory affected data, including Actions, Projects, Tags, Perspectives and relationships, and define the supported scope rather than assuming Action-only changes.
@@ -186,7 +188,20 @@ Begin with consumers storing their own cursors; Ariadne-side per-consumer checkp
 
 An unchanged store does not mean a decision can remain unchanged. Defer expiry and approaching deadlines depend on time and still require separate caller evaluation.
 
-The source is the registered [Draft item 266668064](https://api.github.com/users/takezoh/projectsV2/5/items/266668064) in the [Ariadne GitHub Project](https://github.com/users/takezoh/projects/5). This section records the proposal and its open decisions; it does not change the published API inventory or establish implementation or acceptance. See the [current read contract](../technical/mcp-api.md#current-reads-and-proposed-change-retrieval).
+The source is the registered [Draft item 266668064](https://api.github.com/users/takezoh/projectsV2/5/items/266668064) in the [Ariadne GitHub Project](https://github.com/users/takezoh/projects/5). The proposal-time questions are resolved by the adopted bounded contract below. Local implementation and acceptance do not establish hosted deployment or host behavior.
+
+### Adopted bounded contract
+
+| Design question | Current decision |
+| --- | --- |
+| Position source and cursor scope | Reuse owner-wide `operations.revision_after`; encode a canonical versioned opaque cursor with a domain-separated fingerprint of the live trusted owner. The token never selects a SQL owner and stores no consumer identity. |
+| Bootstrap | Every complete snapshot returns `change_cursor` at the same D1 snapshot revision and raw `action_tags`; filtered query results are not bootstrap snapshots. |
+| Record shape | Return each retained operation with before/after persisted DTOs for Actions, Projects, Tags, Perspectives and Action/Tag associations. Include create/edit/remove/Undo changes. Withdrawal remains a `dropped` Action status; it does not physically delete Actions. |
+| Pagination | Default 20, maximum 100 whole operations and a 1 MiB UTF-8 JSON limit on the logical ChangePage. MCP returns the page in both `structuredContent` and `content[0].text`, so the full JSON-RPC HTTP response body may be larger; there is no total wire-body limit. Split pages carry the observed head fence. Empty and terminal pages reset to a live cursor at the observed head, so later operations remain visible. |
+| Retention and invalid history | Reuse the existing latest-100 operation window. Expired positions return `cursor_expired`; malformed, future, wrong-owner and discontinuous history fail explicitly. Resynchronize with a fresh complete snapshot and its cursor. |
+| Consumer responsibility | Each caller stores its own cursor and advances only after applying a page. Reads do not mutate state or acknowledge that a human read, understood or acted on changes. |
+
+Snapshot bootstrap and feed reconstruction use the shared explicit persisted DTO projection. Derived display values, owner values and internal identity markers stay outside the canonical persisted cache and feed. No new revision counter, checkpoint table, migration, event-sourcing contract, or owner-wide state replacement is introduced. See the current [data model](../technical/data-model.md#atomic-writes-replay-and-undo) and [MCP/API](../technical/mcp-api.md#current-reads-and-incremental-changes).
 
 ## Management methods and data structure
 

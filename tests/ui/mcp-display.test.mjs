@@ -28,7 +28,7 @@ test('MCP action titles and catalog names retain required semantics',async()=>{
 
 test('MCP publishes exactly the current tool names without aliases',async()=>{
  const tools=(await (await POST(request('tools/list'))).json()).result.tools;
- assert.deepEqual(tools.map(t=>t.name).sort(),['add_action','apply_change','capture_intent','get_relevant_context','list_actions','list_perspectives','open_actions','open_verification','operation_status','preview_change','query_actions','query_perspective','rename_action','undo_change']);
+ assert.deepEqual(tools.map(t=>t.name).sort(),['add_action','apply_change','capture_intent','get_change_cursor','get_changes','get_relevant_context','list_actions','list_perspectives','open_actions','open_verification','operation_status','preview_change','query_actions','query_perspective','rename_action','undo_change']);
 });
 
 test('MCP exposes bounded structural action_move without changing the tool-name surface',async()=>{const tools=(await (await POST(request('tools/list'))).json()).result.tools;const apply=tools.find(t=>t.name==='apply_change');assert(apply.inputSchema.properties.kind.enum.includes('action_move'));assert.match(apply.description,/action_move/);assert.match(apply.description,/placement/);});

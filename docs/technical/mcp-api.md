@@ -1,6 +1,6 @@
 # MCP and HTTP API contract
 
-Updated: 2026-10-09. Sources: [MCP route](../../app/mcp/route.ts), [HTTP route](../../app/api/actions/route.ts), [action service](../../lib/application/action-service.ts).
+Updated: 2026-10-14. Sources: [MCP route](../../app/mcp/route.ts), [HTTP route](../../app/api/actions/route.ts), [action service](../../lib/application/action-service.ts).
 
 ## Caller composition and guidance
 
@@ -39,6 +39,8 @@ See the [caller workflow guide](../usage/agent-workflows.md) for connection boun
 | open_actions / open_verification | Empty arguments; current snapshot with the associated normal/acceptance UI resource |
 | list_actions / get_relevant_context | Empty arguments; complete owner snapshot and revision |
 | query_actions | Optional status, is_deferred, flagged, project_id (UUID or null), tag_id, include_descendants; AND filtering, no filters returns all actions |
+| get_change_cursor | Empty arguments; current authenticated owner's opaque cursor at its current revision |
+| get_changes | cursor, optional page_size (default 20, 1–100); complete retained operations after the cursor |
 | list_perspectives | Empty arguments; saved owner definitions, revision and retrieved_at |
 | query_perspective | id; current definition, matching actions, revision and retrieved_at |
 | capture_intent | Write envelope plus title, text, optional source; preserves exact text in an ordinary Inbox action's notes |
@@ -51,11 +53,17 @@ See the [caller workflow guide](../usage/agent-workflows.md) for connection boun
 
 The write envelope is `{schemaVersion:2, operationId:UUID, expectedRevision:nonnegative integer}`. The two convenience tools use snake_case request_id/expected_revision. Old task-named tools are absent, not aliases. Unknown argument keys are rejected.
 
-## Current reads and proposed change retrieval
+## Current reads and incremental changes
 
-`list_actions` and `get_relevant_context` accept no cursor and return the complete owner snapshot and revision. The caller reads current state to observe human corrections and other authorized callers' updates. Query filters select current state; they do not identify changes since a previous read. The owner-wide revision guards writes, and the operation receipt API handles individual write outcomes. Neither is a published consumer change-feed contract.
+`list_actions`, `open_actions`, `open_verification` and `get_relevant_context` return the complete owner snapshot and revision. Every such snapshot also returns `change_cursor` and raw `action_tags` association rows. The cursor and snapshot revision are read from one consistent owner snapshot, making the cursor a baseline for reconstructing a canonical local cache from that snapshot and later deltas. Query filters select current state and are not bootstrap snapshots.
 
-The [Change Cursor proposal](../design/product.md#change-cursor-proposal) would add retrieval of changes after a supplied cursor together with the next cursor. Tool names, payloads, change granularity and retention are design decisions. The proposal does not add tools or fields to the current inventory above, and returned changes would still require interpretation by the consuming LLM or application.
+`get_change_cursor` returns the current owner-wide revision as a baseline. `get_changes` reads complete retained operation records after a cursor. A cursor is opaque to callers and scoped to the authenticated owner; it contains no consumer identity or server-side checkpoint. Consumers keep independent positions and should advance only after applying a page successfully. The token is a scope and position marker, not an authorization credential; SQL always uses the live trusted owner.
+
+Pages contain whole operations in ascending revision order. The default page size is 20, the maximum is 100 operations, and the serialized logical `ChangePage` object is limited to 1 MiB of UTF-8 JSON. MCP `tools/call` returns that same page both as `structuredContent` and as JSON text in `content[0].text`, so the complete JSON-RPC HTTP response body can exceed 1 MiB; the contract does not set a total wire-body limit. The local Worker harness records both page bytes and response-body bytes. When a page is split, its next cursor is fenced to the head revision observed for that read. Concurrent writes after the fence are available after the terminal cursor resets to a live position. Empty and terminal pages likewise return a live cursor at the observed head, so the next call sees later writes. Repeating a page request is safe; reads do not record a consumer position or mutate state.
+
+Each operation contains `operation_id`, `revision_before`, `revision_after`, `committed_at`, `undo_of` and `changes` arrays for `actions`, `projects`, `tags`, `perspectives` and `action_tags`. Each change contains persisted `before` and `after` DTOs; null means that entity was created or removed. Actions remain stored when withdrawn and their delta reports the lifecycle transition to `dropped`. Derived display fields, internal identity markers and owner values are not part of the feed. Persisted DTO fields use the same explicit projection as snapshot bootstrap cache reconstruction.
+
+The existing latest-100 operation retention is the feed retention boundary. A cursor older than the earliest retained contiguous position returns `cursor_expired`; obtain a fresh full `list_actions` snapshot and its matching `change_cursor` to resynchronize. Malformed, future, wrong-owner and discontinuous cursors/history fail explicitly; callers must not treat those errors as an empty feed. The consumer interprets changes and decides what additional state or context to read. Cursor progress does not mean the human read a change, an Action was completed, or time-dependent conditions such as Defer expiry were observed.
 
 ## Change payloads
 
@@ -90,7 +98,7 @@ Project/tag names are local, trimmed and case-sensitive within an owner and pare
 
 ## Responses and recovery
 
-Full snapshots contain schemaVersion, revision, actions, perspectives, projects, tags, result, retrieved_at, storage, proof_stage, assistance_policy and list_scopes. Actions contain saved order and flagged plus view, is_deferred, defer_reasons, project_path and tags. Individual actions do not contain waiting or prerequisites. Results follow tree/sibling order. Scope keys are inbox, waiting, flagged, normal, deferred, completed and cancelled. Flagged scope includes direct flags in the normal view; query_actions can retrieve flags in any lifecycle/view.
+Full snapshots contain schemaVersion, revision, change_cursor, actions, perspectives, projects, tags, action_tags, result, retrieved_at, storage, proof_stage, assistance_policy and list_scopes. Actions contain saved order and flagged plus view, is_deferred, defer_reasons, project_path and tags. Individual actions do not contain waiting or prerequisites. Results follow tree/sibling order. Scope keys are inbox, waiting, flagged, normal, deferred, completed and cancelled. Flagged scope includes direct flags in the normal view; query_actions can retrieve flags in any lifecycle/view.
 
 Write results identify operationId, its revision, changedIds and optional resolved.actions/project/tag/perspective. Replay returns the saved result alongside a freshly read snapshot; their revisions may differ. A read result is null. Query results contain query, projects, tags, actions and retrieved_at.
 

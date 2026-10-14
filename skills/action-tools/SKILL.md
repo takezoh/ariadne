@@ -7,6 +7,8 @@ description: Read and update structured actions through MCP, including capture, 
 
 Use the connected action-data tools to carry out the user's requested list changes. The user and caller-side LLM choose the management method. Read [operation semantics and recovery](references/operations.md) before changes or recovery, and consult only the relevant sections for reads.
 
+For incremental synchronization, bootstrap from a complete snapshot's `change_cursor`, then apply `get_changes` pages before retaining each `next_cursor`. On `cursor_expired`, replace the local cache from a fresh complete snapshot. Follow the connected deployment's schemas and the [incremental-read guidance](references/operations.md#incremental-reads) when available.
+
 ## Discover the connected contract
 
 Use the host's tool discovery to obtain current tool descriptions and input schemas. A direct MCP client uses `initialize`, then `tools/list`. Discovery and a locally installed skill do not establish authenticated access to saved data. Follow the host's authentication and account-selection rules; owner is never an argument.

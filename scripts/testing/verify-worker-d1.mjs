@@ -3,13 +3,16 @@ import {spawnSync} from 'node:child_process';
 import {readFileSync,writeFileSync,existsSync,mkdirSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';
+import {register} from 'node:module';
 import {sourceIdentity} from './verification-source.mjs';
+register('./typescript-loader.mjs',import.meta.url);
+const {persistedSnapshot}=await import('../../lib/domain/persisted-dto.ts');
 
 // This harness only targets the established local Wrangler Worker and D1 binding.
 const directPort=process.argv.slice(2).find(argument=>!argument.startsWith('--'));
 if(directPort&&!/^\d{4,5}$/.test(directPort))throw Error('Expected a local Wrangler Worker port');
 const diagnosticOnly=process.argv.includes('--diagnose-initialize');
-const base='http://127.0.0.1:'+(directPort??'8787'),prefix='boundary-'+randomUUID(),ownerA=prefix+'-A',ownerB=prefix+'-B';
+const base='http://127.0.0.1:'+(directPort??'8787'),prefix='boundary-'+randomUUID(),ownerA=prefix+'-A',ownerB=prefix+'-B',cursorOwner=prefix+'-cursor',cursorOwnerB=prefix+'-cursor-B';
 const evidence={source:sourceIdentity(),sourceCommit:spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).stdout.trim(),environment:'local Wrangler Worker / D1 binding DB',endpoint:base,transport:directPort?'direct Wrangler-managed user Worker listener':'Wrangler dev proxy',bindingConfig:JSON.parse(readFileSync('dist/server/wrangler.json','utf8')).d1_databases,processEvidence:spawnSync('ps',['-eo','pid,ppid,args'],{encoding:'utf8'}).stdout.split('\n').filter(x=>/workerd serve|wrangler.*dev --config/.test(x)),serverLogPath:process.env.ACTION_TOOLS_SERVER_LOG_PATH||null,hostedAcceptance:'not_run',artifactSha256:createHash('sha256').update(readFileSync('dist/server/index.js')).digest('hex'),runMode:diagnosticOnly?'initialize-diagnostic':'full-contract',startedAt:new Date().toISOString(),httpObservations:[],scenarios:[]};
 function sql(command){
  const result=spawnSync(process.execPath,['--import','./scripts/sites-env.mjs','./node_modules/wrangler/bin/wrangler.js','d1','execute','DB','--local','--persist-to','.wrangler/state','--config','dist/server/wrangler.json','--command',command],{encoding:'utf8',timeout:60000});
@@ -25,10 +28,35 @@ async function http(path,body,{owner=ownerA,headers={},raw=false}={}){
  }
  return response;
 }
-async function rpc(method,params={},options={}){const response=await http('/mcp',{jsonrpc:'2.0',id:1,method,params},options);if(response.status===202)return {status:response.status,body:null};const text=await response.text();try{return {status:response.status,contentType:response.headers.get('content-type')||'',body:JSON.parse(text)};}catch{return {status:response.status,contentType:response.headers.get('content-type')||'',body:null,bodyClass:text.toLowerCase().startsWith('your worker restarted mid-request')?'worker-restarted-mid-request':'non-json',bodyLength:Buffer.byteLength(text),bodySha256:createHash('sha256').update(text).digest('hex')};}}
+async function rpc(method,params={},options={}){const response=await http('/mcp',{jsonrpc:'2.0',id:1,method,params},options);if(response.status===202)return {status:response.status,body:null};const text=await response.text();try{return {status:response.status,contentType:response.headers.get('content-type')||'',contentEncoding:response.headers.get('content-encoding')||'identity',wireBodyBytes:Buffer.byteLength(text),body:JSON.parse(text)};}catch{return {status:response.status,contentType:response.headers.get('content-type')||'',body:null,bodyClass:text.toLowerCase().startsWith('your worker restarted mid-request')?'worker-restarted-mid-request':'non-json',bodyLength:Buffer.byteLength(text),bodySha256:createHash('sha256').update(text).digest('hex')};}}
 async function tool(owner,name,args={}){const r=await rpc('tools/call',{name,arguments:args},{owner});assert.equal(r.status,200);return r.body.result.structuredContent;}
 async function snapshot(owner=ownerA){const r=await tool(owner,'list_actions');assert(!r.error,JSON.stringify(r));return r;}
 function durable(snapshot){const {retrieved_at,...state}=snapshot;void retrieved_at;return state;}
+function cursorToken(encoded,changes={}){const value=JSON.parse(Buffer.from(encoded,'base64url').toString('utf8'));return Buffer.from(JSON.stringify({...value,...changes})).toString('base64url');}
+function persistedState(value){return persistedSnapshot({actions:value.actions,projects:value.projects,tags:value.tags,perspectives:value.perspectives,action_tags:value.action_tags});}
+function entityKey(collection,row){return collection==='action_tags'?`${row.action_id}:${row.tag_id}`:row.id;}
+async function undo(owner,target){const request={schemaVersion:2,operationId:randomUUID(),expectedRevision:(await snapshot(owner)).revision,undoOf:target.request.operationId},result=await tool(owner,'undo_change',request);assert(!result.error,JSON.stringify(result.error));}
+function assertUndoInverse(operations,target,collection,identity){
+ const applied=operations.find(row=>row.operation_id===target.request.operationId),undone=operations.find(row=>row.undo_of===target.request.operationId);
+ assert(applied,`missing ${collection} target operation ${target.request.operationId}`);assert(undone,`missing ${collection} Undo operation ${target.request.operationId}`);
+ const find=row=>row.changes[collection].find(delta=>entityKey(collection,delta.after??delta.before)===identity),before=find(applied),after=find(undone);
+ assert(before,`missing ${collection} target delta`);assert(after,`missing ${collection} Undo delta`);
+ assert.deepEqual(after.before,before.after,`${collection} Undo must start from the target's after-state`);
+ const stable=value=>{
+  if(!value)return value;
+  const {revision,updated_at,...persisted}=value;void revision;void updated_at;return persisted;
+ };
+ assert.deepEqual(stable(after.after),stable(before.before),`${collection} Undo must restore the target's prior persisted state`);
+ return {collection,targetOperationId:target.request.operationId,undoOperationId:undone.operation_id,restoredState:'exact except generated revision/updated_at metadata'};
+}
+function applyOperation(cache,operation){
+ for(const collection of ['actions','projects','tags','perspectives','action_tags'])for(const delta of operation.changes[collection]){
+  const identity=entityKey(collection,delta.after??delta.before),index=cache[collection].findIndex(row=>entityKey(collection,row)===identity),current=index<0?null:cache[collection][index];
+  assert.deepEqual(current,delta.before,`${collection} before-state at revision ${operation.revision_after}`);
+  if(delta.after===null){if(index>=0)cache[collection].splice(index,1);}else if(index<0)cache[collection].push(delta.after);else cache[collection][index]=delta.after;
+ }
+}
+function sortPersisted(cache){for(const collection of ['actions','projects','tags','perspectives','action_tags'])cache[collection].sort((left,right)=>entityKey(collection,left).localeCompare(entityKey(collection,right)));return cache;}
 async function args(owner,kind,payload){return {schemaVersion:2,operationId:randomUUID(),expectedRevision:(await snapshot(owner)).revision,kind,payload};}
 async function write(owner,kind,payload){const request=await args(owner,kind,payload),result=await tool(owner,'apply_change',request);assert(!result.error,JSON.stringify(result.error));return {request,result};}
 async function scenario(name,fn){await fn();evidence.scenarios.push({name,result:'passed'});console.log('passed: '+name);}
@@ -46,6 +74,10 @@ try{
   assert.equal((await rpc('initialize')).status,200);assert.equal((await rpc('tools/list',{}, {owner:ownerB})).status,200);
   const resources=(await rpc('resources/list')).body.result.resources;
   for(const resource of resources)assert((await rpc('resources/read',{uri:resource.uri})).body.result.contents[0].text.length>0);
+  const tools=(await rpc('tools/list')).body.result.tools;
+  assert(tools.some(item=>item.name==='get_change_cursor'),'missing get_change_cursor');assert(tools.some(item=>item.name==='get_changes'),'missing get_changes');
+  assert.deepEqual(tools.find(item=>item.name==='get_change_cursor').inputSchema.properties,{});
+  assert.equal(tools.find(item=>item.name==='get_changes').inputSchema.properties.page_size.maximum,100);
   assert.equal((await rpc('notifications/initialized')).status,202);
  });
  await scenario('shared Origin/media type/actual UTF-8 size guards and strict caller fields',async()=>{
@@ -144,6 +176,107 @@ try{
   const undo={schemaVersion:2,operationId:randomUUID(),expectedRevision:(await snapshot(moveOwner)).revision,undoOf:request.operationId};const undone=await tool(moveOwner,'undo_change',undo);assert(!undone.error,JSON.stringify(undone.error));
   const restored=durable(undone).actions.filter(row=>row.parent_id===null&&row.project_id===null).map(row=>row.id);assert.deepEqual(restored,beforeSiblings);
   assert.equal(preview.kind,'action_move');evidence.actionMove={operationId:request.operationId,previewExpectedRevision:preview.expectedRevision,appliedRevision:applied.revision,receipt:receipt.status,undoRevision:undone.revision,fullSnapshot:true,workerBinding:'env.DB via Wrangler local D1'};
+ });
+ await scenario('opaque cursors bootstrap and reconstruct every persisted collection across fenced pages, replay and Undo',async()=>{
+  const initial=await snapshot(cursorOwner),baseline=initial.change_cursor,live=await tool(cursorOwner,'get_change_cursor');
+  assert.deepEqual(JSON.parse(Buffer.from(baseline,'base64url').toString('utf8')),JSON.parse(Buffer.from(live.cursor,'base64url').toString('utf8')));
+  const empty=await tool(cursorOwner,'get_changes',{cursor:baseline});assert.deepEqual(empty.changes,[]);assert.equal(empty.has_more,false);assert.equal(JSON.parse(Buffer.from(empty.next_cursor,'base64url').toString('utf8')).through_revision,null);
+  assert.notEqual(empty.next_cursor,(await tool(cursorOwnerB,'get_change_cursor')).cursor);
+  assert.equal((await tool(cursorOwnerB,'get_changes',{cursor:empty.next_cursor})).error.code,'invalid_cursor');
+  const actionCreated=await write(cursorOwner,'add',{title:'Cursor action',notes:' exact raw notes ',tag_ids:[]}),actionId=actionCreated.result.result.resolved.actions[0].id;
+  const project=(await write(cursorOwner,'project_add',{name:'Cursor project',description:'project context'})).result.result.resolved.project.id;
+  const tag=(await write(cursorOwner,'tag_add',{name:'Cursor tag',description:'tag context'})).result.result.resolved.tag.id;
+  const perspective=(await write(cursorOwner,'perspective_add',{name:'Cursor view',description:'view context',filter:{project_id:project,tag_id:tag,statuses:['active']}})).result.result.resolved.perspective.id;
+  const actionTagCreate=await write(cursorOwner,'action_tag',{id:actionId,tag_id:tag,enabled:true});
+  await write(cursorOwner,'action_project',{id:actionId,project_id:project});
+  const actionEdit=await write(cursorOwner,'edit',{id:actionId,title:'Cursor action corrected',notes:' corrected exact ',flagged:true,due_at:'2026-10-20T12:00:00Z'});
+  await write(cursorOwner,'project_edit',{id:project,description:'updated project context'});
+  await write(cursorOwner,'tag_edit',{id:tag,description:'updated tag context'});
+  await write(cursorOwner,'perspective_edit',{id:perspective,description:'updated view context'});
+  const associationRemoved=await write(cursorOwner,'action_tag',{id:actionId,tag_id:tag,enabled:false});
+  await undo(cursorOwner,associationRemoved);
+  await write(cursorOwner,'action_tag',{id:actionId,tag_id:tag,enabled:false});
+  await write(cursorOwner,'action_project',{id:actionId,project_id:null});
+  const perspectiveRemoved=await write(cursorOwner,'perspective_remove',{id:perspective});
+  await undo(cursorOwner,perspectiveRemoved);
+  await write(cursorOwner,'perspective_remove',{id:perspective});
+  const projectRemoved=await write(cursorOwner,'project_remove',{id:project});
+  await undo(cursorOwner,projectRemoved);
+  await write(cursorOwner,'project_remove',{id:project});
+  const tagRemoved=await write(cursorOwner,'tag_remove',{id:tag});
+  await undo(cursorOwner,tagRemoved);
+  await write(cursorOwner,'tag_remove',{id:tag});
+  const actionCancelled=await write(cursorOwner,'cancel',{id:actionId});
+  await undo(cursorOwner,actionCancelled);
+  await write(cursorOwner,'cancel',{id:actionId});
+  const current=await snapshot(cursorOwner),fenceRevision=current.revision,firstPage=await tool(cursorOwner,'get_changes',{cursor:baseline,page_size:2});
+  assert(firstPage.has_more);assert.equal(firstPage.through_revision,fenceRevision);
+  assert.deepEqual(await tool(cursorOwner,'get_changes',{cursor:baseline,page_size:2}),firstPage);
+  const concurrent=await write(cursorOwner,'add',{title:'After page fence'}),concurrentId=concurrent.result.result.resolved.actions[0].id;
+  const cache=persistedState(initial),operationIds=new Set();let page=firstPage,pages=1;
+  while(true){
+   for(const operation of page.changes){assert(!operationIds.has(operation.operation_id));operationIds.add(operation.operation_id);applyOperation(cache,operation);}
+   assert.equal(page.through_revision,fenceRevision);
+   if(!page.has_more)break;
+   const nextCursor=page.next_cursor;
+   page=await tool(cursorOwner,'get_changes',{cursor:nextCursor,page_size:2});
+   assert.deepEqual(await tool(cursorOwner,'get_changes',{cursor:nextCursor,page_size:2}),page);pages++;
+  }
+  assert.equal(pages>1,true);
+  assert.equal(JSON.parse(Buffer.from(page.next_cursor,'base64url').toString('utf8')).position,fenceRevision);
+  assert.equal(JSON.parse(Buffer.from(page.next_cursor,'base64url').toString('utf8')).through_revision,null);
+  assert.deepEqual(sortPersisted(cache),sortPersisted(persistedState(current)));
+  const latest=await snapshot(cursorOwner),replay=await tool(cursorOwner,'apply_change',actionCreated.request);assert.equal(replay.revision,latest.revision);assert.equal(replay.actions.find(row=>row.id===actionId).title,'Cursor action corrected');
+  const history=await tool(cursorOwner,'get_changes',{cursor:baseline,page_size:100});
+  assert(history.changes.some(row=>row.operation_id===projectRemoved.request.operationId&&row.changes.projects.some(item=>item.before?.id===project&&item.after===null)));
+  assert(history.changes.some(row=>row.undo_of===projectRemoved.request.operationId&&row.changes.projects.some(item=>item.before===null&&item.after?.id===project)));
+  assert(history.changes.some(row=>row.operation_id===actionTagCreate.request.operationId&&row.changes.action_tags.some(item=>item.before===null&&item.after?.action_id===actionId)));
+  assert(history.changes.some(row=>row.operation_id===associationRemoved.request.operationId&&row.changes.action_tags.some(item=>item.before?.tag_id===tag&&item.after===null)));
+  const undoInverses=[
+   assertUndoInverse(history.changes,actionCancelled,'actions',actionId),
+   assertUndoInverse(history.changes,projectRemoved,'projects',project),
+   assertUndoInverse(history.changes,tagRemoved,'tags',tag),
+   assertUndoInverse(history.changes,perspectiveRemoved,'perspectives',perspective),
+   assertUndoInverse(history.changes,associationRemoved,'action_tags',`${actionId}:${tag}`)
+  ];
+  assert.equal(current.actions.find(row=>row.id===actionId).status,'dropped');
+  assert.equal((await tool(cursorOwner,'operation_status',{operationId:actionEdit.request.operationId})).status,'applied');
+  const afterTerminal=await tool(cursorOwner,'get_changes',{cursor:page.next_cursor});assert.deepEqual(afterTerminal.changes.map(row=>row.revision_after),[fenceRevision+1]);assert.equal(afterTerminal.changes[0].changes.actions[0].after.id,concurrentId);
+  assert.equal((await snapshot(cursorOwner)).actions.some(row=>row.id===concurrentId),true);
+  evidence.cursorReconstruction={baselineRevision:initial.revision,fencedRevision:fenceRevision,pages,operationCount:operationIds.size,concurrentRevision:concurrent.result.revision,persistedCollections:['actions','projects','tags','perspectives','action_tags'],sameProjector:'lib/domain/persisted-dto.ts',replayCurrentCorrection:true,undoInverses};
+ });
+ await scenario('terminal and empty H+1, read nonmutation, cursor failures, and logical page versus MCP body bytes',async()=>{
+  const owner=prefix+'-cursor-edge',before=await snapshot(owner),baseline=before.change_cursor,empty=await tool(owner,'get_changes',{cursor:baseline});
+  const unchanged=durable(await snapshot(owner));assert.equal(unchanged.revision,0);assert.deepEqual(unchanged,durable(before));
+  const later=await write(owner,'add',{title:'H plus one'}),next=await tool(owner,'get_changes',{cursor:empty.next_cursor});assert.deepEqual(next.changes.map(row=>row.revision_after),[1]);
+  const badTokens=['!',Buffer.from('{"v":1,"scope":"bad","position":0,"through_revision":null}').toString('base64url'),cursorToken(baseline,{position:5})];
+  for(const cursor of badTokens)assert.equal((await tool(owner,'get_changes',{cursor})).error.code,'invalid_cursor');
+  const other=await tool(cursorOwnerB,'get_change_cursor');assert.equal((await tool(owner,'get_changes',{cursor:other.cursor})).error.code,'invalid_cursor');
+  const byteOwner=prefix+'-cursor-bytes',byteProject=(await write(byteOwner,'project_add',{name:'Byte page'})).result.result.resolved.project.id;
+  const byteStart=(await tool(byteOwner,'get_change_cursor')).cursor;
+  for(let index=0;index<14;index++)await write(byteOwner,'project_edit',{id:byteProject,description:`${String(index).padStart(2,'0')}${'x'.repeat(39_998)}`});
+  const byteRpc=await rpc('tools/call',{name:'get_changes',arguments:{cursor:byteStart,page_size:100}},{owner:byteOwner,headers:{'Accept-Encoding':'identity'}}),bytePage=byteRpc.body.result.structuredContent;
+  const logicalPageBytes=Buffer.byteLength(JSON.stringify(bytePage)),wirePayload=byteRpc.body.result.content.find(item=>item.type==='text')?.text;
+  assert.equal(byteRpc.status,200);assert.equal(byteRpc.contentEncoding,'identity');assert.equal(wirePayload,JSON.stringify(bytePage));assert(bytePage.has_more);assert(bytePage.changes.length<14);
+  assert(logicalPageBytes<=1_048_576);assert(byteRpc.wireBodyBytes>logicalPageBytes);assert(byteRpc.wireBodyBytes>1_048_576);
+  const afterRead=durable(await snapshot(owner));assert.equal(afterRead.revision,later.result.revision);assert.equal((await tool(owner,'operation_status',{operationId:later.request.operationId})).status,'applied');
+  evidence.cursorReadIntegrity={emptyRevision:0,laterRevision:1,malformedTokens:badTokens.length,wrongOwner:true,future:true,bytePageOperations:bytePage.changes.length,logicalChangePageBytes:logicalPageBytes,logicalPageLimitBytes:1_048_576,actualMcpJsonRpcBodyBytes:byteRpc.wireBodyBytes,responseContentEncoding:byteRpc.contentEncoding,wireBodyExceedsLogicalPageLimit:byteRpc.wireBodyBytes>1_048_576,wireContainsDuplicatePayload:byteRpc.wireBodyBytes>logicalPageBytes,noReadMutation:true};
+ });
+ await scenario('retention accepts the oldest valid position and rejects expired cursors and retained holes/malformed rows',async()=>{
+  const pruneOwner=prefix+'-cursor-prune',start=await tool(pruneOwner,'get_change_cursor');
+  for(let index=0;index<101;index++)await write(pruneOwner,'add',{title:`Retained ${index}`});
+  assert.equal((await tool(pruneOwner,'get_changes',{cursor:start.cursor})).error.code,'cursor_expired');
+  const oldestValid=cursorToken(start.cursor,{position:1,through_revision:null});
+  const oldestPage=await tool(pruneOwner,'get_changes',{cursor:oldestValid,page_size:1});assert.equal(oldestPage.changes[0].revision_after,2);
+  const malformedOwner=prefix+'-cursor-malformed',first=await write(malformedOwner,'add',{title:'Malformed source'});await write(malformedOwner,'add',{title:'Later'});
+  sql(`UPDATE operations SET delta='{"actions":[]}' WHERE owner='${malformedOwner}' AND operation_id='${first.request.operationId}';`);
+  const malformedCursor=(await tool(malformedOwner,'get_change_cursor')).cursor;
+  assert.equal((await tool(malformedOwner,'get_changes',{cursor:cursorToken(malformedCursor,{position:0})})).error.code,'invalid_state');
+  const gapOwner=prefix+'-cursor-gap';await write(gapOwner,'add',{title:'Gap one'});await write(gapOwner,'add',{title:'Gap two'});await write(gapOwner,'add',{title:'Gap three'});
+  sql(`DELETE FROM operations WHERE owner='${gapOwner}' AND revision_after=2;`);
+  const gapCursor=(await tool(gapOwner,'get_change_cursor')).cursor;
+  assert.equal((await tool(gapOwner,'get_changes',{cursor:cursorToken(gapCursor,{position:0})})).error.code,'invalid_state');
+  evidence.cursorRetention={retainedLimit:100,headRevision:101,oldestValidPosition:1,expiredPosition:0,malformedDelta:'invalid_state',retainedGap:'invalid_state'};
  });
  evidence.result='passed';
  }

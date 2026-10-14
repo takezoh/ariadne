@@ -41,7 +41,7 @@ If the user corrects an action in the UI or another authorized conversation save
 
 Each conversation or workflow may have read a different version. Use the current revision for writes and the existing conflict/recovery contract. Recover any context that was not saved through the caller's own environment. Completing a read does not complete an Action or mark information as read by the human.
 
-The [Change Cursor proposal](../design/product.md#change-cursor-proposal) would support changes since each consumer's previous position. Until that API is implemented, use the current snapshot and query tools; do not send cursor arguments or treat retained write receipts as a change feed.
+For incremental reads, bootstrap from a complete `list_actions` snapshot and retain its `change_cursor` with the consumer's own context. Call `get_changes` with that cursor, apply each complete operation page, and save `next_cursor` only after the page is applied. A split page is fenced to the observed head; continue until `has_more` is false. Empty and terminal pages provide a live cursor for later writes. On `cursor_expired`, replace the local cache from a fresh full snapshot and its cursor. A cursor is not a server checkpoint or evidence that a human read or acted on changes. See the [incremental API contract](../technical/mcp-api.md#current-reads-and-incremental-changes).
 
 ## Use the optional skills
 

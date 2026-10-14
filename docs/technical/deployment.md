@@ -66,6 +66,10 @@ Calendar sync, notifications, external arrival observation and background execut
 
 [0011](../../drizzle/0011_catalog_descriptions.sql) adds empty descriptions to existing projects, tags and perspectives without resetting data or receipts. Apply pending migrations before switching to a Worker that selects these columns. Do not rerun 0009 as a description upgrade. Dedicated editing UI and hosted rollout are separate work.
 
+## Versioned perspective migration 0017
+
+[0017](../../drizzle/0017_vengeful_blonde_phantom.sql) permits definition versions 1 and 2 and preserves existing owner rows, raw v1 definition JSON, primary keys, other tables and retained history. For rollout, apply the D1 migration first, switch every Worker/consumer to a version-2-capable build second, and only then permit version-2 writes. Readers predating version 2 are unsafe after a v2 row, receipt or delta has been persisted; rollback requires a forward-compatible repair or roll-forward deployment, not restoring the old binary. Applying this migration locally does not establish hosted rollout.
+
 ## Revision guard migration 0012 and generic identifiers
 
 [0012](../../drizzle/0012_generic_revision_guard.sql) recreates the operations revision guard with the generic `revision_conflict` marker. It changes no records, revisions or receipts. The Worker classifies conflicts by that marker, which the earlier trigger message also contains, so the order of migration and Worker switch does not misclassify conflicts.

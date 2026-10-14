@@ -80,10 +80,10 @@ Verify pure transitions and input preservation; SQLite/defaults/reset/CAS/atomic
 
 Sources: [data model](../technical/data-model.md), [API](../technical/mcp-api.md), [testing](../technical/testing.md), [change](../changes/change-20261003-action-order-and-flag/change.md).
 
-## Filter-only saved views
+## Versioned saved perspectives
 
-A saved perspective is owned by one authenticated user and contains extraction conditions only. Owner is mandatory in storage; queries and references stay within that owner. It does not define another order, grouping or display configuration.
+A saved perspective is owned by one authenticated user and contains extraction conditions. Owner is mandatory in storage; queries and references stay within that owner. Definitions are an explicit discriminated union: version 1 stores a legacy `filter`, and version 2 stores a structured `query` with optional global `order_by`. Metadata edits retain the saved variant; definition edits replace it and cannot downgrade a version 2 definition.
 
-Evaluation preserves the existing action-tree relative order and never duplicates actions or changes their state. Status sets, direct Flag, read-time Defer and explicit Project/Tag membership are mechanical conditions, not recommendations. Classification descendant expansion is distinct from action containment. Parent actions that fail the filter are not automatically included as matches.
+Version 1 preserves its filter contract, including direct-only Project/Tag matching when `include_descendants` is omitted and action-tree relative order. Version 2 uses the shared pure query kernel; each classification leaf includes descendants by default unless it says otherwise. An omitted sort preserves action-tree order, while explicit sort is global across matching actions. Both variants evaluate the confirmed owner snapshot at read time, never copy or change Action state, and never insert a nonmatching parent into results.
 
-Stored definitions are dynamic: edits, classification changes and Defer expiry affect the next read. Filter edits replace the definition. Removal and Undo use ordinary revision, receipt and identity guarantees; missing references must not silently widen the view. Definitions and returned matches remain separate from host recommendations.
+Status sets, direct Flag, read-time Defer and explicit Project/Tag membership are mechanical conditions, not recommendations. Classification descendant expansion is distinct from action containment. Stored definitions are dynamic: edits, classification changes and Defer expiry affect the next read. Removal and Undo use ordinary revision, receipt and identity guarantees; missing references must not silently widen the view. Definitions and returned matches remain separate from host recommendations.

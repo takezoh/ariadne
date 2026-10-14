@@ -1,6 +1,8 @@
 import type { Action, ActionStatus, PerspectiveQuery, PerspectiveQueryCondition, Project, Snapshot, SortKey, Tag } from '../data/types';
 import { ActionError, project } from './core';
 
+export type { PerspectiveFilter, PerspectiveQuery, PerspectiveQueryCondition } from '../data/types';
+
 export const PERSPECTIVE_QUERY_LIMITS = Object.freeze({
   maxDepth: 32,
   maxNodes: 256,

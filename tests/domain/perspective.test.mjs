@@ -53,3 +53,46 @@ test('catalog deletion and Undo cannot broaden a view by losing a reference',()=
   assert.throws(()=>undo(removed,delta(base,edited),now,edited.revision),e=>e.code==='undo_conflict');
  }
 });
+
+test('v2 creation, full-definition replacement, metadata retention and downgrade rejection preserve the discriminated variants',()=>{
+ const base=fixture();
+ const v1=apply(base,'perspective_add',{id:id(20),name:'Legacy',filter:{project_id:id(1)}});
+ const upgraded=apply(v1,'perspective_edit',{id:id(20),query:{where:{and:[
+  {field:'project_id',op:'eq',value:id(2)},
+  {not:{field:'tag_id',op:'in',values:[id(4)]}},
+ ]},order_by:[{field:'title',direction:'asc'}]}});
+ assert.equal(upgraded.perspectives[0].definition_version,2);
+ assert.equal(Object.hasOwn(upgraded.perspectives[0],'filter'),false);
+ assert.deepEqual(upgraded.perspectives[0].query,{where:{and:[
+  {field:'project_id',op:'eq',value:id(2),include_descendants:true},
+  {not:{field:'tag_id',op:'in',values:[id(4)],include_descendants:true}},
+ ]},order_by:[{field:'title',direction:'asc',nulls:'last'}]});
+ const metadata=apply(upgraded,'perspective_edit',{id:id(20),name:'Renamed',description:'preserved'});
+ assert.equal(metadata.perspectives[0].definition_version,2);assert.deepEqual(metadata.perspectives[0].query,upgraded.perspectives[0].query);
+ const replacement=apply(metadata,'perspective_edit',{id:id(20),query:{where:{not:{field:'status',op:'eq',value:'dropped'}}}});
+ assert.deepEqual(replacement.perspectives[0].query,{where:{not:{field:'status',op:'eq',value:'dropped'}}});
+ assert.throws(()=>apply(replacement,'perspective_edit',{id:id(20),filter:{}}),e=>e.code==='invalid_input');
+ assert.throws(()=>apply(replacement,'perspective_edit',{id:id(20),filter:{},query:{}}),e=>e.code==='invalid_input');
+ assert.throws(()=>apply(base,'perspective_add',{id:id(21),name:'Ambiguous',filter:{},query:{}}),e=>e.code==='invalid_input');
+ const restored=undo(replacement,delta(metadata,replacement),now,replacement.revision);
+ assert.equal(restored.perspectives[0].definition_version,2);assert.deepEqual(restored.perspectives[0].query,metadata.perspectives[0].query);
+ const backToV1=undo(upgraded,delta(v1,upgraded),now,upgraded.revision);
+ assert.equal(backToV1.perspectives[0].definition_version,1);assert.deepEqual(backToV1.perspectives[0].filter,v1.perspectives[0].filter);
+});
+
+test('recursive negative and set references prevent catalog deletion and protect Undo restoration',()=>{
+ const cases=[
+  {kind:'project',node:id(2),query:{where:{not:{field:'project_id',op:'in',values:[id(2)]}}}},
+  {kind:'tag',node:id(4),query:{where:{or:[{field:'status',op:'eq',value:'active'},{not:{field:'tag_id',op:'not_in',values:[id(4)]}}]}}},
+ ];
+ for(const item of cases){
+  const kind=item.kind;
+  let added=apply(fixture(),'perspective_add',{id:id(20),name:'Referenced',query:item.query});
+  assert.throws(()=>apply(added,kind+'_remove',{id:item.node}),error=>error.code==='related_perspectives');
+  const removed=apply(added,'perspective_remove',{id:id(20)});
+  const restored=undo(removed,delta(added,removed),now,removed.revision);
+  assert.equal(restored.perspectives[0].definition_version,2);assert.deepEqual(restored.perspectives[0].query,added.perspectives[0].query);
+  const catalogEdit=apply(removed,kind+'_edit',{id:item.node,name:'Later correction'});
+  assert.throws(()=>undo(catalogEdit,delta(added,removed),now,removed.revision),error=>error.code==='undo_conflict');
+ }
+});

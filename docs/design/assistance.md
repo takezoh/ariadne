@@ -93,6 +93,8 @@ User prompts / LLM / dot / caller-side scheduler
 | Structured data, deterministic queries and transitions, ownership, revisions, replay and Undo | Ariadne |
 | Direct inspection/correction and retained unsaved proposals | Ariadne shared UI |
 
+Saved perspectives are deterministic owner-scoped queries. Consumers retrieve the persisted v1 filter or v2 query through list_perspectives/query_perspective and decide how the result fits their own context. The shared UI evaluates a saved definition against the confirmed snapshot and shows its condition and ordering summary; it does not provide a query editor or choose a management method.
+
 Ariadne needs no dedicated connector to each agent or source for these workflows. A caller composes its available tools with Ariadne operations. Ariadne does not guarantee the caller has access, is configured, runs at a chosen time or makes correct semantic decisions.
 
 ## Shared state and consumer context

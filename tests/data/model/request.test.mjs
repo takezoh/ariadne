@@ -83,6 +83,15 @@ test('every generated-entity request kind exposes and finalizes its explicit ID 
   }
 });
 
+test('perspective request normalization selects exactly one persisted definition variant',()=>{
+ const legacy=normalizeChange(snapshot,{kind:'perspective_add',payload:{name:'Legacy',filter:{statuses:[]}}});
+ assert.deepEqual(legacy.change.payload,{id:'__generated_id_0__',name:'Legacy',description:'',filter:{statuses:[]}});
+ const current=normalizeChange(snapshot,{kind:'perspective_add',payload:{name:'Current',query:{where:{field:'status',op:'eq',value:'active'},order_by:[{field:'title',direction:'asc'}]}}});
+ assert.deepEqual(current.change.payload,{id:'__generated_id_0__',name:'Current',description:'',query:{where:{field:'status',op:'eq',value:'active'},order_by:[{field:'title',direction:'asc',nulls:'last'}]}});
+ const finalized=finalizeChange(snapshot,uuid(9),current,[uuid(10)]);assert.equal(finalized.change.payload.id,uuid(10));assert.equal(Object.hasOwn(finalized.change.payload,'filter'),false);
+ for(const payload of [{name:'Ambiguous',filter:{},query:{}},{name:'Bad query',query:{where:{field:'status',op:'eq',value:'waiting'}}}])assert.throws(()=>normalizeChange(snapshot,{kind:'perspective_add',payload}),error=>error.code==='invalid_input');
+});
+
 test('existing get-or-create finalizes with no generated ID and caller marker-like IDs stay opaque', () => {
   const existing = { id: uuid(4), name: 'Project', description: '', parent_id: null, order: 0, revision: 1, created_at: now, updated_at: now };
   const state = { ...snapshot, projects: [existing] };

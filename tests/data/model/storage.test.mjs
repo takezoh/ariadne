@@ -20,13 +20,22 @@ test('snapshot codec decodes SQL booleans and JSON without altering returned row
     [{ revision: 3 }],
     [{ ...action(uuid(1), 'Saved'), flagged: 1 }],
     [], [], [], [],
-    [{ id: uuid(2), name: 'View', description: '', filter: '{"statuses":["active"]}', definition_version: 1, revision: 1, created_at: now, updated_at: now }],
+    [
+      { id: uuid(2), name: 'View', description: '', filter: '{"statuses":["active"]}', definition_version: 1, revision: 1, created_at: now, updated_at: now },
+      { id: uuid(3), name: 'Sorted', description: '', filter: '{"order_by":[{"field":"title","direction":"asc"}],"where":{"not":{"field":"status","op":"eq","value":"dropped"}}}', definition_version: 2, revision: 2, created_at: now, updated_at: now },
+    ],
   ];
   deepFreeze(raw);
   const decoded = decodeSnapshotRows(raw);
   assert.equal(decoded.revision, 3);
   assert.equal(decoded.actions[0].flagged, true);
   assert.deepEqual(decoded.perspectives[0].filter, { statuses: ['active'] });
+  assert.equal(decoded.perspectives[0].definition_version, 1);
+  assert.deepEqual(decoded.perspectives[1], {
+    id: uuid(3), name: 'Sorted', description: '', definition_version: 2,
+    query: { order_by: [{ field: 'title', direction: 'asc', nulls: 'last' }], where: { not: { field: 'status', op: 'eq', value: 'dropped' } } },
+    revision: 2, created_at: now, updated_at: now,
+  });
   assert.equal(raw[1][0].flagged, 1);
   assert.equal(raw[6][0].filter, '{"statuses":["active"]}');
 });
@@ -52,7 +61,10 @@ test('storage plan is deterministic, readonly-input safe, preserves canonical fi
     actions: [action(uuid(1), 'Saved')],
     projects: [{ id: uuid(2), name: 'Project', description: '', parent_id: null, order: 0, revision: 1, created_at: now, updated_at: now }],
     catalog_identity_ledger: [{ kind: 'project', identity: uuid(2), revision: 4 }],
-    perspectives: [{ id: uuid(3), name: 'View', description: '', filter: { statuses: ['active'], flagged: true }, definition_version: 1, revision: 4, created_at: now, updated_at: now }],
+    perspectives: [
+      { id: uuid(3), name: 'View', description: '', filter: { statuses: ['active'], flagged: true }, definition_version: 1, revision: 4, created_at: now, updated_at: now },
+      { id: uuid(4), name: 'Sorted', description: '', query: { where: { not: { field: 'status', op: 'eq', value: 'dropped' } }, order_by: [{ field: 'title', direction: 'desc', nulls: 'last' }] }, definition_version: 2, revision: 5, created_at: now, updated_at: now },
+    ],
   });
   const request = deepFreeze({ operationId: uuid(8), payload: '{"operation":"apply"}', before, after, now, undoOf: null, resolved: { actions: [{ id: uuid(1) }] } });
   const first = planStorageCommit(request), second = planStorageCommit(request);
@@ -61,6 +73,7 @@ test('storage plan is deterministic, readonly-input safe, preserves canonical fi
   assert.deepEqual(first.result.changedIds, [uuid(1)]);
   assert.deepEqual(first.tables.map(row => row.key), ['actions', 'projects', 'tags', 'perspectives', 'action_tags']);
   assert.equal(first.tables.find(row => row.key === 'perspectives').changes[0].after.filter, '{"flagged":true,"statuses":["active"]}');
+  assert.equal(first.tables.find(row => row.key === 'perspectives').changes[1].after.filter, '{"order_by":[{"direction":"desc","field":"title","nulls":"last"}],"where":{"not":{"field":"status","op":"eq","value":"dropped"}}}');
   assert.deepEqual(first.markerChanges, [{ before: null, after: { kind: 'project', identity: uuid(2), revision: 4 } }]);
   assert.equal(before.actions.length, 0);
   assert.equal(after.perspectives[0].filter.statuses[0], 'active');

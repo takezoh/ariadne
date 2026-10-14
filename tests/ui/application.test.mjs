@@ -44,6 +44,40 @@ test('invalid read snapshot preserves previous state and never reports latest st
  }
 });
 
+test('malformed Perspective variants and queries cannot replace a confirmed snapshot or recovery state',async()=>{
+ const invalidPerspectives=[
+  {id:'missing-version',name:'Legacy fallback',filter:{}},
+  {id:'unknown-version',name:'Unknown',definition_version:3,filter:{}},
+  {id:'mixed-keys',name:'Mixed',definition_version:1,filter:{},query:{}},
+  {id:'bad-query',name:'Bad query',definition_version:2,query:{where:{field:'status',op:'equals',value:'active'}}},
+  {id:'missing-reference',name:'Missing reference',definition_version:2,query:{where:{field:'project_id',op:'eq',value:'11111111-1111-4111-8111-111111111111'}}},
+ ];
+ const writeResponse={revision:2,projects:[],tags:[],perspectives:[],actions:[{id:'a',title:'saved',notes:'',revision:2}]};
+ const badResponse={...writeResponse,perspectives:[invalidPerspectives[3]],result:{operationId:'id-1'}};
+ const f=fixture(async(name,args)=>{
+  if(name==='add_action')return {...badResponse,result:{operationId:args.request_id}};
+  if(name==='operation_status')return {status:'applied',result:{operationId:'id-1'}};
+  if(name==='list_actions')return {...badResponse,result:undefined};
+ });
+ const confirmed=f.controller.state.data;f.controller.editDraft('a',{title:'unsaved proposal'});const draft=f.controller.state.drafts.a;
+ for(const perspective of invalidPerspectives){assert.equal(f.controller.accept({...f.snapshot,revision:2,perspectives:[perspective]}),false);assert.equal(f.controller.state.data,confirmed);assert.equal(f.controller.state.drafts.a,draft);}
+ await f.controller.add('uncertain');const retained=f.controller.state.unknown;assert.ok(retained);assert.deepEqual(retained.args,{schemaVersion:2,request_id:'id-1',expected_revision:1,title:'uncertain'});
+ await f.controller.check();assert.equal(f.controller.state.unknown,retained);assert.equal(f.controller.state.data,confirmed);assert.equal(f.controller.state.drafts.a,draft);assert.equal(f.controller.state.drafts.a.title,'unsaved proposal');assert.equal(f.controller.state.recoveryRequired,true);
+});
+
+test('saved Perspective visibility and move choices use the confirmed result and ignore nonmatching creation reveals',async()=>{
+ const {createNavigationModel}=await import('../../lib/ui/model/navigation.ts');
+ const matching='11111111-1111-4111-8111-111111111111',excluded='22222222-2222-4222-8222-222222222222',perspectiveId='33333333-3333-4333-8333-333333333333';
+ const snapshot={revision:1,projects:[],tags:[],list_scopes:{inbox:[matching,excluded]},perspectives:[{id:perspectiveId,name:'Active only',definition_version:2,query:{where:{field:'status',op:'eq',value:'active'}}}],actions:[{id:matching,title:'Saved match',notes:'',revision:1,status:'active',order:0,flagged:false,parent_id:null,project_id:null,tags:[],is_deferred:false},{id:excluded,title:'Saved excluded',notes:'',revision:1,status:'completed',order:1,flagged:false,parent_id:null,project_id:null,tags:[],is_deferred:false}]};
+ const f=fixture(async()=>snapshot,{navigation:createNavigationModel()});f.controller.accept(snapshot);
+ f.controller.dispatch({type:'occurrence.range',key:excluded,range:false,toggle:false,additive:false,entries:[{key:matching,id:matching,kind:'action'},{key:excluded,id:excluded,kind:'action'}]});
+ f.controller.dispatch({type:'view.set',field:'creationReveal',value:{id:excluded,view:'perspective'}});
+ f.controller.dispatch({type:'view.navigation',patch:{view:'perspective',perspectiveId}});
+ assert.deepEqual(f.controller.state.interaction.selection.ids,[],'nonmatching revealed Action must leave the visible selection');
+ f.controller.dispatch({type:'view.set',field:'moveDestination',value:excluded});
+ assert.equal(f.controller.state.interaction.view.moveDestination,matching,'move destination must be normalized against matching confirmed Actions');
+});
+
 test('group acknowledgment retains other proposals, merges latest untouched fields and clears stale review',async()=>{
  const f=fixture(async(name,args)=>name==='preview_change'?{expectedRevision:1,kind:args.kind,payload:args.payload}:{revision:2,projects:[],tags:[],perspectives:[],actions:[{id:'a',title:'saved proposal',notes:'latest notes',revision:2}],result:{operationId:args.operationId}});
  f.controller.selectAction('a');f.controller.editDraft('a',{title:'saved proposal',status:'on-hold',deferDate:'2026-'});await f.controller.previewDraft('a','edit');await f.controller.confirm();

@@ -1,0 +1,2 @@
+import type { ActionStatus } from '../data/types';
+export const currentStatuses: readonly ActionStatus[] = ['active', 'on-hold'];

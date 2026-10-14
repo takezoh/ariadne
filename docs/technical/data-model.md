@@ -97,6 +97,8 @@ Filters accept statuses (unique lifecycle array), is_deferred, flagged, project_
 
 Evaluation projects the current owner snapshot at read time, then filters while preserving action-tree relative order. It does not store action copies, match membership, sort overrides, grouping or display settings. Direct flags do not propagate; unmatched action parents are not inserted as matches. Reads never advance revision or rewrite expired Defer.
 
+The additive [pure query kernel](perspective-query.md) provides a structured evaluator seam over projected rows and an explicit-time wrapper. Existing v1 callers remain on the current filter path.
+
 Perspective CRUD participates in the same atomic operation/receipt/Undo batch and catalog identity ledger. Filter edits replace the full definition. Project/Tag deletion refuses saved filter references; Undo cannot restore a filter with a missing reference or silently weaken conditions. Migration after 0009 adds storage while preserving existing records and receipts. The shared UI can select saved perspectives and display their exact extraction conditions and descriptions. It evaluates the full read-time snapshot without a hidden lifecycle or Defer filter and preserves action order. Perspective creation/editing/removal remains available through the shared API; hosted rollout requires separate acceptance.
 
 ## Catalog descriptions

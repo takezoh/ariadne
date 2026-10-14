@@ -31,6 +31,8 @@ Current full-state reads return a complete owner snapshot and revision. Change C
 
 ## Responsibility and verification principles
 
+For every change, choose the smallest correction that is sound in responsibility, boundary and structure. Identify the cause and the responsibility that owns it before editing; assess the affected contracts and dependency direction. Do not stop at a local symptom patch when it leaves misplaced responsibility, duplicated logic or a boundary violation in place. Minimality means the least change that fully restores the correct structure and behavior, not the fewest changed lines or files. Change internal APIs or file layout when necessary, while keeping unrelated refactoring outside the scope.
+
 Structure code by responsibility and dependency direction. `lib/data/types.ts` is the type-only source of shared readonly contracts. Pure request normalization and explicit-ID finalization, along with storage row codecs, receipt parsing, changed-row plans and budgets, live in `lib/data/model/`; they have no owner, database or ID-generation capability. Domain transitions consume readonly snapshots and return cloned state. Application code coordinates transitions and ports, and owns clock and ID allocation. Keep concrete DB, DOM, HTTP and host communication in adapters, connected at composition roots.
 
 For UI changes, follow the [UI architecture principles](technical/ui-architecture.md#development-principles). Share list/detail components through explicit readonly view data and callbacks. Normalize state before publication, never as a consequence of rendering. Reuse model-owned data types instead of declaring parallel component schemas, and preserve unsaved input and exact unknown-request recovery across refreshes.

@@ -16,6 +16,12 @@ These rules apply to new UI features and refactors as well as the current implem
 
 Use the [test allocation principles](testing.md#test-allocation-principles) to choose the evidence for each responsibility. The source tree below is the current implementation of these principles, not a requirement to keep unrelated responsibilities in a single file.
 
+## Host safe-area layout
+
+`model/display.ts` validates `safeAreaInsets` as one complete set of finite, nonnegative top/right/bottom/left numbers. `effects/dom.js` applies that accepted context to root CSS variables and invalidates cached gesture geometry when any effective inset changes. Missing insets use zero, and a valid all-zero update clears a previous host value. Malformed updates leave the last valid context in place.
+
+The widget uses the browser-assigned viewport and applies the four insets as padding inside a border-box `100dvh` main region. The workspace flexes into the remaining area; it does not subtract those insets a second time. The header sticks below the current top inset, and a viewport-fixed backdrop covers and intercepts input in the reserved top band while document content scrolls behind the sticky region. Its rendered height is measured by the DOM adapter for the inspector's sticky offset and available scroll height, and a changed header height invalidates gesture geometry. Insets never infer host chrome dimensions or add fixed ChatGPT/mobile offsets. A synthetic browser host verifies local geometry and context updates; actual ChatGPT iOS overlap and device safe-area behavior remain unverified until measured in the deployed host.
+
 ## Source tree
 
 ```text

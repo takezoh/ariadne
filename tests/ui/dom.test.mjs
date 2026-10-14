@@ -40,6 +40,20 @@ test('verification resource discards real successful write response and preserve
  d.getElementById('discardNext').checked=true;d.getElementById('addAction').click();await settle();assert.equal(f.requests.filter(r=>r.args?.kind==='add').length,0);await fillCreation(f);assert.equal(f.requests.filter(r=>r.name==='apply_change'&&r.args.kind==='add').length,1);assert.equal(d.getElementById('discardNext').checked,false);assert.match(d.getElementById('status').textContent,/discarded/);
  for(const fn of [...f.timers.values()])fn();await settle();assert.equal(d.getElementById('unknown').hidden,false);assert.equal(d.querySelector('section input').disabled,false);const first=f.requests.find(r=>r.name==='apply_change'&&r.args.kind==='add');d.getElementById('retry').click();await settle();assert.deepEqual(f.requests.filter(r=>r.name==='apply_change'&&r.args.kind==='add').at(-1).args,first.args);assert.equal(d.getElementById('unknown').hidden,true);
 });
+test('host safe-area updates preserve dirty and unknown proposals while applying zero and rejecting malformed insets',async t=>{
+ const initial={top:20,right:16,bottom:30,left:12},f=createFixture(verificationWidgetHtml,{initialize:{hostContext:{safeAreaInsets:initial}}});t.after(()=>f.dom.window.close());await settle();const d=f.dom.window.document,w=f.dom.window,root=d.documentElement;
+ const cssInsets=()=>Object.fromEntries(['top','right','bottom','left'].map(side=>[side,root.style.getPropertyValue('--host-safe-area-'+side)]));
+ assert.deepEqual(cssInsets(),{top:'20px',right:'16px',bottom:'30px',left:'12px'});
+ selectFirst(f);const title=d.getElementById('editTitle');title.focus();title.value='Uncertain title proposal';title.dispatchEvent(new w.Event('input',{bubbles:true}));f.setLost(true);await settle();
+ for(const fn of [...f.timers.values()])fn();await settle();for(const fn of [...f.timers.values()])fn();await settle();assert.equal(d.getElementById('unknown').hidden,false);
+ const original=f.requests.filter(request=>request.name==='apply_change').at(-1).args;
+ w.dispatchEvent(new w.MessageEvent('message',{source:w,data:{jsonrpc:'2.0',method:'ui/notifications/host-context-changed',params:{safeAreaInsets:{top:99,right:-1,bottom:Infinity,left:4}}}}));
+ assert.deepEqual(cssInsets(),{top:'20px',right:'16px',bottom:'30px',left:'12px'});assert.equal(title.value,'Uncertain title proposal');assert.equal(d.activeElement,title);assert.equal(d.getElementById('unknown').hidden,false);
+ w.dispatchEvent(new w.MessageEvent('message',{source:w,data:{jsonrpc:'2.0',method:'ui/notifications/host-context-changed',params:{safeAreaInsets:{top:32,right:24,bottom:28,left:8}}}}));
+ assert.deepEqual(cssInsets(),{top:'32px',right:'24px',bottom:'28px',left:'8px'});assert.equal(title.value,'Uncertain title proposal');assert.equal(d.activeElement,title);assert.equal(d.getElementById('unknown').hidden,false);
+ f.setLost(false);d.getElementById('retry').click();await settle();const writes=f.requests.filter(request=>request.name==='apply_change');assert.deepEqual(writes.at(-1).args,original);assert.equal(d.getElementById('unknown').hidden,true);assert.equal(title.value,'Uncertain title proposal');
+ w.dispatchEvent(new w.MessageEvent('message',{source:w,data:{jsonrpc:'2.0',method:'ui/notifications/host-context-changed',params:{safeAreaInsets:{top:0,right:0,bottom:0,left:0}}}}));assert.deepEqual(cssInsets(),{top:'0px',right:'0px',bottom:'0px',left:'0px'});
+});
 test('Inbox includes deferred unassigned actions and excludes assigned or ended records',async(t)=>{
  const f=createFixture();t.after(()=>f.dom.window.close());await settle();selectFirst(f);const d=f.dom.window.document;
  const deferred={...f.action,id:'deferred',title:'後で整理',view:'deferred',notes:'原文の気がかり'};

@@ -6,6 +6,14 @@ test('display context merges direct partial updates without changing omitted mod
  assert.deepEqual(next,{...initial,theme:'dark'});assert.equal(initial.theme,'light');assert.deepEqual(displayAvailability({}),{mode:null,canInline:false,canFullscreen:false});
  const updated=mergeHostContext(next,{availableDisplayModes:[]});assert.deepEqual(updated.availableDisplayModes,[]);assert.equal(updated.displayMode,'inline');
 });
+test('host safe-area insets accept finite nonnegative values, preserve partial state and reset explicitly to zero',()=>{
+ const insets={top:12,right:8,bottom:24,left:4},initial=mergeHostContext({}, {safeAreaInsets:insets});
+ assert.deepEqual(initial.safeAreaInsets,insets);assert.notEqual(initial.safeAreaInsets,insets);
+ const malformed=[{top:1,right:-1,bottom:2,left:3},{top:1,right:2,bottom:Infinity,left:3},{top:1,right:2,bottom:3,left:'4'}];
+ for(const safeAreaInsets of malformed){const next=mergeHostContext(initial,{safeAreaInsets});assert.deepEqual(next.safeAreaInsets,insets);assert.notEqual(next,initial);}
+ const reset=mergeHostContext(initial,{safeAreaInsets:{top:0,right:0,bottom:0,left:0}});assert.deepEqual(reset.safeAreaInsets,{top:0,right:0,bottom:0,left:0});
+ assert.deepEqual(initial.safeAreaInsets,insets);
+});
 function fixture(){let receive,resolve,reject;const calls=[],published=[];const transport={subscribeContext:fn=>{receive=fn;return ()=>{receive=()=>{}}},request:(method,params)=>{calls.push({method,params});return new Promise((yes,no)=>{resolve=yes;reject=no})}};const bridge=createDisplayBridge(transport,{mergeHostContext},state=>published.push(structuredClone(state)));return {bridge,calls,published,receive:value=>receive(value),resolve:value=>resolve(value),reject:value=>reject(value)};}
 test('display bridge initializes host context and accepts actual response mode independently of target',async()=>{
  const f=fixture();f.bridge.initialize({hostContext:{displayMode:'inline',availableDisplayModes:['inline','fullscreen']}});const pending=f.bridge.request('fullscreen');assert.equal(f.bridge.state.pending,'fullscreen');assert.deepEqual(f.calls,[{method:'ui/request-display-mode',params:{mode:'fullscreen'}}]);f.resolve({mode:'inline'});assert.equal(await pending,true);assert.equal(f.bridge.state.context.displayMode,'inline');assert.equal(f.bridge.state.pending,null);

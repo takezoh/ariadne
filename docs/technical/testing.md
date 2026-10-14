@@ -86,6 +86,7 @@ Choose the environment from the requested outcome before writing a new harness o
 | Memory and SQLite contracts | `pnpm test:application`, `pnpm test:storage`; [SQLite helper](../../tests/helpers/sqlite-d1.mjs) | Application logic and production SQL against a test implementation of the D1 interface |
 | Local Worker with D1 binding | [Vite binding configuration](../../vite.config.ts); `pnpm build`, `pnpm db:migrate:local`, `pnpm start` | MCP HTTP requests through Worker composition and the Wrangler local D1 implementation |
 | Built UI resource harness | `pnpm test:ui:built` after `pnpm start` | Worker resource delivery and mock-host UI behavior; its tool responses are mocked |
+| Built UI layout in Chromium | `scripts/testing/verify-safe-area-browser.mjs` | Worker resource delivery plus real browser viewport/sticky geometry under a synthetic host context; no hosted D1 or ChatGPT host |
 | Hosted Worker and D1 | Existing Site in [.openai/hosting.json](../../.openai/hosting.json), authorized MCP connection, `open_verification` | Deployed operations against hosted D1; the fixture supports intentional client response loss |
 | Actual ChatGPT Work | Conversation and dedicated UI against the selected deployment | Caller behavior, host resource retrieval and rendering, and conversation/UI shared state |
 
@@ -104,6 +105,10 @@ Memory ActionStore does not execute SQL. SQLite tests run production adapter sta
 JSDOM runs the HTML/JavaScript generated for the actual resource with controlled timers. It checks dirty proposals, confirmations, conflicting or malformed responses, exact-request retries, on-hold/dropped records and the one-response-discard fixture. These tests do not write hosted D1 or verify an actual ChatGPT host. Built-resource tests additionally retrieve Worker HTML, but still use a mock host.
 
 Local SQLite/mocks cannot prove D1 distributed behavior, Sites header injection, ChatGPT sandbox/cache behavior or conversational assistance. Historical Work evidence covers its recorded deployed version. The action model needs actual host verification when deployed; see [deployment](deployment.md).
+
+### Host safe-area browser verification
+
+After `pnpm build`, run `scripts/testing/verify-safe-area-browser.mjs` with `ACTION_TOOLS_PLAYWRIGHT_CORE`, `ACTION_TOOLS_CHROME_PATH` and an authorized `ACTION_TOOLS_EVIDENCE_PATH`. The bounded harness refuses an already responding endpoint, owns the `pnpm start` Worker process group, retrieves `ui://action-tools/actions-v4.html`, and records source/resource/artifact identities before and after the run. It uses an in-memory synthetic host and verifies short content without extra viewport overflow, long content with a sticky header below the top inset after scrolling, a fixed input-blocking top safe-area band, all four insets, dynamic changes, malformed-input retention, explicit zero reset, bottom clearance, measured-header inspector clearance, and resize to a mobile-sized viewport. It saves a supplemental mobile-sized screenshot beside the evidence record. Dirty proposal, focus and unknown-result exact-request retention are covered by `tests/ui/dom.test.mjs`. A passing run establishes the built resource's local Chromium layout only. It does not establish hosted D1, Sites header injection, actual ChatGPT Work or iOS device safe-area behavior.
 
 ## Perspective verification
 

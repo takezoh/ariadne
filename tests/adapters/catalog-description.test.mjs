@@ -96,7 +96,7 @@ test('description migration preserves existing data and old receipt bytes, and i
  sql.exec(readFileSync('drizzle/0011_catalog_descriptions.sql','utf8'));
  for(const name of tables)assert.deepEqual(sql.prepare(`SELECT * FROM ${name} ORDER BY owner`).all().map(row=>({...row})),kinds.map(table).includes(name)?before[name].map(row=>({...row,description:''})):before[name].map(row=>({...row})));
  sql.exec(readFileSync('drizzle/0013_project_order.sql','utf8'));
- sql.exec(readFileSync('drizzle/0016_tag_order.sql','utf8'));const store=createD1ActionStore(fixture.db),ports={store,clock:()=>now,newId:()=>crypto.randomUUID()};
+ sql.exec(readFileSync('drizzle/0016_tag_order.sql','utf8'));sql.exec(readFileSync('drizzle/0017_perspective_view.sql','utf8'));const store=createD1ActionStore(fixture.db),ports={store,clock:()=>now,newId:()=>crypto.randomUUID()};
  for(const kind of kinds){
   const target=before.operations.find(row=>row.owner==='A'&&JSON.parse(row.delta)[table(kind)].length),revision=(await store.readSnapshot('A')).revision;
   await assert.rejects(actionCall(ports,'A','undo_change',{schemaVersion:2,operationId:crypto.randomUUID(),expectedRevision:revision,undoOf:target.operation_id}),e=>e.code==='undo_conflict');

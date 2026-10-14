@@ -1,4 +1,4 @@
-import type { Action, CatalogIdentityLedger, Change, PerspectiveFilter, Project, Snapshot, Tag } from '../data/types';
+import type { Action, CatalogIdentityLedger, Change, Perspective, PerspectiveCompletionLabel, PerspectiveFilter, PerspectiveView, Project, Snapshot, Tag } from '../data/types';
 
 export class ActionError extends Error {
   constructor(public code: string, message: string, public status = 400) { super(message); }
@@ -55,7 +55,7 @@ function nextOrder(s:Snapshot,parent:string|null,projectId:string|null,exclude?:
 /** Render roots by project, then siblings by rank; descendants immediately follow parents. */
 export function orderedActions(s:Snapshot):Action[] {const compare=(a:Action,b:Action)=>a.order-b.order||(a.id<b.id?-1:a.id>b.id?1:0);const children=new Map<string|null,Action[]>();for(const t of s.actions){const group=children.get(t.parent_id)??[];group.push(t);children.set(t.parent_id,group);}for(const group of children.values())group.sort(compare);const roots=children.get(null)??[];roots.sort((a,b)=>((a.project_id??'')<(b.project_id??'')?-1:(a.project_id??'')>(b.project_id??'')?1:0)||compare(a,b));const out:Action[]=[];const visit=(t:Action)=>{out.push(t);for(const child of children.get(t.id)??[])visit(child);};for(const root of roots)visit(root);return out;}
 export function ancestors<T extends Action>(s:{actions:readonly T[]},t:T):T[] {const out:T[]=[];let p=t.parent_id;while(p){const a=s.actions.find(x=>x.id===p);if(!a||out.some(x=>x.id===p)||a.id===t.id)fail('invalid_graph','親子関係が不正です。');out.push(a);p=a.parent_id;}return out;}
-/** Saved views contain strict AND predicates, never a display or order override. */
+/** Perspective filters contain strict AND predicates, independent of presentation settings. */
 export function perspectiveFilter(value:unknown):PerspectiveFilter {
  const input=object(value);exact(input,['statuses','is_deferred','flagged','project_id','tag_id','include_descendants']);
  const filter:Mutable<PerspectiveFilter>={};
@@ -64,6 +64,61 @@ export function perspectiveFilter(value:unknown):PerspectiveFilter {
  if('project_id' in input)filter.project_id=input.project_id===null?null:id(input.project_id);
  if('tag_id' in input)filter.tag_id=id(input.tag_id);
  return filter;
+}
+const perspectiveCompletionLabels=['complete','read','acknowledge'] as const;
+const perspectiveBodyStates=['collapsed','expanded'] as const;
+const perspectiveDirections=['asc','desc'] as const;
+const perspectiveGroups=['none','project','status'] as const;
+function requiredFields(input:Readonly<Record<string,unknown>>,keys:readonly string[]) {
+ if(keys.some(key=>!Object.hasOwn(input,key)))fail('invalid_input','保存ビューにはすべての設定項目が必要です。');
+}
+/** Validate and clone one complete, discriminated persisted display definition. */
+export function perspectiveView(value:unknown):PerspectiveView {
+ const input=object(value),type=input.type;
+ const completion_label=input.completion_label as PerspectiveCompletionLabel;
+ if(!perspectiveCompletionLabels.includes(completion_label as typeof perspectiveCompletionLabels[number]))fail('invalid_input','完了表示はcomplete、read、acknowledgeのいずれかです。');
+ if(type==='tasklist'){
+  const keys=['type','sort','direction','group','completion_label','show_notes'];exact(input,keys);requiredFields(input,keys);
+  if(!['action_order','title','created_at','updated_at','due_at'].includes(input.sort as string))fail('invalid_input','Tasklistの並び順が不正です。');
+  if(!perspectiveDirections.includes(input.direction as typeof perspectiveDirections[number]))fail('invalid_input','並び順の方向が不正です。');
+  if(!perspectiveGroups.includes(input.group as typeof perspectiveGroups[number]))fail('invalid_input','Tasklistのグループが不正です。');
+  if(input.sort==='action_order'&&input.direction!=='asc')fail('invalid_input','action_orderは昇順のみです。');
+  if(typeof input.show_notes!=='boolean')fail('invalid_input','show_notesは真偽値で指定してください。');
+  return {type,sort:input.sort as 'action_order'|'title'|'created_at'|'updated_at'|'due_at',direction:input.direction as 'asc'|'desc',group:input.group as 'none'|'project'|'status',completion_label,show_notes:input.show_notes};
+ }
+ if(type==='thread'){
+  const keys=['type','sort','direction','group','completion_label','initial_body'];exact(input,keys);requiredFields(input,keys);
+  if(!['action_order','created_at','updated_at'].includes(input.sort as string))fail('invalid_input','Threadの並び順が不正です。');
+  if(!perspectiveDirections.includes(input.direction as typeof perspectiveDirections[number]))fail('invalid_input','並び順の方向が不正です。');
+  if(!perspectiveGroups.includes(input.group as typeof perspectiveGroups[number]))fail('invalid_input','Threadのグループが不正です。');
+  if(input.sort==='action_order'&&input.direction!=='asc')fail('invalid_input','action_orderは昇順のみです。');
+  if(!perspectiveBodyStates.includes(input.initial_body as typeof perspectiveBodyStates[number]))fail('invalid_input','initial_bodyが不正です。');
+  return {type,sort:input.sort as 'action_order'|'created_at'|'updated_at',direction:input.direction as 'asc'|'desc',group:input.group as 'none'|'project'|'status',completion_label,initial_body:input.initial_body as 'collapsed'|'expanded'};
+ }
+ if(type==='timeline'){
+  const keys=['type','timestamp','direction','group','completion_label','initial_body'];exact(input,keys);requiredFields(input,keys);
+  if(!['created_at','updated_at'].includes(input.timestamp as string))fail('invalid_input','Timelineの日時が不正です。');
+  if(!perspectiveDirections.includes(input.direction as typeof perspectiveDirections[number]))fail('invalid_input','並び順の方向が不正です。');
+  if(input.group!=='none'&&input.group!=='day')fail('invalid_input','Timelineのグループが不正です。');
+  if(!perspectiveBodyStates.includes(input.initial_body as typeof perspectiveBodyStates[number]))fail('invalid_input','initial_bodyが不正です。');
+  return {type,timestamp:input.timestamp as 'created_at'|'updated_at',direction:input.direction as 'asc'|'desc',group:input.group as 'none'|'day',completion_label,initial_body:input.initial_body as 'collapsed'|'expanded'};
+ }
+ fail('invalid_input','保存ビューの種類が不正です。');
+}
+export function defaultPerspectiveView():PerspectiveView {
+ return {type:'tasklist',sort:'action_order',direction:'asc',group:'none',completion_label:'complete',show_notes:false};
+}
+const currentPerspectiveKeys=['id','name','description','filter','view','definition_version','revision','created_at','updated_at'] as const;
+/** Validate a complete current Perspective record for snapshots and operation history. */
+export function validateCurrentPerspectiveRecord(value:unknown):Perspective {
+ try{
+  const row=object(value);exact(row,currentPerspectiveKeys);requiredFields(row,currentPerspectiveKeys);
+  if(row.definition_version!==2)fail('invalid_state','Current Perspectives require definition_version=2.');
+  id(row.id);text(row.name);description(row.description);perspectiveFilter(row.filter);perspectiveView(row.view);integer(row.revision);
+  if(typeof row.created_at!=='string'||typeof row.updated_at!=='string')fail('invalid_state','Current Perspectives require timestamp strings.');
+  instant(row.created_at);instant(row.updated_at);
+  return structuredClone(row) as unknown as Perspective;
+ }catch{fail('invalid_state','Current Perspective rows require the complete version-2 schema.');}
 }
 function workingPerspectiveFilter(value:unknown):Mutable<PerspectiveFilter> {return structuredClone(perspectiveFilter(value)) as Mutable<PerspectiveFilter>;}
 export function validatePerspectiveReferences(s:Snapshot,filter:PerspectiveFilter){
@@ -83,7 +138,7 @@ export function validateGraph(s:Snapshot) {
  for(const row of s.catalog_identity_ledger)if(!Number.isSafeInteger(row.revision)||row.revision<0)fail('invalid_state','Identity revisions are required.');
  for(const t of s.actions){actionTitle(t.title);if(typeof t.notes!=='string')fail('invalid_state','Stored Action notes are required.');ancestors(s,t);actionOrder(t.order);booleanFlag(t.flagged);}
  validateNodes(s.projects,'プロジェクト');validateNodes(s.tags,'タグ');for(const node of [...s.projects,...s.tags])description(node.description);
- const perspectiveIds=new Set<string>();for(const view of s.perspectives){id(view.id);text(view.name);description(view.description);if(view.definition_version!==1)fail('invalid_state','パースペクティブ定義の版が不正です。');if(perspectiveIds.has(view.id))fail('invalid_state','パースペクティブIDが重複しています。');perspectiveIds.add(view.id);validatePerspectiveReferences(s,perspectiveFilter(view.filter));}
+ const perspectiveIds=new Set<string>();for(const value of s.perspectives){let view:Perspective;try{view=validateCurrentPerspectiveRecord(value);validatePerspectiveReferences(s,view.filter);}catch{fail('invalid_state','保存済みパースペクティブの定義が不正です。');}if(perspectiveIds.has(view.id))fail('invalid_state','パースペクティブIDが重複しています。');perspectiveIds.add(view.id);}
  for(const t of s.actions)if(t.project_id!==null&&!s.projects.some(p=>p.id===t.project_id))fail('invalid_graph','所属プロジェクトが存在しません。');
  for(const tt of s.action_tags)if(!s.actions.some(t=>t.id===tt.action_id)||!s.tags.some(g=>g.id===tt.tag_id))fail('invalid_graph','タグの関連が不正です。');
 }
@@ -153,8 +208,8 @@ export function change(s:Snapshot,c:Change,now:string):Snapshot {
  else if(c.kind==='complete'){exact(p,['id']);return change(s,{kind:'edit',payload:{id:p.id,status:'completed'}},now);}
  else if(c.kind==='reopen'){exact(p,['id','reopen_ancestors']);const t=get();const chain=ancestors(n,t);if(p.reopen_ancestors!==undefined&&!Array.isArray(p.reopen_ancestors))fail('invalid_input','再開する親は配列で指定してください。');const confirmed=Array.isArray(p.reopen_ancestors)?p.reopen_ancestors:[];for(const value of confirmed){const ancestor=chain.find(x=>x.id===id(value));if(!ancestor)fail('invalid_input','指定したアクションは親ではありません。');if(ancestor.status!=='active'){ancestor.status='active';touched.push(ancestor);}}t.status='active';}
  else if(c.kind==='wait')fail('invalid_input','waitは廃止されました。status属性を更新してください。');
- else if(c.kind==='perspective_add'){exact(p,['id','name','description','filter']);const pid=id(p.id);if(n.perspectives.some(x=>x.id===pid)||catalogIdentityReserved(n,'perspective',pid))fail('invalid_state','このパースペクティブIDは既に使われています。');n.perspectives.push({id:pid,name:text(p.name),description:'description' in p?description(p.description):'',filter:workingPerspectiveFilter(p.filter),definition_version:1,revision:nextGeneration(),created_at:now,updated_at:now});n.catalog_identity_ledger=markCatalogIdentity(n,'perspective',pid);}
- else if(c.kind==='perspective_edit'||c.kind==='perspective_remove'){exact(p,c.kind==='perspective_edit'?['id','name','description','filter']:['id']);const pid=id(p.id),view=n.perspectives.find(x=>x.id===pid);if(!view)fail('not_found','パースペクティブがありません。',404);if(c.kind==='perspective_remove')n.perspectives=n.perspectives.filter(x=>x.id!==pid);else {if(!('name' in p)&&!('filter' in p)&&!('description' in p))fail('invalid_input','更新項目を指定してください。');if('name' in p)view.name=text(p.name);if('description' in p)view.description=description(p.description);if('filter' in p)view.filter=workingPerspectiveFilter(p.filter);view.revision=nextGeneration();view.updated_at=now;}n.catalog_identity_ledger=markCatalogIdentity(n,'perspective',pid);}
+  else if(c.kind==='perspective_add'){exact(p,['id','name','description','filter','view']);const pid=id(p.id);if(n.perspectives.some(x=>x.id===pid)||catalogIdentityReserved(n,'perspective',pid))fail('invalid_state','このパースペクティブIDは既に使われています。');n.perspectives.push({id:pid,name:text(p.name),description:'description' in p?description(p.description):'',filter:workingPerspectiveFilter(p.filter),view:'view' in p?perspectiveView(p.view):defaultPerspectiveView(),definition_version:2,revision:nextGeneration(),created_at:now,updated_at:now});n.catalog_identity_ledger=markCatalogIdentity(n,'perspective',pid);}
+  else if(c.kind==='perspective_edit'||c.kind==='perspective_remove'){exact(p,c.kind==='perspective_edit'?['id','name','description','filter','view']:['id']);const pid=id(p.id),view=n.perspectives.find(x=>x.id===pid);if(!view)fail('not_found','パースペクティブがありません。',404);if(c.kind==='perspective_remove')n.perspectives=n.perspectives.filter(x=>x.id!==pid);else {if(!('name' in p)&&!('filter' in p)&&!('description' in p)&&!('view' in p))fail('invalid_input','更新項目を指定してください。');if('name' in p)view.name=text(p.name);if('description' in p)view.description=description(p.description);if('filter' in p)view.filter=workingPerspectiveFilter(p.filter);if('view' in p)view.view=perspectiveView(p.view);view.revision=nextGeneration();view.updated_at=now;}n.catalog_identity_ledger=markCatalogIdentity(n,'perspective',pid);}
  else if(c.kind==='project_add'){exact(p,['id','name','description','parent_id']);const pid=id(p.id);if(n.projects.some(x=>x.id===pid)||catalogIdentityReserved(n,'project',pid))fail('invalid_state','このプロジェクトIDは既に使われています。');const parent=p.parent_id==null?null:id(p.parent_id);if(parent&&!n.projects.some(x=>x.id===parent))fail('not_found','親プロジェクトがありません。');n.projects.push({id:pid,name:catalogName(p.name),description:'description' in p?description(p.description):'',parent_id:parent,order:nextCatalogOrder(n.projects,parent),revision:nextGeneration(),created_at:now,updated_at:now});n.catalog_identity_ledger=markCatalogIdentity(n,'project',pid);}
  else if(c.kind==='project_edit'){exact(p,['id','name','description']);if(!('name' in p)&&!('description' in p))fail('invalid_input','更新項目を指定してください。');const x=projectNode(p.id);if('name' in p)x.name=catalogName(p.name);if('description' in p)x.description=description(p.description);touchedProjects.push(x);n.catalog_identity_ledger=markCatalogIdentity(n,'project',x.id);}
  else if(c.kind==='project_move'){for(const edit of projectMoveEdits(n,p)){const x=projectNode(edit.id);x.parent_id=edit.parent_id;x.order=edit.order;touchedProjects.push(x);n.catalog_identity_ledger=markCatalogIdentity(n,'project',x.id);}}

@@ -4,6 +4,7 @@ import {createNavigationModel} from '../../lib/ui/model/navigation.ts';
 import {change,perspectiveActions} from '../../lib/domain/core.ts';
 import {response,queryResponse} from '../../lib/domain/operations.ts';
 const model=createNavigationModel(),now='2026-10-03T00:00:00Z',id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
+const defaultView={type:'tasklist',sort:'action_order',direction:'asc',group:'none',completion_label:'complete',show_notes:false};
 const ids=rows=>rows.map(row=>row.id);
 function fixture(){let s={revision:0,actions:[],projects:[],tags:[],action_tags:[],perspectives:[],catalog_identity_ledger:[]};const apply=(kind,payload)=>{s={...change(s,{kind,payload},now),revision:s.revision+1};};
  apply('project_add',{id:id(1),name:'Work',description:' Exact\nproject description '});apply('project_add',{id:id(2),name:'Website',parent_id:id(1)});apply('tag_add',{id:id(3),name:'Focus'});apply('tag_add',{id:id(4),name:'Waiting',parent_id:id(3)});
@@ -23,13 +24,13 @@ test('project/tag navigation matches authoritative queries and preserves direct 
 test('saved perspective matching has parity with domain AND predicates including omitted/empty status and false values',()=>{
  const s=fixture(),wire=response(s,now);
  const filters=[{}, {statuses:[]},{statuses:['completed','dropped']},{statuses:['active','on-hold']},{project_id:null},{project_id:id(1),include_descendants:true},{tag_id:id(3),include_descendants:true},{flagged:false},{is_deferred:false},{is_deferred:true},{project_id:id(1),tag_id:id(3),include_descendants:true,statuses:['active','on-hold'],flagged:false,is_deferred:true}];
- for(const filter of filters){const definition={id:id(30),name:'  名前 <img> ',description:'  raw\n<script> context </script> ',filter};const snapshot={...wire,perspectives:[definition]};const result=model.present(snapshot,{...model.initial(),view:'perspective',perspectiveId:definition.id});assert.deepEqual(ids(result.actions),ids(perspectiveActions(s,now,filter)));assert.equal(result.heading,definition.name);assert.equal(result.description,definition.description);assert.equal(result.unavailable,false);}
+ for(const filter of filters){const definition={id:id(30),name:'  名前 <img> ',description:'  raw\n<script> context </script> ',filter,view:defaultView,definition_version:2};const snapshot={...wire,perspectives:[definition]};const result=model.present(snapshot,{...model.initial(),view:'perspective',perspectiveId:definition.id});assert.deepEqual(ids(result.actions),ids(perspectiveActions(s,now,filter)));assert.equal(result.heading,definition.name);assert.equal(result.description,definition.description);assert.equal(result.unavailable,false);}
  const expired=response(s,'2026-10-05T00:00:00Z');assert.deepEqual(model.filterActions(expired,{is_deferred:true}),[]);assert.deepEqual(ids(model.filterActions(expired,{statuses:['completed']})),[id(14)]);
 });
 test('missing selected catalog, perspective or saved references fail closed without selecting all',()=>{
  const wire=response(fixture(),now);for(const view of ['projects','tags']){const selection={...model.initial(),view,classificationId:id(99)};const result=model.present(wire,selection);assert.equal(result.unavailable,true);assert.deepEqual(result.actions,[]);assert(result.options.some(o=>o.id===id(99)));assert.equal(selection.classificationId,id(99));}
  assert.equal(model.present(wire,{...model.initial(),view:'perspective',perspectiveId:id(99)}).unavailable,true);
- for(const filter of [{project_id:id(99)},{tag_id:id(99)}]){const result=model.present({...wire,perspectives:[{id:id(30),name:'Saved',filter}]},{...model.initial(),view:'perspective',perspectiveId:id(30)});assert.equal(result.unavailable,true);assert.deepEqual(result.actions,[]);}
+ for(const filter of [{project_id:id(99)},{tag_id:id(99)}]){const result=model.present({...wire,perspectives:[{id:id(30),name:'Saved',filter,view:defaultView,definition_version:2}]},{...model.initial(),view:'perspective',perspectiveId:id(30)});assert.equal(result.unavailable,true);assert.deepEqual(result.actions,[]);}
 });
 test('history keeps completed/dropped state and default views include on hold without availability logic',()=>{
  const wire=response(fixture(),now),history=model.initial('history');assert.deepEqual(ids(model.present(wire,history).actions),[id(15),id(14)]);assert.deepEqual(ids(model.present(wire,{...history,statuses:['dropped']}).actions),[id(15)]);

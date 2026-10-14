@@ -29,7 +29,7 @@ Decide what should trigger the workflow, what information it may read, what chan
 
 For example, a caller with authorized email access can collect requested commitments, read the current action snapshot, avoid duplicating saved actions and preserve exact source wording in notes through `capture_intent`. It can subsequently organize those actions with `apply_change` when the user's intent is clear. Scheduling that collection requires a scheduler in the caller's environment; no Ariadne email connector or background worker is needed.
 
-For a review, query saved actions or a perspective, then present relevant candidates and reasons. A recommendation does not itself complete, defer or flag an action. A recurring extraction can be saved as a filter-only perspective; a temporary query need not create a saved view.
+For a review, query saved actions or a perspective, then present relevant candidates and reasons. A recommendation does not itself complete, defer or flag an action. A recurring extraction can be saved with a strict Tasklist, Thread or Timeline presentation view; its filters decide membership while view settings never change query order or action state. A temporary query need not create a saved view.
 
 For writes, read the current owner-wide revision and keep the exact tool name, operation ID and full arguments. A timeout means the result is unknown: look up the receipt or resend the identical request. An explicit revision conflict requires rereading and reconciling the proposal. Undo may refuse later target corrections, and receipt history is limited to the latest 100 operations per owner. See [recovery](../technical/mcp-api.md#responses-and-recovery) before automating retries.
 

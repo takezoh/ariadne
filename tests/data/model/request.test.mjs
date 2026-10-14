@@ -7,6 +7,7 @@ const inboxId = uuid(1);
 const now = '2026-10-14T09:00:00.000Z';
 const inbox = { id: inboxId, title: 'Inbox', revision: 1, parent_id: null, project_id: null, status: 'active', due_at: null, defer_until: null, notes: '', order: 0, flagged: false, created_at: now, updated_at: now };
 const snapshot = { revision: 0, catalog_identity_ledger: [], actions: [inbox], projects: [], tags: [], action_tags: [], perspectives: [] };
+const defaultView = { type: 'tasklist', sort: 'action_order', direction: 'asc', group: 'none', completion_label: 'complete', show_notes: false };
 
 function deepFreeze(value) {
   if (value && typeof value === 'object' && !Object.isFrozen(value)) {
@@ -73,6 +74,8 @@ test('every generated-entity request kind exposes and finalizes its explicit ID 
     assert.equal(finalized.change.kind, expectedKind, kind);
     assert.equal(getId(finalized), uuid(20), kind);
   }
+  assert.deepEqual(normalizeChange(snapshot, { kind: 'perspective_add', payload: { name: 'Legacy caller', filter: {} } }).change.payload.view, defaultView);
+  assert.throws(() => normalizeChange(snapshot, { kind: 'perspective_add', payload: { name: 'Bad view', filter: {}, view: { type: 'tasklist', sort: 'action_order', direction: 'desc', group: 'none', completion_label: 'complete', show_notes: false } } }), error => error.code === 'invalid_input');
   for (const [kind, payload, existingId] of [
     ['project_get_or_create', { name: 'Existing' }, existingProject.id],
     ['tag_get_or_create', { name: 'Existing' }, existingTag.id],
@@ -81,6 +84,18 @@ test('every generated-entity request kind exposes and finalizes its explicit ID 
     assert.equal(normalized.idSlots, 0, kind);
     assert.equal(finalizeChange(state, uuid(9), normalized, []).resolved[kind.startsWith('project') ? 'project' : 'tag'].id, existingId);
   }
+});
+
+test('Perspective edit validation replaces only supplied fields and keeps omitted saved view omitted', () => {
+  const saved = { id: uuid(6), name: 'Saved', description: '', filter: { flagged: true }, view: { type: 'thread', sort: 'created_at', direction: 'desc', group: 'status', completion_label: 'read', initial_body: 'expanded' }, definition_version: 2, revision: 1, created_at: now, updated_at: now };
+  const state = { ...snapshot, perspectives: [saved] };
+  const request = deepFreeze({ kind: 'perspective_edit', payload: { id: saved.id, name: 'Renamed' } });
+  const normalized = normalizeChange(state, request);
+  assert.deepEqual(normalized.change.payload, { id: saved.id, name: 'Renamed' });
+  assert.equal(Object.hasOwn(normalized.change.payload, 'view'), false);
+  const replacement = { type: 'timeline', timestamp: 'updated_at', direction: 'asc', group: 'day', completion_label: 'acknowledge', initial_body: 'collapsed' };
+  assert.deepEqual(normalizeChange(state, { kind: 'perspective_edit', payload: { id: saved.id, view: replacement } }).change.payload.view, replacement);
+  assert.throws(() => normalizeChange(state, { kind: 'perspective_edit', payload: { id: saved.id, view: { ...replacement, initial_body: undefined } } }), error => error.code === 'invalid_input');
 });
 
 test('existing get-or-create finalizes with no generated ID and caller marker-like IDs stay opaque', () => {

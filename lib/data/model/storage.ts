@@ -1,4 +1,5 @@
 import { canonical, fail, id, integer, object } from '../../domain/core';
+import { decodeHistoricalDelta } from '../../domain/operation-history';
 import { delta, validateDelta } from '../../domain/operations';
 import type { Action, DeepReadonly, OperationResult, OwnerCommitRequest, Perspective, Receipt, Snapshot } from '../types';
 
@@ -23,7 +24,7 @@ export type SnapshotRows = readonly [
   Snapshot['tags'],
   Snapshot['action_tags'],
   Snapshot['catalog_identity_ledger'],
-  readonly (Omit<Perspective, 'filter'> & { filter: string })[],
+  readonly (Omit<Perspective, 'filter' | 'view'> & { filter: string; view: string })[],
 ];
 
 /** Decode database scalar representations into the shared, readonly application snapshot. */
@@ -37,13 +38,13 @@ export function decodeSnapshotRows(rows: SnapshotRows): Snapshot {
     tags: rows[3],
     action_tags: rows[4],
     catalog_identity_ledger: rows[5],
-    perspectives: rows[6].map(row => ({ ...row, filter: JSON.parse(row.filter) })),
+    perspectives: rows[6].map(row => ({ ...row, filter: JSON.parse(row.filter), view: JSON.parse(row.view) })),
   };
 }
 
 export function parseReceiptResult(receipt: Pick<Receipt, 'delta' | 'result'>): OperationResult {
   try {
-    validateDelta(JSON.parse(receipt.delta));
+    validateDelta(decodeHistoricalDelta(JSON.parse(receipt.delta)));
     const result = object(JSON.parse(receipt.result));
     id(result.operationId);
     integer(result.revision);
@@ -95,8 +96,8 @@ export function planStorageCommit(request: OwnerCommitRequest): StoragePlan {
     {
       key: 'perspectives',
       changes: changes.perspectives.map(item => ({
-        before: item.before ? { ...item.before, filter: canonical(item.before.filter) } : null,
-        after: item.after ? { ...item.after, filter: canonical(item.after.filter) } : null,
+        before: item.before ? { ...item.before, filter: canonical(item.before.filter), view: canonical(item.before.view) } : null,
+        after: item.after ? { ...item.after, filter: canonical(item.after.filter), view: canonical(item.after.view) } : null,
       })),
     },
     { key: 'action_tags', changes: changes.action_tags },

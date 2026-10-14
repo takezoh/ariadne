@@ -20,7 +20,7 @@ test('action migration resets both owners and removes the retired tables and his
  for(const table of ['tasks','task_tags','dependencies'])assert.equal(sql.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?").get(table),undefined);
  for(const table of ['actions','action_tags','projects','tags','operations','catalog_identity_ledger'])assert.equal(sql.prepare(`SELECT count(*) n FROM ${table}`).get().n,0);
  // The current adapter expects the complete schema; the assertions above isolate migration 0009.
- sql.exec(readFileSync('drizzle/0010_ambiguous_umar.sql','utf8'));sql.exec(readFileSync('drizzle/0011_catalog_descriptions.sql','utf8'));sql.exec(readFileSync('drizzle/0013_project_order.sql','utf8'));sql.exec(readFileSync('drizzle/0016_tag_order.sql','utf8'));
+ sql.exec(readFileSync('drizzle/0010_ambiguous_umar.sql','utf8'));sql.exec(readFileSync('drizzle/0011_catalog_descriptions.sql','utf8'));sql.exec(readFileSync('drizzle/0013_project_order.sql','utf8'));sql.exec(readFileSync('drizzle/0016_tag_order.sql','utf8'));sql.exec(readFileSync('drizzle/0017_perspective_view.sql','utf8'));
  const store=createD1ActionStore(db);assert.equal((await store.readSnapshot('A')).revision,0);assert.equal((await store.readSnapshot('B')).revision,0);
 });
 test('real adapter preserves order and boolean flag, replay, Undo and owner isolation',async t=>{

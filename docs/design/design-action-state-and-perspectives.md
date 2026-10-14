@@ -80,10 +80,12 @@ Verify pure transitions and input preservation; SQLite/defaults/reset/CAS/atomic
 
 Sources: [data model](../technical/data-model.md), [API](../technical/mcp-api.md), [testing](../technical/testing.md), [change](../changes/change-20261003-action-order-and-flag/change.md).
 
-## Filter-only saved views
+## Saved perspective filters and views
 
-A saved perspective is owned by one authenticated user and contains extraction conditions only. Owner is mandatory in storage; queries and references stay within that owner. It does not define another order, grouping or display configuration.
+A saved perspective is owned by one authenticated user and contains an extraction filter plus a strict version-2 Tasklist, Thread or Timeline presentation definition. Owner is mandatory in storage; queries and references stay within that owner. All settings are required for the selected view branch and unknown fields reject. Creation without a view receives the canonical Tasklist default; an edit without a view retains the existing value, and a supplied view replaces the whole definition.
 
-Evaluation preserves the existing action-tree relative order and never duplicates actions or changes their state. Status sets, direct Flag, read-time Defer and explicit Project/Tag membership are mechanical conditions, not recommendations. Classification descendant expansion is distinct from action containment. Parent actions that fail the filter are not automatically included as matches.
+Evaluation preserves the existing action-tree relative order and never duplicates actions or changes their state. Sort and grouping settings describe presentation only; they do not change extraction membership, query result order or action state. Status sets, direct Flag, read-time Defer and explicit Project/Tag membership are mechanical conditions, not recommendations. Classification descendant expansion is distinct from action containment. Parent actions that fail the filter are not automatically included as matches.
 
-Stored definitions are dynamic: edits, classification changes and Defer expiry affect the next read. Filter edits replace the definition. Removal and Undo use ordinary revision, receipt and identity guarantees; missing references must not silently widen the view. Definitions and returned matches remain separate from host recommendations.
+Stored definitions are dynamic: edits, classification changes and Defer expiry affect the next read. Filter and view edits replace their respective definitions. Removal and Undo use ordinary revision, receipt and identity guarantees; missing references must not silently widen the view. Complete v1 Perspective rows in operation history receive the canonical default solely through the history decoder, after schema migration 0017 has converted current Perspective rows. Exact retained requests are replayed from their receipt before view defaults or generated IDs are prepared. Unknown versions and incomplete current rows are rejected.
+
+Definitions and returned matches remain separate from host recommendations. The shared API exposes all settings; dedicated presentation controls remain outside this change.

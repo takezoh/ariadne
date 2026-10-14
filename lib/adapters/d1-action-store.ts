@@ -16,7 +16,7 @@ async function snapshot(db:D1Database,owner:string):Promise<Snapshot> {
   db.prepare('SELECT id,name,description,parent_id,"order",revision,created_at,updated_at FROM tags WHERE owner=?').bind(owner),
   db.prepare('SELECT action_id,tag_id,revision FROM action_tags WHERE owner=?').bind(owner),
   db.prepare('SELECT kind,identity,revision FROM catalog_identity_ledger WHERE owner=?').bind(owner),
-  db.prepare('SELECT id,name,description,filter,definition_version,revision,created_at,updated_at FROM perspectives WHERE owner=?').bind(owner)
+  db.prepare('SELECT id,name,description,filter,view,definition_version,revision,created_at,updated_at FROM perspectives WHERE owner=?').bind(owner)
  ]);
  return decodeSnapshotRows(rows.map(row=>row.results) as unknown as SnapshotRows);
 }
@@ -26,7 +26,7 @@ const TABLES={
  actions:{name:'actions',columns:['id','title','revision','parent_id','project_id','status','due_at','defer_until','notes','order','flagged','created_at','updated_at'],keys:['id']},
  projects:{name:'projects',columns:['id','name','description','parent_id','order','revision','created_at','updated_at'],keys:['id']},
  tags:{name:'tags',columns:['id','name','description','parent_id','order','revision','created_at','updated_at'],keys:['id']},
- perspectives:{name:'perspectives',columns:['id','name','description','filter','definition_version','revision','created_at','updated_at'],keys:['id']},
+ perspectives:{name:'perspectives',columns:['id','name','description','filter','view','definition_version','revision','created_at','updated_at'],keys:['id']},
  action_tags:{name:'action_tags',columns:['action_id','tag_id','revision'],keys:['action_id','tag_id']},
  catalog_identity_ledger:{name:'catalog_identity_ledger',columns:['kind','identity','revision'],keys:['kind','identity']},
 } as const;

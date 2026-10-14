@@ -1,3 +1,4 @@
+import {createCompletionReviewModel} from '../../lib/ui/model/completion-review.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createUiController} from '../../lib/ui/application/controller.ts';
@@ -27,7 +28,7 @@ async function fixture(){
   ids.push((await write('add',{title})).result.resolved.actions[0].id);
  let lose=false,hold=false,release=null,timer=0;
  const controller=createUiController({
-  model:{...drafts,...operations,transient:createTransientModel(),treeDrop:createTreeDropModel(),catalogDrafts:createCatalogDraftModel(),autosave:createAutosaveModel(),movement:createMovementModel()},
+  model:{...drafts,...operations,completionReview:createCompletionReviewModel(),transient:createTransientModel(),treeDrop:createTreeDropModel(),catalogDrafts:createCatalogDraftModel(),autosave:createAutosaveModel(),movement:createMovementModel()},
   ids:{next:uuid},
   timers:{schedule:callback=>{const key=++timer;timerQueue.set(key,callback);return key;},cancel:key=>timerQueue.delete(key)},
   view:{render(){},message:text=>messages.push(text),review(){},closeReview(){}},

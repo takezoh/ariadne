@@ -52,7 +52,7 @@ Defer an action when it is unnecessary now. A date-only choice resolves to that 
 
 Arrange sibling actions by order and use direct Flags to mark attention. A Flag does not inherit and does not change lifecycle, Due or Defer. The Flag view includes marked normal-view actions; deferred or ended flags remain saved and queryable.
 
-Save a reusable perspective through conversation when you want to repeat a particular selection. Perspectives store extraction conditions only and retain the existing action order. Select a saved perspective in the dedicated UI; create and edit its definition through the tools or API. Ask for candidates matching a purpose or context. Recommendation alone does not hide, complete, defer or drop unselected actions. Return to the full normal, deferred or historical list when needed.
+Save a reusable perspective through conversation when you want to repeat a particular selection. Its filter defines which existing actions match; its saved Tasklist, Thread or Timeline view controls only their display order, grouping and notes presentation. Selecting the perspective in the dedicated UI restores that view over the current shared snapshot. A completion button can say Complete, Mark read or Acknowledge, but each uses the existing shared Completed status; reading or expanding notes alone never changes an action. Create and edit the definition through the tools or API. Ask for candidates matching a purpose or context. Recommendation alone does not hide, complete, defer or drop unselected actions. Return to the full normal, deferred or historical list when needed.
 
 ## State and relationships
 

@@ -3,6 +3,8 @@ import type {DraftAction, Drafts, DraftValues} from './drafts';
 import type {UiInteractionState} from './interaction';
 import type {MovePayload} from './movement';
 import type {TransientRecord} from './transient-create';
+import type {PerspectiveTransientState} from './perspective-transient';
+import type {CompletionReviewScope} from './completion-review';
 
 export interface UiResult {
  operationId?:string;
@@ -38,7 +40,8 @@ export interface UiState {
  recoveryRequired:boolean;
  lastOperation:string|null;
  selectedId:string|null;
- reviewed:{p:UiPreview;draftId:string|null;captured:Partial<DraftValues>}|null;
+ reviewed:{p:UiPreview;draftId:string|null;captured:Partial<DraftValues>;completionScope?:CompletionReviewScope}|null;
+ perspectiveTransient:PerspectiveTransientState;
 }
 export type DeepReadonly<T>=T extends (...args:never[])=>unknown?T:T extends object?{readonly [K in keyof T]:DeepReadonly<T[K]>}:T;
 export type UiFieldIssue='due_at'|'deferUntil';

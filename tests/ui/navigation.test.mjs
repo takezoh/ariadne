@@ -30,7 +30,7 @@ test('saved perspective matching has parity with domain AND predicates including
 test('missing selected catalog, perspective or saved references fail closed without selecting all',()=>{
  const wire=response(fixture(),now);for(const view of ['projects','tags']){const selection={...model.initial(),view,classificationId:id(99)};const result=model.present(wire,selection);assert.equal(result.unavailable,true);assert.deepEqual(result.actions,[]);assert(result.options.some(o=>o.id===id(99)));assert.equal(selection.classificationId,id(99));}
  assert.equal(model.present(wire,{...model.initial(),view:'perspective',perspectiveId:id(99)}).unavailable,true);
- for(const filter of [{project_id:id(99)},{tag_id:id(99)}]){const result=model.present({...wire,perspectives:[{id:id(30),name:'Saved',filter,view:defaultView,definition_version:2}]},{...model.initial(),view:'perspective',perspectiveId:id(30)});assert.equal(result.unavailable,true);assert.deepEqual(result.actions,[]);}
+ for(const filter of [{project_id:id(99)},{tag_id:id(99)},{project_id:''},{tag_id:''},{project_id:'not-a-uuid'},{tag_id:'not-a-uuid'}]){const result=model.present({...wire,perspectives:[{id:id(30),name:'Saved',filter,view:defaultView,definition_version:2}]},{...model.initial(),view:'perspective',perspectiveId:id(30)});assert.equal(result.unavailable,true,JSON.stringify(filter));assert.deepEqual(result.actions,[],JSON.stringify(filter));}
 });
 test('history keeps completed/dropped state and default views include on hold without availability logic',()=>{
  const wire=response(fixture(),now),history=model.initial('history');assert.deepEqual(ids(model.present(wire,history).actions),[id(15),id(14)]);assert.deepEqual(ids(model.present(wire,{...history,statuses:['dropped']}).actions),[id(15)]);

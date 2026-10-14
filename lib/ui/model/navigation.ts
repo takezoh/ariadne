@@ -1,11 +1,14 @@
+import {perspectiveFilter} from '../../domain/core';
+import type {PerspectiveView} from './perspective-view';
+
 export type NavigationView='inbox'|'projects'|'tags'|'flagged'|'history'|'perspective';
 export type NavigationStatus='active'|'on-hold'|'completed'|'dropped';
 export interface NavigationSettings {classificationId:string;perspectiveId:string|null;includeDescendants:boolean;statuses:NavigationStatus[];includeDeferred:boolean}
 export interface NavigationSelection extends NavigationSettings {view:NavigationView;remembered?:Partial<Record<NavigationView,NavigationSettings>>}
-export interface NavigationAction {id:string;title:string;status:string;project_id?:string|null;project_path?:string|null;tags?:{id:string;name:string;path?:string}[];is_deferred?:boolean;flagged?:boolean;[key:string]:unknown}
+export interface NavigationAction {id:string;title:string;status:string;project_id?:string|null;project_path?:string|null;parent_id?:string|null;notes?:string;order?:number;created_at?:string|null;updated_at?:string|null;due_at?:string|null;tags?:{id:string;name:string;path?:string}[];is_deferred?:boolean;flagged?:boolean;[key:string]:unknown}
 export interface NavigationCatalog {order:number;id:string;name:string;path?:string;parent_id?:string|null;description?:string}
 export interface NavigationFilter {statuses?:string[];is_deferred?:boolean;flagged?:boolean;project_id?:string|null;tag_id?:string;include_descendants?:boolean}
-export interface NavigationPerspective {id:string;name:string;description?:string;filter:NavigationFilter}
+export interface NavigationPerspective {id:string;name:string;description?:string;filter:NavigationFilter;view?:PerspectiveView;definition_version?:number}
 export interface NavigationSnapshot {actions:NavigationAction[];projects?:NavigationCatalog[];tags?:NavigationCatalog[];perspectives?:NavigationPerspective[];list_scopes?:Record<string,string[]>}
 /** Closed pure factory also embeds unchanged into the self-contained UI resource. */
 export function createNavigationModel(){
@@ -21,19 +24,21 @@ export function createNavigationModel(){
  function toggleDisplay(selection:NavigationSelection,choice:string):NavigationSelection {if(!displayOptions(selection).includes(choice))return select(selection,{});if(choice==='deferred')return select(selection,{includeDeferred:!selection.includeDeferred});const statuses=['active','on-hold','completed','dropped'].filter(status=>status===choice?!selection.statuses.includes(status as NavigationStatus):selection.statuses.includes(status as NavigationStatus)) as NavigationStatus[];return select(selection,{statuses});}
  function displayFilter(selection:NavigationSelection):NavigationFilter{return {statuses:[...selection.statuses],...(selection.includeDeferred?{}:{is_deferred:false})};}
  function descendants(catalog:readonly NavigationCatalog[],id:string,include:boolean):Set<string>{const ids=new Set([id]);if(include){const children=new Map<string,string[]>();for(const item of catalog)if(item.parent_id){const rows=children.get(item.parent_id)||[];rows.push(item.id);children.set(item.parent_id,rows);}const pending=[id];while(pending.length){for(const child of children.get(pending.pop()!)||[])if(!ids.has(child)){ids.add(child);pending.push(child);}}}return ids;}
+ function validFilter(filter:NavigationFilter):boolean {try{perspectiveFilter(filter);return true;}catch{return false;}}
  function filterActions(snapshot:NavigationSnapshot,filter:NavigationFilter):NavigationAction[]|null {
   const projects=snapshot.projects??[],tags=snapshot.tags??[];
+  if(!validFilter(filter))return null;
   const projectIds=new Set(projects.map(project=>project.id)),tagIds=new Set(tags.map(tag=>tag.id));
   if(filter.project_id&&!projectIds.has(filter.project_id)||filter.tag_id&&!tagIds.has(filter.tag_id))return null;
   const pids=filter.project_id?descendants(projects,filter.project_id,filter.include_descendants===true):null,tids=filter.tag_id?descendants(tags,filter.tag_id,filter.include_descendants===true):null;
   return snapshot.actions.filter(action=>(!Object.hasOwn(filter,'statuses')||filter.statuses!.includes(action.status))&&(!Object.hasOwn(filter,'is_deferred')||Boolean(action.is_deferred)===filter.is_deferred)&&(!Object.hasOwn(filter,'flagged')||Boolean(action.flagged)===filter.flagged)&&(!Object.hasOwn(filter,'project_id')||(filter.project_id===null?action.project_id===null:Boolean(action.project_id&&pids?.has(action.project_id))))&&(!tids||Boolean(action.tags?.some(tag=>tids.has(tag.id)))));
  }
  function present(snapshot:NavigationSnapshot,selection:NavigationSelection){
-  const {view,classificationId,perspectiveId,includeDescendants,statuses}=selection;let heading=names[view],summary='',description='',actions:NavigationAction[]=[],unavailable=false;
+  const {view,classificationId,perspectiveId,includeDescendants,statuses}=selection;let heading=names[view],summary='',description='',actions:NavigationAction[]=[],unavailable=false,perspectiveView:PerspectiveView|undefined;
   const catalog=view==='projects'?snapshot.projects??[]:snapshot.tags??[];const options=view==='projects'?[{id:'all',label:'All projects'},{id:'unassigned',label:'Unassigned'},...catalog.map(item=>({id:item.id,label:item.path??item.name}))]:view==='tags'?[{id:'all',label:'All tags'},{id:'untagged',label:'Untagged'},...catalog.map(item=>({id:item.id,label:item.path??item.name}))]:[];
   if(view==='inbox'){const ids=new Set(snapshot.list_scopes?.inbox??[]);actions=snapshot.actions.filter(action=>ids.has(action.id));}
   else if(view==='history'){actions=snapshot.actions.filter(a=>['completed','dropped'].includes(a.status)&&statuses.includes(a.status as NavigationStatus));}
-  else if(view==='perspective'){const saved=snapshot.perspectives?.find(p=>p.id===perspectiveId);if(!saved){heading='Unavailable perspective';summary='This saved view is no longer available. Refresh to check its definition.';unavailable=true;}else{heading=saved.name;description=saved.description??'';const matching=filterActions(snapshot,saved.filter);if(matching===null){unavailable=true;summary='A referenced classification is unavailable';}else actions=matching;}}
+  else if(view==='perspective'){const saved=snapshot.perspectives?.find(p=>p.id===perspectiveId);if(!saved){heading='Unavailable perspective';summary='This saved view is no longer available. Refresh to check its definition.';unavailable=true;}else{heading=saved.name;description=saved.description??'';const matching=filterActions(snapshot,saved.filter);if(saved.definition_version!==2||!saved.view){unavailable=true;summary='This saved view definition is not supported.';}else if(matching===null){unavailable=true;summary='A saved filter is invalid or references an unavailable classification.';}else{actions=matching;perspectiveView=saved.view;}}}
   else {
    const filter:NavigationFilter=displayFilter(selection);
    if(view==='flagged'){filter.flagged=true;}
@@ -43,7 +48,7 @@ export function createNavigationModel(){
    const matching=unavailable?null:filterActions(snapshot,filter);if(matching)actions=matching.filter(a=>view==='projects'&&classificationId==='all'?Boolean(a.project_id):view==='tags'&&classificationId==='all'?Boolean(a.tags?.length):view==='tags'&&classificationId==='untagged'?!a.tags?.length:true);
    if(unavailable)summary='This selection is no longer available';
   }
-  return {heading,summary,description,actions,options,unavailable};
+  return {heading,summary,description,actions,options,unavailable,perspectiveView};
  }
  function creationContext(snapshot:NavigationSnapshot,selection:NavigationSelection,object?:{kind:string;id:string;catalogId?:string|null}|null){
   const payload:Record<string,unknown>={title:'',notes:'',project_id:null};

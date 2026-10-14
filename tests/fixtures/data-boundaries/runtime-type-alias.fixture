@@ -1,0 +1,2 @@
+import { Snapshot as SharedSnapshot } from '../types';
+void SharedSnapshot;

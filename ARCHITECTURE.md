@@ -1,6 +1,6 @@
 # Ariadne architecture
 
-Current sources are [domain](lib/domain/core.ts), [application](lib/application/action-service.ts), [D1 adapter](lib/adapters/d1-action-store.ts) and [schema](db/schema.ts).
+Current sources are [shared data types](lib/data/types.ts), [data models](lib/data/model/), [domain](lib/domain/core.ts), [application](lib/application/action-service.ts), [D1 adapter](lib/adapters/d1-action-store.ts) and [schema](db/schema.ts).
 
 ## Responsibilities and runtime
 
@@ -22,14 +22,19 @@ flowchart LR
   Web[Web preview with shared UI] --> HTTP[POST /api/actions]
   MCP --> App[actionCall]
   HTTP --> App
+  App --> Request[Pure request normalization and ID finalization]
   App --> Domain[Pure transitions and projections]
   App --> Port[ActionStore port]
   Port --> Adapter[D1 adapter]
+  Adapter --> Storage[Pure row codec and storage plan]
   Adapter --> DB[(Sites D1)]
 ```
 
 | Location | Responsibility |
 | --- | --- |
+| lib/data/types.ts | Shared readonly data contracts; type declarations only |
+| lib/data/model/request.ts | Pure request normalization and explicit generated-ID finalization |
+| lib/data/model/storage.ts | Pure D1 row codecs, receipt validation, changed-row plan and byte budgets |
 | lib/domain/ | Pure validation, lifecycle, containment, dates, order, direct flags, preview, delta, Undo |
 | lib/application/ | Operation orchestration through store, clock and ID ports |
 | lib/adapters/ | D1 SQL, atomic revision CAS, receipts, bindings |
@@ -48,6 +53,8 @@ flowchart LR
 | app/board.tsx | Web iframe and HTTP relay using the shared UI |
 | db/, drizzle/ | Schema and SQL migrations |
 | scripts/, build/ | Execution-profile, build, migration and verification helpers |
+
+The shared type module exports declarations only. Domain transitions consume readonly snapshots and return cloned results; request normalization produces slots, while application code allocates IDs and passes those explicit values to a pure finalizer. The storage model decodes database scalar rows and plans changed-row writes and budgets without SQL or owner identity. Only the D1 adapter owns SQL construction, trusted owner binding, CAS, atomic batching and failure recovery.
 
 Pure code receives explicit time and never reaches DB, HTTP, DOM, environment, randomness or a host. Effects are injected at composition. UI never connects directly to D1. Both entry points use the same actionCall and persistence path.
 

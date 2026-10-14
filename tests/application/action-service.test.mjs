@@ -42,6 +42,12 @@ test('generated UUID collision retries without reusing an active entity ID',asyn
  assert.equal(first.result.resolved.actions[0].id,uuid(2));assert.equal(second.result.resolved.actions[0].id,uuid(3));assert.equal(p.idsUsed(),3);
 });
 
+test('generated UUID collisions stop after eight attempts without committing',async()=>{
+ const store=memoryActionStore(),p=ports(store,Array(8).fill(uuid(9)));
+ await assert.rejects(actionCall(p,'A','apply_change',{schemaVersion:2,operationId:uuid(9),expectedRevision:0,kind:'add',payload:{title:'Action'}}),error=>error.code==='unavailable');
+ assert.equal(p.idsUsed(),8);assert.equal((await store.readSnapshot('A')).revision,0);assert.equal(await store.readReceipt('A',uuid(9)),null);
+});
+
 test('structure_create resolves unique local refs and preview IDs remain provisional',async()=>{
  const store=memoryActionStore(),p=ports(store,[uuid(2),uuid(3),uuid(4),uuid(5),uuid(6),uuid(7),uuid(8)]);
  const capture=await actionCall(p,'A','capture_intent',{schemaVersion:2,operationId:uuid(1),expectedRevision:0,title:'Original title',text:'Parent and child',source:'conversation'});

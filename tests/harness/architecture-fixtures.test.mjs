@@ -54,10 +54,20 @@ test('actual repository config requires runtime capability validation before pri
  assert(!reports(await actualLint(source,path),'private-auth'));
  for(const mutant of [source.replace(' verifiedOwner(owner);',''),source.replace('actionCall(owner,','actionCall("A",'),source.replace(' verifiedOwner(owner);'," if(raw)return Response.json({tools:privateDefinitions});\n verifiedOwner(owner);")])assert(reports(await actualLint(mutant,path),'private-auth'));
 });
-test('removing owner WHERE, owner bind, or conflict key from actual adapter fails the gate',()=>{
+test('owner SQL checks execution forms and rejects D1 exec or extracted/computed prepare under actual config',async()=>{
  const source=readFileSync('lib/adapters/d1-action-store.ts','utf8');
- assert(!reports(lint(source,'lib/adapters/d1-action-store.ts'),'owner-sql'));
- for(const mutant of [source.replace('WHERE owner=? AND operation_id=?','WHERE operation_id=?'),source.replace('.bind(owner,operationId)','.bind(operationId)'),source.replace('ON CONFLICT(owner,','ON CONFLICT(')])assert(reports(lint(mutant,'lib/adapters/d1-action-store.ts'),'owner-sql'));
+ assert(!reports(await actualLint(source,'lib/adapters/d1-action-store.ts'),'owner-sql'));
+ for(const fixture of ['d1-exec.fixture','computed-prepare.fixture','prepare-alias.fixture','prepare-destructure.fixture','dynamic-method.fixture','computed-destructure.fixture','prepare-reflect.fixture','d1-dump.fixture']){
+  const code=readFileSync('tests/fixtures/owner-sql/'+fixture,'utf8');
+  assert(reports(await actualLint(code,'lib/adapters/d1-action-store.ts'),'owner-sql'),fixture+' must fail under the actual config');
+ }
+ const safe=readFileSync('tests/fixtures/owner-sql/scoped-prepare.fixture','utf8');
+ assert(!reports(await actualLint(safe,'lib/adapters/d1-action-store.ts'),'owner-sql'));
+});
+test('removing owner WHERE, owner bind, or conflict key from actual adapter fails the gate',async()=>{
+ const source=readFileSync('lib/adapters/d1-action-store.ts','utf8');
+ assert(!reports(await actualLint(source,'lib/adapters/d1-action-store.ts'),'owner-sql'));
+ for(const mutant of [source.replace('WHERE owner=? AND operation_id=?','WHERE operation_id=?'),source.replace('.bind(owner,operationId)','.bind(operationId)'),source.replace('ON CONFLICT(owner,','ON CONFLICT(')])assert(reports(await actualLint(mutant,'lib/adapters/d1-action-store.ts'),'owner-sql'));
 });
 test('runtime sql.raw remains forbidden inside reviewed adapter',()=>{
  const source="import {sql} from 'drizzle-orm';sql.raw('arbitrary');";
@@ -115,5 +125,39 @@ test('actual repository config rejects inline type imports and import-equals acr
   for(const source of ['export type Leaked = import("@/lib/ui/effects/host").Whatever;','import Leaked = require("@/lib/ui/effects/host"); export {Leaked};']){
    assert(reports(await actualLint(source,path),'dependency-direction'),path+': '+source);
   }
+ }
+});
+
+test('actual repository config guards every data-model extension and TypeScript import form',async()=>{
+ const root='tests/fixtures/data-boundaries/';
+ const fixtures=[
+  ['runtime-type-alias.fixture','data-type-only'],
+  ['empty-type-import.fixture','data-type-only'],
+  ['type-import-effect.fixture','dependency-direction'],
+  ['import-equals-effect.fixture','dependency-direction'],
+  ['reexport-effect.fixture','dependency-direction'],
+  ['dynamic-effect.fixture','dependency-direction'],
+  ['nonliteral-dynamic.fixture','dependency-direction'],
+  ['nonliteral-require.fixture','dependency-direction'],
+ ];
+ for(const extension of ['ts','tsx','mts','js','jsx','mjs']){
+  for(const [fixture,rule] of fixtures){
+   const code=readFileSync(root+fixture,'utf8');
+   assert(reports(await actualLint(code,`lib/data/model/__boundary_fixture__.${extension}`),rule),`${extension}: ${fixture}`);
+  }
+ }
+ for(const extension of ['ts','tsx','mts']){
+  for(const fixture of ['type-import-effect.fixture','import-equals-effect.fixture'])assert(reports(await actualLint(readFileSync(root+fixture,'utf8'),`lib/data/model/__typed_fixture__.${extension}`),'dependency-direction'),`${extension}: ${fixture}`);
+ }
+ assert.deepEqual(await actualLint("import type { Snapshot } from '../types'; export type { Snapshot };",'lib/data/model/__valid_type_import__.ts'),[]);
+ assert.deepEqual(await actualLint("export { type Snapshot } from '../types';",'lib/data/model/__valid_type_reexport__.ts'),[]);
+ assert(reports(await actualLint(readFileSync(root+'runtime-type-definition.fixture','utf8'),'lib/data/types.ts'),'data-type-only'));
+ assert(reports(await actualLint("import type { Snapshot } from '../types';",'lib/data/utils.ts'),'dependency-direction'));
+ for(const filename of ['lib/data/model/__capability__.ts','lib/domain/__capability__.ts']){
+  for(const name of ['D1Database','D1PreparedStatement','D1Result','KVNamespace','ExecutionContext','Env','WorkerEnv','D1Env'])assert(reports(await actualLint(`type Leaked = ${name};`,filename),'pure-effects'),filename+': '+name);
+ }
+ for(const source of ["import {OwnerActionStore} from '../../application/ports';", "import {createOwnerBoundActionStore} from '../../adapters/d1-action-store';", "import {env} from 'cloudflare:workers';", "Date.now();"]){
+  const messages=await actualLint(source,'lib/data/model/__forbidden_dependency__.ts');
+  assert(messages.some(item=>item.ruleId==='architecture/dependency-direction'||item.ruleId==='architecture/capability-direction'||item.ruleId==='architecture/pure-effects'),source);
  }
 });

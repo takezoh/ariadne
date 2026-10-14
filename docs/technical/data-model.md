@@ -1,6 +1,6 @@
 # Data model and consistency
 
-Updated: 2026-10-09. The current contract is defined by [schema](../../db/schema.ts), [action model](../../lib/domain/core.ts), [application service](../../lib/application/action-service.ts), [migration 0009](../../drizzle/0009_action_model.sql), and [perspective migration 0010](../../drizzle/0010_ambiguous_umar.sql). Completed change packages describe their original versions, not the current API.
+Updated: 2026-10-14. The current contract is defined by [shared readonly types](../../lib/data/types.ts), [pure data models](../../lib/data/model/), [schema](../../db/schema.ts), [action model](../../lib/domain/core.ts), [application service](../../lib/application/action-service.ts), [D1 adapter](../../lib/adapters/d1-action-store.ts), [migration 0009](../../drizzle/0009_action_model.sql), and [perspective migration 0010](../../drizzle/0010_ambiguous_umar.sql). Completed change packages describe their original versions, not the current API.
 
 ## Data and management policy
 
@@ -19,6 +19,26 @@ The model represents shared state used by the human and authorized AI consumers:
 | operations | owner, operation_id | canonical request, result, delta, before/after revision, undo_of, timestamp |
 
 There is no tasks, task_tags, or dependencies table in the current schema. Action relationships are parent-child containment only. Independent prerequisite edges and sequential/parallel modes are unsupported. An explicit on-hold action remains an ordinary unfinished action.
+
+## Data code responsibilities
+
+`lib/data/types.ts` is the single source of shared readonly DTOs and contains type declarations only. Consumers import or re-export those contracts with type syntax. `lib/data/model/request.ts` performs pure request normalization and finalizes normalized generated-ID slots only from explicit IDs. Application code allocates UUID candidates, rejects collisions against owner state and retries at most eight times; replay lookup happens before allocation, and preview candidates are never reserved.
+
+`lib/data/model/storage.ts` decodes D1 scalar rows into the shared snapshot, validates and returns the stored receipt result without reshaping it, and builds an owner-free row-write plan. It calculates payload, receipt, delta, changed-row and identity-marker budgets without SQL or D1 capabilities. `lib/adapters/d1-action-store.ts` remains the exact owner-bound SQL path: it constructs the closed-descriptor statements, binds the trusted identity, and batches receipt, changed rows, catalog markers and pruning behind the revision guard. Planning and codec tests are pure; CAS, replay, owner isolation and rollback remain adapter responsibilities.
+
+The source tree keeps these decisions in one dependency direction; each arrow names a dependency:
+
+```text
+lib/
+├── data/types.ts                      readonly declarations; no imports
+├── domain/                            pure; depends on data/types (type-only)
+├── data/model/                        pure; depends on domain and data/types
+├── application/                       depends on domain, data/model and ports
+├── adapters/d1-action-store.ts        depends on data/model, application/ports and server/auth
+└── server/actions.ts                  composes application, adapter and Worker D1 binding
+```
+
+`data/model` also imports the domain functions it composes. The adapter depends on the application port and the verified identity capability; `server/actions.ts` wires the application, adapter and Worker binding. SQL statements, trusted owner binding and D1 batches remain in the exact adapter.
 
 ## Order and direct flags
 

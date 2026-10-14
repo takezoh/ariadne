@@ -1,0 +1,3 @@
+function safe(db: D1Database, owner: string) {
+  db.prepare('SELECT id FROM actions WHERE owner=?').bind(owner);
+}

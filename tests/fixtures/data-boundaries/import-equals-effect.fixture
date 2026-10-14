@@ -1,0 +1,2 @@
+import Store = require('../../adapters/d1-action-store');
+export { Store };

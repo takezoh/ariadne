@@ -11,6 +11,12 @@ const effectGlobals = new Set([
   'ResizeObserver', 'IntersectionObserver', 'XMLHttpRequest', 'Notification', 'Audio', 'Image',
   'indexedDB', 'caches', 'AbortController',
 ]);
+const effectCapabilities = new Set([
+  'D1Database', 'D1PreparedStatement', 'D1Result', 'D1ResultMeta', 'KVNamespace', 'R2Bucket',
+  'DurableObjectNamespace', 'DurableObjectState', 'ExecutionContext', 'Fetcher', 'Queue',
+  'WorkflowBinding', 'AnalyticsEngineDataset', 'WorkerEntrypoint', 'ScheduledController',
+  'MessageBatch', 'Env', 'WorkerEnv', 'D1Env',
+]);
 
 function globalReference(context, node) {
   let scope = context.sourceCode.getScope(node);
@@ -25,9 +31,12 @@ function globalReference(context, node) {
 const pureEffects = {
   meta: { type: 'problem', schema: [], messages: { effect: 'Pure logic cannot access {{name}}; inject the value or move the effect to an adapter.' } },
   create(context) {
+    const file = relative(context.cwd, context.filename).replaceAll('\\', '/');
+    const forbidsCapabilityTypes = file === 'lib/data/types.ts' || file.startsWith('lib/data/model/') || file.startsWith('lib/domain/');
     const report = (node, name) => context.report({ node, messageId: 'effect', data: { name } });
     return {
       Identifier(node) {
+        if (forbidsCapabilityTypes && effectCapabilities.has(node.name)) { report(node, node.name); return; }
         if (!effectGlobals.has(node.name)) return;
         const parent = node.parent;
         if ((parent.type === 'MemberExpression' && parent.property === node && !parent.computed)
@@ -53,6 +62,9 @@ const pureEffects = {
 };
 
 function layer(path) {
+  if (path === 'lib/data/types.ts') return 'data-types';
+  if (path.startsWith('lib/data/model/')) return 'data-model';
+  if (path.startsWith('lib/data/')) return 'data-unclassified';
   if (path.startsWith('lib/domain/')) return 'domain';
   if (path.startsWith('lib/application/')) return 'application';
   if (path.startsWith('lib/ui/model/')) return 'ui-model';
@@ -68,8 +80,10 @@ function layer(path) {
 
 function allowed(from, target) {
   const pure = target.startsWith('lib/domain/');
-  if (from === 'domain') return pure;
-  if (from === 'application') return pure || target.startsWith('lib/application/');
+  if (from === 'data-types') return false;
+  if (from === 'data-model') return pure || target === 'lib/data/types.ts' || target.startsWith('lib/data/model/');
+  if (from === 'domain') return pure || target === 'lib/data/types.ts';
+  if (from === 'application') return pure || target === 'lib/data/types.ts' || target.startsWith('lib/data/model/') || target.startsWith('lib/application/');
   if (from === 'ui-model') return pure || target.startsWith('lib/ui/model/');
   if (from === 'ui-ports') return pure || target.startsWith('lib/ui/model/') || target === 'lib/ui/ports.ts';
   if (from === 'ui-application') return pure || target.startsWith('lib/ui/model/') || target === 'lib/ui/ports.ts' || target.startsWith('lib/ui/application/');
@@ -77,7 +91,7 @@ function allowed(from, target) {
   if (from === 'ui-tool-client') return pure || target.startsWith('lib/ui/model/') || target === 'lib/ui/ports.ts' || /^lib\/ui\/effects\/tool-client\.(?:ts|tsx|mts|js|jsx|mjs)$/.test(target);
   if (from === 'ui-effects') return pure || target.startsWith('lib/ui/model/') || target === 'lib/ui/ports.ts' || target.startsWith('lib/ui/application/') || target.startsWith('lib/ui/components/') || target.startsWith('lib/ui/effects/');
   if (from === 'ui-composition') return pure || target.startsWith('lib/ui/');
-  if (from === 'ui-unclassified') return false;
+  if (from === 'ui-unclassified' || from === 'data-unclassified') return false;
   return true;
 }
 
@@ -88,7 +102,7 @@ const dependencyDirection = {
     const filename = context.filename;
     const from = layer(relative(cwd, filename).replaceAll('\\', '/'));
     if (!from) return {};
-    if(from==='ui-unclassified')return {Program(node){context.report({node,messageId:'dependency',data:{from,target:'unclassified UI source path'}});}};
+    if(from==='ui-unclassified'||from==='data-unclassified')return {Program(node){context.report({node,messageId:'dependency',data:{from,target:'unclassified source path'}});}};
     function check(node, source) {
       if (typeof source !== 'string') { context.report({node,messageId:'dependency',data:{from,target:'non-static module specifier'}});return; }
       const target = canonicalModuleTarget(cwd,filename,source);
@@ -104,6 +118,46 @@ const dependencyDirection = {
       ImportExpression(node) { check(node, node.source.type==='Literal'?node.source.value:null); },
       CallExpression(node) {
         if (node.callee.type === 'Identifier' && node.callee.name === 'require') check(node, node.arguments[0]?.type==='Literal'?node.arguments[0].value:null);
+      },
+    };
+  },
+};
+
+const dataTypeOnly = {
+  meta: { type: 'problem', schema: [], messages: { type: 'Shared data contracts are type-only; import or re-export them with type syntax and keep lib/data/types.ts free of runtime declarations.' } },
+  create(context) {
+    const cwd = context.cwd, filename = context.filename;
+    const file = relative(cwd, filename).replaceAll('\\', '/');
+    if (file === 'lib/data/types.ts') return {
+      Program(node) {
+        for (const statement of node.body) {
+          const declaration = statement.type === 'ExportNamedDeclaration' ? statement.declaration : null;
+          if (statement.type !== 'ExportNamedDeclaration' || statement.source || !declaration
+            || !['TSInterfaceDeclaration', 'TSTypeAliasDeclaration'].includes(declaration.type)) {
+            context.report({ node: statement, messageId: 'type' });
+          }
+        }
+      },
+    };
+    const isSharedTypeTarget = source => typeof source === 'string' && canonicalModuleTarget(cwd, filename, source) === 'lib/data/types.ts';
+    const report = node => context.report({ node, messageId: 'type' });
+    return {
+      ImportDeclaration(node) {
+        if (isSharedTypeTarget(node.source.value) && node.importKind !== 'type' && (!node.specifiers.length || node.specifiers.some(specifier => specifier.importKind !== 'type'))) report(node);
+      },
+      ExportNamedDeclaration(node) {
+        if (node.source && isSharedTypeTarget(node.source.value) && node.exportKind !== 'type' && (!node.specifiers.length || node.specifiers.some(specifier => specifier.exportKind !== 'type'))) report(node);
+      },
+      ExportAllDeclaration(node) {
+        if (isSharedTypeTarget(node.source.value) && node.exportKind !== 'type') report(node);
+      },
+      TSImportEqualsDeclaration(node) {
+        const source = node.moduleReference.type === 'TSExternalModuleReference' ? node.moduleReference.expression.value : null;
+        if (isSharedTypeTarget(source) && node.importKind !== 'type') report(node);
+      },
+      ImportExpression(node) { if (node.source.type === 'Literal' && isSharedTypeTarget(node.source.value)) report(node); },
+      CallExpression(node) {
+        if (node.callee.type === 'Identifier' && node.callee.name === 'require' && node.arguments[0]?.type === 'Literal' && isSharedTypeTarget(node.arguments[0].value)) report(node);
       },
     };
   },
@@ -272,19 +326,90 @@ const privateAuth = {
   };
  }
 };
+function staticMemberName(node){
+ if(node?.type!=='MemberExpression'&&node?.type!=='OptionalMemberExpression')return null;
+ if(!node.computed&&node.property.type==='Identifier')return node.property.name;
+ if(node.computed&&node.property.type==='Literal'&&typeof node.property.value==='string')return node.property.value;
+ return null;
+}
+function unwrapTsExpression(node){
+ while(node&&['TSAsExpression','TSTypeAssertion','TSNonNullExpression','ChainExpression','ParenthesizedExpression'].includes(node.type))node=node.expression;
+ return node;
+}
+function containsD1DatabaseType(node){
+ if(!node||typeof node!=='object')return false;
+ if(node.type==='TSTypeReference'&&node.typeName?.type==='Identifier'&&node.typeName.name==='D1Database')return true;
+ return Object.entries(node).some(([key,value])=>key!=='parent'&&(Array.isArray(value)?value.some(containsD1DatabaseType):containsD1DatabaseType(value)));
+}
 const ownerSql = {
- meta:{type:'problem',schema:[],messages:{owner:'Native SQL must bind owner and scope SELECT/DELETE or INSERT/conflict keys to owner.'}},
+ meta:{type:'problem',schema:[],messages:{owner:'Native SQL must bind owner and scope SELECT/DELETE or INSERT/conflict keys to owner; only direct prepare and batch calls are allowed on D1, without computed access or method extraction.'}},
  create(context){
   if(relative(context.cwd,context.filename).replaceAll('\\','/')!=='lib/adapters/d1-action-store.ts')return {};
-  return {CallExpression(node){
-   if(node.callee.type!=='MemberExpression'||node.callee.property.name!=='prepare')return;
-   const arg=node.arguments[0],text=context.sourceCode.getText(arg);
+  const databaseHandles=new Set();
+  const report=node=>context.report({node,messageId:'owner'});
+  const trackParameters=node=>{
+   for(const parameter of node.params??[]){
+    const value=parameter.type==='TSParameterProperty'?parameter.parameter:parameter;
+    if(value.type==='Identifier'&&containsD1DatabaseType(value.typeAnnotation))databaseHandles.add(value.name);
+   }
+  };
+  const isDatabaseHandle=node=>{const value=unwrapTsExpression(node);return value?.type==='Identifier'&&databaseHandles.has(value.name);};
+  const checkPrepare=node=>{
+   const arg=node.arguments[0],text=arg?context.sourceCode.getText(arg):'';
    const bind=node.parent?.parent;
    const bound=bind?.type==='CallExpression'&&bind.arguments.some(a=>a.type==='Identifier'&&a.name==='owner');
-   const read=/^['"`]SELECT /.test(text),remove=/^['"`]DELETE /.test(text),insert=/^['"`]INSERT /.test(text);
+   const read=/^['`"]SELECT /.test(text),remove=/^['`"]DELETE /.test(text),insert=/^['`"]INSERT /.test(text);
    const scope=(read||remove)?/WHERE owner=\?/.test(text):insert&&/\(owner,/.test(text)&&(!/ON CONFLICT/.test(text)||/ON CONFLICT\(owner,/.test(text));
-   if(!bound||!scope)context.report({node,messageId:'owner'});
-  }};
+   if(!bound||!scope)report(node);
+  };
+  return {
+   FunctionDeclaration:trackParameters,
+   FunctionExpression:trackParameters,
+   ArrowFunctionExpression:trackParameters,
+   VariableDeclarator(node){
+    if(node.id.type==='Identifier'&&isDatabaseHandle(node.init))databaseHandles.add(node.id.name);
+    if(node.id.type==='ObjectPattern'){
+     if(isDatabaseHandle(node.init))report(node.id);
+     for(const property of node.id.properties){
+      const name=property.computed&&property.key.type==='Literal'?property.key.value:property.key.type==='Identifier'?property.key.name:null;
+      if(name==='prepare'||name==='batch'||name==='exec'||name==='dump'||name==='withSession'||property.computed)report(property);
+     }
+    }
+   },
+   AssignmentExpression(node){
+    if(node.left.type==='Identifier'&&isDatabaseHandle(node.right))databaseHandles.add(node.left.name);
+    if((node.left.type==='ObjectPattern'||node.left.type==='ArrayPattern')&&isDatabaseHandle(node.right))report(node.left);
+   },
+   MemberExpression(node){
+    const name=staticMemberName(node);
+    const onDatabase=isDatabaseHandle(node.object);
+    if(name==='exec'||name==='dump'||name==='withSession'){report(node);return;}
+    if(onDatabase){
+     if(node.computed){report(node);return;}
+     if(name==='prepare'||name==='batch'){
+      if(node.parent?.type!=='CallExpression'||node.parent.callee!==node)report(node);
+      return;
+     }
+     report(node);
+     return;
+    }
+    if(name==='prepare'||name==='batch'){
+     if(node.computed||node.parent?.type!=='CallExpression'||node.parent.callee!==node)report(node);
+    }
+   },
+   CallExpression(node){
+    const callee=node.callee;
+    if(callee.type!=='MemberExpression')return;
+    const name=staticMemberName(callee);
+    if(name==='exec'||name==='dump'||name==='withSession'){report(callee);return;}
+    if(callee.computed){report(callee);return;}
+    if(name==='prepare')checkPrepare(node);
+    if(name==='batch'&&!isDatabaseHandle(callee.object))report(callee);
+    if((callee.object?.name==='Reflect'&&name==='get')||(callee.object?.name==='Object'&&name==='getOwnPropertyDescriptor')){
+     if(node.arguments.some(isDatabaseHandle))report(node);
+    }
+   },
+  };
  }
 };
 const readonlyUiState = {
@@ -307,6 +432,6 @@ const readonlyUiState = {
   };
  }
 };
-const boundaries = { rules: { 'pure-effects': pureEffects, 'ui-model-capability':uiModelCapability, 'dependency-direction': dependencyDirection, 'private-composition': privateComposition, 'raw-sql-location': rawSqlLocation, 'capability-direction':capabilityDirection, 'private-auth':privateAuth, 'owner-sql':ownerSql,'readonly-ui-state':readonlyUiState } };
+const boundaries = { rules: { 'pure-effects': pureEffects, 'data-type-only':dataTypeOnly, 'ui-model-capability':uiModelCapability, 'dependency-direction': dependencyDirection, 'private-composition': privateComposition, 'raw-sql-location': rawSqlLocation, 'capability-direction':capabilityDirection, 'private-auth':privateAuth, 'owner-sql':ownerSql,'readonly-ui-state':readonlyUiState } };
 
 export default boundaries;

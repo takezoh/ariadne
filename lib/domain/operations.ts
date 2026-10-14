@@ -1,5 +1,7 @@
-import {canonical,project,validateGraph,fail,exact,change,dateDefer,zone,id,nodePath,descendantIds,catalogIdentityRevision,markCatalogIdentity,type Snapshot,type Action,perspectiveActions,type Perspective,type Change} from './core';
+import {canonical,project,validateGraph,fail,exact,change,dateDefer,zone,id,nodePath,descendantIds,catalogIdentityRevision,markCatalogIdentity,perspectiveActions} from './core';
+import type { Action, Change, Perspective, Snapshot } from '../data/types';
 import {assistanceInstructions} from './assistance';
+type Mutable<T> = T extends readonly (infer Item)[] ? Mutable<Item>[] : T extends object ? { -readonly [Key in keyof T]: Mutable<T[Key]> } : T;
 export type Delta={perspectives:{before:Perspective|null;after:Perspective|null}[];actions:{before:Action|null;after:Action|null}[];projects:{before:Snapshot['projects'][number]|null;after:Snapshot['projects'][number]|null}[];tags:{before:Snapshot['tags'][number]|null;after:Snapshot['tags'][number]|null}[];action_tags:{before:Snapshot['action_tags'][number]|null;after:Snapshot['action_tags'][number]|null}[]};
 /** Receipts must contain current rows; missing historical fields are rejected, never filled. */
 export function validateDelta(d:Delta){
@@ -9,7 +11,7 @@ export function validateDelta(d:Delta){
 }
 export function delta(before:Snapshot,after:Snapshot):Delta {
  validateGraph(before);validateGraph(after);
- const diff=<T>(a:T[],b:T[],key:(x:T)=>string)=>{const oldRows=new Map(a.map(x=>[key(x),x])),newRows=new Map(b.map(x=>[key(x),x]));return [...new Set([...oldRows.keys(),...newRows.keys()])].map(k=>({before:oldRows.get(k)??null,after:newRows.get(k)??null})).filter(x=>canonical(x.before)!==canonical(x.after));};
+ const diff=<T>(a:readonly T[],b:readonly T[],key:(x:T)=>string)=>{const oldRows=new Map(a.map(x=>[key(x),x])),newRows=new Map(b.map(x=>[key(x),x]));return [...new Set([...oldRows.keys(),...newRows.keys()])].map(k=>({before:oldRows.get(k)??null,after:newRows.get(k)??null})).filter(x=>canonical(x.before)!==canonical(x.after));};
  return {perspectives:diff(before.perspectives,after.perspectives,x=>x.id),actions:diff(before.actions,after.actions,x=>x.id),projects:diff(before.projects,after.projects,x=>x.id),tags:diff(before.tags,after.tags,x=>x.id),action_tags:diff(before.action_tags,after.action_tags,x=>x.action_id+':'+x.tag_id)};
 }
 export function response(s:Snapshot,now:string,result:unknown=null){validateGraph(s);const actions=project(s,now);return {schemaVersion:2,revision:s.revision,actions,perspectives:s.perspectives,projects:s.projects.map(p=>({...p,path:nodePath(s.projects,p.id)})),tags:s.tags.map(g=>({...g,path:nodePath(s.tags,g.id)})),result,retrieved_at:now,storage:'Sites D1',proof_stage:'structured todo MVP',assistance_policy:assistanceInstructions,list_scopes:{flagged:actions.filter(t=>t.flagged&&t.view==='normal').map(t=>t.id),waiting:actions.filter(t=>t.status==='on-hold').map(t=>t.id),inbox:actions.filter(t=>(t.status==='active'||t.status==='on-hold')&&t.project_id===null).map(t=>t.id),normal:actions.filter(t=>t.view==='normal').map(t=>t.id),deferred:actions.filter(t=>t.view==='deferred').map(t=>t.id),completed:actions.filter(t=>t.view==='completed').map(t=>t.id),cancelled:actions.filter(t=>t.view==='cancelled').map(t=>t.id)}};}
@@ -39,7 +41,7 @@ export function listPerspectives(s:Snapshot,now:string){return {schemaVersion:2,
 export function queryPerspective(s:Snapshot,now:string,value:unknown){const pid=id(value),perspective=s.perspectives.find(x=>x.id===pid);if(!perspective)fail('not_found','パースペクティブがありません。',404);return {schemaVersion:2,revision:s.revision,perspective,actions:perspectiveActions(s,now,perspective.filter),retrieved_at:now};}
 export function undo(s:Snapshot,d:Delta,now:string,originalRevisionAfter:number) {
  try{validateGraph(s);validateDelta(d);}catch{fail('undo_conflict','Undo requires current-schema state and receipt rows.',409);}
- const n=structuredClone(s);const nextGeneration=()=>s.revision+1;
+ const n=structuredClone(s) as Mutable<Snapshot>;const nextGeneration=()=>s.revision+1;
  const identityUnchanged=(kind:'project'|'tag'|'action_tag'|'perspective',identity:string)=>{if(catalogIdentityRevision(n,kind,identity)!==originalRevisionAfter)fail('undo_conflict','対象の所属・階層に後続の変更があります。',409);};
  const referenceUnchanged=(kind:'project'|'tag',identity:string|null)=>{if(identity&&catalogIdentityRevision(n,kind,identity)>originalRevisionAfter)fail('undo_conflict','参照先に後続の変更があります。',409);};
  // Compare the exact stored action state; migration resets incompatible operation history.
@@ -51,11 +53,11 @@ export function undo(s:Snapshot,d:Delta,now:string,originalRevisionAfter:number)
   // A deleted destination tag drops only this restoration, not the whole Undo.
   if(item.before&&!n.tags.some(tag=>tag.id===ref.tag_id))continue;
   if(canonical(current)!==canonical(item.after))fail('undo_conflict','タグ関連に後続の変更があります。',409);identityUnchanged('action_tag',identity);if(item.before)referenceUnchanged('tag',item.before.tag_id);n.action_tags=n.action_tags.filter(x=>!key(x));if(item.before)n.action_tags.push({...item.before,revision:nextGeneration()});n.catalog_identity_ledger=markCatalogIdentity(n,'action_tag',identity,s.revision+1);}
- for(const item of d.perspectives){const ref=item.after??item.before!,current=n.perspectives.find(x=>x.id===ref.id)??null;if(canonical(current)!==canonical(item.after))fail('undo_conflict','パースペクティブに後続の変更があります。',409);identityUnchanged('perspective',ref.id);if(item.before){referenceUnchanged('project',item.before.filter.project_id??null);referenceUnchanged('tag',item.before.filter.tag_id??null);n.perspectives=n.perspectives.filter(x=>x.id!==ref.id);n.perspectives.push({...item.before,revision:nextGeneration(),updated_at:now});}else n.perspectives=n.perspectives.filter(x=>x.id!==ref.id);n.catalog_identity_ledger=markCatalogIdentity(n,'perspective',ref.id,s.revision+1);}
+ for(const item of d.perspectives){const ref=item.after??item.before!,current=n.perspectives.find(x=>x.id===ref.id)??null;if(canonical(current)!==canonical(item.after))fail('undo_conflict','パースペクティブに後続の変更があります。',409);identityUnchanged('perspective',ref.id);if(item.before){referenceUnchanged('project',item.before.filter.project_id??null);referenceUnchanged('tag',item.before.filter.tag_id??null);n.perspectives=n.perspectives.filter(x=>x.id!==ref.id);const restored=structuredClone(item.before) as Mutable<Perspective>;restored.revision=nextGeneration();restored.updated_at=now;n.perspectives.push(restored);}else n.perspectives=n.perspectives.filter(x=>x.id!==ref.id);n.catalog_identity_ledger=markCatalogIdentity(n,'perspective',ref.id,s.revision+1);}
  try{validateGraph(n);}catch{fail('undo_conflict','関係の変更により取り消せません。',409);}return n;
 }
 
-function affectedCatalog<T extends {id:string;name:string;parent_id:string|null}>(before:T[],after:T[]) {
+function affectedCatalog<T extends {id:string;name:string;parent_id:string|null}>(before:readonly T[],after:readonly T[]) {
  const ids=new Set([...before,...after].map(x=>x.id));
  return [...ids].flatMap(id=>{
   const oldNode=before.find(x=>x.id===id)??null,newNode=after.find(x=>x.id===id)??null;

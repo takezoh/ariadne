@@ -114,7 +114,7 @@ test('actual ESLint config rejects pure-model, component and controller boundary
   ['tool-client-tsx-imports-application.fixture','lib/ui/effects/tool-client.tsx','dependency-direction'],
  ];
  for(const [fixture,importer,rule] of tsxCases){const code=readFileSync('tests/fixtures/ui-boundaries/'+fixture,'utf8');assert(reports(await actualLint(code,importer),rule),fixture+' must fail under the actual TSX config');}
- for(const [path,filename] of [['lib/ui/model/types.ts','lib/ui/model/types.ts'],['lib/ui/application/controller.ts','lib/ui/application/controller.ts'],['lib/ui/effects/dom.js','lib/ui/effects/dom.js'],['lib/ui/components/outline-list.ts','lib/ui/components/outline-list.ts']]){
+ for(const [path,filename] of [['lib/ui/model/types.ts','lib/ui/model/types.ts'],['lib/ui/model/selection-context.ts','lib/ui/model/selection-context.ts'],['lib/ui/application/controller.ts','lib/ui/application/controller.ts'],['lib/ui/effects/dom.js','lib/ui/effects/dom.js'],['lib/ui/components/outline-list.ts','lib/ui/components/outline-list.ts']]){
   assert(!reports(await actualLint(readFileSync(path,'utf8'),filename),'dependency-direction'),filename);
   assert(!reports(await actualLint(readFileSync(path,'utf8'),filename),'pure-effects'),filename);
  }

@@ -77,8 +77,8 @@ export function projectActionRow(input:{entry:{key:string;level:number;parentKey
  return {title:displayTitle(draft?.title??action.title),accessibleTitle:displayTitle(action.title),badges,signature:JSON.stringify([entry.key,entry.level,input.tree,action.id,action.title,action.status,action.parent_id,action.flagged,entry.parentKey??null,parentVisible,parent?.title||'',action.defer_reasons,action.due_at,input.formattedDue,action.project_path,action.tags,draft?.title,input.batchSelected,input.active]),batchSelected:input.batchSelected,active:input.active};
 }
 
-export function projectCatalogRow(input:{entry:{key:string;kind:string;id:string;level:number;label:string;expandable:boolean};collapsed:readonly string[];draft?:CatalogDraft;selected:boolean}):{signature:string;title:string;collapsed:boolean;selected:boolean} {
- const {entry}=input,collapsed=input.collapsed.includes(entry.key);return {signature:JSON.stringify([entry.key,entry.kind,entry.id,entry.level,entry.label,entry.expandable,collapsed,input.draft?.name,input.selected]),title:input.draft?.name||entry.label,collapsed,selected:input.selected};
+export function projectCatalogRow(input:{entry:{key:string;kind:string;id:string;level:number;label:string;expandable:boolean};collapsed:readonly string[];draft?:CatalogDraft;selected:boolean;batchSelected?:boolean}):{signature:string;title:string;collapsed:boolean;selected:boolean;batchSelected:boolean} {
+ const {entry}=input,collapsed=input.collapsed.includes(entry.key),batchSelected=input.batchSelected??false;return {signature:JSON.stringify([entry.key,entry.kind,entry.id,entry.level,entry.label,entry.expandable,collapsed,input.draft?.name,input.selected,batchSelected]),title:input.draft?.name||entry.label,collapsed,selected:input.selected,batchSelected};
 }
 
 function catalogPath(catalog:readonly (CatalogRecord&{path?:string})[],id:string,kind:'project'|'tag'):string {

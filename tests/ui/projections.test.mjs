@@ -59,7 +59,7 @@ test('catalog row projection reflects draft, collapsed state, and selection as p
  const entry={key:'project:p',kind:'project',id:'p',level:1,label:'Work / Planning',expandable:true},collapsed=['project:p'];
  const input={entry,collapsed,draft:{name:'Quarterly planning',description:''},selected:true},before=structuredClone(input);
  const row=projectCatalogRow(input);
- assert.deepEqual(row,{signature:row.signature,title:'Quarterly planning',collapsed:true,selected:true});
+ assert.deepEqual(row,{signature:row.signature,title:'Quarterly planning',collapsed:true,selected:true,batchSelected:false});
  assert.notEqual(projectCatalogRow({...input,selected:false}).signature,row.signature);
  assert.deepEqual(input,before);
 });

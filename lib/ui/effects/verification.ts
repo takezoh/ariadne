@@ -8,7 +8,8 @@ export function createDiscardingEffects(effects:HostEffects,arm:{consume():boole
    effects.send(message);
   },
   listen(handler){return effects.listen(event=>{
-   if(event.trusted&&typeof event.message?.id==='number'&&discarded.delete(event.message.id)){arm.discarded();return;}
+   const message=event.message,hasResult=Boolean(message&&Object.hasOwn(message,'result')),hasError=Boolean(message&&Object.hasOwn(message,'error')),error=message?.error as {code?:unknown;message?:unknown}|undefined,validError=Boolean(error&&Number.isInteger(error.code)&&typeof error.message==='string');
+   if(event.trusted&&message?.jsonrpc==='2.0'&&!Object.hasOwn(message,'method')&&typeof message.id==='number'&&hasResult!==hasError&&(!hasError||validError)&&discarded.delete(message.id)){arm.discarded();return;}
    handler(event);
   });},
  };

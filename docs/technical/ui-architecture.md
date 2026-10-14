@@ -1,6 +1,6 @@
 # UI responsibility and dependency boundaries
 
-The dedicated UI separates data-only decisions, application state transitions, component rendering, and host/DOM effects. `lib/ui/client.ts` is the composition root: it creates the model instances and connects the controller, view, tool client, host transport, and DOM adapter.
+The dedicated UI separates data-only decisions, application state transitions, component rendering, and host/DOM effects. `lib/ui/client.ts` is the composition root: it creates the model instances and connects the controller, view, tool client, host transport, and DOM adapter. Typed occurrences and the readonly `get_selection_context` projection live in the model/controller boundary; the DOM adapter registers the local App tool while the host adapter owns trusted bidirectional JSON-RPC dispatch.
 
 ## Development principles
 
@@ -37,7 +37,7 @@ lib/ui/
 │   ├── diagnostics.ts                optional diagnostics port
 │   ├── dom.d.ts                      DOM adapter type boundary
 │   ├── dom.js                        generated-resource DOM events and rendering
-│   ├── host.ts                       host transport and display-mode adapter
+│   ├── host.ts                       trusted bidirectional transport and display-mode adapter
 │   ├── tool-client.ts                tool request/response adapter
 │   └── verification.ts               response-discard verification adapter
 └── model/
@@ -50,12 +50,13 @@ lib/ui/
     ├── drafts.ts                     pure action draft state
     ├── gesture.ts                    pure gesture and interaction transitions
     ├── icons.ts                      static icon markup
-    ├── interaction.ts                pure UI interaction state
+    ├── interaction.ts                pure typed occurrence selection and interaction state
     ├── movement.ts                   pure movement decisions and indexes
     ├── navigation.ts                 pure view and picker navigation
     ├── operations.ts                 pure operation and recovery state
     ├── picker.ts                     pure picker filtering and ranking
     ├── presentation.ts               pure text and presentation helpers
+    ├── selection-context.ts          confirmed selection projection and Action eligibility
     ├── save-status.ts                pure save-status projection
     ├── transient-create.ts           pure temporary creation state
     ├── tree-drop.ts                  pure tree-drop decisions

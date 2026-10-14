@@ -26,7 +26,7 @@ async function fixture(){
  for(const title of ['Source','Other','Destination','Unrelated'])
   ids.push((await write('add',{title})).result.resolved.actions[0].id);
  let lose=false,hold=false,release=null,timer=0;
- const controller=createUiController({
+ const controller=createUiController({instanceId:"test-widget",
   model:{...drafts,...operations,transient:createTransientModel(),treeDrop:createTreeDropModel(),catalogDrafts:createCatalogDraftModel(),autosave:createAutosaveModel(),movement:createMovementModel()},
   ids:{next:uuid},
   timers:{schedule:callback=>{const key=++timer;timerQueue.set(key,callback);return key;},cancel:key=>timerQueue.delete(key)},

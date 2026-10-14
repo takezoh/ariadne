@@ -10,13 +10,30 @@ test('host adapter routes responses, notifications and releases timers',async()=
  const f=fixture(),p=f.host.request('initialize',{});f.receive({trusted:true,message:{jsonrpc:'2.0',id:1,result:{ok:true}}});assert.deepEqual(await p,{ok:true});assert.equal(f.timers.size,0);
  const received=[];const unsubscribe=f.host.subscribe(x=>received.push(x));f.receive({trusted:true,message:{jsonrpc:'2.0',method:'ui/notifications/tool-result',params:{structuredContent:{revision:2}}}});assert.deepEqual(received,[{revision:2}]);unsubscribe();f.host.dispose();assert.rejects(f.host.request('x',{}),{code:'outcome_unknown'});
 });
+test('inbound requests dispatch before a same-ID pending response and preserve string request IDs',async()=>{
+ const f=fixture(),p=f.host.request('ui/initialize',{}),handled=[];f.host.registerRequestHandler((method,params)=>{handled.push({method,params});return {tools:[{name:'local'}]};});
+ f.receive({trusted:true,message:{jsonrpc:'2.0',id:1,method:'tools/list',params:{}}});await Promise.resolve();await Promise.resolve();
+ assert.deepEqual(handled,[{method:'tools/list',params:{}}]);assert.equal(f.timers.size,1);assert.deepEqual(f.sent.at(-1),{jsonrpc:'2.0',id:1,result:{tools:[{name:'local'}]}});
+ f.receive({trusted:true,message:{jsonrpc:'2.0',id:1,result:{initialized:true}}});assert.deepEqual(await p,{initialized:true});
+ f.receive({trusted:true,message:{jsonrpc:'2.0',id:'selection-1',method:'tools/call',params:{name:'get_selection_context'}}});await Promise.resolve();await Promise.resolve();assert.deepEqual(f.sent.at(-1),{jsonrpc:'2.0',id:'selection-1',result:{tools:[{name:'local'}]}});f.host.dispose();
+});
+test('malformed same-ID replies cannot settle pending requests and disposal suppresses queued handlers',async()=>{
+ const f=fixture(),p=f.host.request('initialize',{});let settled=false;p.then(()=>{settled=true;},()=>{settled=true;});
+ for(const message of [{jsonrpc:'2.0',id:1,method:null,result:'bad'},{jsonrpc:'2.0',id:1,method:7,result:'bad'},{jsonrpc:'2.0',id:1,result:'bad',error:{code:0,message:'also bad'}},{jsonrpc:'2.0',id:1,error:{code:'-32000',message:'bad'}}])f.receive({trusted:true,message});
+ await Promise.resolve();assert.equal(settled,false);assert.equal(f.timers.size,1);f.receive({trusted:true,message:{jsonrpc:'2.0',id:1,result:'good'}});assert.equal(await p,'good');
+ const queued=fixture();let calls=0;queued.host.registerRequestHandler(()=>{calls++;return {ok:true};});queued.receive({trusted:true,message:{jsonrpc:'2.0',id:'queued',method:'tools/call',params:{}}});queued.host.dispose();await Promise.resolve();await Promise.resolve();assert.equal(calls,0);assert.equal(queued.sent.length,0);
+});
 test('host adapter disposal rejects outstanding requests',async()=>{const f=fixture();const p=f.host.request('tools/call',{});const rejected=assert.rejects(p,{code:'outcome_unknown'});f.host.dispose();await rejected;assert.equal(f.timers.size,0)});
 import {createDiscardingEffects} from '../../lib/ui/effects/verification.ts';
 test('verification fixture discards exactly one trusted write response, while still executing request',()=>{
  let receive,armed=true;const sent=[],messages=[];let discarded=0;
  const effects=createDiscardingEffects({send:m=>sent.push(m),listen:fn=>{receive=fn;return ()=>{}},schedule:()=>0,cancel:()=>{}},{consume:()=>{const value=armed;armed=false;return value},discarded:()=>discarded++});
  effects.listen(event=>messages.push(event));effects.send({jsonrpc:'2.0',id:7,method:'tools/call',params:{name:'apply_change'}});assert.equal(sent.length,1);
- receive({trusted:false,message:{id:7}});assert.equal(discarded,0);receive({trusted:true,message:{id:7}});assert.equal(discarded,1);receive({trusted:true,message:{id:7}});assert.equal(messages.length,2);
+ receive({trusted:false,message:{jsonrpc:'2.0',id:7,result:{ok:true}}});assert.equal(discarded,0);
+ receive({trusted:true,message:{jsonrpc:'2.0',id:7,method:'tools/call',params:{name:'get_selection_context'}}});assert.equal(discarded,0);
+ receive({trusted:true,message:{jsonrpc:'2.0',id:7,method:null,result:{bad:true}}});assert.equal(discarded,0);
+ receive({trusted:true,message:{jsonrpc:'2.0',id:7,error:{code:'-32000',message:'bad'}}});assert.equal(discarded,0);
+ receive({trusted:true,message:{jsonrpc:'2.0',id:7,result:{ok:true}}});assert.equal(discarded,1);receive({trusted:true,message:{jsonrpc:'2.0',id:7,result:{later:true}}});assert.equal(messages.length,5);
 });
 test('host context notification has separate direct partial subscription and disposal',()=>{
  const f=fixture(),contexts=[],snapshots=[];const stop=f.host.subscribeContext(value=>contexts.push(value));f.host.subscribe(value=>snapshots.push(value));

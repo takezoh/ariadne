@@ -9,9 +9,23 @@ const context=(actions,previous)=>({actions,projects:[],tags:[],index:movement.i
 const actions=[{id:'a',order:0,parent_id:null},{id:'b',order:1,parent_id:null},{id:'unrelated',order:0,parent_id:null,project_id:'other'}];
 test('occurrence range and remap retain two Tag rows and one persistence identity without mutation',()=>{
  const entries=[{key:'tag:one:action:a',id:'a',kind:'action'},{key:'tag:two:action:a',id:'a',kind:'action'}],initial=initialInteraction(),before=structuredClone(initial);
- const first=interactionTransition(initial,{type:'occurrence.range',key:entries[0].key,range:false,entries}),both=interactionTransition(first,{type:'occurrence.range',key:entries[1].key,range:true,entries});
+ const first=interactionTransition(initial,{type:'occurrence.range',key:entries[0].key,range:false,toggle:false,additive:false,entries}),both=interactionTransition(first,{type:'occurrence.range',key:entries[1].key,range:true,toggle:false,additive:false,entries});
  assert.deepEqual(both.selection.keys,entries.map(e=>e.key));assert.deepEqual(both.selection.ids,['a']);assert.deepEqual(initial,before);assert.deepEqual(first.selection.keys,[entries[0].key]);
  const mapped=interactionTransition(both,{type:'interaction.remap',from:'action:a',to:'action:saved'});assert.deepEqual(mapped.selection.keys,['tag:one:action:saved','tag:two:action:saved']);assert.deepEqual(both.selection.keys,entries.map(e=>e.key));
+});
+test('modifier selection toggles individual occurrences and unions ranges without mutation',()=>{
+ const entries=[{key:'a',id:'one',kind:'action'},{key:'b',id:'two',kind:'action'},{key:'c',id:'three',kind:'action'},{key:'d',id:'four',kind:'action'}],initial=initialInteraction(),initialBefore=structuredClone(initial),first=interactionTransition(initial,{type:'occurrence.range',key:'a',range:false,toggle:false,additive:false,entries}),third=interactionTransition(first,{type:'occurrence.range',key:'c',range:false,toggle:true,additive:false,entries}),thirdBefore=structuredClone(third);
+ const removed=interactionTransition(third,{type:'occurrence.range',key:'a',range:false,toggle:true,additive:false,entries}),union=interactionTransition(removed,{type:'occurrence.range',key:'c',range:true,toggle:false,additive:true,entries});
+ assert.deepEqual(third.selection.keys,['a','c']);assert.deepEqual(third.selection.ids,['one','three']);assert.deepEqual(removed.selection.keys,['c']);assert.deepEqual(removed.selection.ids,['three']);assert.deepEqual(union.selection.keys,['a','b','c']);assert.deepEqual(union.selection.ids,['one','two','three']);assert.deepEqual(third,thirdBefore);assert.deepEqual(initial,initialBefore);
+ const empty=interactionTransition(removed,{type:'occurrence.range',key:'c',range:false,toggle:true,additive:false,entries});assert.deepEqual(empty.selection.keys,[]);assert.deepEqual(empty.selection.ids,[]);assert.equal(empty.selection.active,null);
+});
+test('visibility reorders selected occurrences and remapping one temporary catalog preserves a local child',()=>{
+ const project={key:'project:local-project',id:'local-project',kind:'project',catalogId:'local-project',localUnsaved:true,opaqueKey:'local-occurrence-1'},child={key:'project:local-project:action:local-action',id:'local-action',kind:'action',catalogId:'local-project',localUnsaved:true,opaqueKey:'local-occurrence-2'};
+ let state=interactionTransition(initialInteraction(),{type:'occurrence.replace',keys:[project.key,child.key],ids:[child.id],occurrences:[project,child]});
+ const reordered=interactionTransition(state,{type:'occurrence.visible',entries:[child,project]});assert.deepEqual(reordered.selection.keys,[child.key,project.key]);
+ const remapped=interactionTransition(reordered,{type:'interaction.remap',from:'local-project',to:'33333333-3333-4333-8333-333333333333'});
+ assert.equal(remapped.selection.occurrences[0].localUnsaved,true);assert.equal(remapped.selection.occurrences[0].opaqueKey,'local-occurrence-2');assert.equal(remapped.selection.occurrences[0].catalogId,'33333333-3333-4333-8333-333333333333');
+ assert.equal(remapped.selection.occurrences[1].localUnsaved,false);assert.equal(remapped.selection.occurrences[1].opaqueKey,undefined);
 });
 test('gesture transitions preserve inputs, reuse target decisions, ignore unrelated regions and reject related changes',()=>{
  const ctx=context(actions),begin=gestureTransition(null,{type:'gesture.begin',kind:'action',keys:['tag:one:action:a','tag:two:action:a'],ids:['a','a']},ctx).state,original=structuredClone(begin);

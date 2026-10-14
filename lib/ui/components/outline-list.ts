@@ -62,7 +62,7 @@ export interface CatalogRowProps extends DeepReadonly<Omit<ReturnType<typeof pro
   readonly iconSvg: (name: string) => string;
   readonly entry: CatalogOutlineEntry;
   readonly onToggle: () => void;
-  readonly onSelect: () => void;
+  readonly onSelect: (event: MouseEvent) => void;
   readonly onSelectKeyDown: (event: KeyboardEvent) => void;
   readonly onPointerDown: (event: PointerEvent) => void;
   readonly onDragStart: (event: DragEvent) => void;
@@ -177,11 +177,12 @@ export function CatalogRow(props: CatalogRowProps): HTMLDivElement {
   row.dataset.catalogKind = entry.kind;
   row.dataset.catalogId = entry.id;
   row.dataset.outlineKey = entry.key;
-  row.setAttribute('aria-selected', String(props.selected));
+  row.setAttribute('aria-selected', String(props.batchSelected));
   row.style.setProperty('--depth', String(entry.level));
   row.setAttribute('role', 'treeitem');
   row.setAttribute('aria-level', String(entry.level + 1));
-  row.classList.toggle('selected', props.selected);
+  row.classList.toggle('selected', props.selected||props.batchSelected);
+  row.classList.toggle('batch-selected', props.batchSelected);
 
   const toggle = createButton(
     document,

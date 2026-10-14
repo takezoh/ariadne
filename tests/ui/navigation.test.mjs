@@ -23,13 +23,33 @@ test('project/tag navigation matches authoritative queries and preserves direct 
 test('saved perspective matching has parity with domain AND predicates including omitted/empty status and false values',()=>{
  const s=fixture(),wire=response(s,now);
  const filters=[{}, {statuses:[]},{statuses:['completed','dropped']},{statuses:['active','on-hold']},{project_id:null},{project_id:id(1),include_descendants:true},{tag_id:id(3),include_descendants:true},{flagged:false},{is_deferred:false},{is_deferred:true},{project_id:id(1),tag_id:id(3),include_descendants:true,statuses:['active','on-hold'],flagged:false,is_deferred:true}];
- for(const filter of filters){const definition={id:id(30),name:'  名前 <img> ',description:'  raw\n<script> context </script> ',filter};const snapshot={...wire,perspectives:[definition]};const result=model.present(snapshot,{...model.initial(),view:'perspective',perspectiveId:definition.id});assert.deepEqual(ids(result.actions),ids(perspectiveActions(s,now,filter)));assert.equal(result.heading,definition.name);assert.equal(result.description,definition.description);assert.equal(result.unavailable,false);}
+ for(const filter of filters){const definition={id:id(30),name:'  名前 <img> ',description:'  raw\n<script> context </script> ',filter,definition_version:1};const snapshot={...wire,perspectives:[definition]};const result=model.present(snapshot,{...model.initial(),view:'perspective',perspectiveId:definition.id});assert.deepEqual(ids(result.actions),ids(perspectiveActions(s,now,filter)));assert.equal(result.heading,definition.name);assert.equal(result.description,definition.description);assert.equal(result.unavailable,false);}
  const expired=response(s,'2026-10-05T00:00:00Z');assert.deepEqual(model.filterActions(expired,{is_deferred:true}),[]);assert.deepEqual(ids(model.filterActions(expired,{statuses:['completed']})),[id(14)]);
+});
+test('v2 saved perspectives use the shared evaluator and preserve global sort order without adding unmatched parents',()=>{
+ const wire=response(fixture(),now),child=wire.actions.find(action=>action.id===id(11)),parent=wire.actions.find(action=>action.id===id(10));
+ child.status='active';
+ const sorted={id:id(30),name:'Sorted',definition_version:2,query:{where:{and:[{field:'status',op:'eq',value:'active'},{field:'project_id',op:'eq',value:id(1)}]},order_by:[{field:'title',direction:'asc'}]}};
+ const sortedResult=model.present({...wire,perspectives:[sorted]},{...model.initial(),view:'perspective',perspectiveId:sorted.id});
+ assert.deepEqual(ids(sortedResult.actions),[id(11),id(10)]);
+ const onlyChild={id:id(31),name:'Child only',definition_version:2,query:{where:{field:'project_id',op:'eq',value:id(2)}}};
+ const childResult=model.present({...wire,perspectives:[onlyChild]},{...model.initial(),view:'perspective',perspectiveId:onlyChild.id});
+ assert.deepEqual(ids(childResult.actions),[id(11)]);assert.equal(childResult.actions.includes(parent),false);
+});
+test('saved perspective summaries show v1 filter semantics and v2 logic, leaf descendant choices, and sort precedence',()=>{
+ const wire=response(fixture(),now),legacy={id:id(30),name:'Legacy',definition_version:1,filter:{statuses:[],flagged:true,is_deferred:false,project_id:id(1),tag_id:id(3)}};
+ const legacyPresentation=model.present({...wire,perspectives:[legacy]},{...model.initial(),view:'perspective',perspectiveId:legacy.id});
+ assert.equal(legacyPresentation.summary,'Conditions: Status matches nothing (empty set); Deferred is false; Flagged is true; Project is Work (direct matches only); Tag is Focus (direct matches only). Order: current Action tree order.');
+ const current={id:id(31),name:'Current',definition_version:2,query:{where:{and:[{or:[{field:'status',op:'in',values:['active','on-hold']},{not:{field:'flagged',op:'eq',value:false}}]},{field:'project_id',op:'eq',value:id(1),include_descendants:false},{field:'tag_id',op:'in',values:[id(3),id(4)]}]},order_by:[{field:'title',direction:'desc'},{field:'due_at',direction:'asc',nulls:'first'}]}};
+ const currentPresentation=model.present({...wire,perspectives:[current]},{...model.initial(),view:'perspective',perspectiveId:current.id});
+ assert.equal(currentPresentation.summary,'Conditions: ((Status is any of Active, On hold OR NOT (Flagged is false)) AND Project is Work (direct matches only) AND Tag is any of Focus, Focus/Waiting (including descendants)). Order: Title descending → Due date ascending (nulls first) → Action ID ascending (tie-breaker).');
+ const omittedLegacy={...legacy,id:id(32),filter:{project_id:id(1),tag_id:id(3)}};
+ assert.match(model.present({...wire,perspectives:[omittedLegacy]},{...model.initial(),view:'perspective',perspectiveId:omittedLegacy.id}).summary,/Project is Work \(direct matches only\); Tag is Focus \(direct matches only\)/);
 });
 test('missing selected catalog, perspective or saved references fail closed without selecting all',()=>{
  const wire=response(fixture(),now);for(const view of ['projects','tags']){const selection={...model.initial(),view,classificationId:id(99)};const result=model.present(wire,selection);assert.equal(result.unavailable,true);assert.deepEqual(result.actions,[]);assert(result.options.some(o=>o.id===id(99)));assert.equal(selection.classificationId,id(99));}
  assert.equal(model.present(wire,{...model.initial(),view:'perspective',perspectiveId:id(99)}).unavailable,true);
- for(const filter of [{project_id:id(99)},{tag_id:id(99)}]){const result=model.present({...wire,perspectives:[{id:id(30),name:'Saved',filter}]},{...model.initial(),view:'perspective',perspectiveId:id(30)});assert.equal(result.unavailable,true);assert.deepEqual(result.actions,[]);}
+ for(const filter of [{project_id:id(99)},{tag_id:id(99)}]){const result=model.present({...wire,perspectives:[{id:id(30),name:'Saved',filter,definition_version:1}]},{...model.initial(),view:'perspective',perspectiveId:id(30)});assert.equal(result.unavailable,true);assert.deepEqual(result.actions,[]);}
 });
 test('history keeps completed/dropped state and default views include on hold without availability logic',()=>{
  const wire=response(fixture(),now),history=model.initial('history');assert.deepEqual(ids(model.present(wire,history).actions),[id(15),id(14)]);assert.deepEqual(ids(model.present(wire,{...history,statuses:['dropped']}).actions),[id(15)]);

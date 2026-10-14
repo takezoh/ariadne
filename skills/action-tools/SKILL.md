@@ -32,3 +32,5 @@ Actions have containment only. Order never blocks execution; flags are direct bo
 - Use `undo_change` for an explicit Undo. Refuse to erase later corrections after an Undo conflict. Only the latest 100 operations per owner are retained; `not_observed` is not proof that an unknown write failed.
 
 Use `open_actions` for the shared UI. Opening the UI or retrieving schemas does not itself save a change.
+
+Saved perspectives are versioned owner-scoped definitions. Read the exact variant from `list_perspectives` or `query_perspective`; version 1 uses the legacy filter and version 2 uses a structured query with optional global ordering. The shared UI displays the definition summary but has no query editor. See [perspective operation details](references/operations.md#saved-perspectives) before creating or replacing one.

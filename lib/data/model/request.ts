@@ -1,4 +1,5 @@
 import {fail,object,exact,text,catalogName,actionTitle,initialTagIds,description,id,actionOrder,booleanFlag,perspectiveFilter,validatePerspectiveReferences} from '../../domain/core';
+import {validatePerspectiveQueryReferences} from '../../domain/perspective-query';
 import type {Change,OperationResolution,Snapshot} from '../types';
 
 export type PreparedChange=Readonly<{idSlots:number;change:Change|null;resolved?:OperationResolution;actionRefs?:ReadonlyMap<string,string>;createdActionIds?:readonly string[]}>;
@@ -7,9 +8,9 @@ export function normalizeChange(snapshot:Snapshot,requested:Change):PreparedChan
  let idSlots=0;const generatedId=()=>`__generated_id_${idSlots++}__`;
  const kind=requested.kind,p=object(requested.payload);
  if(kind==='perspective_add'){
-  exact(p,['name','description','filter']);const initialDescription='description' in p?description(p.description):'',name=text(p.name),filter=perspectiveFilter(p.filter);validatePerspectiveReferences(snapshot,filter);
+  exact(p,['name','description','filter','query']);const hasFilter=Object.hasOwn(p,'filter'),hasQuery=Object.hasOwn(p,'query');if(hasFilter===hasQuery)fail('invalid_input','filterまたはqueryのどちらか一方を指定してください。');const initialDescription='description' in p?description(p.description):'',name=text(p.name);let definition:{filter:ReturnType<typeof perspectiveFilter>}|{query:ReturnType<typeof validatePerspectiveQueryReferences>};if(hasFilter){const filter=perspectiveFilter(p.filter);validatePerspectiveReferences(snapshot,filter);definition={filter};}else definition={query:validatePerspectiveQueryReferences(snapshot,p.query)};
   const entityId=generatedId();
-  return {idSlots,change:{kind,payload:{id:entityId,name,description:initialDescription,filter}},resolved:{perspective:{id:entityId}}};
+  return {idSlots,change:{kind,payload:{id:entityId,name,description:initialDescription,...definition}},resolved:{perspective:{id:entityId}}};
  }
  if(kind==='add'){
   exact(p,['title','parent_id','project_id','notes','order','flagged','tag_ids']);

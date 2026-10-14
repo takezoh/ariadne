@@ -78,16 +78,24 @@ export type SortKey = Readonly<{
   nulls?: 'first' | 'last';
 }>;
 
-export type Perspective = Readonly<{
+export type PerspectiveMetadata = Readonly<{
   id: string;
   name: string;
   description: string;
-  filter: PerspectiveFilter;
-  definition_version: 1;
   revision: number;
   created_at: string;
   updated_at: string;
 }>;
+
+export type FilterPerspective = PerspectiveMetadata & Readonly<{
+  filter: PerspectiveFilter;
+  definition_version: 1;
+}>;
+export type QueryPerspective = PerspectiveMetadata & Readonly<{
+  query: PerspectiveQuery;
+  definition_version: 2;
+}>;
+export type Perspective = FilterPerspective | QueryPerspective;
 
 export type Snapshot = Readonly<{
   revision: number;

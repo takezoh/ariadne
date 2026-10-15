@@ -183,17 +183,35 @@ try{
   const empty=await tool(cursorOwner,'get_changes',{cursor:baseline});assert.deepEqual(empty.changes,[]);assert.equal(empty.has_more,false);assert.equal(JSON.parse(Buffer.from(empty.next_cursor,'base64url').toString('utf8')).through_revision,null);
   assert.notEqual(empty.next_cursor,(await tool(cursorOwnerB,'get_change_cursor')).cursor);
   assert.equal((await tool(cursorOwnerB,'get_changes',{cursor:empty.next_cursor})).error.code,'invalid_cursor');
-  const actionCreated=await write(cursorOwner,'add',{title:'Cursor action',notes:' exact raw notes ',tag_ids:[]}),actionId=actionCreated.result.result.resolved.actions[0].id;
+ const actionCreated=await write(cursorOwner,'add',{title:'Cursor action',notes:' exact raw notes ',tag_ids:[]}),actionId=actionCreated.result.result.resolved.actions[0].id;
+ const sortedActionCreated=await write(cursorOwner,'add',{title:'Cursor action zulu'}),sortedActionId=sortedActionCreated.result.result.resolved.actions[0].id;
   const project=(await write(cursorOwner,'project_add',{name:'Cursor project',description:'project context'})).result.result.resolved.project.id;
   const tag=(await write(cursorOwner,'tag_add',{name:'Cursor tag',description:'tag context'})).result.result.resolved.tag.id;
-  const perspective=(await write(cursorOwner,'perspective_add',{name:'Cursor view',description:'view context',filter:{project_id:project,tag_id:tag,statuses:['active']}})).result.result.resolved.perspective.id;
+ const perspective=(await write(cursorOwner,'perspective_add',{name:'Cursor view',description:'view context',filter:{project_id:project,tag_id:tag,statuses:['active']}})).result.result.resolved.perspective.id;
+ const legacyPerspectiveEdit=await write(cursorOwner,'perspective_edit',{id:perspective,name:'Cursor v1 view'});
   const actionTagCreate=await write(cursorOwner,'action_tag',{id:actionId,tag_id:tag,enabled:true});
   await write(cursorOwner,'action_project',{id:actionId,project_id:project});
   const actionEdit=await write(cursorOwner,'edit',{id:actionId,title:'Cursor action corrected',notes:' corrected exact ',flagged:true,due_at:'2026-10-20T12:00:00Z'});
   await write(cursorOwner,'project_edit',{id:project,description:'updated project context'});
   await write(cursorOwner,'tag_edit',{id:tag,description:'updated tag context'});
-  await write(cursorOwner,'perspective_edit',{id:perspective,description:'updated view context'});
-  const associationRemoved=await write(cursorOwner,'action_tag',{id:actionId,tag_id:tag,enabled:false});
+ await write(cursorOwner,'perspective_edit',{id:perspective,description:'updated view context'});
+ const legacyPerspectiveQuery=await tool(cursorOwner,'query_perspective',{id:perspective});assert.equal(legacyPerspectiveQuery.perspective.definition_version,1);assert.deepEqual(legacyPerspectiveQuery.actions.map(row=>row.id),[actionId]);
+ const v2Query={where:{field:'status',op:'eq',value:'active'},order_by:[{field:'title',direction:'desc'}]};
+ const v2Preview=await tool(cursorOwner,'preview_change',{expectedRevision:(await snapshot(cursorOwner)).revision,kind:'perspective_edit',payload:{id:perspective,query:v2Query}});assert(!v2Preview.error,JSON.stringify(v2Preview));assert.equal(v2Preview.affected_perspectives[0].after.definition_version,2);assert.equal((await snapshot(cursorOwner)).perspectives.find(row=>row.id===perspective).definition_version,1);
+ const v2PerspectiveEdit=await write(cursorOwner,'perspective_edit',{id:perspective,query:v2Query});assert.equal(v2PerspectiveEdit.result.perspectives.find(row=>row.id===perspective).definition_version,2);
+ const v2PerspectiveQuery=await tool(cursorOwner,'query_perspective',{id:perspective});assert.equal(v2PerspectiveQuery.perspective.definition_version,2);assert.deepEqual(v2PerspectiveQuery.perspective.query,{where:v2Query.where,order_by:[{field:'title',direction:'desc',nulls:'last'}]});assert.deepEqual(v2PerspectiveQuery.actions.map(row=>row.id),[sortedActionId,actionId]);
+ assert.equal((await tool(cursorOwner,'operation_status',{operationId:legacyPerspectiveEdit.request.operationId})).status,'applied');
+ const legacyPerspectiveReplay=await tool(cursorOwner,'apply_change',legacyPerspectiveEdit.request);assert.equal(legacyPerspectiveReplay.revision,(await snapshot(cursorOwner)).revision);assert.equal(legacyPerspectiveReplay.perspectives.find(row=>row.id===perspective).definition_version,2);
+ await undo(cursorOwner,v2PerspectiveEdit);assert.equal((await snapshot(cursorOwner)).perspectives.find(row=>row.id===perspective).definition_version,1);
+ const v2Definition={where:{field:'status',op:'eq',value:'active'},order_by:[{field:'title',direction:'desc'}]},v2AddPayload={name:'Cursor v2 view',description:'query definition',query:v2Definition};
+ const v2AddPreview=await tool(cursorOwner,'preview_change',{expectedRevision:(await snapshot(cursorOwner)).revision,kind:'perspective_add',payload:v2AddPayload});assert(!v2AddPreview.error,JSON.stringify(v2AddPreview));assert.equal(v2AddPreview.affected_perspectives[0].after.definition_version,2);
+ const v2Added=await write(cursorOwner,'perspective_add',v2AddPayload),v2PerspectiveId=v2Added.result.result.resolved.perspective.id;assert.equal(v2Added.result.perspectives.find(row=>row.id===v2PerspectiveId).definition_version,2);
+ const v2OtherOwner=await tool(cursorOwnerB,'query_perspective',{id:v2PerspectiveId});assert.equal(v2OtherOwner.error.code,'not_found');assert.equal((await tool(cursorOwnerB,'list_perspectives')).perspectives.some(row=>row.id===v2PerspectiveId),false);
+ const v2Read=await tool(cursorOwner,'query_perspective',{id:v2PerspectiveId});assert.equal(v2Read.perspective.definition_version,2);assert.deepEqual(v2Read.actions.map(row=>row.id),[sortedActionId,actionId]);
+ const v2MetadataEdit=await write(cursorOwner,'perspective_edit',{id:v2PerspectiveId,name:'Cursor v2 renamed'});assert.equal(v2MetadataEdit.result.perspectives.find(row=>row.id===v2PerspectiveId).definition_version,2);
+ assert.equal((await tool(cursorOwner,'operation_status',{operationId:v2Added.request.operationId})).status,'applied');const v2AddReplay=await tool(cursorOwner,'apply_change',v2Added.request);assert.equal(v2AddReplay.revision,(await snapshot(cursorOwner)).revision);assert.equal(v2AddReplay.perspectives.find(row=>row.id===v2PerspectiveId).name,'Cursor v2 renamed');
+ const v2Removed=await write(cursorOwner,'perspective_remove',{id:v2PerspectiveId});await undo(cursorOwner,v2Removed);const v2Restored=(await snapshot(cursorOwner)).perspectives.find(row=>row.id===v2PerspectiveId);assert.equal(v2Restored.definition_version,2);assert.deepEqual(v2Restored.query,{where:v2Definition.where,order_by:[{field:'title',direction:'desc',nulls:'last'}]});
+ const associationRemoved=await write(cursorOwner,'action_tag',{id:actionId,tag_id:tag,enabled:false});
   await undo(cursorOwner,associationRemoved);
   await write(cursorOwner,'action_tag',{id:actionId,tag_id:tag,enabled:false});
   await write(cursorOwner,'action_project',{id:actionId,project_id:null});
@@ -231,19 +249,26 @@ try{
   assert(history.changes.some(row=>row.operation_id===projectRemoved.request.operationId&&row.changes.projects.some(item=>item.before?.id===project&&item.after===null)));
   assert(history.changes.some(row=>row.undo_of===projectRemoved.request.operationId&&row.changes.projects.some(item=>item.before===null&&item.after?.id===project)));
   assert(history.changes.some(row=>row.operation_id===actionTagCreate.request.operationId&&row.changes.action_tags.some(item=>item.before===null&&item.after?.action_id===actionId)));
+  assert(history.changes.some(row=>row.operation_id===legacyPerspectiveEdit.request.operationId&&row.changes.perspectives[0].after.definition_version===1));
+  assert(history.changes.some(row=>row.operation_id===v2PerspectiveEdit.request.operationId&&row.changes.perspectives[0].before.definition_version===1&&row.changes.perspectives[0].after.definition_version===2));
+  assert(history.changes.some(row=>row.operation_id===v2Added.request.operationId&&row.changes.perspectives[0].after.definition_version===2));
+  assert(history.changes.some(row=>row.operation_id===v2MetadataEdit.request.operationId&&row.changes.perspectives[0].before.definition_version===2&&row.changes.perspectives[0].after.definition_version===2));
+  assert(history.changes.some(row=>row.operation_id===v2Removed.request.operationId&&row.changes.perspectives[0].before.definition_version===2&&row.changes.perspectives[0].after===null));
   assert(history.changes.some(row=>row.operation_id===associationRemoved.request.operationId&&row.changes.action_tags.some(item=>item.before?.tag_id===tag&&item.after===null)));
   const undoInverses=[
    assertUndoInverse(history.changes,actionCancelled,'actions',actionId),
    assertUndoInverse(history.changes,projectRemoved,'projects',project),
    assertUndoInverse(history.changes,tagRemoved,'tags',tag),
    assertUndoInverse(history.changes,perspectiveRemoved,'perspectives',perspective),
+   assertUndoInverse(history.changes,v2PerspectiveEdit,'perspectives',perspective),
+   assertUndoInverse(history.changes,v2Removed,'perspectives',v2PerspectiveId),
    assertUndoInverse(history.changes,associationRemoved,'action_tags',`${actionId}:${tag}`)
   ];
   assert.equal(current.actions.find(row=>row.id===actionId).status,'dropped');
   assert.equal((await tool(cursorOwner,'operation_status',{operationId:actionEdit.request.operationId})).status,'applied');
   const afterTerminal=await tool(cursorOwner,'get_changes',{cursor:page.next_cursor});assert.deepEqual(afterTerminal.changes.map(row=>row.revision_after),[fenceRevision+1]);assert.equal(afterTerminal.changes[0].changes.actions[0].after.id,concurrentId);
   assert.equal((await snapshot(cursorOwner)).actions.some(row=>row.id===concurrentId),true);
-  evidence.cursorReconstruction={baselineRevision:initial.revision,fencedRevision:fenceRevision,pages,operationCount:operationIds.size,concurrentRevision:concurrent.result.revision,persistedCollections:['actions','projects','tags','perspectives','action_tags'],sameProjector:'lib/domain/persisted-dto.ts',replayCurrentCorrection:true,undoInverses};
+  evidence.cursorReconstruction={baselineRevision:initial.revision,fencedRevision:fenceRevision,pages,operationCount:operationIds.size,concurrentRevision:concurrent.result.revision,persistedCollections:['actions','projects','tags','perspectives','action_tags'],sameProjector:'lib/domain/persisted-dto.ts',replayCurrentCorrection:true,perspectiveVersions:{v1FilterRead:true,v2PreviewWithoutMutation:true,v2SortedQueryOrder:[sortedActionId,actionId],v1ReceiptReplayAfterV2Edit:true,undoRestoresV1:true,v2AddAndMetadataEdit:true,v2AddReplayAfterCorrection:true,v2OtherOwnerCannotRead:true,v2RemoveUndoRestoresExactDefinition:true,feedPreservesBeforeAfterVariants:true},undoInverses};
  });
  await scenario('terminal and empty H+1, read nonmutation, cursor failures, and logical page versus MCP body bytes',async()=>{
   const owner=prefix+'-cursor-edge',before=await snapshot(owner),baseline=before.change_cursor,empty=await tool(owner,'get_changes',{cursor:baseline});

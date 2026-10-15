@@ -30,10 +30,11 @@ test('feed projection preserves persisted before/after records and omits derived
   const project = { id: uuid(2), name: 'Project', description: '', parent_id: null, order: 0, revision: 2, created_at: now, updated_at: now, path: 'derived' };
   const tag = { id: uuid(3), name: 'Tag', description: '', parent_id: null, order: 0, revision: 2, created_at: now, updated_at: now };
   const perspective = { id: uuid(4), name: 'View', description: '', filter: { statuses: ['active'], flagged: true }, definition_version: 1, revision: 2, created_at: now, updated_at: now };
+  const queryPerspective = { id: uuid(5), name: 'Sorted view', description: 'current definition', query: { where: { not: { field: 'status', op: 'eq', value: 'dropped' } }, order_by: [{ field: 'title', direction: 'asc' }] }, definition_version: 2, revision: 3, created_at: now, updated_at: now };
   const relation = { action_id: uuid(1), tag_id: uuid(3), revision: 2 };
   const projected = projectRetainedOperation(retained(2, {
     actions: [{ before: null, after: action }], projects: [{ before: project, after: null }], tags: [{ before: null, after: tag }],
-    perspectives: [{ before: null, after: perspective }], action_tags: [{ before: relation, after: null }],
+    perspectives: [{ before: null, after: perspective }, { before: null, after: queryPerspective }], action_tags: [{ before: relation, after: null }],
   }));
   assert.deepEqual(projected.changes.actions[0], { before: null, after: { id: action.id, title: action.title, revision: 2, parent_id: null, project_id: null, status: 'active', due_at: null, defer_until: null, notes: ' exact ', order: 0, flagged: true, created_at: now, updated_at: now } });
   assert.deepEqual(projected.changes.actions[0].after, persistedAction(action));
@@ -42,6 +43,12 @@ test('feed projection preserves persisted before/after records and omits derived
   assert.deepEqual(projected.changes.tags[0].after, persistedTag(tag));
   assert.deepEqual(projected.changes.perspectives[0].after.filter, { statuses: ['active'], flagged: true });
   assert.deepEqual(projected.changes.perspectives[0].after, persistedPerspective(perspective));
+  assert.deepEqual(projected.changes.perspectives[1].after, {
+    id: queryPerspective.id, name: 'Sorted view', description: 'current definition', definition_version: 2,
+    query: { where: { not: { field: 'status', op: 'eq', value: 'dropped' } }, order_by: [{ field: 'title', direction: 'asc', nulls: 'last' }] },
+    revision: 3, created_at: now, updated_at: now,
+  });
+  assert.deepEqual(projected.changes.perspectives[1].after, persistedPerspective(queryPerspective));
   assert.deepEqual(projected.changes.action_tags[0], { before: relation, after: null });
   assert.deepEqual(projected.changes.action_tags[0].before, persistedActionTag(relation));
 });

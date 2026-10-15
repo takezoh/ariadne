@@ -1,4 +1,5 @@
 import { actionOrder, actionTitle, booleanFlag, catalogName, description, fail, id, instant, integer, object, perspectiveFilter } from './core';
+import { normalizePerspectiveQuery } from './perspective-query';
 import type { Action, ActionTag, Perspective, Project, Snapshot, Tag } from '../data/types';
 
 function requireFields(row: Record<string, unknown>, fields: readonly string[]) {
@@ -44,12 +45,25 @@ export function persistedTag(value: unknown): Tag { return persistedCatalog<Tag>
 
 export function persistedPerspective(value: unknown): Perspective {
   const row = object(value);
-  requireFields(row, ['id', 'name', 'description', 'filter', 'definition_version', 'revision', 'created_at', 'updated_at']);
-  if (row.definition_version !== 1) fail('invalid_state', 'Persisted Perspective definition version is invalid.');
-  return {
-    id: id(row.id), name: catalogName(row.name), description: description(row.description), filter: perspectiveFilter(row.filter),
-    definition_version: 1, revision: integer(row.revision), created_at: timestamp(row.created_at), updated_at: timestamp(row.updated_at),
-  };
+  requireFields(row, ['id', 'name', 'description', 'definition_version', 'revision', 'created_at', 'updated_at']);
+  const metadata = { id: id(row.id), name: catalogName(row.name), description: description(row.description) };
+  if (row.definition_version === 1) {
+    requireFields(row, ['filter']);
+    if (Object.hasOwn(row, 'query')) fail('invalid_state', 'A V1 Perspective cannot contain a query.');
+    return {
+      ...metadata, filter: perspectiveFilter(row.filter), definition_version: 1,
+      revision: integer(row.revision), created_at: timestamp(row.created_at), updated_at: timestamp(row.updated_at),
+    };
+  }
+  if (row.definition_version === 2) {
+    requireFields(row, ['query']);
+    if (Object.hasOwn(row, 'filter')) fail('invalid_state', 'A V2 Perspective cannot contain a filter.');
+    return {
+      ...metadata, query: normalizePerspectiveQuery(row.query), definition_version: 2,
+      revision: integer(row.revision), created_at: timestamp(row.created_at), updated_at: timestamp(row.updated_at),
+    };
+  }
+  return fail('invalid_state', 'Persisted Perspective definition version is invalid.');
 }
 
 export function persistedActionTag(value: unknown): ActionTag {

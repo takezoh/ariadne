@@ -1,6 +1,7 @@
 import { canonical, fail, id, integer, object } from '../../domain/core';
 import { delta, validateDelta } from '../../domain/operations';
 import type { Action, DeepReadonly, OperationResult, OwnerCommitRequest, Perspective, Receipt, Snapshot } from '../types';
+import { persistedPerspective } from '../../domain/persisted-dto';
 
 export const MAX_BOUND_JSON_BYTES = 100000;
 export const MAX_COMMIT_PLAN_BYTES = 524288;
@@ -23,8 +24,28 @@ export type SnapshotRows = readonly [
   Snapshot['tags'],
   Snapshot['action_tags'],
   Snapshot['catalog_identity_ledger'],
-  readonly (Omit<Perspective, 'filter'> & { filter: string })[],
+  readonly (Pick<Perspective, 'id' | 'name' | 'description' | 'revision' | 'created_at' | 'updated_at'> & {
+    definition_version: 1 | 2;
+    filter: string;
+  })[],
 ];
+
+function decodePerspectiveRow(row: SnapshotRows[6][number]): Perspective {
+  let definition: unknown;
+  try { definition = JSON.parse(row.filter); } catch { fail('invalid_state', 'Persisted Perspective definition is invalid.'); }
+  const metadata = {
+    id: row.id,
+    name: row.name,
+    description: row.description,
+    revision: row.revision,
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+    definition_version: row.definition_version,
+  };
+  return row.definition_version === 1
+    ? persistedPerspective({ ...metadata, filter: definition })
+    : persistedPerspective({ ...metadata, query: definition });
+}
 
 /** Decode database scalar representations into the shared, readonly application snapshot. */
 export function decodeSnapshotRows(rows: SnapshotRows): Snapshot {
@@ -37,7 +58,7 @@ export function decodeSnapshotRows(rows: SnapshotRows): Snapshot {
     tags: rows[3],
     action_tags: rows[4],
     catalog_identity_ledger: rows[5],
-    perspectives: rows[6].map(row => ({ ...row, filter: JSON.parse(row.filter) })),
+    perspectives: rows[6].map(decodePerspectiveRow),
   };
 }
 
@@ -78,6 +99,12 @@ export type StoragePlan = DeepReadonly<{
   planBytes: number;
 }>;
 
+function perspectiveStorageRow(value: Perspective): object {
+  if (value.definition_version === 1) return { ...value, filter: canonical(value.filter) };
+  const { query, ...metadata } = value;
+  return { ...metadata, filter: canonical(query) };
+}
+
 /** Build a pure, owner-free description of the row writes and enforce all plan budgets. */
 export function planStorageCommit(request: OwnerCommitRequest): StoragePlan {
   const { operationId, payload, before, after } = request;
@@ -95,8 +122,8 @@ export function planStorageCommit(request: OwnerCommitRequest): StoragePlan {
     {
       key: 'perspectives',
       changes: changes.perspectives.map(item => ({
-        before: item.before ? { ...item.before, filter: canonical(item.before.filter) } : null,
-        after: item.after ? { ...item.after, filter: canonical(item.after.filter) } : null,
+        before: item.before ? perspectiveStorageRow(item.before) : null,
+        after: item.after ? perspectiveStorageRow(item.after) : null,
       })),
     },
     { key: 'action_tags', changes: changes.action_tags },

@@ -82,8 +82,8 @@ The existing latest-100 operation retention is the feed retention boundary. A cu
 | project_move | id with parent_id (null detaches), or placement:before/after/inside/root plus anchor_id except root; direct and relative forms are exclusive |
 | tag_move | id; parent_id (null detaches) XOR relative placement before/after/inside/root with anchor_id except root; durable sibling order |
 | project_remove / tag_remove | id |
-| perspective_add | name, filter, optional description; no caller-supplied ID |
-| perspective_edit | id, optional name/filter/description; at least one attribute; filter replaces the entire definition |
+| perspective_add | exactly one of name + filter or name + query, optional description; no caller-supplied ID |
+| perspective_edit | id with metadata-only fields, v1 filter, or v2 query; definition replaces the full variant and v2 cannot be downgraded |
 | perspective_remove | id |
 | action_project | exactly one of id or ids:nonempty unique UUID array; project_id (required, null clears) |
 | action_tag | exactly one of id or ids:nonempty unique UUID array; tag_id, enabled:boolean |
@@ -94,7 +94,7 @@ Order is a nonnegative safe integer sibling rank. Defaults append in the parent 
 
 Parent completion cascades atomically, but does not prevent independently reopening a descendant later. Dropped actions remain editable. Release removes only the target's Defer; ancestor Defer remains. On-hold is an explicit lifecycle state, independent of Defer.
 
-Project/tag names are local, trimmed and case-sensitive within an owner and parent; paths are display values, never identities. Get-or-create returns existing or newly generated UUIDs with created. Catalog deletion refuses while children, action references or saved perspective filter references remain. IDs stay reserved after deletion, with restoration permitted only by applicable Undo.
+Project/tag names are local, trimmed and case-sensitive within an owner and parent; paths are display values, never identities. Get-or-create returns existing or newly generated UUIDs with created. Catalog deletion refuses while children, action references or either saved perspective variant references remain. IDs stay reserved after deletion, with restoration permitted only by applicable Undo.
 
 ## Responses and recovery
 
@@ -122,15 +122,15 @@ Migration 0009 resets the authorized disposable test data and prior receipts. Ol
 
 ## Perspective conditions
 
-Saved perspectives are owner-scoped views. filter accepts optional statuses (unique array of active/on-hold/completed/dropped), is_deferred:boolean, flagged:boolean, project_id:UUID|null, tag_id:UUID and include_descendants:boolean. Conditions combine with AND, with set membership within statuses. {} matches all actions; statuses:[] matches none. Project null means unassigned; omission is unrestricted. Classification descendant expansion never implies action containment or Flag inheritance.
+Saved perspectives are owner-scoped versioned views. V1 `filter` accepts optional statuses (unique array of active/on-hold/completed/dropped), is_deferred:boolean, flagged:boolean, project_id:UUID|null, tag_id:UUID and include_descendants:boolean. Conditions combine with AND, with set membership within statuses. {} matches all actions; statuses:[] matches none. Project null means unassigned; omission is unrestricted. Omitted `include_descendants` is false for v1. V2 `query` accepts recursive and/or/not conditions and typed field/operator/value leaves, plus optional global `order_by`; see [perspective query limits and semantics](perspective-query.md). Classification leaves default descendants to true in v2. A metadata-only edit preserves the exact saved variant; definition edits replace the whole definition, and a v2 definition cannot be downgraded.
 
-query_perspective preserves current action-tree order and does not change actions or owner revision. It evaluates Defer at retrieved_at. perspective_add/edit/remove use ordinary write/preview/replay/Undo envelopes; generated perspective IDs are returned in result.resolved.perspective. affected_perspectives contains before/after delta entries, including null for creation/deletion. Perspective preview candidates marked preview_only are provisional. Definitions do not support order overrides, grouping or display settings. The shared UI provides saved perspective selection and a condition summary. It filters the full authoritative read-time snapshot without an additional lifecycle or Defer restriction. Perspective creation/editing/removal remains available through these API operations.
+query_perspective evaluates the confirmed owner snapshot at retrieved_at and does not change actions or owner revision. V1 preserves action-tree order; v2 preserves it when order_by is omitted and applies explicit sorting globally across matches. Neither variant inserts nonmatching parent actions. perspective_add/edit/remove use ordinary write/preview/replay/Undo envelopes; generated perspective IDs are returned in result.resolved.perspective. affected_perspectives contains before/after delta entries, including null for creation/deletion. Perspective preview candidates marked preview_only are provisional. Definitions do not store grouping or display settings. The shared UI provides saved perspective selection, exact version-specific condition and sort summaries, and retains drafts while applying queries only to confirmed snapshots. Perspective creation/editing/removal remains available through these API operations.
 
 ## Descriptive context
 
 Projects, tags and perspectives expose `description` as exact caller-controlled free text. Creation defaults to empty text. The maximum is 65,536 UTF-16 code units, matching action notes; null and non-string values are rejected. Whitespace and line breaks are preserved. On edit, omission retains the saved value and an explicit empty string clears it. Description-only edits are supported and participate in preview, owner revision, atomic persistence, receipts, replay and Undo.
 
-Project/tag get-or-create accepts an initial description but never overwrites an existing match, even when a different description is supplied; use an explicit edit to change it. Supplied descriptions are validated even for existing matches. Description does not affect names, uniqueness, hierarchy, associations, action states or filtering. A perspective's filter remains authoritative for deterministic extraction. Text is context for humans/LLMs, never authorization or executable policy.
+Project/tag get-or-create accepts an initial description but never overwrites an existing match, even when a different description is supplied; use an explicit edit to change it. Supplied descriptions are validated even for existing matches. Description does not affect names, uniqueness, hierarchy, associations, action states or filtering. A perspective's versioned definition remains authoritative for deterministic extraction. Text is context for humans/LLMs, never authorization or executable policy.
 
 Full snapshots and query_actions expose descriptions in projects/tags; full snapshots and list_perspectives/query_perspective expose them in perspective definitions. The HTTP and MCP entries share these operations and results. The shared UI displays descriptions for the selected Project, Tag or Perspective. Project/Tag Name and Description inspectors autosave through project_edit/tag_edit, while inline creation uses existing get-or-create and server-generated IDs. Perspective editing remains available through the shared API. Apply additive migration 0011 before running the new Worker.
 

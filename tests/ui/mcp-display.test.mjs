@@ -33,6 +33,31 @@ test('MCP publishes exactly the current tool names without aliases',async()=>{
 
 test('MCP exposes bounded structural action_move without changing the tool-name surface',async()=>{const tools=(await (await POST(request('tools/list'))).json()).result.tools;const apply=tools.find(t=>t.name==='apply_change');assert(apply.inputSchema.properties.kind.enum.includes('action_move'));assert.match(apply.description,/action_move/);assert.match(apply.description,/placement/);});
 
+test('MCP Perspective schemas expose disjoint v1/v2 payloads, strict recursive leaves and documented defaults',async()=>{
+ const tools=(await (await POST(request('tools/list'))).json()).result.tools,apply=tools.find(t=>t.name==='apply_change'),input=apply.inputSchema;
+ const condition=(kind)=>input.allOf.find(item=>item.if?.properties?.kind?.const===kind).then.properties.payload;
+ const add=condition('perspective_add');assert.equal(add.oneOf.length,2);
+ assert.deepEqual(add.oneOf.map(schema=>schema.required).sort((a,b)=>a[1].localeCompare(b[1])),[['name','filter'],['name','query']]);
+ assert(add.oneOf.every(schema=>schema.additionalProperties===false));
+ const edit=condition('perspective_edit');assert.equal(edit.oneOf.length,3);assert(edit.oneOf.every(schema=>schema.additionalProperties===false));
+ assert(edit.oneOf.some(schema=>schema.anyOf?.some(row=>row.required?.includes('name'))));
+ const query=add.oneOf.find(schema=>schema.properties.query).properties.query;
+ assert.equal(query.additionalProperties,false);assert.equal(query.properties.order_by.maxItems,8);assert.match(query.description,/32/);assert.match(query.description,/256/);
+ const recursive=query.properties.where.$ref;assert.equal(recursive,'#/$defs/perspectiveCondition');
+ const leaves=input.$defs.perspectiveCondition.oneOf;
+ assert(leaves.some(schema=>schema.properties?.not?.$ref===recursive));
+ assert(leaves.some(schema=>schema.properties?.field?.enum?.includes('project_id')&&schema.properties?.op?.enum?.includes('not_in')&&schema.properties?.values?.items?.anyOf?.some(item=>item.type==='null')&&schema.properties?.include_descendants?.type==='boolean'));
+ assert(leaves.some(schema=>schema.properties?.field?.const==='status'&&schema.properties?.value?.enum?.includes('on-hold')));
+ assert(leaves.some(schema=>schema.properties?.field?.enum?.includes('flagged')&&schema.properties?.value?.type==='boolean'));
+ const order=query.properties.order_by.items;assert.deepEqual(order.required,['field','direction']);assert.deepEqual(order.properties.direction.enum,['asc','desc']);assert.deepEqual(order.properties.nulls.enum,['first','last']);
+ assert.match(apply.description,/V1 include_descendants omission is false/);assert.match(apply.description,/V2 project\/tag leaves default include_descendants to true when omitted/);
+});
+
+test('MCP initialize delivers the current versioned Perspective policy',async()=>{
+ const init=(await (await POST(request('initialize'))).json()).result;
+ for(const text of ['V1 definitions use filter; V2 definitions use query.','A V2 definition cannot be downgraded.','Metadata-only edits preserve the current definition version and contents.','omitted include_descendants is false.','Project and Tag leaves expand descendants by default when include_descendants is omitted','order_by globally sorts only matching Actions','without inserting unmatched parents or changing saved Action order.','Existing V1 canonical requests, receipts and deltas remain readable and replayable'])assert(init.instructions.includes(text),text);
+});
+
 test('MCP discovery distinguishes a Defer calendar date from an offset-bearing instant',async()=>{
  const tools=(await (await POST(request('tools/list'))).json()).result.tools;
  for(const name of ['preview_change','apply_change']){

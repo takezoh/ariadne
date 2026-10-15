@@ -6,5 +6,6 @@ test('ordinary success text is suppressed while warnings and recovery failures r
 test('visible feedback distinguishes unsettled outcomes without relying on motion or color',()=>{
  const base={data:{}};assert.equal(model.project(base).visibleLabel,'');assert.equal(model.project({}).visibleLabel,'');
  const pending=model.project(base,{pending:true}),saving=model.project({...base,saving:true}),unknown=model.project({...base,unknown:{}}),error=model.project({...base,operationError:{}});
+ assert.equal(model.project(base).icon,'refresh');assert.equal(pending.icon,'circle');assert.equal(saving.icon,'refresh');assert.equal(unknown.icon,'waiting');assert.equal(error.icon,'waiting');
  assert.equal(new Set([pending.visibleLabel,saving.visibleLabel,unknown.visibleLabel,error.visibleLabel]).size,4);assert.equal(unknown.visibleLabel,'Save result unknown');assert.equal(error.visibleLabel,'Changes need attention');assert.equal(unknown.attention,true);assert.equal(error.attention,true);assert.equal(saving.attention,false);
 });

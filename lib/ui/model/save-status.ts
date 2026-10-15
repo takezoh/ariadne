@@ -6,7 +6,7 @@ export function createSaveStatusModel(){
   if(state.operationError||state.moveIssue||state.classificationIssue||local.errors||Object.values(state.saveErrors||{}).some(Boolean)||Object.values(state.catalogErrors||{}).some(Boolean)||Object.values(state.conflicts||{}).some(fields=>fields.length)||Object.values(state.catalogConflicts||{}).some(fields=>fields.length))return feedback('error','Changes need attention','waiting');
   if(state.saving)return feedback('saving','Saving changes','refresh');
   if(local.pending||local.composing||Object.values(state.drafts||{}).some(draft=>draft.dirty)||Object.values(state.catalogDrafts||{}).some(draft=>Object.keys(draft.patch||{}).length))return feedback('pending','Changes waiting to save','circle');
-  return state.data?feedback('saved','All changes saved','tick'):feedback('loading','Connecting','refresh');
+  return state.data?feedback('saved','All changes saved','refresh'):feedback('loading','Connecting','refresh');
  }
  function message(text:string){return ['Saved.','Save confirmed.','Up to date. Unsaved changes are retained.'].includes(text)?'':text;}
  return {project,message};
